@@ -25,7 +25,7 @@ const Navbar = () => {
   return (
     <div className="border-b border-white/15 lg:px-[112px] px-8 py-5 flex justify-between w-full">
       <div className="flex gap-10 items-center">
-        <img src="/logo.svg" className="w-[100px] cursor-pointer" alt="logo" />
+        <img src="/logo.png" className="w-[100px] cursor-pointer" alt="logo" />
         {navs.map((nav) => (
           <Link
             href={nav.paths[0]}
