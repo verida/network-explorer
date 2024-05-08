@@ -39,7 +39,7 @@ const Accounts = () => {
   const { toast } = useToast();
   const pageAccounts = [10, 20, 30];
   return (
-    <div className="flex flex-col gap-6 mb-6">
+    <div className="flex flex-col gap-6 mb-12">
       <div className="flex justify-between items-center">
         <div className="font-semibold text-[18px] leading-[20px]">
           Accounts: 40
@@ -60,32 +60,36 @@ const Accounts = () => {
                 <MdTune color="white" size={20} />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-[#333153] border-white/30 border rounded-3 w-[356px] " align="end">
+            <DropdownMenuContent
+              className="bg-[#333153] border-white/30 border rounded-3 w-[356px] "
+              align="end"
+            >
               <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px]">
                 Filters
               </DropdownMenuLabel>
-              <DropdownMenuSeparator color="#FFFFFF26" />
-              <DropdownMenuGroup>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2">
+              <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
+              <DropdownMenuGroup className="pt-4 pb-6">
+                <DropdownMenuLabel className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">Region</DropdownMenuLabel>
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="all" />
                   <span>All</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2">
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="australia" />
                   <span>Australia</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2">
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="europe" />
                   <span>Europe</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2">
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="usa" />
                   <span>USA</span>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
-              <DropdownMenuSeparator color="#FFFFFF26" />
-              <div className="w-full justify-end flex my-2">
-                <Button disabled>Apply</Button>
+              <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
+              <div className="w-full justify-end flex py-3 pr-4">
+                <Button disabled className="rounded-sm py-2.5 px-6 w-[91px] h-10">Apply</Button>
               </div>
             </DropdownMenuContent>
           </DropdownMenu>

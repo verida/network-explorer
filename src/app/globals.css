@@ -104,6 +104,12 @@
   }
 
   .result-box {
-    background: linear-gradient(107deg, rgba(255, 255, 255, 0.06) 1.54%, rgba(255, 255, 255, 0.024) 100%);
+    background: linear-gradient(
+      107deg,
+      rgba(255, 255, 255, 0.06) 1.54%,
+      rgba(255, 255, 255, 0.024) 100%
+    );
   }
+
+ 
 }

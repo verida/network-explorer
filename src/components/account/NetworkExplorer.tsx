@@ -1,24 +1,21 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchAccount from "@/assets/svg/search-account.svg";
 import { Button } from "../ui/button";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Separator } from "@/components/ui/separator";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import Link from "next/link";
+import { Slide } from "react-awesome-reveal";
 
 const NetworkExplorer = () => {
   const [searchDID, setSearchDID] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
 
   return (
     <>
       <div className="flex md:flex-row flex-col-reverse md:gap-0 gap-3 justify-between pt-8 items-center">
-        <div className="flex flex-col gap-10 w-full md:max-w-[704px] ">
+        <div className="flex flex-col gap-10 w-full md:max-w-[704px] relative">
           <div className="flex flex-col gap-3">
             <div className="font-bold text-[48px] leading-[60.48px]">
               Network Explorer
@@ -28,25 +25,30 @@ const NetworkExplorer = () => {
               have access to, and find the DIDs that you need.
             </div>
           </div>
-          <Popover>
-            <div className="network-search border border-white/60 py-2 pl-4 pr-2 rounded-lg flex items-center gap-2">
-              <SearchIcon />
-              <input
-                placeholder="Search by DID (did:VDA:polpos:0x486e..644a55)"
-                onChange={(e) => {
-                  setSearchDID(e.target.value);
-                }}
-                className="bg-transparent focus:border-none focus:outline-none w-[80%]"
-              />
-              <PopoverTrigger asChild>
-                <Button className="rounded-lg h-[48px] w-[94px] font-semibold text-[14px] leading-[17.64px] py-3 pl-6 pr-5">
-                  Search
-                </Button>
-              </PopoverTrigger>
-            </div>
-            <PopoverContent asChild onClick={() => {}} align="end">
+
+          <div className="network-search border border-white/60 py-2 pl-4 pr-2 rounded-lg flex items-center gap-2">
+            <SearchIcon />
+            <input
+              placeholder="Search by DID (did:VDA:polpos:0x486e..644a55)"
+              onChange={(e) => {
+                setSearchDID(e.target.value);
+              }}
+              className="bg-transparent focus:border-none focus:outline-none w-[80%]"
+            />
+
+            <Button
+              onClick={() => {
+                setShowPopup(!showPopup);
+              }}
+              className="rounded-lg h-[48px] w-[94px] font-semibold text-[14px] leading-[17.64px] py-3 pl-6 pr-5"
+            >
+              Search
+            </Button>
+          </div>
+          {showPopup && (
+            <Slide direction="up">
               <Link
-                className="flex gap-4 w-full bg-white/30 mt-3"
+                className="flex gap-4 w-full bg-[#333153] border border-white/60 py-6 px-4 rounded-lg"
                 href="/search/did:VDA:mainnet:0xCDEdd96AfA6956f0299580225C2d9a52aca8487A"
               >
                 <img
@@ -62,8 +64,8 @@ const NetworkExplorer = () => {
                   </div>
                 </div>
               </Link>
-            </PopoverContent>
-          </Popover>
+            </Slide>
+          )}
         </div>
         <SearchAccount />
       </div>
