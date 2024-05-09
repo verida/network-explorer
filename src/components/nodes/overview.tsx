@@ -1,8 +1,12 @@
 "use client";
 
 import React from "react";
-import StorageChart from "../common/storage";
-import DonutChart from "../common/donut";
+import dynamic from "next/dynamic";
+import Loader from "../common/loader";
+
+const StorageChart = dynamic(() => import("../common/storage"), { ssr: false });
+
+const DonutChart = dynamic(() => import("../common/donut"), { ssr: false });
 
 const overview = () => {
   return (
@@ -25,12 +29,15 @@ const overview = () => {
             </div>
           </div>
         </div>
+        <Loader className="h-[300px]"/>
         <StorageChart />
       </div>
       <div className="flex flex-col justify-between">
         <div className="rounded-lg result-box  border border-white/20 flex flex-col gap-4 p-4">
           <div className="text-white/60">Network Capacity</div>
           <div className="flex gap-3 items-center">
+            <Loader className="h-[200px] w-[200px]" />
+
             <DonutChart />
             <div className="flex flex-col gap-2">
               <div className="flex gap-1">

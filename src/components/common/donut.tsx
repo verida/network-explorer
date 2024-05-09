@@ -39,6 +39,8 @@ const DonutChart = () => {
       }}
       series={[31, 69]}
       type="donut"
+      height={200}
+      width={200}
     />
   );
 };

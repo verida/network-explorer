@@ -44,7 +44,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -88,9 +88,7 @@ export function DataTable<TData, TValue>({
   return (
     <>
       <div className="flex justify-between items-center">
-        <div className="font-semibold text-[18px] leading-[20px]">
-          {data.length} nodes
-        </div>
+        <div className="font-semibold text-[18px] leading-[20px]">64 Nodes</div>
         <div className="flex items-center gap-3">
           <Button
             size="icon"
@@ -127,14 +125,14 @@ export function DataTable<TData, TValue>({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="bg-[#333153] border-white/30 border rounded-3 w-[356px]"
+              className="bg-[#333153] border-white/30 border rounded-3 w-[356px] "
               align="end"
             >
-              <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px] py-3 px-6">
+              <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px]">
                 Filters
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
-              <DropdownMenuGroup className="pt-3 pb-3">
+              <DropdownMenuGroup className="pt-4 pb-6">
                 <DropdownMenuLabel className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
                   Region
                 </DropdownMenuLabel>
@@ -153,24 +151,6 @@ export function DataTable<TData, TValue>({
                 <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="usa" />
                   <span>USA</span>
-                </DropdownMenuItem>
-              </DropdownMenuGroup>
-
-              <DropdownMenuGroup className="pb-3">
-                <DropdownMenuLabel className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
-                  Status
-                </DropdownMenuLabel>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                  <Checkbox id="all" />
-                  <span>All</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                  <Checkbox id="australia" />
-                  <span>Active</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                  <Checkbox id="europe" />
-                  <span>Inactive</span>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />

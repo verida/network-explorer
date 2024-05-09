@@ -1,7 +1,7 @@
 import React from "react";
-import NetworkExplorer from "@/components/account/NetworkExplorer";
-import TotalAccounts from "@/components/account/TotalAccounts";
-import Accounts from "@/components/account/Accounts";
+import NetworkExplorer from "@/components/accounts/NetworkExplorer";
+import TotalAccounts from "@/components/accounts/TotalAccounts";
+import Accounts from "@/components/accounts/Accounts";
 
 const Home = () => {
   return (

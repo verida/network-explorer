@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { IoMenu } from "react-icons/io5";
@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/popover";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ConnectWalletButton from "./connect-wallet";
+import ConnectedWallet from "./connected-wallet";
 
 const Navbar = () => {
   const navs = [
@@ -21,11 +23,18 @@ const Navbar = () => {
     },
   ];
   const pathname = usePathname();
+  const [connected, setConnected] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setConnected(!connected);
+    }, 3000)
+  }, [connected])
 
   return (
     <div className="border-b border-white/15 lg:px-[112px] px-8 py-5 flex justify-between w-full">
       <div className="flex gap-10 items-center">
-        <img src="/logo.png" className="w-[100px] cursor-pointer" alt="logo" />
+        <img src="/logo.svg" className="w-[100px] cursor-pointer" alt="logo" />
         {navs.map((nav) => (
           <Link
             href={nav.paths[0]}
@@ -43,9 +52,7 @@ const Navbar = () => {
         <div className="text-semibold text-[14px] leading-[17.64px] text-white/30 cursor-pointer">
           VDA Price: $245
         </div>
-        <Button className="rounded-lg px-6 py-[14px] leading-5 font-semibold text-[14px] ">
-          Connect Wallet
-        </Button>
+        {connected ? <ConnectedWallet /> : <ConnectWalletButton />}
       </div>
       <Popover>
         <PopoverTrigger className="md:hidden block">
@@ -61,9 +68,7 @@ const Navbar = () => {
               {nav.name}
             </Link>
           ))}
-          <Button className="rounded-lg px-6 py-[14px] leading-5 font-semibold text-[14px] mx-3 mb-3">
-            Connect Wallet
-          </Button>
+          {connected ? <ConnectedWallet /> : <ConnectWalletButton />}
         </PopoverContent>
       </Popover>
     </div>

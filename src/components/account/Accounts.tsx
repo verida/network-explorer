@@ -117,11 +117,11 @@ const Accounts = () => {
               <TableRow key={index} className="border-white/10">
                 <TableCell className="flex items-center text-[14px] font-normal leading-[20px] gap-4 pl-6">
                   <img
-                    src={account.profile}
+                    src={account.user.profile}
                     className="w-10 h-10 rounded-sm"
                     alt="account-image"
                   />
-                  <div>{account.name}</div>
+                  <div>{account.user.name}</div>
                 </TableCell>
                 <TableCell className="text-[14px] font-normal leading-[20px]">
                   {account.country}
@@ -142,7 +142,7 @@ const Accounts = () => {
                   {account.bio}
                 </TableCell>
                 <TableCell className="text-[14px] font-normal leading-[20px]">
-                  {account.date}
+                  {account.createdAt.toDateString()}
                 </TableCell>
               </TableRow>
             ))}

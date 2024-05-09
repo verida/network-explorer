@@ -31,6 +31,7 @@ const ResultBox = ({ did }: { did: string }) => {
                 <div className="text-[#8566F2] leading-[20px] font-normal text-[14px] gap-2 flex">
                   <span>{did}</span>
                   <CopyIcon
+                    color="#8566F2"
                     className="cursor-pointer"
                     onClick={() => {
                       navigator.clipboard.writeText(did);

@@ -4,11 +4,10 @@ import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
 import StorageIcon from "@/assets/icons/storage.svg";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import QrIcon from "@/assets/svg/qrcode.svg";
+import Link from "next/link";
 
 export type Node = {
-  id: number;
+  id: string;
   operator: string;
   slots: {
     count: number;
@@ -41,39 +40,27 @@ export const columns: ColumnDef<Node>[] = [
       </Button>
     ),
     cell: ({ row }) => (
-      <Dialog>
-        <DialogTrigger className="flex items-center gap-4">
-          <div className="bg-white/20 w-10 h-10 rounded-sm items-center flex justify-center">
-            <StorageIcon />
-          </div>
-          <span className="text-[#8566F2] font-normal text-[14px] leading-[20px]">
-            {row.getValue("id")}
-          </span>
-        </DialogTrigger>
-        <DialogContent className="w-[800px] max-w-[800px]">
-          <div className="flex gap-3">
-            <div className="flex flex-col">
-              <div>
-                Scan this QR code on your mobile phone to login or signup
-              </div>
-              <div>
-                Already on your phone with Verida Wallet installed? Log in with
-                Verida Wallet
-              </div>
-            </div>
-            <QrIcon />
-          </div>
-        </DialogContent>
-      </Dialog>
+      <div className="flex items-center gap-4">
+        <div className="bg-white/20 w-10 h-10 rounded-sm items-center flex justify-center">
+          <StorageIcon />
+        </div>
+        <span className="text-[#8566F2] font-normal text-[14px] leading-[20px]">
+          {row.getValue("id")}
+        </span>
+      </div>
     ),
   },
   {
     accessorKey: "operator",
     header: "Operator",
+
     cell: ({ row }) => (
-      <div className="text-[#8566F2] font-normal text-[14px] leading-[20px]">
+      <Link
+        href={`/nodes/operator/${row.getValue("operator")}`}
+        className="text-[#8566F2] font-normal text-[14px] leading-[20px]"
+      >
         {row.getValue("operator")}
-      </div>
+      </Link>
     ),
   },
   {
@@ -102,7 +89,13 @@ export const columns: ColumnDef<Node>[] = [
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
-      <div className="bg-[#16A34A33] w-fit border border-[#16A34A33] py-1.5 px-3 rounded-[53px]">
+      <div
+        className={`${
+          row.getValue("status") === "Active"
+            ? "bg-[#16A34A33] border-[#16A34A33]"
+            : "bg-white/20 border-white/20"
+        } w-fit border  py-1.5 px-3 rounded-[53px]`}
+      >
         {row.getValue("status")}
       </div>
     ),
@@ -110,7 +103,6 @@ export const columns: ColumnDef<Node>[] = [
   {
     enableHiding: false,
     accessorKey: "date",
-    id: "date",
     header: "",
     cell: ({ row }) =>
       row.original.status == "Deregister" ? row.getValue("date") : <div></div>,
