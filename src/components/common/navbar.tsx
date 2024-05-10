@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { IoMenu } from "react-icons/io5";
@@ -13,6 +12,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ConnectWalletButton from "./connect-wallet";
 import ConnectedWallet from "./connected-wallet";
+import { useRecoilValue } from "recoil";
+import { registeredAtom } from "@/lib/atom";
 
 const Navbar = () => {
   const navs = [
@@ -23,24 +24,34 @@ const Navbar = () => {
     },
   ];
   const pathname = usePathname();
-  const [connected, setConnected] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setConnected(!connected);
-    }, 3000)
-  }, [connected])
+  const registered = useRecoilValue(registeredAtom);
 
   return (
-    <div className="border-b border-white/15 lg:px-[112px] px-8 py-5 flex justify-between w-full">
+    <div className="border-b border-white/15 lg:px-[112px] px-8 flex justify-between w-full">
       <div className="flex gap-10 items-center">
         <img src="/logo.svg" className="w-[100px] cursor-pointer" alt="logo" />
-        {navs.map((nav) => (
+        {[
+          ...navs,
+          ...(registered
+            ? [
+                {
+                  name: "My Node Hub",
+                  paths: ["/my-node-hub"],
+                },
+              ]
+            : []),
+        ].map((nav) => (
           <Link
             href={nav.paths[0]}
             key={nav.name}
             className={cn(
               "font-semibold text-[14px] leading-[17.64px] cursor-pointer md:block hidden",
+              registered
+                ? nav.name === "My Node Hub"
+                  ? "pl-8 border-l-2 py-2 border-white/15"
+                  : ""
+                : "hidden",
               !nav.paths.includes(pathname) ? "text-white/30" : "text-white"
             )}
           >
@@ -48,18 +59,28 @@ const Navbar = () => {
           </Link>
         ))}
       </div>
-      <div className="md:flex hidden items-center gap-6">
+      <div className="md:flex hidden items-center gap-6 py-5">
         <div className="text-semibold text-[14px] leading-[17.64px] text-white/30 cursor-pointer">
           VDA Price: $245
         </div>
-        {connected ? <ConnectedWallet /> : <ConnectWalletButton />}
+        {registered ? <ConnectedWallet /> : <ConnectWalletButton />}
       </div>
       <Popover>
         <PopoverTrigger className="md:hidden block">
           <IoMenu size={24} />
         </PopoverTrigger>
         <PopoverContent className="bg-white/10 border-white/30 border gap-3 flex flex-col p-0 overflow-hidden">
-          {navs.map((nav) => (
+          {[
+            ...navs,
+            ...(registered
+              ? [
+                  {
+                    name: "My Node Hub",
+                    paths: ["/my-node-hub"],
+                  },
+                ]
+              : []),
+          ].map((nav) => (
             <Link
               href={nav.paths[0]}
               key={nav.name}
@@ -68,7 +89,7 @@ const Navbar = () => {
               {nav.name}
             </Link>
           ))}
-          {connected ? <ConnectedWallet /> : <ConnectWalletButton />}
+          {registered ? <ConnectedWallet /> : <ConnectWalletButton />}
         </PopoverContent>
       </Popover>
     </div>

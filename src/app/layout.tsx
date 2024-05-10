@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/common/theme-provider";
+import { ThemeProvider } from "@/components/common/providers";
 import Navbar from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";

@@ -5,6 +5,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import StorageIcon from "@/assets/icons/storage.svg";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import Link from "next/link";
+import { useRecoilValue } from "recoil";
+import { registeredAtom } from "@/lib/atom";
+import { FaEllipsis } from "react-icons/fa6";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 
 export type Node = {
   id: string;
@@ -26,7 +30,7 @@ export const columns: ColumnDef<Node>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2"
+        className="hover:bg-transparent flex items-center gap-2 p-0"
         onClick={() => {
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
@@ -83,7 +87,22 @@ export const columns: ColumnDef<Node>[] = [
   },
   {
     accessorKey: "days_on_network",
-    header: "Days on Network",
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="hover:bg-transparent flex items-center gap-2 p-0"
+        onClick={() => {
+          column.toggleSorting(column.getIsSorted() === "asc");
+        }}
+      >
+        <span>Days on network</span>
+        {column.getIsSorted() === "asc" ? (
+          <FaCaretUp size={15} />
+        ) : (
+          <FaCaretDown size={15} />
+        )}
+      </Button>
+    ),
   },
   {
     accessorKey: "status",
@@ -104,7 +123,26 @@ export const columns: ColumnDef<Node>[] = [
     enableHiding: false,
     accessorKey: "date",
     header: "",
-    cell: ({ row }) =>
-      row.original.status == "Deregister" ? row.getValue("date") : <div></div>,
+    cell: ({ row }) => {
+      const registered = useRecoilValue(registeredAtom);
+      if (registered) {
+        return (
+          <Popover >
+            <PopoverTrigger>
+              <div className="min-w-[6rem] flex justify-end pr-3">
+                <FaEllipsis size={20} />
+              </div>
+            </PopoverTrigger>
+            <PopoverContent align="end" className="result-box border bg-[#333153] border-white/30 py-1 flex flex-col w-[200px]">
+              <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white">Withdraw</div>
+              <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white">Deposit</div>
+            </PopoverContent>
+          </Popover>
+        );
+      }
+      if (row.getValue("status") == "Deregister") {
+        return row.getValue("date");
+      }
+    },
   },
 ];

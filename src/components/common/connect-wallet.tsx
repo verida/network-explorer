@@ -4,7 +4,7 @@ import QrIcon from "@/assets/svg/qrcode.svg";
 import RightAngleIcon from "@/assets/svg/right-angle.svg";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Close } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
 const ConnectWalletButton = () => {
@@ -16,10 +16,9 @@ const ConnectWalletButton = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[800px] max-w-[800px] bg-[url('/qr-background.png')] h-[483px] [box-shadow:0px_4px_40px_0px_#1111111A] flex items-center justify-between rounded-sm px-14">
-        <DialogPrimitive.Close className="absolute right-4 top-4 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground bg-[#E0E3EA] opacity-50 rounded-[100px] h-[30px] w-[30px]">
+        <Close className="absolute right-4 top-4 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground bg-[#E0E3EA] opacity-50 rounded-[100px] h-[30px] w-[30px]">
           <X className="h-4 w-4 text-[#041133] m-auto" />
-          <span className="sr-only">Close</span>
-        </DialogPrimitive.Close>
+        </Close>
         <RightAngleIcon className="absolute right-0 -z-10" />
         <div className="flex flex-col max-w-[353px]">
           <div className="font-bold text-[32px] leading-[40px] tracking-[-3%] text-[#111111]">

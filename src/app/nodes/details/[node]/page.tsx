@@ -25,7 +25,7 @@ const DetailsPage = () => {
           Node Details
         </div>
       </div>
-      <div className="flex justify-between gap-4">
+      <div className="flex justify-between lg:gap-4 gap-10 xl:items-start items-center xl:flex-row flex-col-reverse">
         <div className="result-box rounded-lg gap-6 px-6 py-8 border border-white/20  flex flex-col">
           <div className="font-semibold text-[18px] leading-[20px] ">
             Node Info

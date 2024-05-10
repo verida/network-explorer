@@ -167,7 +167,7 @@ export function DataTable<TData, TValue>({
         </div>
       </div>
       <div className="border border-white/20 rounded-lg overflow-hidden">
-        <Table>
+        <Table className="min-w-[70rem]">
           <TableHeader className="bg-[#FFFFFF0A] ">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

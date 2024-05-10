@@ -10,7 +10,7 @@ import VeridaIcon from "@/assets/svg/verida.svg";
 import { FaAngleDown } from "react-icons/fa6";
 import CopyIcon from "@/assets/icons/copy.svg";
 import { LuLogOut } from "react-icons/lu";
-import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { Close } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
 
 const ConnectedWallet = () => {
@@ -25,11 +25,10 @@ const ConnectedWallet = () => {
           <FaAngleDown />
         </Button>
       </DialogTrigger>
-      <DialogContent >
-      <DialogPrimitive.Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
-        <X className="h-4 w-4 text-white m-auto" />
-        <span className="sr-only">Close</span>
-      </DialogPrimitive.Close>
+      <DialogContent>
+        <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+          <X className="h-4 w-4 text-white m-auto" />
+        </Close>
         <DialogTitle className="text-center">Your Wallet</DialogTitle>
         <div className="bg-[#FD4F64] rounded-lg p-6 gap-4 flex flex-col mt-6">
           <div className="font-semibold text-[16px] leading-[24px]">
