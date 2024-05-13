@@ -28,4 +28,4 @@ Check out this [Link](https://network-explorer-three.vercel.app/).
 - Estimation: 3~4 hours
 
 ## Notes
- It didn't reflect any logics, just completion of screens. started using my own sample data structure. Please check  this [video](https://network-explorer-three.vercel.app/).
+ It didn't reflect any logics, just completion of screens. started using my own sample data structure. Please check  this [video](https://www.loom.com/share/60380e503a354080b4c279cd7acc1ec9?sid=ea0eebba-4a04-4699-a6f6-b87e20acda56).
