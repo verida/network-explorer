@@ -8,7 +8,10 @@ import { nodes } from "@/lib/sample";
 const NodesList = () => {
   return (
     <div className="flex flex-col gap-4 my-10">
-      <DataTable data={nodes} columns={columns} />
+      <DataTable
+        data={nodes}
+        columns={columns}
+      />
     </div>
   );
 };

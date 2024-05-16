@@ -13,7 +13,7 @@ import { usePathname } from "next/navigation";
 import ConnectWalletButton from "./connect-wallet";
 import ConnectedWallet from "./connected-wallet";
 import { useRecoilValue } from "recoil";
-import { registeredAtom } from "@/lib/atom";
+import { userAtom } from "@/lib/atom";
 
 const Navbar = () => {
   const navs = [
@@ -25,7 +25,7 @@ const Navbar = () => {
   ];
   const pathname = usePathname();
 
-  const registered = useRecoilValue(registeredAtom);
+  const user = useRecoilValue(userAtom);
 
   return (
     <div className="border-b border-white/15 lg:px-[112px] px-8 flex justify-between w-full">
@@ -33,7 +33,7 @@ const Navbar = () => {
         <img src="/logo.svg" className="w-[100px] cursor-pointer" alt="logo" />
         {[
           ...navs,
-          ...(registered
+          ...(user.registered
             ? [
                 {
                   name: "My Node Hub",
@@ -47,7 +47,7 @@ const Navbar = () => {
             key={nav.name}
             className={cn(
               "font-semibold text-[14px] leading-[17.64px] cursor-pointer md:block hidden",
-              registered
+              user.registered
                 ? nav.name === "My Node Hub"
                   ? "pl-8 border-l-2 py-2 border-white/15"
                   : ""
@@ -63,7 +63,7 @@ const Navbar = () => {
         <div className="text-semibold text-[14px] leading-[17.64px] text-white/30 cursor-pointer">
           VDA Price: $245
         </div>
-        {registered ? <ConnectedWallet /> : <ConnectWalletButton />}
+        {user.registered ? <ConnectedWallet /> : <ConnectWalletButton />}
       </div>
       <Popover>
         <PopoverTrigger className="md:hidden block">
@@ -72,7 +72,7 @@ const Navbar = () => {
         <PopoverContent className="bg-white/10 border-white/30 border gap-3 flex flex-col p-0 overflow-hidden">
           {[
             ...navs,
-            ...(registered
+            ...(user.registered
               ? [
                   {
                     name: "My Node Hub",
@@ -89,7 +89,7 @@ const Navbar = () => {
               {nav.name}
             </Link>
           ))}
-          {registered ? <ConnectedWallet /> : <ConnectWalletButton />}
+          {user.registered ? <ConnectedWallet /> : <ConnectWalletButton />}
         </PopoverContent>
       </Popover>
     </div>

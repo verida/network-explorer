@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { MdTune } from "react-icons/md";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Input } from "@/components/ui/input";
-import { cn, countriesWithCodes } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -38,7 +38,7 @@ import {
 } from "@/components/ui/select";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
-import { registeredAtom } from "@/lib/atom";
+import { setupWizardAtom, userAtom } from "@/lib/atom";
 import {
   Popover,
   PopoverContent,
@@ -53,37 +53,32 @@ import {
 } from "@/components/ui/dialog";
 import { X } from "lucide-react";
 import { Close } from "@radix-ui/react-dialog";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { LuArrowLeft } from "react-icons/lu";
+import CreateNodeForm from "../nodehub/hub/hub-form";
+import HubStake from "../nodehub/hub/hub-stake";
+import HubLoading from "../nodehub/hub/hub-loading";
+import HubError from "../nodehub/hub/hub-error";
+import HubSuccess from "../nodehub/hub/hub-success";
+import ConnectedContent from "@/components/common/connected-content";
 
-const regions = ["Africa", "Asia", "Australia", "Europe", "USA"];
-
-const nodeFormSchema = z.object({
-  operator_did: z.string(),
-  public_key: z.string(),
-  slots: z.number(),
-  region: z.enum(["", ...regions]),
-  countryCode: z.string(),
-  endpoint_url: z.string().url(),
-  datacenter: z.string(),
-});
+export type Tab =
+  | "form"
+  | "stake"
+  | "loading"
+  | "error"
+  | "success"
+  | "connected";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  showReigsterNodeButton?: boolean;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  showReigsterNodeButton = false,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -115,15 +110,10 @@ export function DataTable<TData, TValue>({
   const [showSearchField, setShowSearchField] = useState(false);
   const pageAccounts = [10, 20, 30];
 
-  const registered = useRecoilValue(registeredAtom);
-
-  const form = useForm<z.infer<typeof nodeFormSchema>>({
-    resolver: zodResolver(nodeFormSchema),
-  });
-
-  function onSubmit(values: z.infer<typeof nodeFormSchema>) {
-    console.log(values);
-  }
+  const user = useRecoilValue(userAtom);
+  const [nodeDialogOpen, setNodeDialogOpen] = useState(false);
+  const [tab, setTab] = useState<Tab>("form");
+  const setupWizard = useRecoilValue(setupWizardAtom);
 
   return (
     <>
@@ -224,198 +214,80 @@ export function DataTable<TData, TValue>({
               </div>
             </PopoverContent>
           </Popover>
-          {registered && (
+          {setupWizard && (
+            <Button className="bg-white/15 py-2.5 px-6 h-10 w-[188px] text-white rounded-sm font-semibold text-[14px] leading-[20px]">
+              Node Setup Wizard
+            </Button>
+          )}
+          {user.registered && showReigsterNodeButton && (
             <>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm w-[189px] h-10">
-                    Register New Node
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-[664px]">
-                  <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
-                    <X className="h-4 w-4 text-white m-auto" />
-                  </Close>
-                  <DialogTitle className="text-white text-center font-bold text-[18px] leading-[20px]">
-                    Register a Node
-                  </DialogTitle>
-                  <Form {...form}>
-                    <form
-                      onSubmit={form.handleSubmit(onSubmit)}
-                      className="space-y-5 mt-2 px-2"
+              <Dialog open={nodeDialogOpen} onOpenChange={setNodeDialogOpen}>
+                <Button
+                  onClick={() => {
+                    setNodeDialogOpen(true);
+                  }}
+                  className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm w-[189px] h-10"
+                >
+                  Register New Node
+                </Button>
+                <DialogContent
+                  className={
+                    tab === "form"
+                      ? "max-w-[664px]"
+                      : tab === "stake" ||
+                        tab === "loading" ||
+                        tab === "error" ||
+                        tab === "success"
+                      ? "max-w-[440px]"
+                      : tab === "connected"
+                      ? "max-w-[560px]"
+                      : ""
+                  }
+                >
+                  {tab !== "loading" &&
+                    tab !== "error" &&
+                    tab !== "success" && (
+                      <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+                        <X className="h-4 w-4 text-white m-auto" />
+                      </Close>
+                    )}
+                  {(tab === "form" || tab === "stake") && (
+                    <DialogTitle
+                      className={cn(
+                        "text-white font-bold text-[18px] leading-[20px]",
+                        tab === "form"
+                          ? "text-center"
+                          : "flex items-center justify-between w-[60%]"
+                      )}
                     >
-                      <FormField
-                        control={form.control}
-                        name="operator_did"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Node Operator DID</FormLabel>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                className="bg-white/20 px-3 rounded-lg"
-                                placeholder="did:VDA:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="public_key"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Node Public Key</FormLabel>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                className="bg-white/20 px-3 rounded-lg"
-                                placeholder="12v63ZuXUvMF42ZFh1hPbGkfWB7DR7hCCpwA6NAiEQnbKKJH8fG"
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="slots"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Number of Slots</FormLabel>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                className="bg-white/10 px-3 rounded-lg focus-visible:outline-1 border-white"
-                                placeholder="Enter number of slots"
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <div className="flex gap-4">
-                        <FormField
-                          control={form.control}
-                          name="region"
-                          render={({ field }) => (
-                            <FormItem className="w-full">
-                              <FormLabel>Region</FormLabel>
-                              <Select
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                              >
-                                <FormControl>
-                                  <SelectTrigger className="bg-white/10">
-                                    <SelectValue placeholder="Select" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {regions.map((region) => (
-                                    <SelectItem
-                                      key={region}
-                                      value={region}
-                                      useCheckmark={false}
-                                    >
-                                      {region}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </FormItem>
-                          )}
+                      {tab === "stake" && (
+                        <LuArrowLeft
+                          onClick={() => {
+                            setNodeDialogOpen(false);
+                          }}
                         />
-                        <FormField
-                          control={form.control}
-                          name="countryCode"
-                          render={({ field }) => (
-                            <FormItem className="w-full">
-                              <FormLabel>Country Code</FormLabel>
-                              <Select
-                                onValueChange={field.onChange}
-                                defaultValue={field.value}
-                              >
-                                <FormControl>
-                                  <SelectTrigger className="bg-white/10">
-                                    <SelectValue placeholder="Select" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent>
-                                  {countriesWithCodes.map((countryCode) => (
-                                    <SelectItem
-                                      key={countryCode.code}
-                                      value={countryCode.code}
-                                      useCheckmark={false}
-                                    >
-                                      {`${countryCode.country} (${countryCode.code})`}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </FormItem>
-                          )}
-                        />
-                      </div>
-                      <FormField
-                        control={form.control}
-                        name="endpoint_url"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>Endpoint URL</FormLabel>
-                            <FormControl>
-                              <Input
-                                {...field}
-                                className="bg-white/10 px-3 rounded-lg\"
-                                placeholder="Enter your URL"
-                              />
-                            </FormControl>
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="countryCode"
-                        render={({ field }) => (
-                          <FormItem className="w-full">
-                            <FormLabel>Datacenter</FormLabel>
-                            <Select
-                              onValueChange={field.onChange}
-                              defaultValue={field.value}
-                            >
-                              <FormControl>
-                                <SelectTrigger className="bg-white/10">
-                                  <SelectValue placeholder="Select" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {["Data center 1", "Datacenter 2"].map(
-                                  (datacenter) => (
-                                    <SelectItem
-                                      key={datacenter}
-                                      value={datacenter}
-                                      useCheckmark={false}
-                                    >
-                                      {datacenter}
-                                    </SelectItem>
-                                  )
-                                )}
-                              </SelectContent>
-                            </Select>
-                          </FormItem>
-                        )}
-                      />
-                      <div className="flex justify-end gap-3">
-                        <Button className="py-2.5 px-6 rounded-lg bg-white/15 h-[48px] w-[98px]">
-                          Cancel
-                        </Button>
-                        <Button
-                          className="bg-white text-black py-[14px] px-6 rounded-lg h-[48px] w-[116px] disabled:opacity-30"
-                          disabled={!form.formState.isValid}
-                          type="submit"
-                        >
-                          Continue
-                        </Button>
-                      </div>
-                    </form>
-                  </Form>
+                      )}
+                      {tab === "form" ? "Register a Node" : "Stake VDA"}
+                    </DialogTitle>
+                  )}
+                  {tab === "form" ? (
+                    <CreateNodeForm setTab={setTab} />
+                  ) : tab === "stake" ? (
+                    <HubStake setTab={setTab} />
+                  ) : tab === "loading" ? (
+                    <HubLoading />
+                  ) : tab === "success" ? (
+                    <HubSuccess
+                      setTab={setTab}
+                      setNodeDialogOpen={setNodeDialogOpen}
+                    />
+                  ) : tab === "error" ? (
+                    <HubError setTab={setTab} />
+                  ) : tab === "connected" ? (
+                    <ConnectedContent />
+                  ) : (
+                    <></>
+                  )}
                 </DialogContent>
               </Dialog>
             </>

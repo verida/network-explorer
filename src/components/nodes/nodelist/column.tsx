@@ -6,9 +6,30 @@ import StorageIcon from "@/assets/icons/storage.svg";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
-import { registeredAtom } from "@/lib/atom";
 import { FaEllipsis } from "react-icons/fa6";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { userAtom } from "@/lib/atom";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import WithdrawForm from "../nodehub/withdraw/withdraw-form";
+import WithdrawSuccess from "../nodehub/withdraw/withdraw-success";
+import { useState } from "react";
+import { Tab } from "./data-table";
+import WithdrawError from "../nodehub/withdraw/withdraw-error";
+import { Close } from "@radix-ui/react-dialog";
+import { X } from "lucide-react";
+import HubLoading from "../nodehub/hub/hub-loading";
+import UnStakeForm from "../nodehub/unstake/unstake-form";
+import UnStakeSuccess from "../nodehub/unstake/unstake-success";
+import { cn } from "@/lib/utils";
 
 export type Node = {
   id: string;
@@ -124,18 +145,84 @@ export const columns: ColumnDef<Node>[] = [
     accessorKey: "date",
     header: "",
     cell: ({ row }) => {
-      const registered = useRecoilValue(registeredAtom);
-      if (registered) {
+      const user = useRecoilValue(userAtom);
+      const [tab, setTab] = useState<Tab>("form");
+
+      if (user.registered) {
         return (
-          <Popover >
+          <Popover>
             <PopoverTrigger>
               <div className="min-w-[6rem] flex justify-end pr-3">
                 <FaEllipsis size={20} />
               </div>
             </PopoverTrigger>
-            <PopoverContent align="end" className="result-box border bg-[#333153] border-white/30 py-1 flex flex-col w-[200px]">
-              <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white">Withdraw</div>
-              <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white">Deposit</div>
+            <PopoverContent
+              align="end"
+              className="result-box border bg-[#333153] border-white/30 py-1 flex flex-col w-[200px]"
+            >
+              {row.getValue("status") === "Active" ? (
+                <>
+                  <Dialog>
+                    <DialogTrigger>
+                      <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white text-start">
+                        Withdraw
+                      </div>
+                    </DialogTrigger>
+                    <DialogContent
+                      className={
+                        tab === "success" || tab === "error"
+                          ? "max-w-[440px]"
+                          : "max-w-[664px]"
+                      }
+                    >
+                      <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+                        <X className="h-4 w-4 text-white m-auto" />
+                      </Close>
+                      {tab === "form" ? (
+                        <WithdrawForm setTab={setTab} />
+                      ) : tab === "success" ? (
+                        <WithdrawSuccess setTab={setTab} />
+                      ) : (
+                        <WithdrawError setTab={setTab} />
+                      )}
+                    </DialogContent>
+                  </Dialog>
+                  <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white text-start">
+                    Deposit
+                  </div>
+                </>
+              ) : (
+                <Dialog>
+                  <DialogTrigger>
+                    <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white text-start">
+                      Un-Stake
+                    </div>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-[440px]">
+                    {tab === "form" && (
+                      <DialogTitle
+                        className={cn(
+                          "text-white font-bold text-[18px] leading-[20px] text-center"
+                        )}
+                      >
+                        Un-Stake VDA
+                      </DialogTitle>
+                    )}
+                    {tab !== "loading" && (
+                      <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+                        <X className="h-4 w-4 text-white m-auto" />
+                      </Close>
+                    )}
+                    {tab === "loading" ? (
+                      <HubLoading />
+                    ) : tab === "form" ? (
+                      <UnStakeForm setTab={setTab} />
+                    ) : (
+                      <UnStakeSuccess />
+                    )}
+                  </DialogContent>
+                </Dialog>
+              )}
             </PopoverContent>
           </Popover>
         );

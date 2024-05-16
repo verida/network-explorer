@@ -10,8 +10,8 @@ const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Verida",
-    template: "Verida - %s",
+    default: "Veridap",
+    template: "Veridap - %s",
   },
 };
 
