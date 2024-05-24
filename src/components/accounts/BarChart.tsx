@@ -1,8 +1,12 @@
 import React from "react";
 import Chart from "react-apexcharts";
+import { useMediaQuery } from "react-responsive";
 
 const BarChart = () => {
   const labels = ["Dec 2023", "Jan 2024", "Feb 2024", "Mar 2024", "Apr 2024"];
+
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+
   return (
     <Chart
       options={{
@@ -33,6 +37,13 @@ const BarChart = () => {
         },
         yaxis: {
           labels: {
+            formatter: (value) => {
+              if (value >= 1000 && !isSmScreen) {
+                return value / 1000 + "k";
+              }
+              return value.toString();
+            },
+
             style: {
               colors: "#666A7F",
               fontWeight: 400,
@@ -56,7 +67,7 @@ const BarChart = () => {
         },
       ]}
       type="bar"
-      height={350}
+      height={!isSmScreen ? 200 : 350}
     />
   );
 };

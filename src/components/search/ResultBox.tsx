@@ -19,8 +19,8 @@ const ResultBox = ({ did }: { did: string }) => {
         <div className="flex justify-between ">
           <div className="flex gap-4">
             <img
-              src="https://s3-alpha-sig.figma.com/img/70e7/0552/4ef89f068a49bffdf4e767fb9fcc2238?Expires=1716163200&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=fSApxso1-cbhrzB~FX0XH~4URc8BOK~AHJqmxhAoXOKxrZGVf8B4FyINs2hFPh2Pfqqeot42JXhTvVoVtXyHKQKIDnK~Rfol51p2IdPkcwBcfjIk1rNr9NHgFWh1Zm~Op4DIRdbre5G6qwIvDd-MIs1I73Q-S-XTWm4tW78Vy-506yfXRjmzxj4wRuj4K0VsU2M5Z8kFoCmbepGcZpE8p9-r7S5x~Cnq2HHGQ7Chh7KT-fOwt2CKgfqJ71rMvGgkAAukLfQQeEuZvpk8tMTkl6y~Yl2JQva6oC5QQ1Q4X7BaVZ3Rw1Ne-JTQ9ieSXiFXgBZNIDEdJGWnWwTGJnYBtA__"
-              className="rounded-sm w-[88px] h-[88px]"
+              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              className="rounded-sm w-[88px] h-[88px] object-cover"
             />
             <div className="flex flex-col gap-3 w-[619px]">
               <div>Chris Were</div>

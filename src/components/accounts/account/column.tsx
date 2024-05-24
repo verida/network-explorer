@@ -42,7 +42,7 @@ export const columns: ColumnDef<Account>[] = [
       <div className="flex items-center text-[14px] font-normal leading-[20px] gap-4 pl-6">
         <img
           src={row.original.user.profile}
-          className="w-10 h-10 rounded-sm"
+          className="w-10 h-10 rounded-sm object-cover"
           alt="account-image"
         />
         <div>{row.original.user.name}</div>

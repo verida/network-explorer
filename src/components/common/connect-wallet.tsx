@@ -11,7 +11,7 @@ const ConnectWalletButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-lg px-6 py-[14px] leading-5 font-semibold text-[14px] ">
+        <Button className="md:rounded-lg rounded-sm md:px-6 px-4 md:py-[14px] py-2.5 leading-5 font-semibold text-[14px] ">
           Connect Wallet
         </Button>
       </DialogTrigger>

@@ -9,7 +9,7 @@ import { columns } from "./account/column";
 
 const Accounts = () => {
   return (
-    <div className="flex flex-col gap-6 mb-12">
+    <div className="flex flex-col gap-6 sm:mb-12 mb-7">
       <DataTable columns={columns} data={accounts} />
     </div>
   );
