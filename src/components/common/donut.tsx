@@ -20,18 +20,17 @@ const DonutChart = () => {
             expandOnClick: false,
             donut: {
               size: "75%",
-
               labels: {
                 show: true,
-
-                name: { show: false },
                 total: {
                   show: true,
+                  label: "31%",
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "28px",
                   showAlways: true,
-                  formatter: function (w) {
-                    return "30%";
-                  },
                 },
+                value: { show: true, formatter: () => "Used" },
               },
             },
           },
