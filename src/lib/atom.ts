@@ -1,6 +1,15 @@
-import {atom} from "recoil";
+import { atom } from "recoil";
 
-export const registeredAtom = atom({
-    key: "registered",
-    default: true,
-})
+export const userAtom = atom({
+  key: "user",
+  default: {
+    registered: true,
+    connected: false,
+    authorized: true,
+  },
+});
+
+export const setupWizardAtom = atom({
+  key: "setupWizard",
+  default: false,
+});

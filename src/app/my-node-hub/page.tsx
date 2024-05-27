@@ -45,11 +45,11 @@ const MyNodeHub = () => {
                   {item.secondaryValue}
                 </div>
               )}
-            </div>  
+            </div>
           </div>
         ))}
       </div>
-      <DataTable data={nodes} columns={columns} />
+      <DataTable data={nodes} columns={columns} showReigsterNodeButton />
     </div>
   );
 };
