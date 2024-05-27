@@ -56,11 +56,11 @@ const NetworkExplorer = () => {
                 src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 className="w-10 h-10 rounded object-cover"
               />
-              <div className="flex flex-col gap-1.5">
+              <div className="flex flex-col gap-1.5 break-words lg:w-full w-[calc(100%-50px)]">
                 <div className="font-bold text-[14px] leading-[17.64px]">
                   Chris Were
                 </div>
-                <div className="font-normal text-[14px] leadig-[17.64px] break-words">
+                <div className="font-normal text-[14px] leadig-[17.64px]">
                   did:VDA:mainnet:OxCDEdd96AfA6956f0299580225C2d9a52aca8487A
                 </div>
               </div>

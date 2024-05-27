@@ -35,7 +35,7 @@ const Navbar = () => {
   return (
     <div
       className={cn(
-        "md:border-b border-white/15 lg:px-[92px] md:px-8 px-2 flex justify-between w-full",
+        "md:border-b border-white/15 lg:px-[92px] md:px-8 px-4 flex justify-between w-full",
         isDropdownOpen ? "bg-[#060520] w-screen" : ""
       )}
     >

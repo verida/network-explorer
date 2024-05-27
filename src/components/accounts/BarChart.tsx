@@ -67,7 +67,7 @@ const BarChart = () => {
         },
       ]}
       type="bar"
-      height={!isSmScreen ? 200 : 350}
+      height={!isSmScreen ? 250 : 350}
     />
   );
 };

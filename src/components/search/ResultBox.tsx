@@ -5,31 +5,52 @@ import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { resultJson } from "@/lib/sample";
+import { useMediaQuery } from "react-responsive";
 
 const ResultBox = ({ did }: { did: string }) => {
   const { toast } = useToast();
   const [showResultJson, setShowResultJson] = useState(false);
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
 
   return (
     <div className="flex flex-col gap-3">
       <div className="font-normal text-[12px] leading-[18px] text-white/60">
         RESULTS:
       </div>
-      <div className="flex flex-col gap-10 result-box p-10 rounded-lg border border-white/20 ">
-        <div className="flex justify-between ">
-          <div className="flex gap-4">
+      <div className="flex flex-col sm:gap-10 result-box lg:p-9 gap-6 py-6 px-4 rounded-lg border border-white/20 ">
+        <div className="flex justify-between sm:flex-row flex-col sm:gap-3">
+          <div className="flex gap-4 sm:flex-row flex-col">
             <img
               src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              className="rounded-sm w-[88px] h-[88px] object-cover"
+              className="rounded-sm w-[88px] h-[88px] object-cover sm:mx-0 mx-auto"
             />
-            <div className="flex flex-col gap-3 w-[619px]">
-              <div>Chris Were</div>
-              <div className="w-full justify-between flex">
+            <div className="flex flex-col sm:gap-3 sm:w-auto w-full gap-4 lg:w-[619px]">
+              <div className="sm:font-normal font-bold md:text-base text-[20px] sm:mx-0 mx-auto leading-[24px]">
+                Chris Were
+              </div>
+              <div
+                className="flex sm:hidden flex-col gap-3 items-center h-fit"
+                style={
+                  isSmScreen
+                    ? { boxShadow: "0px 4.78px 28.7px 0px #1111111F" }
+                    : {}
+                }
+              >
+                <QrCode />
+                {!showResultJson && (
+                  <div className="font-normal text-[11px] leading-[16px]">
+                    Scan to add contact
+                  </div>
+                )}
+              </div>
+              <div className="justify-between flex sm:flex-row flex-col">
                 <div className="text-white/60 font-normal text-[14px] leading-[20px]">
                   DID
                 </div>
                 <div className="text-[#8566F2] leading-[20px] font-normal text-[14px] gap-2 flex">
-                  <span>{did}</span>
+                  <span className="truncate lg:max-w-max md:max-w-[340px] max-w-[calc(100%-1.5  rem)]">
+                    {did}
+                  </span>
                   <CopyIcon
                     color="#8566F2"
                     className="cursor-pointer"
@@ -42,7 +63,7 @@ const ResultBox = ({ did }: { did: string }) => {
                   />
                 </div>
               </div>
-              <div className="flex items-center gap-8">
+              <div className="flex sm:items-center sm:gap-8 sm:flex-row flex-col">
                 <div className="font-normal text-[14px] leading-[20px] text-white/60">
                   Country
                 </div>
@@ -50,11 +71,11 @@ const ResultBox = ({ did }: { did: string }) => {
                   Australia
                 </div>
               </div>
-              <div className="pt-6 flex flex-col gap-3">
-                <div className="font-normal text-[14px] leading-[20px]">
+              <div className="sm:pt-6 pt-2 flex flex-col gap-3">
+                <div className="font-normal text-[14px] leading-[20px] text-white/60">
                   Description
                 </div>
-                <div className="text-[14px] leading-[22.4px] font-normal">
+                <div className="text-[14px] leading-[22.4px] font-normal break-words">
                   Aliquam pulvinar vestibulum blandit. Donec sed nisl libero.
                   Fusce dignissim luctus sem eu dapibus. Pellentesque vulputate
                   quam a quam volutpat, sed ullamcorper erat commodo. Vestibulum
@@ -75,7 +96,7 @@ const ResultBox = ({ did }: { did: string }) => {
             </div>
           </div>
           <div
-            className="flex flex-col gap-3 items-center h-fit"
+            className="sm:flex hidden flex-col gap-3 items-center h-fit"
             style={{ boxShadow: "0px 4.78px 28.7px 0px #1111111F" }}
           >
             <QrCode />
@@ -84,7 +105,7 @@ const ResultBox = ({ did }: { did: string }) => {
         </div>
         {showResultJson && (
           <>
-            <Separator color="#FFFFFF26" />
+            <Separator color="#FFFFFF26" className="sm:block hidden" />
             <div className="leading-[22.4px] text-[14px] font-normal break-words">
               {resultJson}
             </div>
