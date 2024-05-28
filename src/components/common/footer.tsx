@@ -38,9 +38,9 @@ const Footer = () => {
     },
   ];
   return (
-    <div className="flex sm:flex-row flex-col sm:items-start items-center sm:gap-0 gap-2 justify-between lg:px-[112px] px-4 py-10">
+    <div className="flex sm:flex-row flex-col-reverse sm:items-start items-center sm:gap-0 gap-4 justify-between lg:px-[112px] px-4 sm:py-10 pb-5">
       <div>&copy; {currentDate.getFullYear()} Verida Storage Node</div>
-      <div className="flex items-center gap-6">
+      <div className="flex sm:flex-row flex-col items-center gap-4 sm:gap-6">
         <div className="text-[16px] font-normal leading-[24px]">Find us on</div>
         <div className="flex gap-3">
           {navs.map((nav, index) => (

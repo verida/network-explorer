@@ -33,7 +33,7 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { MdTune } from "react-icons/md";
-import SearchIcon from "@/assets/icons/search.svg";
+import { FiSearch } from "react-icons/fi";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -45,6 +45,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { X } from "lucide-react";
+import { useMediaQuery } from "react-responsive";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -84,23 +86,27 @@ export function DataTable<TData, TValue>({
 
   const [showSearchField, setShowSearchField] = useState(false);
   const pageAccounts = [10, 20, 30];
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
 
   return (
     <>
       <div className="flex justify-between items-center">
-        <div className="font-semibold text-[18px] leading-[20px]">64 Nodes</div>
+        <div className="font-semibold text-[18px] leading-[20px]">
+          {data.length} Accounts
+        </div>
         <div className="flex items-center gap-3">
           <Button
             size="icon"
             className={cn(
-              "bg-[#FFFFFF26] hover:bg-[#FFFFFF26] p-2 rounded-sm flex justify-start gap-1 transition-all duration-500",
+              "bg-[#FFFFFF26] hover:bg-[#FFFFFF26] p-2 rounded-sm flex justify-center gap-1 transition-all duration-500",
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
-              setShowSearchField(true);
+              if (!isSmScreen) setShowSearchField(true);
             }}
           >
-            <SearchIcon />
+            <FiSearch color="white" size={20} />
             {showSearchField && (
               <>
                 <Input
@@ -115,7 +121,7 @@ export function DataTable<TData, TValue>({
               </>
             )}
           </Button>
-          <DropdownMenu>
+          <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
             <DropdownMenuTrigger asChild>
               <Button
                 size="icon"
@@ -125,11 +131,17 @@ export function DataTable<TData, TValue>({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="bg-[#333153] border-white/30 border rounded-3 w-[356px] "
+              className="bg-[#333153] border-white/30 border rounded-3 sm:w-[356px] w-screen"
               align="end"
             >
-              <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px]">
-                Filters
+              <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px] flex justify-between">
+                <div>Filters</div>
+                <X
+                  className="h-5 w-5 cursor-pointer sm:hidden block"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                  }}
+                />
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
               <DropdownMenuGroup className="pt-4 pb-6">
@@ -154,7 +166,7 @@ export function DataTable<TData, TValue>({
                 </DropdownMenuItem>
               </DropdownMenuGroup>
               <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
-              <div className="w-full justify-end flex py-3 pr-4">
+              <div className="w-full justify-end flex py-2 pr-4">
                 <Button
                   disabled
                   className="rounded-sm py-2.5 px-6 w-[91px] h-10"
@@ -216,8 +228,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-4">
+      <div className="flex justify-center sm:justify-between items-center">
+        <div className="sm:flex hidden items-center gap-4">
           <div>Show rows</div>
           <Select>
             <SelectTrigger className="w-20 h-10 py-2 pl-2.5 pr-1 gap-1 rounded bg-white/15">

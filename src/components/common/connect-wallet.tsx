@@ -11,12 +11,12 @@ const ConnectWalletButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="rounded-lg px-6 py-[14px] leading-5 font-semibold text-[14px] ">
+        <Button className="md:rounded-lg rounded-sm md:px-6 px-4 md:py-[14px] py-2.5 leading-5 font-semibold text-[14px] ">
           Connect Wallet
         </Button>
       </DialogTrigger>
       <DialogContent className="w-[800px] max-w-[800px] bg-[url('/qr-background.png')] h-[483px] [box-shadow:0px_4px_40px_0px_#1111111A] flex items-center justify-between rounded-sm px-14">
-        <Close className="absolute right-4 top-4 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground bg-[#E0E3EA] opacity-50 rounded-[100px] h-[30px] w-[30px]">
+        <Close className="absolute z-50 right-4 top-4 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground bg-[#E0E3EA] opacity-50 rounded-[100px] h-[30px] w-[30px]">
           <X className="h-4 w-4 text-[#041133] m-auto" />
         </Close>
         <RightAngleIcon className="absolute right-0 -z-10" />

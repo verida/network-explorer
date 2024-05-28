@@ -12,9 +12,7 @@ const ConnectedContent = () => {
         Connected Wallet
       </div>
       <div className="rounded-lg p-6 border border-white/15 flex items-center gap-4 mt-3">
-        <div className="bg-[#37D5C7] rounded-[300px] p-1">
-          <VeridaIcon />
-        </div>
+        <VeridaIcon />
         <div className="flex flex-col gap-2">
           <div className="text-white/60 leading-[20px] text-[16px] font-normal">
             Verida Wallet

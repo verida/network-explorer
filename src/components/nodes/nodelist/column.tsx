@@ -175,7 +175,7 @@ export const columns: ColumnDef<Node>[] = [
                           : "max-w-[664px]"
                       }
                     >
-                      <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+                      <Close className="absolute z-50 right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
                         <X className="h-4 w-4 text-white m-auto" />
                       </Close>
                       {tab === "form" ? (
@@ -209,7 +209,7 @@ export const columns: ColumnDef<Node>[] = [
                       </DialogTitle>
                     )}
                     {tab !== "loading" && (
-                      <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+                      <Close className="absolute z-50 right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
                         <X className="h-4 w-4 text-white m-auto" />
                       </Close>
                     )}

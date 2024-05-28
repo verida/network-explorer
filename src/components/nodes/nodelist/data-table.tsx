@@ -117,7 +117,7 @@ export function DataTable<TData, TValue>({
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between sm:items-center sm:gap-0 gap-6 sm:flex-row flex-col">
         <div className="font-semibold text-[18px] leading-[20px]">
           {data.length} nodes
         </div>
@@ -222,14 +222,11 @@ export function DataTable<TData, TValue>({
           {user.registered && showReigsterNodeButton && (
             <>
               <Dialog open={nodeDialogOpen} onOpenChange={setNodeDialogOpen}>
-                <Button
-                  onClick={() => {
-                    setNodeDialogOpen(true);
-                  }}
-                  className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm w-[189px] h-10"
-                >
-                  Register New Node
-                </Button>
+                <DialogTrigger asChild>
+                  <Button className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm sm:w-[189px] w-[calc(100%-6rem)] h-10">
+                    Register New Node
+                  </Button>
+                </DialogTrigger>
                 <DialogContent
                   className={
                     tab === "form"
@@ -244,32 +241,30 @@ export function DataTable<TData, TValue>({
                       : ""
                   }
                 >
-                  {tab !== "loading" &&
-                    tab !== "error" &&
-                    tab !== "success" && (
-                      <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
-                        <X className="h-4 w-4 text-white m-auto" />
-                      </Close>
-                    )}
-                  {(tab === "form" || tab === "stake") && (
-                    <DialogTitle
-                      className={cn(
-                        "text-white font-bold text-[18px] leading-[20px]",
-                        tab === "form"
-                          ? "text-center"
-                          : "flex items-center justify-between w-[60%]"
-                      )}
-                    >
-                      {tab === "stake" && (
+                  <DialogTitle className="text-white font-bold text-[18px] leading-[20px] w-full flex items-center justify-between">
+                    <>
+                      {tab === "form" && <div></div>}
+                      {(tab === "stake" || tab === "connected") && (
                         <LuArrowLeft
                           onClick={() => {
                             setNodeDialogOpen(false);
                           }}
+                          className="ml-4"
                         />
                       )}
-                      {tab === "form" ? "Register a Node" : "Stake VDA"}
-                    </DialogTitle>
-                  )}
+                      {tab === "form"
+                        ? "Register a Node"
+                        : tab === "stake" || tab === "connected"
+                        ? "Stake VDA"
+                        : ""}
+                      {tab !== "loading" && (
+                        <Close className="transition-opacity hover:opacity-100 rounded-[100px] sm:m-0 ml-auto">
+                          <X className="h-4 w-4 text-white m-auto" />
+                        </Close>
+                      )}
+                    </>
+                  </DialogTitle>
+
                   {tab === "form" ? (
                     <CreateNodeForm setTab={setTab} />
                   ) : tab === "stake" ? (

@@ -10,8 +10,8 @@ const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Veridap",
-    template: "Veridap - %s",
+    default: "Verida",
+    template: "Verida - %s",
   },
 };
 
@@ -30,7 +30,9 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="min-h-screen lg:px-[112px] px-8 py-4">{children}</div>
+          <div className="min-h-screen lg:px-[92px] md:px-8 px-4 py-4 overflow-x-hidden">
+            {children}
+          </div>
           <Footer />
           <Toaster />
         </ThemeProvider>

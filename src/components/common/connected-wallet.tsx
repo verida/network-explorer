@@ -15,6 +15,7 @@ import { userAtom } from "@/lib/atom";
 import UnAuthorizedContent from "./unauthorized-content";
 import AuthorizedContent from "./authorized-content";
 import ConnectedContent from "./connected-content";
+import { cn } from "@/lib/utils";
 
 const ConnectedWallet = () => {
   const user = useRecoilValue(userAtom);
@@ -22,16 +23,21 @@ const ConnectedWallet = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-[#FD4F64] text-white rounded-[24px] py-3 pl-4 pr-3 gap-2 h-12 w-[206px] hover:bg-[#FD4F64]">
-          <div className="bg-[#37D5C7] rounded-[300px] p-1">
-            <VeridaIcon />
-          </div>
-          <div>verida-user.VDA</div>
+        <Button
+          className={cn(
+            "text-white rounded-[24px] md:py-3 py-2 md:pl-4 pr-3 pl-3 gap-2 h-12 md:w-[206px]",
+            user.connected
+              ? "bg-[#FD4F64] hover:bg-[#FD4F64]"
+              : "bg-white/20 hover:bg-white/10"
+          )}
+        >
+          <VeridaIcon />
+          <div className="md:block hidden">verida-user.VDA</div>
           <FaAngleDown />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[560px]">
-        <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+        <Close className="absolute z-50 right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
           <X className="h-4 w-4 text-white m-auto" />
         </Close>
         <DialogTitle className="text-center">Your Wallet</DialogTitle>

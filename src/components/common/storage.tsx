@@ -1,8 +1,11 @@
 import { sampleOverviewData } from "@/lib/sample";
 import React from "react";
 import Chart from "react-apexcharts";
+import { useMediaQuery } from "react-responsive";
 
 const StorageChart = () => {
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+
   return (
     <Chart
       options={{
@@ -38,7 +41,12 @@ const StorageChart = () => {
         },
         yaxis: [
           {
+            min: 0,
+            max: 100,
             labels: {
+              formatter: (value) => {
+                return value.toFixed(0)
+              },
               style: {
                 colors: "#FFFFFF99",
                 fontWeight: 400,
@@ -75,7 +83,7 @@ const StorageChart = () => {
         },
       ]}
       type="area"
-      height={350}
+      height={!isSmScreen ? 250 : 350}
     />
   );
 };

@@ -17,11 +17,11 @@ const SearchPage = () => {
         {searchBoxVisible && (
           <div className="network-search border border-white/60 py-2 px-4 rounded-lg flex items-center gap-2 h-[64px]">
             <SearchIcon />
-            <div className="font-normal leading-[26px] text-[16px] w-full">
+            <div className="font-normal text-[16px] w-full truncate sm:border-none border-r-2 border-[#8566F2]">
               {did}
             </div>
             <IoMdClose
-              className="cursor-pointer"
+              className="cursor-pointer h-5 w-5 text-white"
               onClick={() => setSearchBoxVisible(false)}
             />
           </div>
