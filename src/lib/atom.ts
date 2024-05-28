@@ -4,7 +4,7 @@ export const userAtom = atom({
   key: "user",
   default: {
     registered: true,
-    connected: false,
+    connected: true,
     authorized: true,
   },
 });

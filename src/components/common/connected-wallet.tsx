@@ -37,7 +37,7 @@ const ConnectedWallet = () => {
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[560px]">
-        <Close className="absolute right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
+        <Close className="absolute z-50 right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
           <X className="h-4 w-4 text-white m-auto" />
         </Close>
         <DialogTitle className="text-center">Your Wallet</DialogTitle>

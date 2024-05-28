@@ -53,7 +53,7 @@ const Navbar = () => {
               <IoMenu size={24} />
             </DropdownMenuTrigger>
           )}
-          <DropdownMenuContent className="flex flex-col gap-1 w-screen bg-[#060520] border-none rounded-none h-[calc(100vh-2rem)] mt-[4rem] p-4">
+          <DropdownMenuContent className="flex flex-col gap-1 w-screen bg-[#060520] border-none rounded-none overflow-y-auto h-[calc(100vh-4rem)] mt-[4rem] p-4">
             {[
               ...navs,
               ...(user.registered

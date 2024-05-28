@@ -24,7 +24,7 @@ const MyNodeHub = () => {
 
   return (
     <div className="flex flex-col mt-10 gap-8">
-      <div className="flex gap-5">
+      <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-5 ">
         {data.map((item, index) => (
           <div
             key={index}

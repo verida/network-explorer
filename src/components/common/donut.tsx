@@ -29,8 +29,19 @@ const DonutChart = () => {
                   fontWeight: "bold",
                   fontSize: "28px",
                   showAlways: true,
+                  formatter: () => {
+                    return "Used";
+                  },
                 },
-                value: { show: true, formatter: () => "Used" },
+                value: {
+                  show: true,
+                  formatter: (v) => {
+                    return "Used";
+                  },
+                  color: "white",
+                  fontWeight: "400",
+                  fontSize: "15px",
+                },
               },
             },
           },

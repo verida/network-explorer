@@ -25,20 +25,20 @@ const DetailsPage = () => {
           Node Details
         </div>
       </div>
-      <div className="flex justify-between lg:gap-4 gap-10 xl:items-start items-center xl:flex-row flex-col-reverse">
-        <div className="result-box rounded-lg gap-6 px-6 py-8 border border-white/20  flex flex-col">
+      <div className="flex justify-between lg:gap-4 gap-10 items-start lg:flex-row flex-col w-full">
+        <div className="result-box rounded-lg gap-6 lg:px-6 p-5 lg:py-8 border border-white/20 flex flex-col lg:w-auto w-full">
           <div className="font-semibold text-[18px] leading-[20px] ">
             Node Info
           </div>
-          <div className="flex gap-4 font-normal text-[14px] leading-[20px] flex-col">
-            <div className="flex justify-between items-center gap-2">
+          <div className="flex gap-4 font-normal text-[14px] leading-[20px] flex-col items-start">
+            <div className="flex justify-between items-center gap-2 sm:flex-row flex-col">
               <div>Node Name</div>
               <div>123435323</div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Operator</div>
               <div className="flex items-center gap-2.5">
-                <div className="text-[#8566F2] leading-[20px] text-[14px] font-normal">
+                <div className="text-[#8566F2] leading-[20px] text-[14px] font-normal sm:w-auto w-[calc(100%-13rem)] truncate">
                   did:VDA:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
                 </div>
                 <CopyIcon
@@ -55,10 +55,10 @@ const DetailsPage = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Public Key</div>
               <div className="flex items-center gap-2.5">
-                <div className="text-[#8566F2] leading-[20px] text-[14px] font-normal">
+                <div className="text-[#8566F2] leading-[20px] text-[14px] font-normal truncate sm:w-auto w-[calc(100%-6.2rem)]">
                   0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
                 </div>
                 <CopyIcon
@@ -75,37 +75,37 @@ const DetailsPage = () => {
                 />
               </div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Datacenter</div>
               <div>AWS Asia Pacific (Sydney)</div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Region</div>
               <div>Asia Pacific</div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Country</div>
               <div>Australia</div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Available Slots</div>
               <div>
                 <span>60</span> <span className="text-white/60">/ 100</span>
               </div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Tokens Staked</div>
               <div>5,894.56 VDA</div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Failure Reports</div>
               <div>2</div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Days on Network</div>
               <div>30</div>
             </div>
-            <div className="flex justify-between items-center gap-2">
+            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
               <div>Status</div>
               <div>
                 <div
@@ -123,7 +123,7 @@ const DetailsPage = () => {
         </div>
         <div className="relative">
             <LocationIcon className="absolute left-[43%] top-[30%] scale-150"/>
-            <img src="/australia.png" className=" w-[488px] rounded-lg border border-white/20"/>
+            <img src="/australia.png" className="md:w-[488px] w-full rounded-lg border border-white/20"/>
         </div>
       </div>
     </div>

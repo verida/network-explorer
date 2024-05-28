@@ -37,9 +37,8 @@ const Overview = () => {
         <div className="flex flex-col justify-between gap-3">
           <div className="rounded-lg result-box  border border-white/20 flex flex-col gap-4 p-4">
             <div className="text-white/60">Network Capacity</div>
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-3 items-center flex-wrap">
               <Loader className="h-[200px] w-[200px]" />
-
               <DonutChart />
               <div className="flex flex-col gap-2">
                 <div className="flex gap-1 items-center">
