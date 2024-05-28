@@ -76,18 +76,20 @@ const Navbar = () => {
                 {nav.name}
               </Link>
             ))}
-            <DropdownMenuSeparator className="bg-white/10"/>
+            <DropdownMenuSeparator className="bg-white/10" />
             <div className="text-semibold mt-2 text-[14px] leading-[17.64px] flex items-center gap-2 text-white/30">
               <VeridaIcon />
               <span>VDA Price: $245</span>
             </div>
           </DropdownMenuContent>
         </DropdownMenu>
-        <img
-          src="/logo.svg"
-          className="lg:w-[100px] w-[70px] cursor-pointer"
-          alt="logo"
-        />
+        <Link href="/">
+          <img
+            src="/logo.svg"
+            className="lg:w-[100px] w-[70px] cursor-pointer"
+            alt="logo"
+          />
+        </Link>
         <div className="hidden md:flex lg:gap-10 gap-4 items-center">
           {[
             ...navs,

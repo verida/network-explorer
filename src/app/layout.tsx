@@ -11,7 +11,26 @@ const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 export const metadata: Metadata = {
   title: {
     default: "Verida",
-    template: "Verida - %s",
+    template: "%s | Verida",
+  },
+  description: "Verida - Enhancing the way you interact with the blockchain.",
+  applicationName: "Verida",
+  keywords: ["Verida"],
+  metadataBase: new URL("https://verida-explorer.vercel.app"),
+  openGraph: {
+    url: "https://verida-explorer.vercel.app",
+    title: "Verida",
+    description:
+      "Verida - Enhancing the way you interact with the blockchain.",
+    images: [
+      {
+        url: "https://verida-explorer.vercel.app/logo.svg",
+        width: 1200,
+        height: 630,
+        alt: "Verida",
+      },
+    ],
+    siteName: "Verida",
   },
 };
 

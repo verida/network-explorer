@@ -6,17 +6,9 @@ import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import dayjs from "dayjs";
+import { Account } from "@/types/account";
 
-export type Account = {
-  user: {
-    name: string;
-    profile: string;
-  };
-  country: string;
-  did: string;
-  bio: string;
-  createdAt: Date;
-};
+
 
 export const columns: ColumnDef<Account>[] = [
   {

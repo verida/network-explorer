@@ -5,7 +5,7 @@ import Accounts from "@/components/accounts/Accounts";
 
 const Home = () => {
   return (
-    <div >
+    <div>
       <NetworkExplorer />
       <TotalAccounts />
       <Accounts />

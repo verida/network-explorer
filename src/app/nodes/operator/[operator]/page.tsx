@@ -22,10 +22,10 @@ const Operator = () => {
           }}
           className="cursor-pointer"
         />
-        <div className="flex gap-3 items-center">
+        <div className="flex gap-3 items-center sm:flex-nowrap flex-wrap sm:justify-normal justify-between w-full">
           <div className="text-[24px] font-bold leading-[28.8px]">Operator</div>
           <div className="bg-white/10 py-1.5 px-2 rounded text-white/60 font-normal text-[14px] leading-[20px] flex items-center gap-2.5">
-            <div>
+            <div className="sm:max-w-max max-w-[150px] truncate">
               did:VDA:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
             </div>
             <CopyIcon
