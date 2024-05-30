@@ -35,7 +35,7 @@ import {
 import { MdTune } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,

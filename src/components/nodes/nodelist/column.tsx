@@ -29,7 +29,7 @@ import { X } from "lucide-react";
 import HubLoading from "../nodehub/hub/hub-loading";
 import UnStakeForm from "../nodehub/unstake/unstake-form";
 import UnStakeSuccess from "../nodehub/unstake/unstake-success";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Node } from "@/types/node";
 
 

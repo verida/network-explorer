@@ -6,44 +6,43 @@ import { Button } from "../ui/button";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
-import { Profile } from "@/types/profile";
-import { VeridaHelper } from "@/lib/verida";
+
 import { useToast } from "../ui/use-toast";
 import { Oval } from "react-loader-spinner";
 
+import { Client } from "@verida/client-ts";
+import { WebUserProfile } from "@verida/web-helpers";
+import { getAnyPublicProfile } from "@/lib/utils/veridaUtils";
+import { ResolvedIdentity } from "@/lib/types";
+import { config } from "@/lib/config";
+
 const NetworkExplorer = () => {
-  const [profile, setProfile] = useState<Profile | undefined>(undefined);
+  const [profile, setProfile] = useState<WebUserProfile | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const fetchProfile = async (did: string) => {
+
+    const client = new Client({
+      environment: config.veridaEnv,
+      didClientConfig: {
+        network: config.veridaEnv,
+      },
+    })
+
     if (did && did.length > 0) {
       setLoading(true);
       try {
-        await VeridaHelper.getDidDocument(did);
-        await VeridaHelper.getProfile(did);
-        setProfile(VeridaHelper.profile);
+        const publicProfile = await getAnyPublicProfile(client, did)
+        
+        setProfile(publicProfile);
       } catch (error: any) {
         console.log(error);
-        // Check if DID document was found
-        if (VeridaHelper.didDocument) {
-          setProfile({
-            name: "unknown",
-            avatar: { uri: "" },
-            country: "",
-            did,
-          });
-        } else {
-          toast({
-            title: "Profile not found",
-            description: "The profile you are looking for does not exist",
-          });
-          setProfile(undefined);
-        }
+       
       } finally {
         setLoading(false);
       }
     } else {
-      VeridaHelper.reset();
+     
       setProfile(undefined);
     }
   };
@@ -84,17 +83,17 @@ const NetworkExplorer = () => {
           {(loading || profile) && (
             <div className="flex gap-4 w-full bg-[#333153] border border-white/60 py-6 px-4 rounded-lg absolute bottom-[-120px]">
               {profile ? (
-                <Link href={`/search/${profile.did}`}>
+                <Link href={`/search/${profile.country}`}>
                   <img
-                    src={profile?.avatar.uri}
+                    src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                     className="w-10 h-10 rounded object-cover"
                   />
                   <div className="flex flex-col gap-1.5 break-words lg:w-full w-[calc(100%-50px)]">
                     <div className="font-bold text-[14px] leading-[17.64px]">
-                      {profile.name}
+                    Chris Were
                     </div>
                     <div className="font-normal text-[14px] leadig-[17.64px]">
-                      {profile.did}
+                    did:VDA:mainnet:OxCDEdd96AfA6956f0299580225C2d9a52aca8487A
                     </div>
                   </div>
                 </Link>

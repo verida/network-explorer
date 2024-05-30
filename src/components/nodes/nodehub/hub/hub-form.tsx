@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { countriesWithCodes } from "@/lib/utils";
+import { countriesWithCodes } from "@/lib/utils/utils";
 import { Tab } from "../../nodelist/data-table";
 
 const regions = ["Africa", "Asia", "Australia", "Europe", "USA"];

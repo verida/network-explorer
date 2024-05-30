@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { MdTune } from "react-icons/md";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
