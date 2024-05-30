@@ -29,20 +29,10 @@ import { X } from "lucide-react";
 import HubLoading from "../nodehub/hub/hub-loading";
 import UnStakeForm from "../nodehub/unstake/unstake-form";
 import UnStakeSuccess from "../nodehub/unstake/unstake-success";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
+import { Node } from "@/types/node";
 
-export type Node = {
-  id: string;
-  operator: string;
-  slots: {
-    count: number;
-    total: number;
-  };
-  failure_reports: number;
-  days_on_network: number;
-  status: "Active" | "Deregister";
-  date: string;
-};
+
 
 export const columns: ColumnDef<Node>[] = [
   {

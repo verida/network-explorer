@@ -1,5 +1,6 @@
-import { Account } from "@/components/accounts/account/column";
-import { Node } from "@/components/nodes/nodelist/column";
+import { Node } from "@/types/node";
+import { Account } from "@/types/account";
+
 
 export const nodes: Node[] = [
   {

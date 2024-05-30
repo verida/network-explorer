@@ -26,7 +26,7 @@ import { Button } from "@/components/ui/button";
 import { MdTune } from "react-icons/md";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -157,7 +157,7 @@ export function DataTable<TData, TValue>({
               </Button>
             </PopoverTrigger>
             <PopoverContent
-              className="bg-[#333153] border-white/30 border rounded-3 w-[356px] p-0"
+              className="bg-[#333153] border-white/30 border md:rounded-lg rounded-b-none w-[calc(100vw-0.4rem)] sm:w-[356px] p-0"
               align="end"
             >
               <div className="text-white font-semibold text-[14px] leading-[20px] py-3 px-6">
@@ -296,7 +296,14 @@ export function DataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      key={header.id}
+                      className={cn(
+                        "md:border-none border-r border-white/10",
+                        header.index === headerGroup.headers.length - 1 &&
+                          "border-none"
+                      )}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -316,8 +323,15 @@ export function DataTable<TData, TValue>({
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
                 >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                  {row.getVisibleCells().map((cell, index) => (
+                    <TableCell
+                      key={cell.id}
+                      className={cn(
+                        "md:border-none border-r border-white/10",
+                        index === row.getVisibleCells().length - 1 &&
+                          "border-none"
+                      )}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -339,8 +353,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-between items-center">
-        <div className="flex items-center gap-4">
+      <div className="flex justify-center sm:justify-between items-center">
+        <div className="sm:flex hidden items-center gap-4">
           <div>Show rows</div>
           <Select>
             <SelectTrigger className="w-20 h-10 py-2 pl-2.5 pr-1 gap-1 rounded bg-white/15">
