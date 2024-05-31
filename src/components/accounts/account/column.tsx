@@ -14,6 +14,7 @@ export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: "user",
     enableSorting: true,
+    enablePinning: true,
     header: ({ column }) => (
       <Button
         variant="ghost"
