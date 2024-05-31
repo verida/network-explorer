@@ -21,7 +21,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -35,7 +35,7 @@ import {
 import { MdTune } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils/utils";
+import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -47,6 +47,8 @@ import {
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { X } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
+import { useSetRecoilState } from "recoil";
+import { showSearchBarAtom } from "@/lib/atom";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -88,7 +90,14 @@ export function DataTable<TData, TValue>({
   const pageAccounts = [10, 20, 30];
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
-
+  const setShowSearch = useSetRecoilState(showSearchBarAtom);
+  useEffect(() => {
+    if (!isSmScreen) {
+      setShowSearchField(false);
+    } else {
+      setShowSearch(false);
+    }
+  }, [isSmScreen]);
   return (
     <>
       <div className="flex justify-between items-center">
@@ -103,7 +112,8 @@ export function DataTable<TData, TValue>({
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
-              if (!isSmScreen) setShowSearchField(true);
+              // if (isSmScreen) setShowSearchField(true);
+              // else setShowSearch(true);
             }}
           >
             <FiSearch color="white" size={20} />

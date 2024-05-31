@@ -21,12 +21,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { MdTune } from "react-icons/md";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils/utils";
+import { cn } from "@/lib/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -60,6 +60,9 @@ import HubLoading from "../nodehub/hub/hub-loading";
 import HubError from "../nodehub/hub/hub-error";
 import HubSuccess from "../nodehub/hub/hub-success";
 import ConnectedContent from "@/components/common/connected-content";
+import { useSetRecoilState } from "recoil";
+import { showSearchBarAtom } from "@/lib/atom";
+import { useMediaQuery } from "react-responsive";
 
 export type Tab =
   | "form"
@@ -114,10 +117,18 @@ export function DataTable<TData, TValue>({
   const [nodeDialogOpen, setNodeDialogOpen] = useState(false);
   const [tab, setTab] = useState<Tab>("form");
   const setupWizard = useRecoilValue(setupWizardAtom);
-
+  const setShowSearch = useSetRecoilState(showSearchBarAtom);
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+  useEffect(() => {
+    if (!isSmScreen) {
+      setShowSearchField(false);
+    } else {
+      setShowSearch(false);
+    }
+  }, [isSmScreen]);
   return (
     <>
-      <div className="flex justify-between sm:items-center sm:gap-0 gap-6 sm:flex-row flex-col">
+      <div className="flex justify-between items-center sm:gap-0 gap-6">
         <div className="font-semibold text-[18px] leading-[20px]">
           {data.length} nodes
         </div>
@@ -129,7 +140,8 @@ export function DataTable<TData, TValue>({
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
-              setShowSearchField(true);
+              if (isSmScreen) setShowSearchField(true);
+              else setShowSearch(true);
             }}
           >
             <SearchIcon />
@@ -220,7 +232,7 @@ export function DataTable<TData, TValue>({
             </Button>
           )}
           {user.registered && showReigsterNodeButton && (
-            <>
+         
               <Dialog open={nodeDialogOpen} onOpenChange={setNodeDialogOpen}>
                 <DialogTrigger asChild>
                   <Button className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm sm:w-[189px] w-[calc(100%-6rem)] h-10">
@@ -285,7 +297,7 @@ export function DataTable<TData, TValue>({
                   )}
                 </DialogContent>
               </Dialog>
-            </>
+       
           )}
         </div>
       </div>
