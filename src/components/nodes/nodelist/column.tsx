@@ -29,10 +29,8 @@ import { X } from "lucide-react";
 import HubLoading from "../nodehub/hub/hub-loading";
 import UnStakeForm from "../nodehub/unstake/unstake-form";
 import UnStakeSuccess from "../nodehub/unstake/unstake-success";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Node } from "@/types/node";
-
-
 
 export const columns: ColumnDef<Node>[] = [
   {
@@ -69,7 +67,6 @@ export const columns: ColumnDef<Node>[] = [
   {
     accessorKey: "operator",
     header: "Operator",
-
     cell: ({ row }) => (
       <Link
         href={`/nodes/operator/${row.getValue("operator")}`}
@@ -196,7 +193,7 @@ export const columns: ColumnDef<Node>[] = [
                           "text-white font-bold text-[18px] leading-[20px] text-center"
                         )}
                       >
-                        Un-Stake VDA
+                        Un-Stake OCT
                       </DialogTitle>
                     )}
                     {tab !== "loading" && (

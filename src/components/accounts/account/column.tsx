@@ -13,6 +13,7 @@ import { Account } from "@/types/account";
 export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: "user",
+    id: 'user',
     enableSorting: true,
     enablePinning: true,
     header: ({ column }) => (

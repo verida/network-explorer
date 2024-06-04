@@ -26,13 +26,12 @@ import { Button } from "@/components/ui/button";
 import { MdTune } from "react-icons/md";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
   SelectContent,
   SelectItem,
-  SelectSeparator,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -40,10 +39,14 @@ import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { useRecoilValue } from "recoil";
 import { setupWizardAtom, userAtom } from "@/lib/atom";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import {
   Dialog,
@@ -63,6 +66,7 @@ import ConnectedContent from "@/components/common/connected-content";
 import { useSetRecoilState } from "recoil";
 import { showSearchBarAtom } from "@/lib/atom";
 import { useMediaQuery } from "react-responsive";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
 export type Tab =
   | "form"
@@ -97,6 +101,7 @@ export function DataTable<TData, TValue>({
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    enableColumnPinning: true,
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
@@ -126,9 +131,13 @@ export function DataTable<TData, TValue>({
       setShowSearch(false);
     }
   }, [isSmScreen]);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
   return (
     <>
       <div className="flex justify-between items-center sm:gap-0 gap-6">
+    
         <div className="font-semibold text-[18px] leading-[20px]">
           {data.length} nodes
         </div>
@@ -140,6 +149,8 @@ export function DataTable<TData, TValue>({
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
+              if (isSmScreen) setShowSearchField(true);
+              else setShowSearch(true);
               if (isSmScreen) setShowSearchField(true);
               else setShowSearch(true);
             }}
@@ -159,63 +170,106 @@ export function DataTable<TData, TValue>({
               </>
             )}
           </Button>
-          <Popover>
-            <PopoverTrigger asChild>
+          <Drawer
+            onClose={() => {
+              setDrawerOpen(false);
+            }}
+            open={drawerOpen}
+            onOpenChange={setDrawerOpen}
+          >
+            <DrawerTrigger asChild>
               <Button
                 size="icon"
-                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50"
+                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 flex sm:hidden"
               >
                 <MdTune color="white" size={20} />
               </Button>
-            </PopoverTrigger>
-            <PopoverContent
-              className="bg-[#333153] border-white/30 border md:rounded-lg rounded-b-none w-[calc(100vw-0.4rem)] sm:w-[356px] p-0"
-              align="end"
-            >
-              <div className="text-white font-semibold text-[14px] leading-[20px] py-3 px-6">
-                Filters
+            </DrawerTrigger>
+            <DrawerContent className="bg-[#333153] border-white/30 border rounded-3">
+              <div className="text-white font-semibold text-[14px] leading-[20px] flex justify-between py-2 pl-3">
+                <div>Filters</div>
+                <X
+                  className="h-5 w-5 cursor-pointer sm:hidden block mr-2"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                  }}
+                />
               </div>
               <Separator className="bg-[#FFFFFF26] h-[1px]" />
-              <div className="pt-1 pb-1">
-                <div className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
+              <div className="pb-2 pl-2">
+                <div className="font-normal text-[14px] leading-[20px] text-white/60 px-2 py-2">
                   Region
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
                   <Checkbox id="all" />
                   <span>All</span>
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
                   <Checkbox id="australia" />
                   <span>Australia</span>
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
                   <Checkbox id="europe" />
                   <span>Europe</span>
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
                   <Checkbox id="usa" />
                   <span>USA</span>
                 </div>
               </div>
-
-              <div className="pb-1">
-                <div className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
-                  Status
-                </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+              <Separator className="bg-[#FFFFFF26] h-[1px]" />
+              <div className="w-full justify-end flex py-2 pr-4">
+                <Button disabled className="rounded-sm px-3 w-auto h-8">
+                  Apply
+                </Button>
+              </div>
+            </DrawerContent>
+          </Drawer>
+          <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
+            <DropdownMenuTrigger asChild>
+              <Button
+                size="icon"
+                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex hidden"
+              >
+                <MdTune color="white" size={20} />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              className="bg-[#333153] border-white/30 border rounded-3 w-[356px]"
+              align="end"
+            >
+              <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px] flex justify-between">
+                <div>Filters</div>
+                <X
+                  className="h-5 w-5 cursor-pointer sm:hidden block"
+                  onClick={() => {
+                    setDropdownOpen(false);
+                  }}
+                />
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
+              <DropdownMenuGroup className="pt-4 pb-6">
+                <DropdownMenuLabel className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
+                  Region
+                </DropdownMenuLabel>
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="all" />
                   <span>All</span>
-                </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="australia" />
-                  <span>Active</span>
-                </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                  <span>Australia</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
                   <Checkbox id="europe" />
-                  <span>Inactive</span>
-                </div>
-              </div>
-              <SelectSeparator className="bg-[#FFFFFF26] h-[1px]" />
+                  <span>Europe</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                  <Checkbox id="usa" />
+                  <span>USA</span>
+                </DropdownMenuItem>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
               <div className="w-full justify-end flex py-2 pr-4">
                 <Button
                   disabled
@@ -224,80 +278,78 @@ export function DataTable<TData, TValue>({
                   Apply
                 </Button>
               </div>
-            </PopoverContent>
-          </Popover>
+            </DropdownMenuContent>
+          </DropdownMenu>
           {setupWizard && (
             <Button className="bg-white/15 py-2.5 px-6 h-10 w-[188px] text-white rounded-sm font-semibold text-[14px] leading-[20px]">
               Node Setup Wizard
             </Button>
           )}
           {user.registered && showReigsterNodeButton && (
-         
-              <Dialog open={nodeDialogOpen} onOpenChange={setNodeDialogOpen}>
-                <DialogTrigger asChild>
-                  <Button className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm sm:w-[189px] w-[calc(100%-6rem)] h-10">
-                    Register New Node
-                  </Button>
-                </DialogTrigger>
-                <DialogContent
-                  className={
-                    tab === "form"
-                      ? "max-w-[664px]"
-                      : tab === "stake" ||
-                        tab === "loading" ||
-                        tab === "error" ||
-                        tab === "success"
-                      ? "max-w-[440px]"
-                      : tab === "connected"
-                      ? "max-w-[560px]"
-                      : ""
-                  }
-                >
-                  <DialogTitle className="text-white font-bold text-[18px] leading-[20px] w-full flex items-center justify-between">
-                    <>
-                      {tab === "form" && <div></div>}
-                      {(tab === "stake" || tab === "connected") && (
-                        <LuArrowLeft
-                          onClick={() => {
-                            setNodeDialogOpen(false);
-                          }}
-                          className="ml-4"
-                        />
-                      )}
-                      {tab === "form"
-                        ? "Register a Node"
-                        : tab === "stake" || tab === "connected"
-                        ? "Stake VDA"
-                        : ""}
-                      {tab !== "loading" && (
-                        <Close className="transition-opacity hover:opacity-100 rounded-[100px] sm:m-0 ml-auto">
-                          <X className="h-4 w-4 text-white m-auto" />
-                        </Close>
-                      )}
-                    </>
-                  </DialogTitle>
+            <Dialog open={nodeDialogOpen} onOpenChange={setNodeDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm sm:w-[189px] w-[calc(100%-6rem)] h-10">
+                  Register New Node
+                </Button>
+              </DialogTrigger>
+              <DialogContent
+                className={
+                  tab === "form"
+                    ? "max-w-[664px]"
+                    : tab === "stake" ||
+                      tab === "loading" ||
+                      tab === "error" ||
+                      tab === "success"
+                    ? "max-w-[440px]"
+                    : tab === "connected"
+                    ? "max-w-[560px]"
+                    : ""
+                }
+              >
+                <DialogTitle className="text-white font-bold text-[18px] leading-[20px] w-full flex items-center justify-between">
+                  <>
+                    {tab === "form" && <div></div>}
+                    {(tab === "stake" || tab === "connected") && (
+                      <LuArrowLeft
+                        onClick={() => {
+                          setNodeDialogOpen(false);
+                        }}
+                        className="ml-4"
+                      />
+                    )}
+                    {tab === "form"
+                      ? "Register a Node"
+                      : tab === "stake" || tab === "connected"
+                      ? "Stake OCT"
+                      : ""}
+                    {tab !== "loading" && (
+                      <Close className="transition-opacity hover:opacity-100 rounded-[100px] sm:m-0 ml-auto">
+                        <X className="h-4 w-4 text-white m-auto" />
+                      </Close>
+                    )}
+                  </>
+                </DialogTitle>
 
-                  {tab === "form" ? (
-                    <CreateNodeForm setTab={setTab} />
-                  ) : tab === "stake" ? (
-                    <HubStake setTab={setTab} />
-                  ) : tab === "loading" ? (
-                    <HubLoading />
-                  ) : tab === "success" ? (
-                    <HubSuccess
-                      setTab={setTab}
-                      setNodeDialogOpen={setNodeDialogOpen}
-                    />
-                  ) : tab === "error" ? (
-                    <HubError setTab={setTab} />
-                  ) : tab === "connected" ? (
-                    <ConnectedContent />
-                  ) : (
-                    <></>
-                  )}
-                </DialogContent>
-              </Dialog>
-       
+                {tab === "form" ? (
+                  <CreateNodeForm setTab={setTab} />
+                ) : tab === "stake" ? (
+                  <HubStake setTab={setTab} />
+                ) : tab === "loading" ? (
+                  <HubLoading />
+                ) : tab === "success" ? (
+                  <HubSuccess
+                    setTab={setTab}
+                    setNodeDialogOpen={setNodeDialogOpen}
+                  />
+                ) : tab === "error" ? (
+                  <HubError setTab={setTab} />
+                ) : tab === "connected" ? (
+                  <ConnectedContent />
+                ) : (
+                  <></>
+                )}
+              </DialogContent>
+            </Dialog>
           )}
         </div>
       </div>
