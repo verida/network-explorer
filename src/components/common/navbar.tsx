@@ -127,7 +127,7 @@ const Navbar = () => {
         </DropdownMenu>
         <Link href="/">
           <img
-            src="/logo.png"
+            src="/logo.svg"
             className="lg:w-[100px] w-[70px] cursor-pointer"
             alt="logo"
           />
