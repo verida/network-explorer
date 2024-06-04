@@ -35,7 +35,7 @@ import {
 import { MdTune } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
   Select,
@@ -49,6 +49,8 @@ import { X } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
 import { useSetRecoilState } from "recoil";
 import { showSearchBarAtom } from "@/lib/atom";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import { Separator } from "@/components/ui/separator";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -98,6 +100,7 @@ export function DataTable<TData, TValue>({
       setShowSearch(false);
     }
   }, [isSmScreen]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <>
       <div className="flex justify-between items-center">
@@ -112,6 +115,8 @@ export function DataTable<TData, TValue>({
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
+              // if (isSmScreen) setShowSearchField(true);
+              // else setShowSearch(true);
               // if (isSmScreen) setShowSearchField(true);
               // else setShowSearch(true);
             }}
@@ -131,17 +136,73 @@ export function DataTable<TData, TValue>({
               </>
             )}
           </Button>
-          <DropdownMenu onOpenChange={setDropdownOpen} open={dropdownOpen}>
+
+          <Drawer
+            onClose={() => {
+              setDrawerOpen(false);
+            }}
+            open={drawerOpen}
+            onOpenChange={setDrawerOpen}
+          >
+            <DrawerTrigger asChild>
+              <Button
+                size="icon"
+                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 flex sm:hidden"
+              >
+                <MdTune color="white" size={20} />
+              </Button>
+            </DrawerTrigger>
+            <DrawerContent className="bg-[#333153] border-white/30 border rounded-3">
+              <div className="text-white font-semibold text-[14px] leading-[20px] flex justify-between py-2 pl-3">
+                <div>Filters</div>
+                <X
+                  className="h-5 w-5 cursor-pointer sm:hidden block mr-2"
+                  onClick={() => {
+                    setDrawerOpen(false);
+                  }}
+                />
+              </div>
+              <Separator className="bg-[#FFFFFF26] h-[1px]" />
+              <div className="pb-2 pl-2">
+                <div className="font-normal text-[14px] leading-[20px] text-white/60 px-2 py-2">
+                  Region
+                </div>
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                  <Checkbox id="all" />
+                  <span>All</span>
+                </div>
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                  <Checkbox id="australia" />
+                  <span>Australia</span>
+                </div>
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                  <Checkbox id="europe" />
+                  <span>Europe</span>
+                </div>
+                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                  <Checkbox id="usa" />
+                  <span>USA</span>
+                </div>
+              </div>
+              <Separator className="bg-[#FFFFFF26] h-[1px]" />
+              <div className="w-full justify-end flex py-2 pr-4">
+                <Button disabled className="rounded-sm px-3 w-auto h-8">
+                  Apply
+                </Button>
+              </div>
+            </DrawerContent>
+          </Drawer>
+          <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
             <DropdownMenuTrigger asChild>
               <Button
                 size="icon"
-                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50"
+                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex hidden"
               >
                 <MdTune color="white" size={20} />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="bg-[#333153] border-white/30 border rounded-3 sm:w-[356px] w-screen"
+              className="bg-[#333153] border-white/30 border rounded-3 w-[356px]"
               align="end"
             >
               <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px] flex justify-between">
