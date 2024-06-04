@@ -39,7 +39,7 @@ const TotalAccounts = () => {
           </TabsTrigger>
         </TabsList>
       </div>
-      <Loader className="sm:h-[350px] h-[150px]"/>
+      {/* <Loader className="sm:h-[350px] h-[150px]"/> */}
       <BarChart />
     </Tabs>
   );
