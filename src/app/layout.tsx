@@ -20,11 +20,10 @@ export const metadata: Metadata = {
   openGraph: {
     url: "https://verida-explorer.vercel.app",
     title: "Verida",
-    description:
-      "Verida - Enhancing the way you interact with the blockchain.",
+    description: "Verida - Enhancing the way you interact with the blockchain.",
     images: [
       {
-        url: "https://verida-explorer.vercel.app/logo.svg",
+        url: "https://verida-explorer.vercel.app/logo.png",
         width: 1200,
         height: 630,
         alt: "Verida",
