@@ -6,8 +6,13 @@ import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { resultJson } from "@/lib/sample";
 import { useMediaQuery } from "react-responsive";
+import { WebUserProfile } from "@verida/web-helpers";
 
-const ResultBox = ({ did }: { did: string }) => {
+interface Profile extends WebUserProfile {
+  did: string;
+}
+
+const ResultBox = ({ profile }: { profile: Profile }) => {
   const { toast } = useToast();
   const [showResultJson, setShowResultJson] = useState(false);
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
@@ -21,12 +26,15 @@ const ResultBox = ({ did }: { did: string }) => {
         <div className="flex justify-between sm:flex-row flex-col sm:gap-3">
           <div className="flex gap-4 sm:flex-row flex-col">
             <img
-              src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              src={
+                profile.avatarUri ??
+                "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
+              }
               className="rounded-sm w-[88px] h-[88px] object-cover sm:mx-0 mx-auto"
             />
             <div className="flex flex-col sm:gap-3 sm:w-auto w-full gap-4 lg:w-[619px]">
               <div className="sm:font-normal font-bold md:text-base text-[20px] sm:mx-0 mx-auto leading-[24px]">
-                Chris Were
+                {profile.name}
               </div>
               <div
                 className="flex sm:hidden flex-col gap-3 items-center h-fit"
@@ -49,13 +57,13 @@ const ResultBox = ({ did }: { did: string }) => {
                 </div>
                 <div className="text-[#8566F2] leading-[20px] font-normal text-[14px] gap-2 flex">
                   <span className="truncate lg:max-w-max md:max-w-[340px] max-w-[calc(100%-1.5  rem)]">
-                    {did}
+                    {profile.did}
                   </span>
                   <CopyIcon
                     color="#8566F2"
                     className="cursor-pointer"
                     onClick={() => {
-                      navigator.clipboard.writeText(did);
+                      navigator.clipboard.writeText(profile.did);
                       toast({
                         description: "Copied to clipboard",
                       });
@@ -68,7 +76,7 @@ const ResultBox = ({ did }: { did: string }) => {
                   Country
                 </div>
                 <div className="text-[14px] font-normal leading-[20px]">
-                  Australia
+                  {profile.country}
                 </div>
               </div>
               <div className="sm:pt-6 pt-2 flex flex-col gap-3">
@@ -76,12 +84,7 @@ const ResultBox = ({ did }: { did: string }) => {
                   Description
                 </div>
                 <div className="text-[14px] leading-[22.4px] font-normal break-words">
-                  Aliquam pulvinar vestibulum blandit. Donec sed nisl libero.
-                  Fusce dignissim luctus sem eu dapibus. Pellentesque vulputate
-                  quam a quam volutpat, sed ullamcorper erat commodo. Vestibulum
-                  sit amet ipsum vitae mauris mattis vulputate lacinia nec
-                  neque. Aenean quis consectetur nisi, ac interdum elit. Aliquam
-                  sit amet luctus elit, id tempus purus.
+                  {profile.description}
                 </div>
               </div>
               <Button

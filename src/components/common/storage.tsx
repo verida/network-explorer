@@ -11,12 +11,6 @@ const StorageChart = () => {
       options={{
         chart: {
           id: "storage",
-          zoom: {
-            enabled: false,
-          },
-          toolbar: {
-            show: false,
-          },
         },
         dataLabels: {
           enabled: false,
@@ -45,7 +39,7 @@ const StorageChart = () => {
             max: 100,
             labels: {
               formatter: (value) => {
-                return value.toFixed(0)
+                return value.toFixed(0);
               },
               style: {
                 colors: "#FFFFFF99",

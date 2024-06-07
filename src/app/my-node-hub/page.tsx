@@ -1,5 +1,5 @@
 import { columns } from "@/components/nodes/nodelist/column";
-import { DataTable } from "@/components/nodes/nodelist/data-table";
+// import { DataTable } from "@/components/nodes/nodelist/data-table";
 import { nodes } from "@/lib/sample";
 import React from "react";
 import { IoAlertCircleOutline } from "react-icons/io5";
@@ -49,7 +49,7 @@ const MyNodeHub = () => {
           </div>
         ))}
       </div>
-      <DataTable data={nodes} columns={columns} showReigsterNodeButton />
+      {/* <DataTable data={nodes} columns={columns} showReigsterNodeButton /> */}
     </div>
   );
 };

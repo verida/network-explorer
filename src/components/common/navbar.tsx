@@ -6,21 +6,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import ConnectWalletButton from "./connect-wallet";
 import ConnectedWallet from "./connected-wallet";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userAtom, showSearchBarAtom } from "@/lib/atom";
+import { useRecoilValue } from "recoil";
+import { userAtom } from "@/lib/atom";
 import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { X } from "lucide-react";
 import VeridaIcon from "@/assets/svg/verida.svg";
-import { Input } from "../ui/input";
-import { LuSearch } from "react-icons/lu";
-import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
 
 const Navbar = () => {
   const navs = [
@@ -33,52 +30,13 @@ const Navbar = () => {
   const pathname = usePathname();
 
   const user = useRecoilValue(userAtom);
-  const [showSearchField, setShowSearchField] =
-    useRecoilState(showSearchBarAtom);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [search, setSearch] = useState("");
-  return showSearchField ? (
-    <div
-      className="w-screen h-screen fixed top-0 bg-[#060520] z-50"
-      onClick={() => {
-        setTimeout(() => {
-          setShowSearchField(false);
-        }, 100);
-      }}
-    >
-      <div className="border-b border-white/10 p-4 flex justify-between items-center gap-3">
-        <div className="border border-white/60 px-3 flex rounded-sm items-center w-full">
-          <LuSearch size={22} />
-          <Separator
-            orientation="vertical"
-            className="ml-2 h-5 bg-[#8566F2] w-0.5 rounded"
-          />
-          <Input
-            className="bg-transparent hover:bg-transparent border-none focus-visible:ring-0 rounded-none text-white"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value);
-            }}
-            autoFocus
-          />
-        </div>
-        <Button
-          variant="ghost"
-          className="font-bold text-[14px] leading-[20px] text-white p-0"
-          onClick={() => {
-            setSearch("");
-          }}
-        >
-          Clear
-        </Button>
-      </div>
-    </div>
-  ) : (
+
+  return (
     <div
       className={cn(
         "md:border-b border-white/15 lg:px-[92px] md:px-8 px-4 flex justify-between w-full",
-        isDropdownOpen || showSearchField ? "bg-[#060520] w-screen" : ""
+        isDropdownOpen ? "bg-[#060520] w-screen" : ""
       )}
     >
       <div className="flex lg:gap-10 gap-4 items-center">

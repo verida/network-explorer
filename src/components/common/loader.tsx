@@ -2,7 +2,13 @@ import { cn } from "@/lib/utils/utils";
 import React from "react";
 import { useEffect, useState } from "react";
 
-const Loader = ({ className = "" }: { className?: string }) => {
+const Loader = ({
+  className = "",
+  isLoading = false,
+}: {
+  className?: string;
+  isLoading?: boolean;
+}) => {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -10,15 +16,8 @@ const Loader = ({ className = "" }: { className?: string }) => {
     }
   }, []);
   return (
-    loading && (
-      <div
-        className={cn(
-          `flex items-center justify-center ${
-            typeof global.window === "undefined" ? "flex" : "hidden"
-          }`,
-          className
-        )}
-      >
+    (loading || isLoading) && (
+      <div className={cn("flex items-center justify-center", className)}>
         Loading...
       </div>
     )

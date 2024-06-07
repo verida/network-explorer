@@ -1,13 +1,15 @@
-import { Client } from "@verida/client-ts"
-import { WebUserProfile } from "@verida/web-helpers"
-import { DatastoreOpenConfig } from "@verida/types"
+import { Client } from "@verida/client-ts";
+import { WebUserProfile } from "@verida/web-helpers";
+import { DatastoreOpenConfig, EnvironmentType } from "@verida/types";
 import {
   DID_METHOD,
   DID_VDA_METHOD,
   USERNAME_VDA_EXTENSION,
-} from "@/lib/constants"
-import { ResolvedIdentity } from "@/lib/types"
-
+} from "@/lib/constants";
+import { ResolvedIdentity } from "@/lib/types/verida";
+import {
+  getDIDs,
+} from "@verida/vda-did-resolver";
 /**
  * Check if the param as a DID syntax, ie: starts with 'did:'.
  *
@@ -15,8 +17,8 @@ import { ResolvedIdentity } from "@/lib/types"
  * @returns true if it has a DID syntax.
  */
 export const hasDidSyntax = (didOrUsername: string) => {
-  return didOrUsername.startsWith(DID_METHOD) ? true : false
-}
+  return didOrUsername.startsWith(DID_METHOD) ? true : false;
+};
 
 /**
  * Check if the param as a Verida DID syntax, ie: starts with 'did:vda:'.
@@ -25,8 +27,8 @@ export const hasDidSyntax = (didOrUsername: string) => {
  * @returns true if it has a Verida DID syntax.
  */
 export const hasVeridaDidSyntax = (didOrUsername: string) => {
-  return didOrUsername.startsWith(DID_VDA_METHOD) ? true : false
-}
+  return didOrUsername.startsWith(DID_VDA_METHOD) ? true : false;
+};
 
 /**
  * Check if the param as a Verida Username syntax, ie: ends with 'd.vda'.
@@ -36,8 +38,8 @@ export const hasVeridaDidSyntax = (didOrUsername: string) => {
  */
 export const hasVeridaUsernameSyntax = (didOrUsername: string) => {
   // TODO: Check other rules if needed
-  return didOrUsername.endsWith(USERNAME_VDA_EXTENSION) ? true : false
-}
+  return didOrUsername.endsWith(USERNAME_VDA_EXTENSION) ? true : false;
+};
 
 /**
  * Resolve an identity by returning the Verida DID of a username, or itself if already a Verida DID.
@@ -64,15 +66,15 @@ export const resolveIdentity = async (
     // Identity is considered a Verida DID.
     // "Considered" as in "valid VDA DID method", whether the DID actually exists is not a concern, it will be handled by catching the errors.
     try {
-      const usernames = await client.getUsernames(identity)
+      const usernames = await client.getUsernames(identity);
       return {
         did: identity,
         username: usernames?.length > 0 ? usernames[0] : undefined,
         // TODO: Support multiple usernames
-      }
+      };
     } catch (error: unknown) {
       // The errors won't say whether the DID exist or not, so gracefully return it with no usernames
-      return { did: identity }
+      return { did: identity };
     }
   }
 
@@ -80,18 +82,18 @@ export const resolveIdentity = async (
   if (hasVeridaUsernameSyntax(identity)) {
     // Identity is considered a Verida Username.
     try {
-      const did = await client.getDID(identity)
+      const did = await client.getDID(identity);
       return {
         did,
         username: identity,
-      }
+      };
     } catch (error: unknown) {
-      throw new Error("Cannot resolve the Verida Username")
+      throw new Error("Cannot resolve the Verida Username");
     }
   }
 
-  throw new Error("Unsupported DID or Username")
-}
+  throw new Error("Unsupported DID or Username");
+};
 
 /**
  * Get the public profile of any Verida DID, if it exists.
@@ -107,9 +109,9 @@ export const getAnyPublicProfile = async (
   const profileInstance = await client.openPublicProfile(
     didOrUsername,
     "Verida: Vault"
-  )
+  );
   if (!profileInstance) {
-    throw new Error("No public profile exists for this did")
+    throw new Error("No public profile exists for this did");
   }
 
   return {
@@ -121,8 +123,8 @@ export const getAnyPublicProfile = async (
     description: (await profileInstance.get("description")) as
       | string
       | undefined,
-  }
-}
+  };
+};
 
 /**
  * Open an external context and a data store of this context.
@@ -141,11 +143,26 @@ export const getExternalDatastore = async (
   schemaUri: string,
   datastoreConfig: DatastoreOpenConfig = {}
 ) => {
-  const context = await client.openExternalContext(contextName, didOrUsername)
+  const context = await client.openExternalContext(contextName, didOrUsername);
   return await context.openExternalDatastore(
     schemaUri,
     didOrUsername,
     datastoreConfig
-  )
+  );
   // TODO: catch error and return a dedicated error (context not found, ...)
+};
+
+/**
+ * Get the DIDs of a user.
+ *
+ * @param environment The environment.
+ * @param page The page number.
+ * @param limit The limit of DIDs per page.
+ * @returns The DIDs.
+ */
+export const paginateDids = async (
+  page: number,
+  limit: number
+) => {
+  return await getDIDs(EnvironmentType.MAINNET, page, limit);
 }
