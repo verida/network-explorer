@@ -4,9 +4,11 @@ import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
-import { resultJson } from "@/lib/sample";
 import { useMediaQuery } from "react-responsive";
 import { WebUserProfile } from "@verida/web-helpers";
+import { getDidDocument } from "@/lib/utils/veridaUtils";
+import { useQuery } from "react-query";
+import Loader from "../common/loader";
 
 interface Profile extends WebUserProfile {
   did: string;
@@ -16,6 +18,27 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
   const { toast } = useToast();
   const [showResultJson, setShowResultJson] = useState(false);
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+
+  const {
+    data: resultJson,
+    isLoading,
+    isError,
+  } = useQuery(
+    ["didDocument", profile],
+    async () => {
+      return await getDidDocument(profile.did);
+    },
+    {
+      onError: (error) => {
+        toast({
+          variant: "destructive",
+          description: "Failed to fetch DID Document",
+        });
+      },
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    }
+  );
 
   return (
     <div className="flex flex-col gap-3">
@@ -90,7 +113,7 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
               <Button
                 className="mt-6 bg-transparent border-white/40 py-[15px] px-6 rounded-sm h-[48px] w-[197px]"
                 variant="outline"
-                onClick={() => {
+                onClick={async () => {
                   setShowResultJson(!showResultJson);
                 }}
               >
@@ -106,14 +129,19 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
             {!showResultJson && <div>Scan to add contact</div>}
           </div>
         </div>
-        {showResultJson && (
-          <>
-            <Separator color="#FFFFFF26" className="sm:block hidden" />
-            <div className="leading-[22.4px] text-[14px] font-normal break-words">
-              {resultJson}
-            </div>
-          </>
-        )}
+        {showResultJson &&
+          (isLoading ? (
+            <Loader isLoading={isLoading} />
+          ) : (
+            <>
+              <Separator color="#FFFFFF26" className="sm:block hidden" />
+              <div className="leading-[22.4px] text-[14px] font-normal break-words">
+                {!resultJson || isError
+                  ? "Unable to get did document"
+                  : JSON.stringify(resultJson, null, 2)}
+              </div>
+            </>
+          ))}
       </div>
     </div>
   );
