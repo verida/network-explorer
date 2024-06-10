@@ -1,15 +1,19 @@
 import { Client } from "@verida/client-ts";
 import { WebUserProfile } from "@verida/web-helpers";
-import { DatastoreOpenConfig, EnvironmentType } from "@verida/types";
+import { DatastoreOpenConfig } from "@verida/types";
 import {
   DID_METHOD,
   DID_VDA_METHOD,
   USERNAME_VDA_EXTENSION,
 } from "@/lib/constants";
 import { ResolvedIdentity } from "@/lib/types/verida";
-import {
-  getDIDs,
-} from "@verida/vda-did-resolver";
+import { getDIDs } from "@verida/vda-did-resolver";
+import { config } from "../config";
+import { Resolver } from "did-resolver";
+import { getResolver } from "@verida/vda-did-resolver";
+
+const vdaDidResolver = getResolver();
+const didResolver = new Resolver(vdaDidResolver);
 /**
  * Check if the param as a DID syntax, ie: starts with 'did:'.
  *
@@ -160,9 +164,21 @@ export const getExternalDatastore = async (
  * @param limit The limit of DIDs per page.
  * @returns The DIDs.
  */
-export const paginateDids = async (
-  page: number,
-  limit: number
-) => {
-  return await getDIDs(EnvironmentType.MAINNET, page, limit);
-}
+export const paginateDids = async (page: number, limit: number) => {
+  return await getDIDs(config.veridaEnv, page, limit);
+};
+
+
+/**
+ * Get the DID document of a DID.
+ * 
+ * @param did The DID.
+ * @returns The DID document.
+ * @throws Error if the DID document cannot be found.
+ * 
+ */
+export const getDidDocument = async (did: string) => {
+  const response = await didResolver.resolve(did);
+  const didDocument = response.didDocument;
+  return didDocument;
+};

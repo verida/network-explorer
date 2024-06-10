@@ -70,17 +70,18 @@ const NetworkExplorer = () => {
                   className="bg-transparent focus:border-none focus:outline-none w-[80%]"
                 />
               </div>
-              <PopoverTrigger
-                
-                className="md:rounded-lg bg-white text-black rounded-sm h-[48px] md:w-[94px] w-full font-semibold text-[14px] leading-[17.64px] md:py-3 py-2.5 md:pl-6 md:pr-5"
-              >
+              <PopoverTrigger className="md:rounded-lg bg-white text-black rounded-sm h-[48px] md:w-[94px] w-full font-semibold text-[14px] leading-[17.64px] md:py-3 py-2.5 md:pl-6 md:pr-5">
                 Search
               </PopoverTrigger>
             </div>
 
-            <PopoverContent align='end' alignOffset={-10} className="flex gap-4 w-[calc(100vw-40px)] md:w-[704px] mt-7 bg-[#333153] border border-white/60 py-6 px-4 rounded-lg">
+            <PopoverContent
+              align="end"
+              alignOffset={-10}
+              className="w-[calc(100vw-40px)] md:w-[704px] mt-7 bg-[#333153] border border-white/60 py-5 px-4 rounded-lg"
+            >
               {profile ? (
-                <Link href={`/search/${searchDidinput}`}>
+                <Link href={`/search/${searchDidinput}`} className="flex gap-4 items-center ">
                   <img
                     src={
                       profile.avatarUri ??
@@ -92,7 +93,7 @@ const NetworkExplorer = () => {
                     <div className="font-bold text-[14px] leading-[17.64px]">
                       {profile.name}
                     </div>
-                    <div className="font-normal text-[14px] leadig-[17.64px] break-words  w-[calc(100vw-70px)]">
+                    <div className="font-normal text-[14px] leadig-[17.64px] break-words  w-[calc(100vw-125px)]">
                       {searchDidinput}
                     </div>
                   </div>

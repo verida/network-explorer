@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     description: "Verida - Enhancing the way you interact with the blockchain.",
     images: [
       {
-        url: "https://verida-explorer.vercel.app/logo.png",
+        url: "https://verida-explorer.vercel.app/logo.svg",
         width: 1200,
         height: 630,
         alt: "Verida",

@@ -8,10 +8,15 @@ const nextConfig = {
     config.node = {
       __dirname: true,
     };
-    
+
     config.module.rules.push({
       test: /\.svg$/,
       use: ["@svgr/webpack"],
+    });
+
+    config.module.rules.push({
+      test:  /\.(ttf|eot|woff(2)? )(\?[a-z0-9=&.]+)?$/,
+      use: ['base64-inline-loader']
     });
 
     return config;

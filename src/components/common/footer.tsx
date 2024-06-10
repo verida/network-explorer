@@ -49,7 +49,12 @@ const Footer = () => {
           </div>
           <div className="flex gap-3">
             {navs.map((nav, index) => (
-              <a href={nav.link} key={index}>
+              <a
+                href={nav.link}
+                key={index}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {nav.icon}
               </a>
             ))}
