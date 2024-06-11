@@ -11,6 +11,9 @@ import { Client } from "@verida/client-ts";
 // Application variables
 const appTitle = APP_TITLE;
 
+// data source for summary of nodes
+const nodeSummaryUrl = process.env.REACT_APP_NODE_SUMMARY_URL;
+
 // Verida variables
 const veridaOneContextName = VERIDA_CONTEXT_NAME;
 
@@ -64,4 +67,5 @@ export const config = {
   features,
   isMockDataEnabled,
   client,
+  nodeSummaryUrl,
 };

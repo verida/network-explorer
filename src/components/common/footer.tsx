@@ -39,7 +39,7 @@ const Footer = () => {
     },
   ];
   return (
-    <div className="lg:px-[112px] px-4 sm:py-10 pb-5">
+    <div className="lg:px-[112px] px-4 sm:py-10 pb-5 max-w-[1350px] mx-auto">
       <Separator className="sm:hidden bg-white/20 mt-5 mb-6" />
       <div className="flex sm:flex-row flex-col-reverse sm:items-start items-center sm:gap-0 gap-4 justify-between">
         <div>&copy; {currentDate.getFullYear()} Verida Storage Node</div>
