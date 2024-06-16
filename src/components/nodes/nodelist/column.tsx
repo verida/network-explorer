@@ -36,7 +36,7 @@ import { Node } from "@/types/node";
 
 export const columns: ColumnDef<Node>[] = [
   {
-    accessorKey: "id",
+    accessorKey: "name",
     enableSorting: true,
     header: ({ column }) => (
       <Button
@@ -59,23 +59,34 @@ export const columns: ColumnDef<Node>[] = [
         <div className="bg-white/20 w-10 h-10 rounded-sm items-center flex justify-center">
           <StorageIcon />
         </div>
-        <span className="text-[#8566F2] font-normal text-[14px] leading-[20px]">
-          {row.getValue("id")}
-        </span>
+        <Link
+          href={`/nodes/details/${row.original.id}`}
+          className="text-[#8566F2] font-normal text-[14px] leading-[20px]"
+        >
+          {row.getValue("name")}
+        </Link>
       </div>
     ),
   },
+  // {
+  //   accessorKey: "operator",
+  //   header: "Operator",
+
+  //   cell: ({ row }) => (
+  //     <Link
+  //       href={`/nodes/operator/${row.getValue("operator")}`}
+  //       className="text-[#8566F2] font-normal text-[14px] leading-[20px]"
+  //     >
+  //       {row.getValue("operator")}
+  //     </Link>
+  //   ),
+  // },
   {
-    accessorKey: "operator",
-    header: "Operator",
+    accessorKey: "region",
+    header: "Region",
 
     cell: ({ row }) => (
-      <Link
-        href={`/nodes/operator/${row.getValue("operator")}`}
-        className="text-[#8566F2] font-normal text-[14px] leading-[20px]"
-      >
-        {row.getValue("operator")}
-      </Link>
+      row.getValue("region")
     ),
   },
   {
@@ -84,50 +95,58 @@ export const columns: ColumnDef<Node>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-1">
         <span className="text-[14px] font-normal leading-[20px]">
-          {row.original.slots.count}&nbsp;
+          {row.original.storageSlotsUsed}&nbsp;
         </span>
         <span className="text-white/60 text-[14px] font-normal leading-[20px]">
-          / {row.original.slots.total}
+          / {row.original.maxStorageSlots}
         </span>
       </div>
     ),
   },
-  {
-    accessorKey: "failure_reports",
-    header: "Failure Reports",
-  },
-  {
-    accessorKey: "days_on_network",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2 p-0"
-        onClick={() => {
-          column.toggleSorting(column.getIsSorted() === "asc");
-        }}
-      >
-        <span>Days on network</span>
-        {column.getIsSorted() === "asc" ? (
-          <FaCaretUp size={15} />
-        ) : (
-          <FaCaretDown size={15} />
-        )}
-      </Button>
-    ),
-  },
+  // {
+  //   accessorKey: "failure_reports",
+  //   header: "Failure Reports",
+  // },
+  // {
+  //   accessorKey: "days_on_network",
+  //   header: ({ column }) => (
+  //     <Button
+  //       variant="ghost"
+  //       className="hover:bg-transparent flex items-center gap-2 p-0"
+  //       onClick={() => {
+  //         column.toggleSorting(column.getIsSorted() === "asc");
+  //       }}
+  //     >
+  //       <span>Days on network</span>
+  //       {column.getIsSorted() === "asc" ? (
+  //         <FaCaretUp size={15} />
+  //       ) : (
+  //         <FaCaretDown size={15} />
+  //       )}
+  //     </Button>
+  //   ),
+  // },
   {
     accessorKey: "status",
     header: "Status",
     cell: ({ row }) => (
+      // <div
+      //   className={`${
+      //     row.getValue("status") === "Active"
+      //       ? "bg-[#16A34A33] border-[#16A34A33]"
+      //       : "bg-white/20 border-white/20"
+      //   } w-fit border  py-1.5 px-3 rounded-[53px]`}
+      // >
+      //   {row.getValue("status")}
+      // </div>
+
       <div
-        className={`${
-          row.getValue("status") === "Active"
-            ? "bg-[#16A34A33] border-[#16A34A33]"
-            : "bg-white/20 border-white/20"
-        } w-fit border  py-1.5 px-3 rounded-[53px]`}
+        className="bg-[#16A34A33] border-[#16A34A33] w-fit border  py-1.5 px-3 rounded-[53px]"
       >
-        {row.getValue("status")}
+        Active 
       </div>
+
+      
     ),
   },
   {

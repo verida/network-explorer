@@ -22,10 +22,7 @@ import VeridaIcon from "@/assets/svg/verida.svg";
 const Navbar = () => {
   const navs = [
     { name: "Accounts", paths: ["/", "/search"] },
-    {
-      name: "Nodes",
-      paths: ["/nodes", "/nodes/details"],
-    },
+    { name: "Nodes", paths: ["/nodes", "/nodes/details"] },
   ];
   const pathname = usePathname();
 
@@ -73,6 +70,7 @@ const Navbar = () => {
                     "hover:bg-white/10 rounded text-white cursor-pointer p-3",
                     nav.paths.includes(pathname) ? "bg-white/10" : ""
                   )}
+                  onClick={() => {setIsDropdownOpen(false)}}
                 >
                   {nav.name}
                 </Link>
@@ -92,33 +90,30 @@ const Navbar = () => {
             />
           </Link>
           <div className="hidden md:flex lg:gap-10 gap-4 items-center">
-            {[
-              ...navs,
-              ...(user.registered
-                ? [
-                    {
-                      name: "My Node Hub",
-                      paths: ["/my-node-hub"],
-                    },
-                  ]
-                : []),
-            ].map((nav) => (
+            {navs.map((nav) => (
               <Link
                 href={nav.paths[0]}
                 key={nav.name}
                 className={cn(
                   "font-semibold text-[14px] leading-[17.64px] cursor-pointer block",
-                  user.registered
-                    ? nav.name === "My Node Hub"
-                      ? "lg:pl-8 pl-3 border-l-2 py-2 border-white/15"
-                      : ""
-                    : "hidden",
-                  !nav.paths.includes(pathname) ? "text-white/30" : "text-white"
+                  nav.paths.includes(pathname) ? "text-white" : "text-white/30"
                 )}
               >
                 {nav.name}
               </Link>
             ))}
+            {user.registered && (
+              <Link
+                href="/my-node-hub"
+                className={cn(
+                  "font-semibold text-[14px] leading-[17.64px] cursor-pointer block",
+                  pathname === "/my-node-hub" ? "text-white" : "text-white/30",
+                  "lg:pl-8 pl-3 border-l-2 py-2 border-white/15"
+                )}
+              >
+                My Node Hub
+              </Link>
+            )}
           </div>
         </div>
         <div className="flex items-center lg:gap-6 gap-3 md:py-5 py-4">

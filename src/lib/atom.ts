@@ -3,7 +3,7 @@ import { atom } from "recoil";
 export const userAtom = atom({
   key: "user",
   default: {
-    registered: true,
+    registered: false,
     connected: true,
     authorized: true,
   },
