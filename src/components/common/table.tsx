@@ -58,6 +58,7 @@ interface DataTableProps<TData, TValue> {
   limit: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
+  totalCount: number;
 }
 
 export type Tab =
@@ -78,6 +79,7 @@ const DataTable = <TData, TValue>({
   setLimit,
   limit,
   setPage,
+  totalCount
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -104,10 +106,12 @@ const DataTable = <TData, TValue>({
       columnVisibility,
       rowSelection,
     },
+    pageCount: Math.ceil(totalCount / limit),
+    manualPagination: true,
   });
 
   const [showSearchField, setShowSearchField] = useState(false);
-  const pageAccounts = [10, 20, 30];
+  const pageLimits = [10, 20, 30];
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
 
@@ -115,7 +119,7 @@ const DataTable = <TData, TValue>({
     <>
       <div className="flex justify-between items-center">
         <div className="font-semibold text-[18px] leading-[20px] capitalize">
-          {data.length} {title}
+          {totalCount} {title}
         </div>
         <div className="flex items-center gap-3">
           <Button
@@ -125,7 +129,7 @@ const DataTable = <TData, TValue>({
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
-              if (!isSmScreen) setShowSearchField(true);
+              setShowSearchField(true);
             }}
           >
             <FiSearch color="white" size={20} />
@@ -134,10 +138,10 @@ const DataTable = <TData, TValue>({
                 <Input
                   className="bg-transparent hover:bg-transparent border-none focus-visible:ring-0 rounded-none text-white pl-0 -mr-6 w-[90%]"
                   value={
-                    (table.getColumn("id")?.getFilterValue() as string) ?? ""
+                    (table.getColumn("name")?.getFilterValue() as string) ?? ""
                   }
                   onChange={(event) =>
-                    table.getColumn("id")?.setFilterValue(event.target.value)
+                    table.getColumn("name")?.setFilterValue(event.target.value)
                   }
                 />
               </>
@@ -231,28 +235,31 @@ const DataTable = <TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell, index) => (
-                    <TableCell
-                      key={cell.id}
-                      className={cn(
-                        "md:border-none border-r border-white/10",
-                        index === row.getVisibleCells().length - 1 &&
-                          "border-none"
-                      )}
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+              table
+                .getRowModel()
+                .rows
+                .map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell, index) => (
+                      <TableCell
+                        key={cell.id}
+                        className={cn(
+                          "md:border-none border-r border-white/10",
+                          index === row.getVisibleCells().length - 1 &&
+                            "border-none"
+                        )}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
             ) : (
               <TableRow>
                 <TableCell
@@ -273,10 +280,10 @@ const DataTable = <TData, TValue>({
             onValueChange={(value) => setLimit(parseInt(value as string))}
           >
             <SelectTrigger className="w-20 h-10 py-2 pl-2.5 pr-1 gap-1 rounded bg-white/15">
-              <SelectValue placeholder={10} />
+              <SelectValue placeholder={limit} />
             </SelectTrigger>
             <SelectContent>
-              {pageAccounts.map((pageAccount) => (
+              {pageLimits.map((pageAccount) => (
                 <SelectItem value={pageAccount.toString()} key={pageAccount}>
                   {pageAccount}
                 </SelectItem>
@@ -300,13 +307,17 @@ const DataTable = <TData, TValue>({
             />
             <div className="flex text-[14px] font-normal leading-[20px] bg-white/15 rounded py-2.5 px-3">
               <div className="text-white">{page}</div>
-              <div className="text-white/60">/4</div>
+              <div className="text-white/60">
+                /{Math.ceil(totalCount/limit)}
+              </div>
             </div>
             <FaChevronRight
               color="white"
               className="cursor-pointer"
               onClick={() => {
-                setPage(page + 1);
+                if (page < Math.ceil(totalCount/limit)) {
+                  setPage(page + 1);
+                }
               }}
             />
           </div>

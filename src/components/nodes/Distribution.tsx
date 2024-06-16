@@ -8,7 +8,7 @@ import {
   Marker,
   ZoomableGroup,
 } from "react-simple-maps";
-import NodeDisplay from "./nodelist/node-display";
+
 import Link from "next/link";
 import { useQuery } from "react-query";
 import { countryCodes } from "@/lib/sample";
@@ -54,7 +54,7 @@ const Distribution = () => {
       <div className="font-semibold text-[24px] leading-[36px]">
         Node Distribution
       </div>
-      <ComposableMap height={500} projectionConfig={{ rotate: [-20, 0, 0] }}>
+      <ComposableMap height={300} projectionConfig={{ rotate: [-20, 0, 0] }}>
         <ZoomableGroup center={[0, 0]} zoom={1}>
           <Geographies geography={"/world.json"}>
             {({ geographies }) =>
@@ -86,7 +86,7 @@ const Distribution = () => {
           })}
         </ZoomableGroup>
       </ComposableMap>
-      <NodeDisplay number={10} />
+      
     </div>
   );
 };

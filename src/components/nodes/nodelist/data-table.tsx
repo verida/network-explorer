@@ -64,7 +64,6 @@ import HubError from "../nodehub/hub/hub-error";
 import HubSuccess from "../nodehub/hub/hub-success";
 import ConnectedContent from "@/components/common/connected-content";
 import { useSetRecoilState } from "recoil";
-import { showSearchBarAtom } from "@/lib/atom";
 import { useMediaQuery } from "react-responsive";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 
@@ -115,20 +114,20 @@ export function DataTable<TData, TValue>({
     },
   });
 
-  const [showSearchField, setShowSearchField] = useState(false);
-  const pageAccounts = [10, 20, 30];
+  const [showSearchField, setShowSearchField] = useState(true);
+  const pageLimits = [10, 20, 30];
 
   const user = useRecoilValue(userAtom);
   const [nodeDialogOpen, setNodeDialogOpen] = useState(false);
   const [tab, setTab] = useState<Tab>("form");
   const setupWizard = useRecoilValue(setupWizardAtom);
-  const setShowSearch = useSetRecoilState(showSearchBarAtom);
+  const [showSearch, setShowSearch] = useState<Boolean>(true);
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
   useEffect(() => {
     if (!isSmScreen) {
       setShowSearchField(false);
     } else {
-      setShowSearch(false);
+      setShowSearch(true);
     }
   }, [isSmScreen]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -156,15 +155,15 @@ export function DataTable<TData, TValue>({
             }}
           >
             <SearchIcon />
-            {showSearchField && (
+            {false && (
               <>
                 <Input
                   className="bg-transparent hover:bg-transparent border-none focus-visible:ring-0 rounded-none text-white pl-0 -mr-6 w-[90%]"
                   value={
-                    (table.getColumn("id")?.getFilterValue() as string) ?? ""
+                    (table.getColumn("name")?.getFilterValue() as string) ?? ""
                   }
                   onChange={(event) =>
-                    table.getColumn("id")?.setFilterValue(event.target.value)
+                    table.getColumn("name")?.setFilterValue(event.target.value)
                   }
                 />
               </>
@@ -425,7 +424,7 @@ export function DataTable<TData, TValue>({
               <SelectValue placeholder={10} />
             </SelectTrigger>
             <SelectContent>
-              {pageAccounts.map((pageAccount) => (
+              {pageLimits.map((pageAccount) => (
                 <SelectItem value={pageAccount.toString()} key={pageAccount}>
                   {pageAccount}
                 </SelectItem>

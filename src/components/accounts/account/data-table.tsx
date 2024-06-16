@@ -48,7 +48,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { X } from "lucide-react";
 import { useMediaQuery } from "react-responsive";
 import { useSetRecoilState } from "recoil";
-import { showSearchBarAtom } from "@/lib/atom";
+// import { showSearchBarAtom } from "@/lib/atom";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
 
@@ -89,10 +89,10 @@ export function DataTable<TData, TValue>({
   });
 
   const [showSearchField, setShowSearchField] = useState(false);
-  const pageAccounts = [10, 20, 30];
+  const pageLimits = [10, 20, 30];
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
-  const setShowSearch = useSetRecoilState(showSearchBarAtom);
+  const [showSearch, setShowSearch] = useState(false);
   useEffect(() => {
     if (!isSmScreen) {
       setShowSearchField(false);
@@ -321,7 +321,7 @@ export function DataTable<TData, TValue>({
               <SelectValue placeholder={10} />
             </SelectTrigger>
             <SelectContent>
-              {pageAccounts.map((pageAccount) => (
+              {pageLimits.map((pageAccount) => (
                 <SelectItem value={pageAccount.toString()} key={pageAccount}>
                   {pageAccount}
                 </SelectItem>

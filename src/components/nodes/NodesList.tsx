@@ -1,8 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { columns } from "./nodelist/column";
-import { nodes } from "@/lib/sample";
 import DataTable, { Tab } from "../common/table";
 import {
   Dialog,
@@ -21,7 +20,6 @@ import HubSuccess from "@/components/nodes/nodehub/hub/hub-success";
 import ConnectedContent from "@/components/common/connected-content";
 import { useRecoilValue } from "recoil";
 import { setupWizardAtom, userAtom } from "@/lib/atom";
-import { useState } from "react";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
@@ -32,17 +30,58 @@ const NodesList = () => {
   const setupWizard = useRecoilValue(setupWizardAtom);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [nodes, setNodes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [totalNodes, setTotalNodes] = useState(0); // State for total nodes
+
+  const rowsOptions = [10, 20, 50];
+
+  useEffect(() => {
+    const fetchNodes = async () => {
+      try {
+        const response = await fetch(
+          "https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json"
+        );
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        const data = await response.json();
+        setNodes(data);
+        setTotalNodes(data.length); // Set the total number of nodes
+        setLoading(false);
+      } catch (error) {
+        // setError(error.message);
+        setLoading(false);
+      }
+    };
+
+    fetchNodes();
+  }, []);
+
+  useEffect(() => {
+    setPage(1);
+  }, [limit])
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="flex flex-col gap-4 my-10">
       <DataTable
-        data={nodes}
+        data={nodes.slice((page - 1) * limit, page * limit)}
         columns={columns}
         title="nodes"
         page={page}
         limit={limit}
         setPage={setPage}
         setLimit={setLimit}
+        totalCount={totalNodes} // Pass the total number of nodes
         additionalTitles={
           <>
             {setupWizard && (
@@ -131,11 +170,11 @@ const NodesList = () => {
                 <span>All</span>
               </div>
               <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                <Checkbox id="australia" />
+                <Checkbox id="active" />
                 <span>Active</span>
               </div>
               <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                <Checkbox id="europe" />
+                <Checkbox id="inactive" />
                 <span>Inactive</span>
               </div>
             </div>

@@ -1,12 +1,12 @@
 export type Node = {
   id: string;
-  operator: string;
-  slots: {
-    count: number;
-    total: number;
-  };
-  failure_reports: number;
-  days_on_network: number;
-  status: "Active" | "Deregister";
-  date: string;
+  name: string;
+  // operator: string;
+  region: string;
+  storageSlotsUsed: number;
+  maxStorageSlots: number;
+  // failureReports: number;
+  // daysOnNetwork: number;
+  // status: "Active" | "Deregister";
+  // date: string;
 };
