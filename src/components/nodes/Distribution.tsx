@@ -11,8 +11,7 @@ import {
 
 import Link from "next/link";
 import { useQuery } from "react-query";
-import { countryCodes } from "@/lib/sample";
-// import { config } from "@/lib/config";
+import { COUNTRY_CODES } from "@/lib/constants/misc";
 
 const Distribution = () => {
   const { data, isLoading } = useQuery("distribution", async () => {
@@ -36,7 +35,7 @@ const Distribution = () => {
     }, {});
 
     const summary = Object.values(countryCounts).map((country: any) => {
-      const countryData = countryCodes.find(
+      const countryData = COUNTRY_CODES.find(
         (c) => c.alpha2 === country["countryLocation"]
       );
       return {

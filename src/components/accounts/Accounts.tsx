@@ -39,6 +39,7 @@ const Accounts = () => {
         setLimit={setLimit}
         setPage={setPage}
         title="accounts"
+        totalCount={60}
       />
     </div>
   );
