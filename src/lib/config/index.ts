@@ -4,14 +4,14 @@ import { Client } from "@verida/client-ts";
 // data source for summary of nodes
 const nodeSummaryUrl = process.env.REACT_APP_NODE_SUMMARY_URL;
 
-const veridaLogoUrl = process.env.NEXT_PUBLIC_VERIDA_APP_LOGO_URL;
+const veridaLogoUrl = process.env.NEXT_PUBLIC_VDAAVI_APP_LOGO_URL;
 
 const veridaEnv: EnvironmentType = EnvironmentType.MAINNET;
-// process.env.NEXT_PUBLIC_VERIDA_ENV === "local"
+// process.env.NEXT_PUBLIC_VDAAVI_ENV === "local"
 //   ? EnvironmentType.LOCAL
-//   : process.env.NEXT_PUBLIC_VERIDA_ENV === "devnet"
+//   : process.env.NEXT_PUBLIC_VDAAVI_ENV === "devnet"
 //     ? EnvironmentType.DEVNET
-//     : process.env.NEXT_PUBLIC_VERIDA_ENV === "mainnet"
+//     : process.env.NEXT_PUBLIC_VDAAVI_ENV === "mainnet"
 //       ? EnvironmentType.MAINNET
 //       : EnvironmentType.TESTNET
 

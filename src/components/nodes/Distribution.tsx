@@ -55,7 +55,7 @@ const Distribution = () => {
       </div>
       <ComposableMap height={300} projectionConfig={{ rotate: [-20, 0, 0] }}>
         <ZoomableGroup center={[0, 0]} zoom={1}>
-          <Geographies geography={"/world.json"}>
+          <Geographies geography="https://code.highcharts.com/mapdata/custom/world-highres3.topo.json">
             {({ geographies }) =>
               geographies.map((geo) => (
                 <Geography key={geo.rsmKey} geography={geo} fill="#353d45 " />
@@ -85,7 +85,6 @@ const Distribution = () => {
           })}
         </ZoomableGroup>
       </ComposableMap>
-      
     </div>
   );
 };
