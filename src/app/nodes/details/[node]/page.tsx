@@ -7,7 +7,13 @@ import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import LocationIcon from "@/assets/icons/location.svg";
 import { useQuery } from "react-query";
-
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+  ZoomableGroup,
+} from "react-simple-maps";
 import { Node } from "@/types/node";
 import { COUNTRY_CODES } from "@/lib/constants";
 
@@ -21,8 +27,8 @@ const fetchNodeData = async () => {
   return response.json();
 };
 
-const getMap = (continent: string) => {
-  switch (continent.toLowerCase()) {
+const getMap = (continent?: string) => {
+  switch (continent?.toLowerCase()) {
     case "Africa":
       return "https://code.highcharts.com/mapdata/custom/africa.topo.json";
     case "Asia":
@@ -38,7 +44,7 @@ const getMap = (continent: string) => {
     case "Antarctica":
       return "https://code.highcharts.com/mapdata/custom/antarctica.topo.json";
     default:
-      return "https://code.highcharts.com/mapdata/custom/world-highres3.topo.json";
+      return "https://code.highcharts.com/mapdata/custom/world-highres2.topo.json";
   }
 };
 
@@ -47,7 +53,7 @@ const getCoordinates = (country: string) => {
   return {
     latitude: countryData?.latitude,
     longitude: countryData?.longitude,
-    continent: getMap(countryData?.continent),
+    map: getMap(countryData?.continent),
   };
 };
 
@@ -192,10 +198,24 @@ const DetailsPage = () => {
         </div>
         <div className="relative">
           <LocationIcon className="absolute left-[43%] top-[30%] scale-150" />
-          {/* <img
-            src="/australia.png"
-            className="md:w-[488px] w-full rounded-lg border border-white/20"
-          /> */}
+          <ComposableMap
+            height={300}
+            projectionConfig={{ rotate: [-20, 0, 0] }}
+          >
+            <ZoomableGroup center={[0, 0]} zoom={1}>
+              <Geographies geography={map}>
+                {({ geographies }) =>
+                  geographies.map((geo) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill="#353d45 "
+                    />
+                  ))
+                }
+              </Geographies>
+            </ZoomableGroup>
+          </ComposableMap>
         </div>
       </div>
     </div>
