@@ -40,12 +40,7 @@ export interface Filter {
   status?: Status;
 }
 
-const filterNodes = (
-  nodes: any[],
-  page: number,
-  limit: number,
-  filter?: Filter
-) => {
+const filterNodes = (nodes: any[], filter?: Filter) => {
   return nodes
     .filter((node) => {
       if (!filter || filter.regions.includes("All")) {
@@ -63,8 +58,7 @@ const filterNodes = (
       }
       // return node.status === filters.status;
       return false;
-    })
-    .slice((page - 1) * limit, page * limit);
+    });
 };
 
 const NodesList = () => {
@@ -78,7 +72,6 @@ const NodesList = () => {
   const { toast } = useToast();
 
   const [nodes, setNodes] = useState<any[]>();
-  const [data, setData] = useState<any[]>();
 
   const { isLoading, isError } = useQuery(
     "nodes",
@@ -86,15 +79,13 @@ const NodesList = () => {
       const response = await fetch(
         "https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json"
       );
-      let data = await response.json();
-      return filterNodes(data, page, limit);
+      return await response.json();
     },
     {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        setNodes(data);
-        setData(data);
+        setNodes(filterNodes(data));
       },
       onError: () => {
         toast({
@@ -105,9 +96,17 @@ const NodesList = () => {
     }
   );
 
+  const [filter, setFilter] = useState<Filter>();
+
   useEffect(() => {
     setPage(1);
   }, [limit]);
+
+  useEffect(() => {
+    if (nodes) {
+      setNodes(filterNodes(nodes, filter));
+    }
+  }, [filter]);
 
   if (isLoading) {
     return <Loader isLoading className="h-[300px]" />;
@@ -124,18 +123,17 @@ const NodesList = () => {
   return (
     <div className="flex flex-col gap-4 my-10">
       <DataTable
-        data={nodes || []}
+        data={nodes?.slice((page - 1) * limit, page * limit) ?? []}
         columns={columns}
         title="nodes"
         page={page}
         limit={limit}
         setPage={setPage}
         setLimit={setLimit}
-        totalCount={data?.length ?? 0}
+        totalCount={nodes?.length ?? 0}
         showStatusFilters
         onApplyFilters={(filter) => {
-          let nodes = filterNodes(data!, page, limit, filter);
-          setNodes(nodes);
+          setFilter(filter);
         }}
         additionalTitles={
           <>

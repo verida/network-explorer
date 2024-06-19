@@ -33,7 +33,6 @@ const Overview = () => {
     }
   );
 
-
   return (
     <div className="flex flex-col gap-5">
       <div className="font-bold text-[32px] leading-[40.32.px] tracking-[-3%]">
@@ -61,10 +60,16 @@ const Overview = () => {
           <Loader isLoading={isLoading} className="h-[300px]" />
           {data && (
             <StorageChart
-              data={data.map((item) => {
+              utilization={data.map((item) => {
                 return [
                   new Date(item.datetime_utc).getTime(),
                   Number(item.storage_slots_used),
+                ];
+              })}
+              capacity={data.map((item) => {
+                return [
+                  new Date(item.datetime_utc).getTime(),
+                  Number(item.max_storage_slots),
                 ];
               })}
             />
@@ -83,16 +88,19 @@ const Overview = () => {
                         Number(data[data.length - 1].max_storage_slots)) *
                       100
                     ).toFixed(0)}
-                  
                   />
                   <div className="flex flex-col gap-2">
                     <div className="flex gap-1 items-center">
                       <div className="bg-white/20 w-3 h-3 rounded-[2px]"></div>
-                      <div>Total {Math.ceil(Number(data[data.length - 1].max_storage_slots)/100)}G</div>
+                      <div>
+                        Total {data[data.length - 1].max_storage_slots}G
+                      </div>
                     </div>
                     <div className="flex gap-1 items-center">
                       <div className="bg-[#8566F2] w-3 h-3 rounded-[2px]"></div>
-                      <div>Used {Math.ceil(Number(data[data.length - 1].storage_slots_used)/100)}G</div>
+                      <div>
+                        Used {data[data.length - 1].storage_slots_used}G
+                      </div>
                     </div>
                   </div>
                 </>
