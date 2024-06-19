@@ -1,7 +1,7 @@
 import React from "react";
 import ErrorIcon from "@/assets/svg/error.svg";
 import { Button } from "@/components/ui/button";
-import { Tab } from "../../nodelist/data-table";
+import { Tab } from "@/components/common/table";
 
 const HubError = ({
   setTab,

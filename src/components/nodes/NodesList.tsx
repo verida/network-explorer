@@ -22,6 +22,50 @@ import { useRecoilValue } from "recoil";
 import { setupWizardAtom, userAtom } from "@/lib/atom";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
+import { useQuery } from "react-query";
+import { useToast } from "../ui/use-toast";
+import Loader from "../common/loader";
+
+export type Region =
+  | "All"
+  | "Americas"
+  | "Oceania"
+  | "Asia"
+  | "Europe"
+  | "Africa";
+export type Status = "All" | "Active" | "Inactive";
+
+export interface Filter {
+  regions: Region[];
+  status?: Status;
+}
+
+const filterNodes = (
+  nodes: any[],
+  page: number,
+  limit: number,
+  filter?: Filter
+) => {
+  return nodes
+    .filter((node) => {
+      if (!filter || filter.regions.includes("All")) {
+        return true;
+      }
+      return filter.regions.includes(node.region);
+    })
+    .filter((node) => {
+      if (
+        filter?.status === "All" ||
+        filter?.status === "Active" ||
+        !filter?.status
+      ) {
+        return true;
+      }
+      // return node.status === filters.status;
+      return false;
+    })
+    .slice((page - 1) * limit, page * limit);
+};
 
 const NodesList = () => {
   const user = useRecoilValue(userAtom);
@@ -30,58 +74,69 @@ const NodesList = () => {
   const setupWizard = useRecoilValue(setupWizardAtom);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
-  const [nodes, setNodes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [totalNodes, setTotalNodes] = useState(0); // State for total nodes
 
-  const rowsOptions = [10, 20, 50];
+  const { toast } = useToast();
 
-  useEffect(() => {
-    const fetchNodes = async () => {
-      try {
-        const response = await fetch(
-          "https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json"
-        );
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        const data = await response.json();
+  const [nodes, setNodes] = useState<any[]>();
+  const [data, setData] = useState<any[]>();
+
+  const { isLoading, isError } = useQuery(
+    "nodes",
+    async () => {
+      const response = await fetch(
+        "https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json"
+      );
+      let data = await response.json();
+      return filterNodes(data, page, limit);
+    },
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
         setNodes(data);
-        setTotalNodes(data.length); // Set the total number of nodes
-        setLoading(false);
-      } catch (error) {
-        // setError(error.message);
-        setLoading(false);
-      }
-    };
-
-    fetchNodes();
-  }, []);
+        setData(data);
+      },
+      onError: () => {
+        toast({
+          description: "An error occurred while fetching nodes",
+          variant: "destructive",
+        });
+      },
+    }
+  );
 
   useEffect(() => {
     setPage(1);
-  }, [limit])
+  }, [limit]);
 
-  if (loading) {
-    return <div>Loading...</div>;
+  if (isLoading) {
+    return <Loader isLoading className="h-[300px]" />;
   }
 
-  if (error) {
-    return <div>Error: {error}</div>;
+  if (isError) {
+    return (
+      <div>
+        <p>There was an error fetching the nodes</p>
+      </div>
+    );
   }
 
   return (
     <div className="flex flex-col gap-4 my-10">
       <DataTable
-        data={nodes.slice((page - 1) * limit, page * limit)}
+        data={nodes || []}
         columns={columns}
         title="nodes"
         page={page}
         limit={limit}
         setPage={setPage}
         setLimit={setLimit}
-        totalCount={totalNodes} // Pass the total number of nodes
+        totalCount={data?.length ?? 0}
+        showStatusFilters
+        onApplyFilters={(filter) => {
+          let nodes = filterNodes(data!, page, limit, filter);
+          setNodes(nodes);
+        }}
         additionalTitles={
           <>
             {setupWizard && (
@@ -157,27 +212,6 @@ const NodesList = () => {
                 </Dialog>
               </>
             )}
-          </>
-        }
-        additionalFilters={
-          <>
-            <div className="pb-1">
-              <div className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
-                Status
-              </div>
-              <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                <Checkbox id="all" />
-                <span>All</span>
-              </div>
-              <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                <Checkbox id="active" />
-                <span>Active</span>
-              </div>
-              <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
-                <Checkbox id="inactive" />
-                <span>Inactive</span>
-              </div>
-            </div>
           </>
         }
       />

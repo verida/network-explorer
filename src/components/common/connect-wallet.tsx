@@ -25,10 +25,10 @@ const ConnectWalletButton = () => {
       // Check if we have a stored session
       //  hasSession is from the package "@verida/account-web-vault"
       //  see below fod links to documentation
-      if (hasSession(config.veridaOneContextName)) {
-        // we know we have a session already
-        // login(); // when logged in this will just setup a Verida Context
-      }
+      // if (hasSession(config.veridaOneContextName)) {
+      //   // we know we have a session already
+      //   // login(); // when logged in this will just setup a Verida Context
+      // }
     }
   }, []);
 

@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { countriesWithCodes } from "@/lib/utils/utils";
-import { Tab } from "../../nodelist/data-table";
+import { Tab } from "@/components/common/table";
 
 const regions = ["Africa", "Asia", "Australia", "Europe", "USA"];
 
