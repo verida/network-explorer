@@ -3,7 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa";
-import CopyIcon from "@/assets/icons/copy.svg";
+// import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import LocationIcon from "@/assets/icons/location.svg";
 import { useQuery } from "react-query";
@@ -28,7 +28,7 @@ const fetchNodeData = async () => {
 };
 
 const getMap = (continent?: string) => {
-  switch (continent?.toLowerCase()) {
+  switch (continent) {
     case "Africa":
       return "https://code.highcharts.com/mapdata/custom/africa.topo.json";
     case "Asia":
@@ -36,7 +36,7 @@ const getMap = (continent?: string) => {
     case "Europe":
       return "https://code.highcharts.com/mapdata/custom/europe.topo.json";
     case "North America":
-      return "https://code.highcharts.com/mapdata/custom/north-america.topo.json";
+      return "https://code.highcharts.com/mapdata/custom/north-america-no-central.topo.json";
     case "Oceania":
       return "https://code.highcharts.com/mapdata/custom/oceania.topo.json";
     case "South America":
@@ -48,7 +48,7 @@ const getMap = (continent?: string) => {
   }
 };
 
-const getCoordinates = (country: string) => {
+const getCountryData = (country: string) => {
   const countryData = COUNTRY_CODES.find((c) => c.country === country);
   return {
     latitude: countryData?.latitude,
@@ -59,14 +59,16 @@ const getCoordinates = (country: string) => {
 
 const DetailsPage = () => {
   const router = useRouter();
-  const { toast } = useToast();
   const params = useParams();
   const nodeId = decodeURIComponent(params.node as unknown as string);
 
-  const { data, error, isLoading } = useQuery(["nodeData"], fetchNodeData);
+  const { data, isError, isLoading } = useQuery(["nodeData"], fetchNodeData, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching data</div>;
+  if (isError) return <div>Error fetching data</div>;
 
   const nodeData = data.find((node: Node) => node.id === nodeId);
 
@@ -87,7 +89,7 @@ const DetailsPage = () => {
     status,
   } = nodeData;
 
-  const { latitude, longitude, map } = getCoordinates(country);
+  const { latitude, longitude, map } = getCountryData(country);
 
   return (
     <div className="mt-5 flex flex-col gap-8">
@@ -196,8 +198,7 @@ const DetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="relative">
-          <LocationIcon className="absolute left-[43%] top-[30%] scale-150" />
+        <div className="bg-[#191a1a] w-3/5 rounded-[12px] border-white/20 border bg-opacity-70">
           <ComposableMap
             height={300}
             projectionConfig={{ rotate: [-20, 0, 0] }}
@@ -214,6 +215,9 @@ const DetailsPage = () => {
                   ))
                 }
               </Geographies>
+              <Marker coordinates={[Number(longitude), Number(latitude)]}>
+                <LocationIcon className="scale-150" />
+              </Marker>
             </ZoomableGroup>
           </ComposableMap>
         </div>

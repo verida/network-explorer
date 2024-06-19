@@ -1,6 +1,6 @@
-import { columns } from "@/components/nodes/nodelist/column";
+// import { columns } from "@/components/nodes/nodelist/column";
 // import { DataTable } from "@/components/nodes/nodelist/data-table";
-import { nodes } from "@/lib/sample";
+// import { nodes } from "@/lib/sample";
 import React from "react";
 import { IoAlertCircleOutline } from "react-icons/io5";
 

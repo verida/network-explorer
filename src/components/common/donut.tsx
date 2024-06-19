@@ -1,7 +1,7 @@
 import React from "react";
 import Chart from "react-apexcharts";
 
-const DonutChart = () => {
+const DonutChart = ({ percentage }: { percentage: string }) => {
   return (
     <Chart
       options={{
@@ -24,7 +24,7 @@ const DonutChart = () => {
                 show: true,
                 total: {
                   show: true,
-                  label: "31%",
+                  label: `${percentage}%`,
                   color: "white",
                   fontWeight: "bold",
                   fontSize: "28px",
@@ -47,7 +47,7 @@ const DonutChart = () => {
           },
         },
       }}
-      series={[31, 69]}
+      series={[Number(percentage), 100 - Number(percentage)]}
       type="donut"
       height={200}
       width={200}

@@ -3,7 +3,8 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { useMediaQuery } from "react-responsive";
 
-const StorageChart = () => {
+const StorageChart = ({ data }: { data: number[][] }) => {
+
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
 
   return (
@@ -11,13 +12,19 @@ const StorageChart = () => {
       options={{
         chart: {
           id: "storage",
+          toolbar: {
+            show: false,
+          },
+          zoom: {
+            enabled: false,
+          }
         },
         dataLabels: {
           enabled: false,
         },
         xaxis: {
           type: "datetime",
-          min: new Date("01 Mar 2012").getTime(),
+          min: data[0][0],
           tickAmount: 6,
           labels: {
             style: {
@@ -36,7 +43,7 @@ const StorageChart = () => {
         yaxis: [
           {
             min: 0,
-            max: 100,
+            // max: 100,
             labels: {
               formatter: (value) => {
                 return value.toFixed(0);
@@ -73,7 +80,7 @@ const StorageChart = () => {
       series={[
         {
           name: "storage data",
-          data: sampleOverviewData,
+          data,
         },
       ]}
       type="area"

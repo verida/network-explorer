@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { userAtom } from "@/lib/atom";
 import React from "react";
 import { useRecoilValue } from "recoil";
-import { Tab } from "../../nodelist/data-table";
+import { Tab } from "@/components/common/table";
 
 const HubStake = ({
   setTab,

@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { DialogTitle } from "@/components/ui/dialog";
-import { Tab } from "../../nodelist/data-table";
+import { Tab } from "@/components/common/table";
 import { Button } from "@/components/ui/button";
 
 const fallbacks = ["1234567890", "1234567891"];
