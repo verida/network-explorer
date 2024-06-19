@@ -3,8 +3,13 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { useMediaQuery } from "react-responsive";
 
-const StorageChart = ({ data }: { data: number[][] }) => {
-
+const StorageChart = ({
+  utilization,
+  capacity,
+}: {
+  utilization: number[][];
+  capacity: number[][];
+}) => {
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
 
   return (
@@ -17,14 +22,17 @@ const StorageChart = ({ data }: { data: number[][] }) => {
           },
           zoom: {
             enabled: false,
-          }
+          },
+        },
+        legend: {
+          show: false,
         },
         dataLabels: {
           enabled: false,
         },
         xaxis: {
           type: "datetime",
-          min: data[0][0],
+          min: utilization[0][0],
           tickAmount: 6,
           labels: {
             style: {
@@ -66,7 +74,7 @@ const StorageChart = ({ data }: { data: number[][] }) => {
           },
           theme: "dark",
         },
-        colors: ["#8566F2", "#F2C94C"],
+        colors: ["#ffffff33", "#8566F2"],
         fill: {
           type: "gradient",
           gradient: {
@@ -79,8 +87,12 @@ const StorageChart = ({ data }: { data: number[][] }) => {
       }}
       series={[
         {
-          name: "storage data",
-          data,
+          name: "Capacity",
+          data: capacity,
+        },
+        {
+          name: "Utilization",
+          data: utilization,
         },
       ]}
       type="area"
