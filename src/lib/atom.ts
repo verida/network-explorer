@@ -13,3 +13,8 @@ export const setupWizardAtom = atom({
   key: "setupWizard",
   default: false,
 });
+
+export const showSearchBarAtom = atom({
+  key: "showSearchBarAtom",
+  default: false,
+});

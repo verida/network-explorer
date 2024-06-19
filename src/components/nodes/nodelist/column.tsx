@@ -22,7 +22,6 @@ import {
 import WithdrawForm from "../nodehub/withdraw/withdraw-form";
 import WithdrawSuccess from "../nodehub/withdraw/withdraw-success";
 import { useState } from "react";
-import { Tab } from "./data-table";
 import WithdrawError from "../nodehub/withdraw/withdraw-error";
 import { Close } from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
@@ -31,6 +30,7 @@ import UnStakeForm from "../nodehub/unstake/unstake-form";
 import UnStakeSuccess from "../nodehub/unstake/unstake-success";
 import { cn } from "@/lib/utils/utils";
 import { Node } from "@/types/node";
+import { Tab } from "@/components/common/table";
 
 
 

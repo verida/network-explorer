@@ -6,7 +6,7 @@ import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import { useRouter } from "next/navigation";
 import { columns } from "@/components/nodes/nodelist/column";
-import { nodes } from "@/lib/sample";
+// import { nodes } from "@/lib/sample";
 import DataTable, { Tab } from "@/components/common/table";
 import {
   Dialog,
@@ -73,7 +73,7 @@ const Operator = () => {
       </div>
       <DataTable
         columns={columns}
-        data={nodes}
+        data={[]}
         title="nodes"
         additionalTitles={
           <>
@@ -156,6 +156,7 @@ const Operator = () => {
         limit={limit}
         setPage={setPage}
         setLimit={setLimit}
+        totalCount={0}
         additionalFilters={
           <>
             <div className="pb-1">

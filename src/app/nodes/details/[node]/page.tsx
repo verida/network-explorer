@@ -3,31 +3,72 @@
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa";
-import CopyIcon from "@/assets/icons/copy.svg";
+// import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import LocationIcon from "@/assets/icons/location.svg";
-import { useQuery } from 'react-query';
-
+import { useQuery } from "react-query";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+  Marker,
+  ZoomableGroup,
+} from "react-simple-maps";
 import { Node } from "@/types/node";
+import { COUNTRY_CODES } from "@/lib/constants";
 
 const fetchNodeData = async () => {
-  const response = await fetch('https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json');
+  const response = await fetch(
+    "https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json"
+  );
   if (!response.ok) {
-    throw new Error('Network response was not ok');
+    throw new Error("Network response was not ok");
   }
   return response.json();
 };
 
+const getMap = (continent?: string) => {
+  switch (continent) {
+    case "Africa":
+      return "https://code.highcharts.com/mapdata/custom/africa.topo.json";
+    case "Asia":
+      return "https://code.highcharts.com/mapdata/custom/asia.topo.json";
+    case "Europe":
+      return "https://code.highcharts.com/mapdata/custom/europe.topo.json";
+    case "North America":
+      return "https://code.highcharts.com/mapdata/custom/north-america-no-central.topo.json";
+    case "Oceania":
+      return "https://code.highcharts.com/mapdata/custom/oceania.topo.json";
+    case "South America":
+      return "https://code.highcharts.com/mapdata/custom/south-america.topo.json";
+    case "Antarctica":
+      return "https://code.highcharts.com/mapdata/custom/antarctica.topo.json";
+    default:
+      return "https://code.highcharts.com/mapdata/custom/world-highres2.topo.json";
+  }
+};
+
+const getCountryData = (country: string) => {
+  const countryData = COUNTRY_CODES.find((c) => c.country === country);
+  return {
+    latitude: countryData?.latitude,
+    longitude: countryData?.longitude,
+    map: getMap(countryData?.continent),
+  };
+};
+
 const DetailsPage = () => {
   const router = useRouter();
-  const { toast } = useToast();
   const params = useParams();
   const nodeId = decodeURIComponent(params.node as unknown as string);
 
-  const { data, error, isLoading } = useQuery(['nodeData'], fetchNodeData);
+  const { data, isError, isLoading } = useQuery(["nodeData"], fetchNodeData, {
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
 
   if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error fetching data</div>;
+  if (isError) return <div>Error fetching data</div>;
 
   const nodeData = data.find((node: Node) => node.id === nodeId);
 
@@ -47,6 +88,8 @@ const DetailsPage = () => {
     // daysOnNetwork,
     status,
   } = nodeData;
+
+  const { latitude, longitude, map } = getCountryData(country);
 
   return (
     <div className="mt-5 flex flex-col gap-8">
@@ -123,7 +166,8 @@ const DetailsPage = () => {
             <div className="flex justify-between w-full">
               <span>Available Slots</span>
               <div>
-                <span>{storageSlotsUsed}</span> <span className="text-white/60">/ {maxStorageSlots}</span>
+                <span>{storageSlotsUsed}</span>{" "}
+                <span className="text-white/60">/ {maxStorageSlots}</span>
               </div>
             </div>
             {/* <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
@@ -154,9 +198,28 @@ const DetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="relative">
-          <LocationIcon className="absolute left-[43%] top-[30%] scale-150" />
-          <img src="/australia.png" className="md:w-[488px] w-full rounded-lg border border-white/20" />
+        <div className="bg-[#191a1a] w-3/5 rounded-[12px] border-white/20 border bg-opacity-70">
+          <ComposableMap
+            height={300}
+            projectionConfig={{ rotate: [-20, 0, 0] }}
+          >
+            <ZoomableGroup center={[0, 0]} zoom={1}>
+              <Geographies geography={map}>
+                {({ geographies }) =>
+                  geographies.map((geo) => (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill="#353d45 "
+                    />
+                  ))
+                }
+              </Geographies>
+              <Marker coordinates={[Number(longitude), Number(latitude)]}>
+                <LocationIcon className="scale-150" />
+              </Marker>
+            </ZoomableGroup>
+          </ComposableMap>
         </div>
       </div>
     </div>
