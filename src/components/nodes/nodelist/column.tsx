@@ -32,8 +32,6 @@ import { cn } from "@/lib/utils/utils";
 import { Node } from "@/types/node";
 import { Tab } from "@/components/common/table";
 
-
-
 export const columns: ColumnDef<Node>[] = [
   {
     accessorKey: "name",
@@ -83,15 +81,44 @@ export const columns: ColumnDef<Node>[] = [
   // },
   {
     accessorKey: "region",
-    header: "Region",
-
-    cell: ({ row }) => (
-      row.getValue("region")
+    header: ({ column }) => (
+      <Button
+        variant="ghost"
+        className="hover:bg-transparent flex items-center gap-2 p-0"
+        onClick={() => {
+          column.toggleSorting(column.getIsSorted() === "asc");
+        }}
+      >
+        <span>Region</span>
+        {column.getIsSorted() === "asc" ? (
+          <FaCaretUp size={15} />
+        ) : (
+          <FaCaretDown size={15} />
+        )}
+      </Button>
     ),
+    enableSorting: true,
+    cell: ({ row }) => row.getValue("region"),
   },
   {
-    accessorKey: "slots",
-    header: "Available Slots",
+    accessorKey: "storageSlotsUsed",
+    enableSorting: true,
+    header: ({column}) => (
+      <Button
+        variant="ghost"
+        className="hover:bg-transparent flex items-center gap-2 p-0"
+        onClick={() => {
+          column.toggleSorting(column.getIsSorted() === "asc");
+        }}
+      >
+        <span>Available Slots</span>
+        {column.getIsSorted() === "asc" ? (
+          <FaCaretUp size={15} />
+        ) : (
+          <FaCaretDown size={15} />
+        )}
+      </Button>
+    ),
     cell: ({ row }) => (
       <div className="flex items-center gap-1">
         <span className="text-[14px] font-normal leading-[20px]">
@@ -128,7 +155,24 @@ export const columns: ColumnDef<Node>[] = [
   // },
   {
     accessorKey: "status",
-    header: "Status",
+    header: ({column}) => (
+      <Button
+        variant="ghost"
+        className="hover:bg-transparent flex items-center gap-2 p-0"
+        onClick={() => {
+          column.toggleSorting(column.getIsSorted() === "asc");
+        }}
+      >
+        <span>Status</span>
+        {column.getIsSorted() === "asc" ? (
+          <FaCaretUp size={15} />
+        ) : (
+          <FaCaretDown size={15} />
+        )}
+      </Button>
+    ),
+    enableSorting: true,
+  
     cell: ({ row }) => (
       // <div
       //   className={`${
@@ -140,13 +184,9 @@ export const columns: ColumnDef<Node>[] = [
       //   {row.getValue("status")}
       // </div>
 
-      <div
-        className="bg-[#16A34A33] border-[#16A34A33] w-fit border  py-1.5 px-3 rounded-[53px]"
-      >
-        Active 
+      <div className="bg-[#16A34A33] border-[#16A34A33] w-fit border  py-1.5 px-3 rounded-[53px]">
+        Active
       </div>
-
-      
     ),
   },
   {

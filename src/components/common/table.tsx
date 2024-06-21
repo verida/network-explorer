@@ -92,6 +92,7 @@ const DataTable = <TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
+  
 
   const table = useReactTable({
     data,

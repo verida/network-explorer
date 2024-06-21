@@ -56,7 +56,15 @@ const BarChart = ({ data, tab }: BarChartProps) => {
       }
 
       if (count > 0) {
-        result.dates.push(dayjs(firstDateInInterval!).format("MMM YYYY"));
+        result.dates.push(
+          dayjs(firstDateInInterval!).format(
+            numberOfBars === 12
+              ? "MMM YYYY"
+              : numberOfBars === 20
+              ? "DD MMM"
+              : "DD MMM YYYY"
+          )
+        );
         result.values.push(Math.round(sum / count));
       }
     }
@@ -69,11 +77,11 @@ const BarChart = ({ data, tab }: BarChartProps) => {
   >();
   useEffect(() => {
     if (tab === "daily") {
-      setDisplayableData(getAverageBars(data, 20));
+      setDisplayableData(getAverageBars(data, 52));
     } else if (tab === "weekly") {
-      setDisplayableData(getAverageBars(data, 7));
+      setDisplayableData(getAverageBars(data, 20));
     } else if (tab === "monthly") {
-      setDisplayableData(getAverageBars(data, 5));
+      setDisplayableData(getAverageBars(data, 12));
     }
   }, [data, tab]);
 
