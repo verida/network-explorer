@@ -33,6 +33,10 @@ const Overview = () => {
     }
   );
 
+  const handleSlotsAndConvertToGb = (slots: string) => {
+    return ((Number(slots) * 50) / 1024).toFixed(0);
+  };
+
   return (
     <div className="flex flex-col gap-5">
       <div className="font-bold text-[32px] leading-[40.32.px] tracking-[-3%]">
@@ -93,13 +97,21 @@ const Overview = () => {
                     <div className="flex gap-1 items-center">
                       <div className="bg-white/20 w-3 h-3 rounded-[2px]"></div>
                       <div>
-                        Total {data[data.length - 1].max_storage_slots}G
+                        Total{" "}
+                        {handleSlotsAndConvertToGb(
+                          data[data.length - 1].max_storage_slots
+                        )}
+                        G
                       </div>
                     </div>
                     <div className="flex gap-1 items-center">
                       <div className="bg-[#8566F2] w-3 h-3 rounded-[2px]"></div>
                       <div>
-                        Used {data[data.length - 1].storage_slots_used}G
+                        Used{" "}
+                        {handleSlotsAndConvertToGb(
+                          data[data.length - 1].storage_slots_used
+                        )}
+                        G
                       </div>
                     </div>
                   </div>

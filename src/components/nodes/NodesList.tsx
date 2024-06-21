@@ -73,7 +73,7 @@ const NodesList = () => {
 
   const [nodes, setNodes] = useState<any[]>();
 
-  const { isLoading, isError } = useQuery(
+  const { data, isLoading, isError } = useQuery(
     "nodes",
     async () => {
       const response = await fetch(
@@ -103,8 +103,9 @@ const NodesList = () => {
   }, [limit]);
 
   useEffect(() => {
-    if (nodes) {
-      setNodes(filterNodes(nodes, filter));
+    console.log(data);
+    if (data) {
+      setNodes(filterNodes(data, filter));
     }
   }, [filter]);
 

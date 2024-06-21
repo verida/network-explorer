@@ -73,9 +73,12 @@ const Distribution = () => {
               ))
             }
           </Geographies>
-          {data?.map(({ longitude, latitude, count, country }) => {
+          {data?.map(({ longitude, latitude, count, country }, index) => {
             return (
-              <Marker coordinates={[Number(longitude), Number(latitude)]}>
+              <Marker
+                key={index}
+                coordinates={[Number(longitude), Number(latitude)]}
+              >
                 <Link href="#" title={country}>
                   <circle
                     fill="#8566F2"
