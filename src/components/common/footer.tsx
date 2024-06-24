@@ -15,11 +15,11 @@ const Footer = () => {
   const navs = [
     {
       icon: <FaTwitter />,
-      link: "https://twitter.com/",
+      link: "https://twitter.com/verida_io",
     },
     {
       icon: <FaTelegramPlane />,
-      link: "https://telegram.me/",
+      link: "https://t.me/verida_community/",
     },
     {
       icon: <FaLinkedinIn />,
@@ -27,15 +27,15 @@ const Footer = () => {
     },
     {
       icon: <FaDiscord />,
-      link: "https://discord.com",
+      link: "https://discord.com/invite/qb6vS43",
     },
     {
       icon: <FaYoutube />,
-      link: "https://youtube.com",
+      link: "https://www.youtube.com/channel/UC4FkEDSI7Kart2wNjj9Iozw",
     },
     {
       icon: <FaGithub />,
-      link: "https://github.com",
+      link: "https://github.com/verida",
     },
   ];
   return (

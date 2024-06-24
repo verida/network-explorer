@@ -2,7 +2,7 @@ import { EnvironmentType } from "@verida/types";
 import { Client } from "@verida/client-ts";
 
 // data source for summary of nodes
-const nodeSummaryUrl = process.env.REACT_APP_NODE_SUMMARY_URL;
+const nodeSummaryUrl = process.env.NEXT_PUBLIC_NODE_SUMMARY_URL;
 
 const veridaEnv: EnvironmentType = EnvironmentType.MAINNET;
 
@@ -29,6 +29,8 @@ const client = new Client({
   },
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://develop.d1lkxmbu5ufoio.amplifyapp.com/";
+
 export const config = {
   veridaEnv,
   walletProviderApiBaseUrl,
@@ -36,4 +38,5 @@ export const config = {
   isMockDataEnabled,
   client,
   nodeSummaryUrl,
+  baseUrl
 };

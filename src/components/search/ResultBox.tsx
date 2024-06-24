@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import QrCode from "@/assets/svg/qrcode.svg";
+// import QrCode from "@/assets/svg/qrcode.svg";
 import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
@@ -8,7 +8,9 @@ import { useMediaQuery } from "react-responsive";
 import { WebUserProfile } from "@verida/web-helpers";
 import { getDidDocument } from "@/lib/utils/veridaUtils";
 import { useQuery } from "react-query";
+import QRCode from "react-qr-code";
 import Loader from "../common/loader";
+import { config } from "@/lib/config";
 
 interface Profile extends WebUserProfile {
   did: string;
@@ -67,7 +69,14 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
                     : {}
                 }
               >
-                <QrCode />
+                <div className="p-3 w-40 bg-white rounded-lg">
+                  <QRCode
+                    size={160}
+                    className="h-auto max-w-full w-full"
+                    value={config.baseUrl + "/did/" + profile.did}
+                    viewBox="0 0 160 160"
+                  />
+                </div>
                 {!showResultJson && (
                   <div className="font-normal text-[11px] leading-[16px]">
                     Scan to add contact
@@ -125,7 +134,15 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
             className="sm:flex hidden flex-col gap-3 items-center h-fit"
             style={{ boxShadow: "0px 4.78px 28.7px 0px #1111111F" }}
           >
-            <QrCode />
+            {/* <QrCode /> */}
+            <div className="p-3 w-40 bg-white rounded-lg">
+              <QRCode
+                size={160}
+                className="h-auto max-w-full w-full"
+                value={config.baseUrl + "/did/" + profile.did}
+                viewBox="0 0 160 160"
+              />
+            </div>
             {!showResultJson && <div>Scan to add contact</div>}
           </div>
         </div>
@@ -135,11 +152,13 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
           ) : (
             <>
               <Separator color="#FFFFFF26" className="sm:block hidden" />
-              <div className="leading-[22.4px] text-[14px] font-normal break-words">
+              <pre className="leading-[22.4px] text-[14px] font-normal whitespace-pre-wrap break-all">
+                
                 {!resultJson || isError
                   ? "Unable to get did document"
                   : JSON.stringify(resultJson, null, 2)}
-              </div>
+             
+              </pre>
             </>
           ))}
       </div>
