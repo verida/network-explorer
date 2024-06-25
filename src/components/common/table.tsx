@@ -318,8 +318,8 @@ const DataTable = <TData, TValue>({
           </Table>
         </div>
       </div>
-      <div className="flex justify-center sm:justify-between items-center">
-        <div className="sm:flex hidden items-center gap-4">
+      <div className="flex justify-between w-full">
+        <div className="flex items-center gap-4">
           <div>Show rows</div>
           <Select
             onValueChange={(value) => setLimit(parseInt(value as string))}
