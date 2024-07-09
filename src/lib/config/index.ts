@@ -1,10 +1,10 @@
-import { EnvironmentType } from "@verida/types";
+import { Network } from "@verida/types";
 import { Client } from "@verida/client-ts";
 
 // data source for summary of nodes
 const nodeSummaryUrl = process.env.NEXT_PUBLIC_NODE_SUMMARY_URL;
 
-const veridaEnv: EnvironmentType = EnvironmentType.MAINNET;
+const veridaEnv: Network = Network.BANKSIA;
 
 // API
 const walletProviderApiBaseUrl =
@@ -23,7 +23,7 @@ const features = {
 const isMockDataEnabled = process.env.NEXT_PUBLIC_ENABLE_MOCK_DATA === "true";
 
 const client = new Client({
-  environment: veridaEnv,
+  network: veridaEnv,
   didClientConfig: {
     network: veridaEnv,
   },

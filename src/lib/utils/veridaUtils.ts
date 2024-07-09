@@ -1,6 +1,6 @@
 import { Client } from "@verida/client-ts";
 import { WebUserProfile } from "@verida/web-helpers";
-import { DatastoreOpenConfig } from "@verida/types";
+import { BlockchainAnchor, DatastoreOpenConfig } from "@verida/types";
 import {
   DID_METHOD,
   DID_VDA_METHOD,
@@ -165,7 +165,7 @@ export const getExternalDatastore = async (
  * @returns The DIDs.
  */
 export const paginateDids = async (page: number, limit: number) => {
-  return await getDIDs(config.veridaEnv, page, limit);
+  return await getDIDs(BlockchainAnchor.POLPOS, page, limit);
 };
 
 
