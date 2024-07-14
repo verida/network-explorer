@@ -12,39 +12,40 @@ import { csv2json } from "@/lib/utils/csvToArray";
 
 const BarChart = dynamic(() => import("./BarChart"), { ssr: false });
 
-const TotalAccounts = () => {
-  const { toast } = useToast();
+const TotalAccounts = ({data}:{data:any}) => {
+  const {AccountData,isLoading} = data;
+    const { toast } = useToast();
 
   const [selectedTab, setSelectedTab] = useState("monthly");
 
-  const { data, isLoading, isError, error } = useQuery(
-    "totalAccounts",
-    async () => {
-      const response = await axios.get(
-        "https://assets.verida.io/metrics/network/mainnet/stats.csv"
-      );
+  // const { data, isLoading, isError, error } = useQuery(
+  //   "totalAccounts",
+  //   async () => {
+  //     const response = await axios.get(
+  //       "https://assets.verida.io/metrics/network/mainnet/stats.csv"
+  //     );
 
-      let data: {
-        datetime_utc: string;
-        activedids: string;
-      }[] = csv2json(response.data);
-      return data.map((item) => [
-        new Date(item.datetime_utc).getTime(),
-        Number(item.activedids),
-      ]);
-    },
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      onError: (error) => {
-        console.log(error);
-        toast({
-          variant: "destructive",
-          description: "Failed to fetch data",
-        });
-      },
-    }
-  );
+  //     let data: {
+  //       datetime_utc: string;
+  //       activedids: string;
+  //     }[] = csv2json(response.data);
+  //     return data.map((item) => [
+  //       new Date(item.datetime_utc).getTime(),
+  //       Number(item.activedids),
+  //     ]);
+  //   },
+  //   {
+  //     refetchOnWindowFocus: false,
+  //     refetchOnMount: false,
+  //     onError: (error) => {
+  //       console.log(error);
+  //       toast({
+  //         variant: "destructive",
+  //         description: "Failed to fetch data",
+  //       });
+  //     },
+  //   }
+  // );
 
   return (
     <Tabs
@@ -80,7 +81,7 @@ const TotalAccounts = () => {
         </TabsList>
       </div>
       <Loader isLoading={isLoading} className="sm:h-[350px] h-[150px]" />
-      {data && <BarChart data={data} tab={selectedTab} />}
+      {data && <BarChart data={AccountData} tab={selectedTab} />}
     </Tabs>
   );
 };
