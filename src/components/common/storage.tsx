@@ -1,4 +1,3 @@
-import { sampleOverviewData } from "@/lib/sample";
 import React from "react";
 import Chart from "react-apexcharts";
 import { useMediaQuery } from "react-responsive";

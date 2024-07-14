@@ -11,6 +11,7 @@ import { getDIDs } from "@verida/vda-did-resolver";
 import { config } from "../config";
 import { Resolver } from "did-resolver";
 import { getResolver } from "@verida/vda-did-resolver";
+import { Account } from "@/types/account";
 
 const vdaDidResolver = getResolver();
 const didResolver = new Resolver(vdaDidResolver);
@@ -108,26 +109,38 @@ export const resolveIdentity = async (
  */
 export const getAnyPublicProfile = async (
   client: Client,
-  didOrUsername: string
-): Promise<WebUserProfile> => {
-  const profileInstance = await client.openPublicProfile(
-    didOrUsername,
-    "Verida: Vault"
-  );
-  if (!profileInstance) {
-    throw new Error("No public profile exists for this did");
+  did: string
+): Promise<Account|undefined> => {
+  try {
+    const profileInstance = await client.getPublicProfile(
+      did,
+      "Verida: Vault"
+    );
+  
+    for (const key in profileInstance) {
+      if (profileInstance.hasOwnProperty(key)) {
+          console.log(`${key}: ${profileInstance[key]}`);
+      }
+    }
+    console.log(profileInstance ? profileInstance['avatar'] : '')
+  
+    if (!profileInstance) {
+      throw new Error("No public profile exists for this did");
+    }
+  
+    return {
+      name: profileInstance.hasOwnProperty('name') ? profileInstance['name'] : 'UNKOWN',
+      did: did,
+      avatarUri: profileInstance.hasOwnProperty('avatar') ? (profileInstance['avatar'] as { uri?: string})?.uri : 'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg',
+      country: profileInstance.hasOwnProperty('country') ? profileInstance['country'] : 'UNKOWN',
+      description: profileInstance.hasOwnProperty('description') ? profileInstance['description'] : 'UNKOWN',
+      createdAt: profileInstance.hasOwnProperty('modifiedAt') ? profileInstance['modifiedAt'] : '',
+    };
+  } catch (error) {
+    return; 
   }
-
-  return {
-    avatarUri: (
-      (await profileInstance.get("avatar")) as { uri?: string } | undefined
-    )?.uri as string,
-    name: (await profileInstance.get("name")) as string | undefined,
-    country: (await profileInstance.get("country")) as string | undefined,
-    description: (await profileInstance.get("description")) as
-      | string
-      | undefined,
-  };
+  
+  
 };
 
 /**

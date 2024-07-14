@@ -1,10 +1,8 @@
 export type Account = {
-  user: {
-    name: string;
-    profile: string;
-  };
+  name: string;
+  avatarUri: string | undefined;
   country: string;
   did: string;
-  bio: string;
-  createdAt: Date;
+  description: string;
+  createdAt: string;
 };

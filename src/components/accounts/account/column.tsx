@@ -7,8 +7,7 @@ import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import dayjs from "dayjs";
 import { Account } from "@/types/account";
-
-
+import { WebUserProfile } from "@verida/web-helpers";
 
 export const columns: ColumnDef<Account>[] = [
   {
@@ -33,11 +32,11 @@ export const columns: ColumnDef<Account>[] = [
     cell: ({ row }) => (
       <div className="flex items-center text-[14px] font-normal leading-[20px] gap-4 pl-6">
         <img
-          src={row.original.user.profile}
+          src={row.original.avatarUri}
           className="w-10 h-10 rounded-sm object-cover"
           alt="account-image"
         />
-        <div>{row.original.user.name}</div>
+        <div>{row.original.name}</div>
       </div>
     ),
   },
@@ -52,7 +51,7 @@ export const columns: ColumnDef<Account>[] = [
       const { toast } = useToast();
       return (
         <div className="text-[#8566F2] flex items-center gap-3 text-[14px] font-normal leading-[20px]">
-          <div>{row.getValue("did")}</div>
+          <div>{row.original.did}</div>
           <CopyIcon
             className="cursor-pointer"
             color="#8566F2"
@@ -68,7 +67,7 @@ export const columns: ColumnDef<Account>[] = [
     },
   },
   {
-    accessorKey: "bio",
+    accessorKey: "description",
     header: "Bio",
   },
   {
@@ -90,6 +89,6 @@ export const columns: ColumnDef<Account>[] = [
       </Button>
     ),
     cell: ({ row }) =>
-      dayjs(row.getValue("createdAt")).format("MMM D, YYYY, h:mm A"),
+      dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A"),
   },
 ];

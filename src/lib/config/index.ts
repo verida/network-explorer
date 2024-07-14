@@ -4,7 +4,7 @@ import { Client } from "@verida/client-ts";
 // data source for summary of nodes
 const nodeSummaryUrl = process.env.NEXT_PUBLIC_NODE_SUMMARY_URL;
 
-const veridaEnv: Network = Network.BANKSIA;
+const veridaEnv: Network = Network.MYRTLE;
 
 // API
 const walletProviderApiBaseUrl =

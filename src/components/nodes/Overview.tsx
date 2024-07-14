@@ -10,28 +10,16 @@ const StorageChart = dynamic(() => import("../common/storage"), { ssr: false });
 
 const DonutChart = dynamic(() => import("../common/donut"), { ssr: false });
 
-const Overview = () => {
-  const { data, isLoading } = useQuery(
-    "storage_overview",
-    async () => {
-      const response = await fetch(
-        "https://assets.verida.io/metrics/nodes/node2-southeastasia.mnaz.verida.tech/stats.csv"
-      );
-      const data = await response.text();
-
-      let converted_data: {
-        datetime_utc: string;
-        max_storage_slots: string;
-        storage_slots_used: string;
-      }[] = csv2json(data);
-
-      return converted_data;
-    },
-    {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-    }
-  );
+type storageOverview = {
+  data: {
+    datetime_utc: string;
+    max_storage_slots: string;
+    storage_slots_used: string;
+  }[];
+  isLoading: boolean;
+};
+const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
+  const { converted_data: data, isLoading } = StorageOverView;
 
   const handleSlotsAndConvertToGb = (slots: string) => {
     return ((Number(slots) * 50) / 1024).toFixed(0);
@@ -64,13 +52,13 @@ const Overview = () => {
           <Loader isLoading={isLoading} className="h-[300px]" />
           {data && (
             <StorageChart
-              utilization={data.map((item) => {
+              utilization={data.map((item: any) => {
                 return [
                   new Date(item.datetime_utc).getTime(),
                   Number(item.storage_slots_used),
                 ];
               })}
-              capacity={data.map((item) => {
+              capacity={data.map((item: any) => {
                 return [
                   new Date(item.datetime_utc).getTime(),
                   Number(item.max_storage_slots),
@@ -80,7 +68,7 @@ const Overview = () => {
           )}
         </div>
         <div className="flex flex-col justify-between gap-3">
-          <div className="rounded-lg result-box  border border-white/20 flex flex-col gap-4 p-4">
+          <div className="rounded-lg result-box  border border-white/20 flex flex-col gap-4 p-4 min-w-[356px]">
             <div className="text-white/60">Network Capacity</div>
             <div className="flex gap-3 items-center flex-wrap">
               <Loader isLoading={isLoading} className="h-[200px] w-[200px]" />
