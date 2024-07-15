@@ -75,20 +75,17 @@ const Accounts = () => {
 
   return (
     <div className="flex flex-col gap-6 sm:mb-12">
-      <Loader isLoading={isLoading} className="sm:h-[350px] h-[150px]" />
-
-      {data && (
         <DataTable
           columns={columns as ColumnDef<Account | null | undefined, unknown>[]}
-          data={data}
+          data={data as (Account | null | undefined)[]}
           page={page}
           limit={limit}
           setLimit={setLimit}
           setPage={setPage}
           title="accounts"
           totalCount={count}
+          isLoading={isLoading}
         />
-      )}
     </div>
   );
 };

@@ -20,6 +20,8 @@ type storageOverview = {
 };
 const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
   const { converted_data: data, isLoading } = StorageOverView;
+  console.log(isLoading);
+  
 
   const handleSlotsAndConvertToGb = (slots: string) => {
     return ((Number(slots) * 50) / 1024).toFixed(0);

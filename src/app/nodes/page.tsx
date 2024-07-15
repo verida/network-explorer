@@ -6,6 +6,18 @@ import { csv2json } from "@/lib/utils/csvToArray";
 
 import { COUNTRY_CODES } from "@/lib/constants/misc";
 
+export interface CountrySummary {
+  country: string;
+  latitude: number | undefined;
+  longitude: number | undefined;
+  count: number;
+}
+
+ type DistributionType= {
+  summary: CountrySummary[];
+  isLoading: boolean;
+}
+
 const getStorageOverView = async () => {
   let isLoading = true;
   const response = await fetch(
@@ -44,6 +56,9 @@ const getDistributions = async () => {
     throw new Error("Failed to fetch data");
   }
 
+  if(response.ok){
+    isLoading = false;
+  }
   const data: any[] = await response.json();
 
   // remove repeating countries and add long,lat properties
@@ -76,10 +91,11 @@ const getDistributions = async () => {
 };
 const NodesPage = async () => {
   const data = await getStorageOverView();
+  const distribution = await getDistributions();
   return (
     <div className="py-6">
       <Overview StorageOverView={data} />
-      <Distribution  />
+      <Distribution  summary={distribution.summary} isLoading={distribution.isLoading} />
       <NodesList />
     </div>
   );
