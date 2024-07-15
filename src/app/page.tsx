@@ -30,6 +30,25 @@ const getAccounts = async () => {
   };
 };
 
+// const getProfiles = async (pageNum:number,limitNum:number)=>{
+//   const dids = await getDIDs(BlockchainAnchor.POLPOS, pageNum, limitNum);
+
+//       const profiles = await Promise.all(
+//         dids.map(async (did: string) => {
+//           try {
+//             return await getAnyPublicProfile(config.client, did);
+//           } catch (error) {
+//             console.error(`Failed to get profile for DID: ${did}`, error);
+//             return null; // or handle the error as needed
+//           }
+//         })
+//       );
+
+//       return profiles.filter(
+//         (profile) => profile !== null || profiles !== undefined
+//       );
+// }
+
 const Home = async () => {
   const AccountData = await getAccounts();
   return (

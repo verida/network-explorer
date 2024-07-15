@@ -49,6 +49,7 @@ import { showSearchBarAtom } from "@/lib/atom";
 import { Filter, Region, Status } from "../nodes/NodesList";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
+import Loader from "./loader";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -62,6 +63,7 @@ interface DataTableProps<TData, TValue> {
   onApplyFilters?: (filter?: Filter) => void;
   showStatusFilters?: boolean;
   additionalTitles?: JSX.Element;
+  isLoading?: boolean;
 }
 
 export type Tab =
@@ -84,6 +86,7 @@ const DataTable = <TData, TValue>({
   totalCount,
   onApplyFilters,
   showStatusFilters = false,
+  isLoading,
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -92,7 +95,6 @@ const DataTable = <TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [rowSelection, setRowSelection] = React.useState({});
-  
 
   const table = useReactTable({
     data,
@@ -253,7 +255,7 @@ const DataTable = <TData, TValue>({
         {additionalTitles}
       </div>
       <div className="min-h-[18rem]">
-        <div className="border border-white/20 rounded-lg overflow-hidden">
+        <div className={`border border-white/20 rounded-lg overflow-hidden`}>
           <Table className="min-w-[68rem]">
             <TableHeader className="bg-[#FFFFFF0A] ">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -280,42 +282,46 @@ const DataTable = <TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell, index) => (
-                      <TableCell
-                        key={cell.id}
-                        className={cn(
-                          "md:border-none border-r border-white/10",
-                          index === row.getVisibleCells().length - 1 &&
-                            "border-none"
-                        )}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
+            {data && (
+              <TableBody>
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && "selected"}
+                    >
+                      {row.getVisibleCells().map((cell, index) => (
+                        <TableCell
+                          key={cell.id}
+                          className={cn(
+                            "md:border-none border-r border-white/10",
+                            index === row.getVisibleCells().length - 1 &&
+                              "border-none"
+                          )}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className="h-[250px] pl-6 py-4 pr-4 text-center"
+                    >
+                      No results.
+                    </TableCell>
                   </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-[250px] pl-6 py-4 pr-4 text-center"
-                  >
-                    No results.
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
+                )}
+              </TableBody>
+            )}
           </Table>
+              {isLoading && <Loader isLoading={isLoading} className="h-[500px]"/>}
+            
         </div>
       </div>
       <div className="flex justify-between w-full">
