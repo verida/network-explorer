@@ -47,7 +47,12 @@ import { useMediaQuery } from "react-responsive";
 import { useSetRecoilState } from "recoil";
 import { showSearchBarAtom } from "@/lib/atom";
 import { Filter, Region, Status } from "../nodes/NodesList";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
 import Loader from "./loader";
 
@@ -133,6 +138,8 @@ const DataTable = <TData, TValue>({
 
   const [filter, setFilter] = useState<Filter>();
 
+  console.log(filter);
+
   return (
     <>
       <div className="flex justify-between items-center">
@@ -155,12 +162,10 @@ const DataTable = <TData, TValue>({
             {showSearchField && (
               <>
                 <Input
-                  className="bg-transparent hover:bg-transparent border-none focus-visible:ring-0 rounded-none text-white pl-0 -mr-6 w-[90%]"
-                  value={
-                    (table.getColumn("name")?.getFilterValue() as string) ?? ""
-                  }
+                  type="text"
+                  className=" bg-transparent hover:bg-transparent border-none focus-visible:ring-0 rounded-none text-white pl-0 -mr-6 w-[90%]"
                   onChange={(event) =>
-                    table.getColumn("name")?.setFilterValue(event.target.value)
+                    table.getColumn("did")?.setFilterValue(event.target.value)
                   }
                 />
               </>
@@ -197,14 +202,23 @@ const DataTable = <TData, TValue>({
                 setFilter={setFilter}
               />
               <div className="w-full justify-end flex py-2 pr-4">
-                <Button
-                  onClick={() => {
-                    onApplyFilters && onApplyFilters(filter);
-                  }}
-                  className="rounded-sm px-3 w-auto h-8"
-                >
-                  Apply
-                </Button>
+                <DrawerClose asChild>
+                  <Button
+                    onClick={() => {
+                      if (
+                        filter?.regions[0] !== "All" ||
+                        filter !== undefined
+                      ) {
+                        table
+                          .getColumn("country")
+                          ?.setFilterValue(filter?.regions[0]);
+                      }
+                    }}
+                    className="rounded-sm px-3 w-auto h-8"
+                  >
+                    Apply
+                  </Button>
+                </DrawerClose>
               </div>
             </DrawerContent>
           </Drawer>
@@ -242,9 +256,20 @@ const DataTable = <TData, TValue>({
               <div className="w-full justify-end flex py-2 pr-4">
                 <Button
                   onClick={() => {
-                    onApplyFilters && onApplyFilters(filter);
+                    if (filter !== undefined) {
+                      if (filter.regions[0] !== "All") {
+                        table
+                          .getColumn("country")
+                          ?.setFilterValue(filter?.regions[0]);
+                      }else {
+                        table
+                          .getColumn("country")
+                          ?.setFilterValue("");
+                      }
+                    }
+                    setDropdownOpen(false);
                   }}
-                  className="rounded-sm py-2.5 px-6 w-[91px] h-10"
+                  className="rounded-sm px-3 w-auto h-8"
                 >
                   Apply
                 </Button>
@@ -320,8 +345,7 @@ const DataTable = <TData, TValue>({
               </TableBody>
             )}
           </Table>
-              {isLoading && <Loader isLoading={isLoading} className="h-[500px]"/>}
-            
+          {isLoading && <Loader isLoading={isLoading} className="h-[500px]" />}
         </div>
       </div>
       <div className="flex justify-between w-full">
@@ -423,7 +447,7 @@ const DisplayFilters = ({
                         }
                         return {
                           ...prev,
-                          regions: [...prev.regions, region],
+                          regions: [ region],
                         };
                       }
                       return {

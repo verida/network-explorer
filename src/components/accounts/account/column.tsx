@@ -7,7 +7,10 @@ import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import dayjs from "dayjs";
 import { Account } from "@/types/account";
-import { WebUserProfile } from "@verida/web-helpers";
+
+import { getDidDocument } from "@/lib/utils/veridaUtils";
+
+
 
 export const columns: ColumnDef<Account>[] = [
   {
@@ -32,7 +35,7 @@ export const columns: ColumnDef<Account>[] = [
     cell: ({ row }) => (
       <div className="flex items-center text-[14px] font-normal leading-[20px] gap-4 pl-6">
         <img
-          src={row.original.avatarUri}
+          src={row.original?.avatarUri}
           className="w-10 h-10 rounded-sm object-cover"
           alt="account-image"
         />
@@ -88,7 +91,9 @@ export const columns: ColumnDef<Account>[] = [
         )}
       </Button>
     ),
-    cell: ({ row }) =>
-      dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A"),
+    cell: ({ row }) =>{
+      return dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A")
+      }
+      
   },
 ];
