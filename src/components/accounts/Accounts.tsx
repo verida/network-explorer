@@ -5,7 +5,11 @@ import React, { useEffect, useState } from "react";
 import { columns } from "./account/column";
 import DataTable from "../common/table";
 import { useQuery } from "react-query";
-import { getAnyPublicProfile, paginateDids } from "@/lib/utils/veridaUtils";
+import {
+  getAnyPublicProfile,
+  getDidDocument,
+  paginateDids,
+} from "@/lib/utils/veridaUtils";
 import { useToast } from "../ui/use-toast";
 import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
 import { config } from "@/lib/config";
@@ -32,7 +36,7 @@ const Accounts = () => {
   }, []);
 
   const { data, isLoading, isError } = useQuery(
-    ["accounts", page],
+    ["accounts", page,limit],
     async () => {
       // return await paginateDids(page, limit);
       const dids = await getDIDs(BlockchainAnchor.POLPOS, page, limit);
@@ -40,7 +44,13 @@ const Accounts = () => {
       const profiles = await Promise.all(
         dids.map(async (did: string) => {
           try {
-            return await getAnyPublicProfile(config.client, did);
+            const didDocument = await getDidDocument(did) as any;
+            const profile = await getAnyPublicProfile(config.client, did);
+
+            return {
+              ...profile,
+              createdAt:didDocument?.created
+            };
           } catch (error) {
             console.error(`Failed to get profile for DID: ${did}`, error);
             return null; // or handle the error as needed
@@ -49,12 +59,12 @@ const Accounts = () => {
       );
 
       return profiles.filter(
-        (profile) => profile !== null || profiles !== undefined
+        (profile) => profile?.did !== null || profiles !== undefined || profile?.name !== null
       );
     },
     {
       refetchOnWindowFocus: false,
-      refetchOnMount: false,
+      refetchOnMount: true,
       onError: (error) => {
         toast({
           variant: "destructive",
@@ -73,19 +83,21 @@ const Accounts = () => {
     }
   );
 
+  console.log(data);
+
   return (
     <div className="flex flex-col gap-6 sm:mb-12">
-        <DataTable
-          columns={columns as ColumnDef<Account | null | undefined, unknown>[]}
-          data={data as (Account | null | undefined)[]}
-          page={page}
-          limit={limit}
-          setLimit={setLimit}
-          setPage={setPage}
-          title="accounts"
-          totalCount={count}
-          isLoading={isLoading}
-        />
+      <DataTable
+        columns={columns as ColumnDef<Account | null | undefined, unknown>[]}
+        data={data as (Account | null | undefined)[]}
+        page={page}
+        limit={limit}
+        setLimit={setLimit}
+        setPage={setPage}
+        title="accounts"
+        totalCount={count}
+        isLoading={isLoading}
+      />
     </div>
   );
 };

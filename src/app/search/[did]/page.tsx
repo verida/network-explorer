@@ -38,6 +38,9 @@ const SearchPage = () => {
     }
   );
 
+  console.log(profile);
+  
+
   return (
     params.did &&
     (isLoading ? (
