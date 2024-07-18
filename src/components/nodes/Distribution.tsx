@@ -28,16 +28,15 @@ export interface DistributionProps {
 }
 
 const Distribution = ({ summary: data }: DistributionProps) => {
-
-  const [isLoading,setIsLoading] = useState(true);
-  useEffect(()=>{
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false)
+      setIsLoading(false);
     }, 2000);
-  })
+  });
   return (
-    <div className="bg-[#191a1a] pt-3 pl-4 bg-opacity-70 mt-7 rounded-lg border border-white/20">
-      <div className="font-semibold text-[24px] leading-[36px]">
+    <div className="mt-7 rounded-lg border border-white/20 bg-[#191a1a] bg-opacity-70 pl-4 pt-3">
+      <div className="text-[24px] font-semibold leading-[36px]">
         Node Distribution
       </div>
       {isLoading ? (

@@ -3,13 +3,13 @@ import SuccessIcon from "@/assets/svg/success.svg";
 
 const UnStakeSuccess = () => {
   return (
-    <div className="flex flex-col items-center gap-10 pt-10 pb-5">
+    <div className="flex flex-col items-center gap-10 pb-5 pt-10">
       <SuccessIcon />
       <div className="flex flex-col gap-4">
-        <div className="font-bold text-[24px] leading-[28.8px] text-center text-white">
+        <div className="text-center text-[24px] font-bold leading-[28.8px] text-white">
           Process Completed: Storage Node Removed
         </div>
-        <div className="text-white/60 text-center font-normal text-[14px]">
+        <div className="text-center text-[14px] font-normal text-white/60">
           The removal of the storage node is complete. Thank you for your
           cooperation. If you have any further questions, please reach out to
           our support team.

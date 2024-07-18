@@ -58,7 +58,7 @@ export const hasVeridaUsernameSyntax = (didOrUsername: string) => {
  */
 export const resolveIdentity = async (
   client: Client,
-  identity: string
+  identity: string,
 ): Promise<ResolvedIdentity> => {
   // TODO: Remove use of mock data
   // if (config.isMockDataEnabled && identity === MOCK_IDENTITY) {
@@ -109,38 +109,43 @@ export const resolveIdentity = async (
  */
 export const getAnyPublicProfile = async (
   client: Client,
-  did: string
-): Promise<Account|undefined> => {
+  did: string,
+): Promise<Account | undefined> => {
   try {
-    const profileInstance = await client.getPublicProfile(
-      did,
-      "Verida: Vault"
-    );
-  
+    const profileInstance = await client.getPublicProfile(did, "Verida: Vault");
+
     for (const key in profileInstance) {
       if (profileInstance.hasOwnProperty(key)) {
-          console.log(`${key}: ${profileInstance[key]}`);
+        console.log(`${key}: ${profileInstance[key]}`);
       }
     }
-    console.log(profileInstance ? profileInstance['avatar'] : '')
-  
+    console.log(profileInstance ? profileInstance["avatar"] : "");
+
     if (!profileInstance) {
       throw new Error("No public profile exists for this did");
     }
-  
+
     return {
-      name: profileInstance.hasOwnProperty('name') ? profileInstance['name'] : 'UNKOWN',
+      name: profileInstance.hasOwnProperty("name")
+        ? profileInstance["name"]
+        : "UNKOWN",
       did: did,
-      avatarUri: profileInstance.hasOwnProperty('avatar') ? (profileInstance['avatar'] as { uri?: string})?.uri : 'https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg',
-      country: profileInstance.hasOwnProperty('country') ? profileInstance['country'] : 'UNKOWN',
-      description: profileInstance.hasOwnProperty('description') ? profileInstance['description'] : 'UNKOWN',
-      createdAt: profileInstance.hasOwnProperty('modifiedAt') ? profileInstance['modifiedAt'] : '',
+      avatarUri: profileInstance.hasOwnProperty("avatar")
+        ? (profileInstance["avatar"] as { uri?: string })?.uri
+        : "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg",
+      country: profileInstance.hasOwnProperty("country")
+        ? profileInstance["country"]
+        : "UNKOWN",
+      description: profileInstance.hasOwnProperty("description")
+        ? profileInstance["description"]
+        : "UNKOWN",
+      createdAt: profileInstance.hasOwnProperty("modifiedAt")
+        ? profileInstance["modifiedAt"]
+        : "",
     };
   } catch (error) {
-    return; 
+    return;
   }
-  
-  
 };
 
 /**
@@ -158,13 +163,13 @@ export const getExternalDatastore = async (
   didOrUsername: string,
   contextName: string,
   schemaUri: string,
-  datastoreConfig: DatastoreOpenConfig = {}
+  datastoreConfig: DatastoreOpenConfig = {},
 ) => {
   const context = await client.openExternalContext(contextName, didOrUsername);
   return await context.openExternalDatastore(
     schemaUri,
     didOrUsername,
-    datastoreConfig
+    datastoreConfig,
   );
   // TODO: catch error and return a dedicated error (context not found, ...)
 };
@@ -181,14 +186,13 @@ export const paginateDids = async (page: number, limit: number) => {
   return await getDIDs(BlockchainAnchor.POLPOS, page, limit);
 };
 
-
 /**
  * Get the DID document of a DID.
- * 
+ *
  * @param did The DID.
  * @returns The DID document.
  * @throws Error if the DID document cannot be found.
- * 
+ *
  */
 export const getDidDocument = async (did: string) => {
   const response = await didResolver.resolve(did);

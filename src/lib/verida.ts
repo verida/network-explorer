@@ -46,7 +46,7 @@ class VeridaClient extends EventEmitter {
     const profileInstance = await this.client.openPublicProfile(
       did,
       profileContextName,
-      "basicProfile"
+      "basicProfile",
     );
     if (profileInstance) {
       this.profile = await profileInstance.getMany({}, {});

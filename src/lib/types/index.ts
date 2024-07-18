@@ -1,1 +1,1 @@
-export * from "./verida"
+export * from "./verida";

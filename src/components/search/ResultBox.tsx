@@ -44,51 +44,51 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
 
   return (
     <div className="flex flex-col gap-3">
-      <div className="font-normal text-[12px] leading-[18px] text-white/60">
+      <div className="text-[12px] font-normal leading-[18px] text-white/60">
         RESULTS:
       </div>
-      <div className="flex flex-col sm:gap-10 result-box lg:p-9 gap-6 py-6 px-4 rounded-lg border border-white/20 ">
-        <div className="flex justify-between sm:flex-row flex-col sm:gap-3">
-          <div className="flex gap-4 sm:flex-row flex-col">
+      <div className="result-box flex flex-col gap-6 rounded-lg border border-white/20 px-4 py-6 sm:gap-10 lg:p-9">
+        <div className="flex flex-col justify-between sm:flex-row sm:gap-3">
+          <div className="flex flex-col gap-4 sm:flex-row">
             <img
               src={
                 profile.avatarUri ??
                 "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
               }
-              className="rounded-sm w-[88px] h-[88px] object-cover sm:mx-0 mx-auto"
+              className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0"
             />
-            <div className="flex flex-col sm:gap-3 sm:w-auto w-full gap-4 lg:w-[619px]">
-              <div className="sm:font-normal font-bold md:text-base text-[20px] sm:mx-0 mx-auto leading-[24px]">
+            <div className="flex w-full flex-col gap-4 sm:w-auto sm:gap-3 lg:w-[619px]">
+              <div className="mx-auto text-[20px] font-bold leading-[24px] sm:mx-0 sm:font-normal md:text-base">
                 {profile.name}
               </div>
               <div
-                className="flex sm:hidden flex-col gap-3 items-center h-fit"
+                className="flex h-fit flex-col items-center gap-3 sm:hidden"
                 style={
                   isSmScreen
                     ? { boxShadow: "0px 4.78px 28.7px 0px #1111111F" }
                     : {}
                 }
               >
-                <div className="p-3 w-40 bg-white rounded-lg">
+                <div className="w-40 rounded-lg bg-white p-3">
                   <QRCode
                     size={160}
-                    className="h-auto max-w-full w-full"
+                    className="h-auto w-full max-w-full"
                     value={config.baseUrl + "/did/" + profile.did}
                     viewBox="0 0 160 160"
                   />
                 </div>
                 {!showResultJson && (
-                  <div className="font-normal text-[11px] leading-[16px]">
+                  <div className="text-[11px] font-normal leading-[16px]">
                     Scan to add contact
                   </div>
                 )}
               </div>
-              <div className="justify-between flex sm:flex-row flex-col">
-                <div className="text-white/60 font-normal text-[14px] leading-[20px]">
+              <div className="flex flex-col justify-between sm:flex-row">
+                <div className="text-[14px] font-normal leading-[20px] text-white/60">
                   DID
                 </div>
-                <div className="text-[#8566F2] leading-[20px] font-normal text-[14px] gap-2 flex">
-                  <span className="truncate lg:max-w-max md:max-w-[340px] max-w-[calc(100%-1.5  rem)]">
+                <div className="flex gap-2 text-[14px] font-normal leading-[20px] text-[#8566F2]">
+                  <span className="max-w-[calc(100%-1.5 rem)] truncate md:max-w-[340px] lg:max-w-max">
                     {profile.did}
                   </span>
                   <CopyIcon
@@ -103,24 +103,24 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
                   />
                 </div>
               </div>
-              <div className="flex sm:items-center sm:gap-8 sm:flex-row flex-col">
-                <div className="font-normal text-[14px] leading-[20px] text-white/60">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:gap-8">
+                <div className="text-[14px] font-normal leading-[20px] text-white/60">
                   Country
                 </div>
                 <div className="text-[14px] font-normal leading-[20px]">
                   {profile.country}
                 </div>
               </div>
-              <div className="sm:pt-6 pt-2 flex flex-col gap-3">
-                <div className="font-normal text-[14px] leading-[20px] text-white/60">
+              <div className="flex flex-col gap-3 pt-2 sm:pt-6">
+                <div className="text-[14px] font-normal leading-[20px] text-white/60">
                   Description
                 </div>
-                <div className="text-[14px] leading-[22.4px] font-normal break-words">
+                <div className="break-words text-[14px] font-normal leading-[22.4px]">
                   {profile.description}
                 </div>
               </div>
               <Button
-                className="mt-6 bg-transparent border-white/40 py-[15px] px-6 rounded-sm h-[48px] w-[197px]"
+                className="mt-6 h-[48px] w-[197px] rounded-sm border-white/40 bg-transparent px-6 py-[15px]"
                 variant="outline"
                 onClick={async () => {
                   setShowResultJson(!showResultJson);
@@ -131,14 +131,14 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
             </div>
           </div>
           <div
-            className="sm:flex hidden flex-col gap-3 items-center h-fit"
+            className="hidden h-fit flex-col items-center gap-3 sm:flex"
             style={{ boxShadow: "0px 4.78px 28.7px 0px #1111111F" }}
           >
             {/* <QrCode /> */}
-            <div className="p-3 w-40 bg-white rounded-lg">
+            <div className="w-40 rounded-lg bg-white p-3">
               <QRCode
                 size={160}
-                className="h-auto max-w-full w-full"
+                className="h-auto w-full max-w-full"
                 value={config.baseUrl + "/did/" + profile.did}
                 viewBox="0 0 160 160"
               />
@@ -151,13 +151,11 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
             <Loader isLoading={isLoading} />
           ) : (
             <>
-              <Separator color="#FFFFFF26" className="sm:block hidden" />
-              <pre className="leading-[22.4px] text-[14px] font-normal whitespace-pre-wrap break-all">
-                
+              <Separator color="#FFFFFF26" className="hidden sm:block" />
+              <pre className="whitespace-pre-wrap break-all text-[14px] font-normal leading-[22.4px]">
                 {!resultJson || isError
                   ? "Unable to get did document"
                   : JSON.stringify(resultJson, null, 2)}
-             
               </pre>
             </>
           ))}

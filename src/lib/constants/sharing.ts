@@ -4,4 +4,4 @@ export const SHARING_PLATFORMS = {
   TELEGRAM: "telegram",
   TWITTER: "twitter",
   WHATSAPP: "whatsapp",
-} as const
+} as const;

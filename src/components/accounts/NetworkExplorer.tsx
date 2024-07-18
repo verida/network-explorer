@@ -47,30 +47,30 @@ const NetworkExplorer = () => {
 
   return (
     <>
-      <div className="flex md:flex-row flex-col md:gap-0 gap-3 justify-between md:pt-8 pt-4 items-center">
-        <div className="flex flex-col gap-10 w-full md:max-w-[704px] relative">
+      <div className="flex flex-col items-center justify-between gap-3 pt-4 md:flex-row md:gap-0 md:pt-8">
+        <div className="relative flex w-full flex-col gap-10 md:max-w-[704px]">
           <div className="flex flex-col gap-3">
-            <div className="font-bold md:text-[48px] text-[32px] leading-[60.48px]">
+            <div className="text-[32px] font-bold leading-[60.48px] md:text-[48px]">
               Network Explorer
             </div>
-            <div className="font-light text-[14px] md:text-[18px] leading-[27px] tracking-[-3%]">
+            <div className="text-[14px] font-light leading-[27px] tracking-[-3%] md:text-[18px]">
               Use this to search through your account. Search what account you
               have access to, and find the DIDs that you need.
             </div>
           </div>
           <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-            <div className="network-search border border-white/60 md:py-2 p-4 md:pl-4 md:pr-2 rounded-lg flex md:flex-row flex-col items-center md:gap-2 gap-6">
-              <div className="flex gap-2 w-full">
+            <div className="network-search flex flex-col items-center gap-6 rounded-lg border border-white/60 p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
+              <div className="flex w-full gap-2">
                 <SearchIcon />
                 <input
                   placeholder="Search by DID (did:VDA:polpos:0x486e..644a55)"
                   onChange={(e) => {
                     setSearchDidInput(e.target.value);
                   }}
-                  className="bg-transparent focus:border-none focus:outline-none w-[80%]"
+                  className="w-[80%] bg-transparent focus:border-none focus:outline-none"
                 />
               </div>
-              <PopoverTrigger className="md:rounded-lg bg-white text-black rounded-sm h-[48px] md:w-[94px] w-full font-semibold text-[14px] leading-[17.64px] md:py-3 py-2.5 md:pl-6 md:pr-5">
+              <PopoverTrigger className="h-[48px] w-full rounded-sm bg-white py-2.5 text-[14px] font-semibold leading-[17.64px] text-black md:w-[94px] md:rounded-lg md:py-3 md:pl-6 md:pr-5">
                 Search
               </PopoverTrigger>
             </div>
@@ -78,28 +78,31 @@ const NetworkExplorer = () => {
             <PopoverContent
               align="end"
               alignOffset={-10}
-              className="w-[calc(100vw-40px)] md:w-[704px] mt-7 bg-[#333153] border border-white/60 py-5 px-4 rounded-lg"
+              className="mt-7 w-[calc(100vw-40px)] rounded-lg border border-white/60 bg-[#333153] px-4 py-5 md:w-[704px]"
             >
               {profile ? (
-                <Link href={`/search/${searchDidinput}`} className="flex gap-4 items-center ">
+                <Link
+                  href={`/search/${searchDidinput}`}
+                  className="flex items-center gap-4"
+                >
                   <img
                     src={
                       profile.avatarUri ??
                       "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
                     }
-                    className="w-10 h-10 rounded object-cover"
+                    className="h-10 w-10 rounded object-cover"
                   />
-                  <div className="flex flex-col gap-1.5 mt-2 break-words text-white">
-                    <div className="font-bold text-[14px] leading-[17.64px]">
+                  <div className="mt-2 flex flex-col gap-1.5 break-words text-white">
+                    <div className="text-[14px] font-bold leading-[17.64px]">
                       {profile.name}
                     </div>
-                    <div className="font-normal text-[14px] leadig-[17.64px] break-words  w-[calc(100vw-125px)]">
+                    <div className="leadig-[17.64px] w-[calc(100vw-125px)] break-words text-[14px] font-normal">
                       {searchDidinput}
                     </div>
                   </div>
                 </Link>
               ) : (
-                <div className="w-full flex justify-center items-center">
+                <div className="flex w-full items-center justify-center">
                   <Oval
                     visible={true}
                     height="50"
@@ -115,7 +118,7 @@ const NetworkExplorer = () => {
         </div>
         <SearchAccount />
       </div>
-      <Separator className="mt-10 md:block hidden bg-white/20" />
+      <Separator className="mt-10 hidden bg-white/20 md:block" />
     </>
   );
 };
