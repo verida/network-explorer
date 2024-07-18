@@ -12,9 +12,9 @@ import { csv2json } from "@/lib/utils/csvToArray";
 
 const BarChart = dynamic(() => import("./BarChart"), { ssr: false });
 
-const TotalAccounts = ({data}:{data:any}) => {
-  const {AccountData,isLoading} = data;
-    const { toast } = useToast();
+const TotalAccounts = ({ data }: { data: any }) => {
+  const { AccountData, isLoading } = data;
+  const { toast } = useToast();
 
   const [selectedTab, setSelectedTab] = useState("monthly");
 
@@ -53,34 +53,34 @@ const TotalAccounts = ({data}:{data:any}) => {
       onValueChange={(value) => {
         setSelectedTab(value);
       }}
-      className="bar-container sm:p-6 pt-6 md:px-4 rounded-[12px] flex flex-col md:my-14 my-10 gap-8"
+      className="bar-container my-10 flex flex-col gap-8 rounded-[12px] pt-6 sm:p-6 md:my-14 md:px-4"
     >
-      <div className="flex sm:flex-row flex-col md:px-0 px-4 justify-between">
-        <div className="font-bold text-[24px] leading-[36px]">
+      <div className="flex flex-col justify-between px-4 sm:flex-row md:px-0">
+        <div className="text-[24px] font-bold leading-[36px]">
           Total Accounts
         </div>
-        <TabsList className="bg-white/10 h-auto rounded">
+        <TabsList className="h-auto rounded bg-white/10">
           <TabsTrigger
-            className="py-0.5 px-1 text-[12px] leading-[20px] font-semibold w-full"
+            className="w-full px-1 py-0.5 text-[12px] font-semibold leading-[20px]"
             value="daily"
           >
             Daily
           </TabsTrigger>
           <TabsTrigger
-            className="py-0.5 px-1 text-[12px] leading-[20px] font-semibold w-full"
+            className="w-full px-1 py-0.5 text-[12px] font-semibold leading-[20px]"
             value="weekly"
           >
             Weekly
           </TabsTrigger>
           <TabsTrigger
-            className="py-0.5 px-1 text-[12px] leading-[20px] font-semibold w-full"
+            className="w-full px-1 py-0.5 text-[12px] font-semibold leading-[20px]"
             value="monthly"
           >
             Monthly
           </TabsTrigger>
         </TabsList>
       </div>
-      <Loader isLoading={isLoading} className="sm:h-[350px] h-[150px]" />
+      <Loader isLoading={isLoading} className="h-[150px] sm:h-[350px]" />
       {data && <BarChart data={AccountData} tab={selectedTab} />}
     </Tabs>
   );

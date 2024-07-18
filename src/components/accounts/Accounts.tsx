@@ -36,7 +36,7 @@ const Accounts = () => {
   }, []);
 
   const { data, isLoading, isError } = useQuery(
-    ["accounts", page,limit],
+    ["accounts", page, limit],
     async () => {
       // return await paginateDids(page, limit);
       const dids = await getDIDs(BlockchainAnchor.POLPOS, page, limit);
@@ -44,12 +44,12 @@ const Accounts = () => {
       const profiles = await Promise.all(
         dids.map(async (did: string) => {
           try {
-            const didDocument = await getDidDocument(did) as any;
+            const didDocument = (await getDidDocument(did)) as any;
             const profile = await getAnyPublicProfile(config.client, did);
 
             return {
               ...profile,
-              createdAt:didDocument?.created
+              createdAt: didDocument?.created,
             };
           } catch (error) {
             console.error(`Failed to get profile for DID: ${did}`, error);
@@ -59,7 +59,10 @@ const Accounts = () => {
       );
 
       return profiles.filter(
-        (profile) => profile?.did !== null || profiles !== undefined || profile?.name !== null
+        (profile) =>
+          profile?.did !== null ||
+          profiles !== undefined ||
+          profile?.name !== null
       );
     },
     {

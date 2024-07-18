@@ -10,8 +10,6 @@ import { Account } from "@/types/account";
 
 import { getDidDocument } from "@/lib/utils/veridaUtils";
 
-
-
 export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: "user",
@@ -19,7 +17,7 @@ export const columns: ColumnDef<Account>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2"
+        className="flex items-center gap-2 hover:bg-transparent"
         onClick={() => {
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
@@ -33,10 +31,10 @@ export const columns: ColumnDef<Account>[] = [
       </Button>
     ),
     cell: ({ row }) => (
-      <div className="flex items-center text-[14px] font-normal leading-[20px] gap-4 pl-6">
+      <div className="flex items-center gap-4 pl-6 text-[14px] font-normal leading-[20px]">
         <img
           src={row.original?.avatarUri}
-          className="w-10 h-10 rounded-sm object-cover"
+          className="h-10 w-10 rounded-sm object-cover"
           alt="account-image"
         />
         <div>{row.original.name}</div>
@@ -53,7 +51,7 @@ export const columns: ColumnDef<Account>[] = [
     cell: ({ row }) => {
       const { toast } = useToast();
       return (
-        <div className="text-[#8566F2] flex items-center gap-3 text-[14px] font-normal leading-[20px]">
+        <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-[#8566F2]">
           <div>{row.original.did}</div>
           <CopyIcon
             className="cursor-pointer"
@@ -78,7 +76,7 @@ export const columns: ColumnDef<Account>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2 p-0"
+        className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
@@ -91,9 +89,8 @@ export const columns: ColumnDef<Account>[] = [
         )}
       </Button>
     ),
-    cell: ({ row }) =>{
-      return dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A")
-      }
-      
+    cell: ({ row }) => {
+      return dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A");
+    },
   },
 ];

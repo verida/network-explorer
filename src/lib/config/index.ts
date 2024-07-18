@@ -29,7 +29,9 @@ const client = new Client({
   },
 });
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "https://develop.d1lkxmbu5ufoio.amplifyapp.com/";
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  "https://develop.d1lkxmbu5ufoio.amplifyapp.com/";
 
 export const config = {
   veridaEnv,
@@ -38,5 +40,5 @@ export const config = {
   isMockDataEnabled,
   client,
   nodeSummaryUrl,
-  baseUrl
+  baseUrl,
 };

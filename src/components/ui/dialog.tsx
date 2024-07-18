@@ -21,7 +21,7 @@ const DialogOverlay = React.forwardRef<
   <DialogPrimitive.Overlay
     ref={ref}
     className={cn(
-      "fixed inset-0 z-50 bg-black/30 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 overflow-y-auto py-10 grid place-items-center",
+      "fixed inset-0 z-50 grid place-items-center overflow-y-auto bg-black/30 py-10 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
       className
     )}
     {...props}
@@ -38,7 +38,7 @@ const DialogContent = React.forwardRef<
       <DialogPrimitive.Content
         ref={ref}
         className={cn(
-          "relative z-50 grid w-screen max-w-lg sm:gap-4 gap-2 border bg-background sm:p-6 py-4 px-3 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] rounded-md sm:rounded-lg",
+          "relative z-50 grid w-screen max-w-lg gap-2 rounded-md border bg-background px-3 py-4 shadow-lg duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-top-[48%] sm:gap-4 sm:rounded-lg sm:p-6",
           className
         )}
         {...props}
@@ -85,7 +85,7 @@ const DialogTitle = React.forwardRef<
   <DialogPrimitive.Title
     ref={ref}
     className={cn(
-      "text-lg font-semibold leading-none tracking-tight sm:border-none border-b border-white/15 sm:pb-0 pb-4 w-[calc(100%+1.5rem)] -translate-x-3 sm:w-auto",
+      "w-[calc(100%+1.5rem)] -translate-x-3 border-b border-white/15 pb-4 text-lg font-semibold leading-none tracking-tight sm:w-auto sm:border-none sm:pb-0",
       className
     )}
     {...props}

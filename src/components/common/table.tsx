@@ -142,15 +142,15 @@ const DataTable = <TData, TValue>({
 
   return (
     <>
-      <div className="flex justify-between items-center">
-        <div className="font-semibold text-[18px] leading-[20px] capitalize">
+      <div className="flex items-center justify-between">
+        <div className="text-[18px] font-semibold capitalize leading-[20px]">
           {totalCount} {title}
         </div>
         <div className="flex items-center gap-3">
           <Button
             size="icon"
             className={cn(
-              "bg-[#FFFFFF26] hover:bg-[#FFFFFF26] p-2 rounded-sm flex justify-center gap-1 transition-all duration-500",
+              "flex justify-center gap-1 rounded-sm bg-[#FFFFFF26] p-2 transition-all duration-500 hover:bg-[#FFFFFF26]",
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
@@ -163,7 +163,7 @@ const DataTable = <TData, TValue>({
               <>
                 <Input
                   type="text"
-                  className=" bg-transparent hover:bg-transparent border-none focus-visible:ring-0 rounded-none text-white pl-0 -mr-6 w-[90%]"
+                  className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-white hover:bg-transparent focus-visible:ring-0"
                   onChange={(event) =>
                     table.getColumn("did")?.setFilterValue(event.target.value)
                   }
@@ -181,16 +181,16 @@ const DataTable = <TData, TValue>({
             <DrawerTrigger asChild>
               <Button
                 size="icon"
-                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 flex sm:hidden"
+                className="flex bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:hidden"
               >
                 <MdTune color="white" size={20} />
               </Button>
             </DrawerTrigger>
-            <DrawerContent className="bg-[#333153] border-white/30 border rounded-3">
-              <div className="text-white font-semibold text-[14px] leading-[20px] flex justify-between py-2 pl-3">
+            <DrawerContent className="rounded-3 border border-white/30 bg-[#333153]">
+              <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-white">
                 <div>Filters</div>
                 <X
-                  className="h-5 w-5 cursor-pointer sm:hidden block mr-2"
+                  className="mr-2 block h-5 w-5 cursor-pointer sm:hidden"
                   onClick={() => {
                     setDrawerOpen(false);
                   }}
@@ -201,7 +201,7 @@ const DataTable = <TData, TValue>({
                 filter={filter}
                 setFilter={setFilter}
               />
-              <div className="w-full justify-end flex py-2 pr-4">
+              <div className="flex w-full justify-end py-2 pr-4">
                 <DrawerClose asChild>
                   <Button
                     onClick={() => {
@@ -214,7 +214,7 @@ const DataTable = <TData, TValue>({
                           ?.setFilterValue(filter?.regions[0]);
                       }
                     }}
-                    className="rounded-sm px-3 w-auto h-8"
+                    className="h-8 w-auto rounded-sm px-3"
                   >
                     Apply
                   </Button>
@@ -230,19 +230,19 @@ const DataTable = <TData, TValue>({
             <DropdownMenuTrigger asChild>
               <Button
                 size="icon"
-                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex hidden"
+                className="hidden bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex"
               >
                 <MdTune color="white" size={20} />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="bg-[#333153] border-white/30 border rounded-3 sm:w-[356px] w-screen"
+              className="rounded-3 w-screen border border-white/30 bg-[#333153] sm:w-[356px]"
               align="end"
             >
-              <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px] flex justify-between">
+              <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-white">
                 <div>Filters</div>
                 <X
-                  className="h-5 w-5 cursor-pointer sm:hidden block"
+                  className="block h-5 w-5 cursor-pointer sm:hidden"
                   onClick={() => {
                     setDropdownOpen(false);
                   }}
@@ -253,7 +253,7 @@ const DataTable = <TData, TValue>({
                 setFilter={setFilter}
                 showStatus={showStatusFilters}
               />
-              <div className="w-full justify-end flex py-2 pr-4">
+              <div className="flex w-full justify-end py-2 pr-4">
                 <Button
                   onClick={() => {
                     if (filter !== undefined) {
@@ -261,15 +261,13 @@ const DataTable = <TData, TValue>({
                         table
                           .getColumn("country")
                           ?.setFilterValue(filter?.regions[0]);
-                      }else {
-                        table
-                          .getColumn("country")
-                          ?.setFilterValue("");
+                      } else {
+                        table.getColumn("country")?.setFilterValue("");
                       }
                     }
                     setDropdownOpen(false);
                   }}
-                  className="rounded-sm px-3 w-auto h-8"
+                  className="h-8 w-auto rounded-sm px-3"
                 >
                   Apply
                 </Button>
@@ -280,9 +278,9 @@ const DataTable = <TData, TValue>({
         {additionalTitles}
       </div>
       <div className="min-h-[18rem]">
-        <div className={`border border-white/20 rounded-lg overflow-hidden`}>
+        <div className={`overflow-hidden rounded-lg border border-white/20`}>
           <Table className="min-w-[68rem]">
-            <TableHeader className="bg-[#FFFFFF0A] ">
+            <TableHeader className="bg-[#FFFFFF0A]">
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header) => {
@@ -290,7 +288,7 @@ const DataTable = <TData, TValue>({
                       <TableHead
                         key={header.id}
                         className={cn(
-                          "md:border-none border-r border-white/10",
+                          "border-r border-white/10 md:border-none",
                           header.index === headerGroup.headers.length - 1 &&
                             "border-none"
                         )}
@@ -319,7 +317,7 @@ const DataTable = <TData, TValue>({
                         <TableCell
                           key={cell.id}
                           className={cn(
-                            "md:border-none border-r border-white/10",
+                            "border-r border-white/10 md:border-none",
                             index === row.getVisibleCells().length - 1 &&
                               "border-none"
                           )}
@@ -336,7 +334,7 @@ const DataTable = <TData, TValue>({
                   <TableRow>
                     <TableCell
                       colSpan={columns.length}
-                      className="h-[250px] pl-6 py-4 pr-4 text-center"
+                      className="h-[250px] py-4 pl-6 pr-4 text-center"
                     >
                       No results.
                     </TableCell>
@@ -348,13 +346,13 @@ const DataTable = <TData, TValue>({
           {isLoading && <Loader isLoading={isLoading} className="h-[500px]" />}
         </div>
       </div>
-      <div className="flex justify-between w-full">
+      <div className="flex w-full justify-between">
         <div className="flex items-center gap-4">
           <div>Show rows</div>
           <Select
             onValueChange={(value) => setLimit(parseInt(value as string))}
           >
-            <SelectTrigger className="w-20 h-10 py-2 pl-2.5 pr-1 gap-1 rounded bg-white/15">
+            <SelectTrigger className="h-10 w-20 gap-1 rounded bg-white/15 py-2 pl-2.5 pr-1">
               <SelectValue placeholder={limit} />
             </SelectTrigger>
             <SelectContent>
@@ -366,8 +364,8 @@ const DataTable = <TData, TValue>({
             </SelectContent>
           </Select>
         </div>
-        <div className="flex gap-2 items-center">
-          <div className="font-normal text-[14px] leading-[20px] text-white/60">
+        <div className="flex items-center gap-2">
+          <div className="text-[14px] font-normal leading-[20px] text-white/60">
             Page
           </div>
           <div className="flex items-center gap-3">
@@ -380,7 +378,7 @@ const DataTable = <TData, TValue>({
                 }
               }}
             />
-            <div className="flex text-[14px] font-normal leading-[20px] bg-white/15 rounded py-2.5 px-3">
+            <div className="flex rounded bg-white/15 px-3 py-2.5 text-[14px] font-normal leading-[20px]">
               <div className="text-white">{page}</div>
               <div className="text-white/60">
                 /{Math.ceil(totalCount / limit)}
@@ -422,17 +420,17 @@ const DisplayFilters = ({
   ];
   return (
     <>
-      <Separator className="bg-[#FFFFFF26] h-[1px]" />
-      <div className="pt-2 pb-3 pl-2">
-        <div className="font-normal text-[14px] leading-[20px] text-white/60 py-2">
+      <Separator className="h-[1px] bg-[#FFFFFF26]" />
+      <div className="pb-3 pl-2 pt-2">
+        <div className="py-2 text-[14px] font-normal leading-[20px] text-white/60">
           Region
         </div>
-        <div className="flex flex-col gap-2 mt-1">
+        <div className="mt-1 flex flex-col gap-2">
           {regions.map((region) => {
             return (
               <div
                 key={region}
-                className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-1.5 px-2"
+                className="flex items-center gap-3 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-white"
               >
                 <Checkbox
                   id={region.toLowerCase()}
@@ -447,7 +445,7 @@ const DisplayFilters = ({
                         }
                         return {
                           ...prev,
-                          regions: [ region],
+                          regions: [region],
                         };
                       }
                       return {
@@ -466,14 +464,14 @@ const DisplayFilters = ({
       </div>
       {showStatus && (
         <div className="pb-1 pl-4">
-          <div className="font-normal text-[14px] leading-[20px] text-white/60 py-1.5">
+          <div className="py-1.5 text-[14px] font-normal leading-[20px] text-white/60">
             Status
           </div>
           {statuses.map((status) => {
             return (
               <div
                 key={status}
-                className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-1.5"
+                className="flex items-center gap-3 py-1.5 text-[14px] font-normal leading-[20px] text-white"
               >
                 <Checkbox
                   id={"status-" + status.toLowerCase()}
@@ -495,7 +493,7 @@ const DisplayFilters = ({
           })}
         </div>
       )}
-      <Separator className="bg-[#FFFFFF26] h-[1px]" />
+      <Separator className="h-[1px] bg-[#FFFFFF26]" />
     </>
   );
 };

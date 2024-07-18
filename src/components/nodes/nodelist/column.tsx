@@ -39,7 +39,7 @@ export const columns: ColumnDef<Node>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2 p-0"
+        className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
@@ -54,12 +54,12 @@ export const columns: ColumnDef<Node>[] = [
     ),
     cell: ({ row }) => (
       <div className="flex items-center gap-4">
-        <div className="bg-white/20 w-10 h-10 rounded-sm items-center flex justify-center">
+        <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-white/20">
           <StorageIcon />
         </div>
         <Link
           href={`/nodes/details/${row.original.id}`}
-          className="text-[#8566F2] font-normal text-[14px] leading-[20px]"
+          className="text-[14px] font-normal leading-[20px] text-[#8566F2]"
         >
           {row.getValue("name")}
         </Link>
@@ -84,7 +84,7 @@ export const columns: ColumnDef<Node>[] = [
     header: ({ column }) => (
       <Button
         variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2 p-0"
+        className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
@@ -103,10 +103,10 @@ export const columns: ColumnDef<Node>[] = [
   {
     accessorKey: "storageSlotsUsed",
     enableSorting: true,
-    header: ({column}) => (
+    header: ({ column }) => (
       <Button
         variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2 p-0"
+        className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
@@ -124,7 +124,7 @@ export const columns: ColumnDef<Node>[] = [
         <span className="text-[14px] font-normal leading-[20px]">
           {row.original.storageSlotsUsed}&nbsp;
         </span>
-        <span className="text-white/60 text-[14px] font-normal leading-[20px]">
+        <span className="text-[14px] font-normal leading-[20px] text-white/60">
           / {row.original.maxStorageSlots}
         </span>
       </div>
@@ -155,10 +155,10 @@ export const columns: ColumnDef<Node>[] = [
   // },
   {
     accessorKey: "status",
-    header: ({column}) => (
+    header: ({ column }) => (
       <Button
         variant="ghost"
-        className="hover:bg-transparent flex items-center gap-2 p-0"
+        className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
@@ -172,7 +172,7 @@ export const columns: ColumnDef<Node>[] = [
       </Button>
     ),
     enableSorting: true,
-  
+
     cell: ({ row }) => (
       // <div
       //   className={`${
@@ -184,7 +184,7 @@ export const columns: ColumnDef<Node>[] = [
       //   {row.getValue("status")}
       // </div>
 
-      <div className="bg-[#16A34A33] border-[#16A34A33] w-fit border  py-1.5 px-3 rounded-[53px]">
+      <div className="w-fit rounded-[53px] border border-[#16A34A33] bg-[#16A34A33] px-3 py-1.5">
         Active
       </div>
     ),
@@ -201,19 +201,19 @@ export const columns: ColumnDef<Node>[] = [
         return (
           <Popover>
             <PopoverTrigger>
-              <div className="min-w-[6rem] flex justify-end pr-3">
+              <div className="flex min-w-[6rem] justify-end pr-3">
                 <FaEllipsis size={20} />
               </div>
             </PopoverTrigger>
             <PopoverContent
               align="end"
-              className="result-box border bg-[#333153] border-white/30 py-1 flex flex-col w-[200px]"
+              className="result-box flex w-[200px] flex-col border border-white/30 bg-[#333153] py-1"
             >
               {row.getValue("status") === "Active" ? (
                 <>
                   <Dialog>
                     <DialogTrigger>
-                      <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white text-start">
+                      <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-white">
                         Withdraw
                       </div>
                     </DialogTrigger>
@@ -224,8 +224,8 @@ export const columns: ColumnDef<Node>[] = [
                           : "max-w-[664px]"
                       }
                     >
-                      <Close className="absolute z-50 right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
-                        <X className="h-4 w-4 text-white m-auto" />
+                      <Close className="absolute right-4 top-4 z-50 h-[30px] w-[30px] rounded-[100px] transition-opacity hover:opacity-100">
+                        <X className="m-auto h-4 w-4 text-white" />
                       </Close>
                       {tab === "form" ? (
                         <WithdrawForm setTab={setTab} />
@@ -236,14 +236,14 @@ export const columns: ColumnDef<Node>[] = [
                       )}
                     </DialogContent>
                   </Dialog>
-                  <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white text-start">
+                  <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-white">
                     Deposit
                   </div>
                 </>
               ) : (
                 <Dialog>
                   <DialogTrigger>
-                    <div className="py-2 px-2 font-bold text-[14px] leading-[20px] text-white text-start">
+                    <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-white">
                       Un-Stake
                     </div>
                   </DialogTrigger>
@@ -251,15 +251,15 @@ export const columns: ColumnDef<Node>[] = [
                     {tab === "form" && (
                       <DialogTitle
                         className={cn(
-                          "text-white font-bold text-[18px] leading-[20px] text-center"
+                          "text-center text-[18px] font-bold leading-[20px] text-white"
                         )}
                       >
                         Un-Stake VDA
                       </DialogTitle>
                     )}
                     {tab !== "loading" && (
-                      <Close className="absolute z-50 right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
-                        <X className="h-4 w-4 text-white m-auto" />
+                      <Close className="absolute right-4 top-4 z-50 h-[30px] w-[30px] rounded-[100px] transition-opacity hover:opacity-100">
+                        <X className="m-auto h-4 w-4 text-white" />
                       </Close>
                     )}
                     {tab === "loading" ? (

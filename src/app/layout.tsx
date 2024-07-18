@@ -48,7 +48,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <div className="min-h-screen lg:px-[92px] md:px-8 px-4 py-4 overflow-x-hidden max-w-[1300px] mx-auto">
+          <div className="mx-auto min-h-screen max-w-[1300px] overflow-x-hidden px-4 py-4 md:px-8 lg:px-[92px]">
             {children}
           </div>
           <Footer />

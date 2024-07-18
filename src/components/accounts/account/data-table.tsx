@@ -103,15 +103,15 @@ export function DataTable<TData, TValue>({
   const [drawerOpen, setDrawerOpen] = useState(false);
   return (
     <>
-      <div className="flex justify-between items-center">
-        <div className="font-semibold text-[18px] leading-[20px]">
+      <div className="flex items-center justify-between">
+        <div className="text-[18px] font-semibold leading-[20px]">
           {data.length} Accounts
         </div>
         <div className="flex items-center gap-3">
           <Button
             size="icon"
             className={cn(
-              "bg-[#FFFFFF26] hover:bg-[#FFFFFF26] p-2 rounded-sm flex justify-center gap-1 transition-all duration-500",
+              "flex justify-center gap-1 rounded-sm bg-[#FFFFFF26] p-2 transition-all duration-500 hover:bg-[#FFFFFF26]",
               showSearchField ? "w-[200px]" : ""
             )}
             onClick={() => {
@@ -125,7 +125,7 @@ export function DataTable<TData, TValue>({
             {showSearchField && (
               <>
                 <Input
-                  className="bg-transparent hover:bg-transparent border-none focus-visible:ring-0 rounded-none text-white pl-0 -mr-6 w-[90%]"
+                  className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-white hover:bg-transparent focus-visible:ring-0"
                   value={
                     (table.getColumn("id")?.getFilterValue() as string) ?? ""
                   }
@@ -147,46 +147,46 @@ export function DataTable<TData, TValue>({
             <DrawerTrigger asChild>
               <Button
                 size="icon"
-                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 flex sm:hidden"
+                className="flex bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:hidden"
               >
                 <MdTune color="white" size={20} />
               </Button>
             </DrawerTrigger>
-            <DrawerContent className="bg-[#333153] border-white/30 border rounded-3">
-              <div className="text-white font-semibold text-[14px] leading-[20px] flex justify-between py-2 pl-3">
+            <DrawerContent className="rounded-3 border border-white/30 bg-[#333153]">
+              <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-white">
                 <div>Filters</div>
                 <X
-                  className="h-5 w-5 cursor-pointer sm:hidden block mr-2"
+                  className="mr-2 block h-5 w-5 cursor-pointer sm:hidden"
                   onClick={() => {
                     setDrawerOpen(false);
                   }}
                 />
               </div>
-              <Separator className="bg-[#FFFFFF26] h-[1px]" />
+              <Separator className="h-[1px] bg-[#FFFFFF26]" />
               <div className="pb-2 pl-2">
-                <div className="font-normal text-[14px] leading-[20px] text-white/60 px-2 py-2">
+                <div className="px-2 py-2 text-[14px] font-normal leading-[20px] text-white/60">
                   Region
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                <div className="flex h-6 items-center gap-3 px-2 py-3.5 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="all" />
                   <span>All</span>
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                <div className="flex h-6 items-center gap-3 px-2 py-3.5 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="australia" />
                   <span>Australia</span>
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                <div className="flex h-6 items-center gap-3 px-2 py-3.5 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="europe" />
                   <span>Europe</span>
                 </div>
-                <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-3.5 px-2 h-6">
+                <div className="flex h-6 items-center gap-3 px-2 py-3.5 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="usa" />
                   <span>USA</span>
                 </div>
               </div>
-              <Separator className="bg-[#FFFFFF26] h-[1px]" />
-              <div className="w-full justify-end flex py-2 pr-4">
-                <Button disabled className="rounded-sm px-3 w-auto h-8">
+              <Separator className="h-[1px] bg-[#FFFFFF26]" />
+              <div className="flex w-full justify-end py-2 pr-4">
+                <Button disabled className="h-8 w-auto rounded-sm px-3">
                   Apply
                 </Button>
               </div>
@@ -196,51 +196,51 @@ export function DataTable<TData, TValue>({
             <DropdownMenuTrigger asChild>
               <Button
                 size="icon"
-                className="bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex hidden"
+                className="hidden bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex"
               >
                 <MdTune color="white" size={20} />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
-              className="bg-[#333153] border-white/30 border rounded-3 w-[356px]"
+              className="rounded-3 w-[356px] border border-white/30 bg-[#333153]"
               align="end"
             >
-              <DropdownMenuLabel className="text-white font-semibold text-[14px] leading-[20px] flex justify-between">
+              <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-white">
                 <div>Filters</div>
                 <X
-                  className="h-5 w-5 cursor-pointer sm:hidden block"
+                  className="block h-5 w-5 cursor-pointer sm:hidden"
                   onClick={() => {
                     setDropdownOpen(false);
                   }}
                 />
               </DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
-              <DropdownMenuGroup className="pt-4 pb-6">
-                <DropdownMenuLabel className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
+              <DropdownMenuSeparator className="h-[1px] bg-[#FFFFFF26]" />
+              <DropdownMenuGroup className="pb-6 pt-4">
+                <DropdownMenuLabel className="px-6 py-2 text-[14px] font-normal leading-[20px] text-white/60">
                   Region
                 </DropdownMenuLabel>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <DropdownMenuItem className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="all" />
                   <span>All</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <DropdownMenuItem className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="australia" />
                   <span>Australia</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <DropdownMenuItem className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="europe" />
                   <span>Europe</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+                <DropdownMenuItem className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
                   <Checkbox id="usa" />
                   <span>USA</span>
                 </DropdownMenuItem>
               </DropdownMenuGroup>
-              <DropdownMenuSeparator className="bg-[#FFFFFF26] h-[1px]" />
-              <div className="w-full justify-end flex py-2 pr-4">
+              <DropdownMenuSeparator className="h-[1px] bg-[#FFFFFF26]" />
+              <div className="flex w-full justify-end py-2 pr-4">
                 <Button
                   disabled
-                  className="rounded-sm py-2.5 px-6 w-[91px] h-10"
+                  className="h-10 w-[91px] rounded-sm px-6 py-2.5"
                 >
                   Apply
                 </Button>
@@ -249,9 +249,9 @@ export function DataTable<TData, TValue>({
           </DropdownMenu>
         </div>
       </div>
-      <div className="border border-white/20 rounded-lg overflow-hidden">
+      <div className="overflow-hidden rounded-lg border border-white/20">
         <Table className="min-w-[70rem]">
-          <TableHeader className="bg-[#FFFFFF0A] ">
+          <TableHeader className="bg-[#FFFFFF0A]">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
@@ -259,7 +259,7 @@ export function DataTable<TData, TValue>({
                     <TableHead
                       key={header.id}
                       className={cn(
-                        "md:border-none border-r border-white/10",
+                        "border-r border-white/10 md:border-none",
                         header.index === headerGroup.headers.length - 1 &&
                           "border-none"
                       )}
@@ -287,7 +287,7 @@ export function DataTable<TData, TValue>({
                     <TableCell
                       key={cell.id}
                       className={cn(
-                        "md:border-none border-r border-white/10",
+                        "border-r border-white/10 md:border-none",
                         index === row.getVisibleCells().length - 1 &&
                           "border-none"
                       )}
@@ -304,7 +304,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-[72px] pl-6 py-4 pr-4 text-center"
+                  className="h-[72px] py-4 pl-6 pr-4 text-center"
                 >
                   No results.
                 </TableCell>
@@ -313,11 +313,11 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <div className="flex justify-center sm:justify-between items-center">
-        <div className="sm:flex hidden items-center gap-4">
+      <div className="flex items-center justify-center sm:justify-between">
+        <div className="hidden items-center gap-4 sm:flex">
           <div>Show rows</div>
           <Select>
-            <SelectTrigger className="w-20 h-10 py-2 pl-2.5 pr-1 gap-1 rounded bg-white/15">
+            <SelectTrigger className="h-10 w-20 gap-1 rounded bg-white/15 py-2 pl-2.5 pr-1">
               <SelectValue placeholder={10} />
             </SelectTrigger>
             <SelectContent>
@@ -329,13 +329,13 @@ export function DataTable<TData, TValue>({
             </SelectContent>
           </Select>
         </div>
-        <div className="flex gap-2 items-center">
-          <div className="font-normal text-[14px] leading-[20px] text-white/60">
+        <div className="flex items-center gap-2">
+          <div className="text-[14px] font-normal leading-[20px] text-white/60">
             Page
           </div>
           <div className="flex items-center gap-3">
             <FaChevronLeft color="#FFFFFF99" className="cursor-pointer" />
-            <div className="flex text-[14px] font-normal leading-[20px] bg-white/15 rounded py-2.5 px-3">
+            <div className="flex rounded bg-white/15 px-3 py-2.5 text-[14px] font-normal leading-[20px]">
               <div className="text-white">1</div>
               <div className="text-white/60">/4</div>
             </div>

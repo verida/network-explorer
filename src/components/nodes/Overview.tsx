@@ -21,7 +21,6 @@ type storageOverview = {
 const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
   const { converted_data: data, isLoading } = StorageOverView;
   console.log(isLoading);
-  
 
   const handleSlotsAndConvertToGb = (slots: string) => {
     return ((Number(slots) * 50) / 1024).toFixed(0);
@@ -29,23 +28,23 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
 
   return (
     <div className="flex flex-col gap-5">
-      <div className="font-bold text-[32px] leading-[40.32.px] tracking-[-3%]">
+      <div className="text-[32px] font-bold leading-[40.32.px] tracking-[-3%]">
         Overview
       </div>
-      <div className="flex justify-between gap-4 md:flex-row flex-col">
-        <div className="result-box flex flex-col gap-2.5 md:p-6  rounded-lg md:w-[65%]">
-          <div className="flex justify-between md:flex-row flex-col md:p-0 px-6 pt-3 md:gap-0 gap-2">
+      <div className="flex flex-col justify-between gap-4 md:flex-row">
+        <div className="result-box flex flex-col gap-2.5 rounded-lg md:w-[65%] md:p-6">
+          <div className="flex flex-col justify-between gap-2 px-6 pt-3 md:flex-row md:gap-0 md:p-0">
             <div>Storage</div>
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
-                <div className="bg-white/20 h-3 w-3 rounded-[2px]"></div>
-                <div className="leading-[20px] font-normal text-[14px]">
+                <div className="h-3 w-3 rounded-[2px] bg-white/20"></div>
+                <div className="text-[14px] font-normal leading-[20px]">
                   Capacity (GB)
                 </div>
               </div>
               <div className="flex items-center gap-2">
-                <div className="bg-[#8566F2] h-3 w-3 rounded-[2px]"></div>
-                <div className="leading-[20px] font-normal text-[14px]">
+                <div className="h-3 w-3 rounded-[2px] bg-[#8566F2]"></div>
+                <div className="text-[14px] font-normal leading-[20px]">
                   Utilization (GB)
                 </div>
               </div>
@@ -70,9 +69,9 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
           )}
         </div>
         <div className="flex flex-col justify-between gap-3">
-          <div className="rounded-lg result-box  border border-white/20 flex flex-col gap-4 p-4 min-w-[356px]">
+          <div className="result-box flex min-w-[356px] flex-col gap-4 rounded-lg border border-white/20 p-4">
             <div className="text-white/60">Network Capacity</div>
-            <div className="flex gap-3 items-center flex-wrap">
+            <div className="flex flex-wrap items-center gap-3">
               <Loader isLoading={isLoading} className="h-[200px] w-[200px]" />
               {data && (
                 <>
@@ -84,8 +83,8 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
                     ).toFixed(0)}
                   />
                   <div className="flex flex-col gap-2">
-                    <div className="flex gap-1 items-center">
-                      <div className="bg-white/20 w-3 h-3 rounded-[2px]"></div>
+                    <div className="flex items-center gap-1">
+                      <div className="h-3 w-3 rounded-[2px] bg-white/20"></div>
                       <div>
                         Total{" "}
                         {handleSlotsAndConvertToGb(
@@ -94,8 +93,8 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
                         G
                       </div>
                     </div>
-                    <div className="flex gap-1 items-center">
-                      <div className="bg-[#8566F2] w-3 h-3 rounded-[2px]"></div>
+                    <div className="flex items-center gap-1">
+                      <div className="h-3 w-3 rounded-[2px] bg-[#8566F2]"></div>
                       <div>
                         Used{" "}
                         {handleSlotsAndConvertToGb(
@@ -109,11 +108,11 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
               )}
             </div>
           </div>
-          <div className="result-box rounded-lg py-8 px-6 gap-4 border border-white/20">
-            <div className="font-normal text-[16px] leading-[20px] text-white/60">
+          <div className="result-box gap-4 rounded-lg border border-white/20 px-6 py-8">
+            <div className="text-[16px] font-normal leading-[20px] text-white/60">
               Staked Tokens
             </div>
-            <div className="font-semibold text-[32px] leading-[48px]">
+            <div className="text-[32px] font-semibold leading-[48px]">
               12.2M
             </div>
           </div>

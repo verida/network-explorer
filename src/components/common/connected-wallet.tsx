@@ -25,20 +25,20 @@ const ConnectedWallet = () => {
       <DialogTrigger asChild>
         <Button
           className={cn(
-            "text-white rounded-[24px] md:py-3 py-2 md:pl-4 pr-3 pl-3 gap-2 h-12 md:w-[206px]",
+            "h-12 gap-2 rounded-[24px] py-2 pl-3 pr-3 text-white md:w-[206px] md:py-3 md:pl-4",
             user.connected
               ? "bg-[#FD4F64] hover:bg-[#FD4F64]"
               : "bg-white/20 hover:bg-white/10"
           )}
         >
           <VeridaIcon />
-          <div className="md:block hidden">verida-user.VDA</div>
+          <div className="hidden md:block">verida-user.VDA</div>
           <FaAngleDown />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[560px]">
-        <Close className="absolute z-50 right-4 top-4 transition-opacity hover:opacity-100 rounded-[100px] h-[30px] w-[30px]">
-          <X className="h-4 w-4 text-white m-auto" />
+        <Close className="absolute right-4 top-4 z-50 h-[30px] w-[30px] rounded-[100px] transition-opacity hover:opacity-100">
+          <X className="m-auto h-4 w-4 text-white" />
         </Close>
         <DialogTitle className="text-center">Your Wallet</DialogTitle>
         {user.authorized ? (

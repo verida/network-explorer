@@ -38,26 +38,26 @@ const Operator = () => {
   const [tab, setTab] = useState<Tab>("form");
   const setupWizard = useRecoilValue(setupWizardAtom);
 
-  const [page, setPage] = useState(1)
-  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
 
   return (
-    <div className="mt-8 mb-10 flex flex-col gap-10">
-      <div className="flex gap-4 items-center">
+    <div className="mb-10 mt-8 flex flex-col gap-10">
+      <div className="flex items-center gap-4">
         <FaChevronLeft
           onClick={() => {
             router.back();
           }}
           className="cursor-pointer"
         />
-        <div className="flex gap-3 items-center sm:flex-nowrap flex-wrap sm:justify-normal justify-between w-full">
+        <div className="flex w-full flex-wrap items-center justify-between gap-3 sm:flex-nowrap sm:justify-normal">
           <div className="text-[24px] font-bold leading-[28.8px]">Operator</div>
-          <div className="bg-white/10 py-1.5 px-2 rounded text-white/60 font-normal text-[14px] leading-[20px] flex items-center gap-2.5">
-            <div className="sm:max-w-max max-w-[150px] truncate">
+          <div className="flex items-center gap-2.5 rounded bg-white/10 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-white/60">
+            <div className="max-w-[150px] truncate sm:max-w-max">
               did:VDA:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
             </div>
             <CopyIcon
-              className="cursor-pointer scale-90"
+              className="scale-90 cursor-pointer"
               color="#FFFFFF99"
               onClick={() => {
                 navigator.clipboard.writeText(
@@ -78,7 +78,7 @@ const Operator = () => {
         additionalTitles={
           <>
             {setupWizard && (
-              <Button className="bg-white/15 py-2.5 px-6 h-10 w-[188px] text-white rounded-sm font-semibold text-[14px] leading-[20px]">
+              <Button className="h-10 w-[188px] rounded-sm bg-white/15 px-6 py-2.5 text-[14px] font-semibold leading-[20px] text-white">
                 Node Setup Wizard
               </Button>
             )}
@@ -86,7 +86,7 @@ const Operator = () => {
               <>
                 <Dialog open={nodeDialogOpen} onOpenChange={setNodeDialogOpen}>
                   <DialogTrigger asChild>
-                    <Button className="text-[#19193D] bg-white font-semibold text-[14px] leading-[20px] py-2.5 px-6 rounded-sm sm:w-[189px] w-[calc(100%-6rem)] h-10">
+                    <Button className="h-10 w-[calc(100%-6rem)] rounded-sm bg-white px-6 py-2.5 text-[14px] font-semibold leading-[20px] text-[#19193D] sm:w-[189px]">
                       Register New Node
                     </Button>
                   </DialogTrigger>
@@ -95,16 +95,16 @@ const Operator = () => {
                       tab === "form"
                         ? "max-w-[664px]"
                         : tab === "stake" ||
-                          tab === "loading" ||
-                          tab === "error" ||
-                          tab === "success"
-                        ? "max-w-[440px]"
-                        : tab === "connected"
-                        ? "max-w-[560px]"
-                        : ""
+                            tab === "loading" ||
+                            tab === "error" ||
+                            tab === "success"
+                          ? "max-w-[440px]"
+                          : tab === "connected"
+                            ? "max-w-[560px]"
+                            : ""
                     }
                   >
-                    <DialogTitle className="text-white font-bold text-[18px] leading-[20px] w-full flex items-center justify-between">
+                    <DialogTitle className="flex w-full items-center justify-between text-[18px] font-bold leading-[20px] text-white">
                       <>
                         {tab === "form" && <div></div>}
                         {(tab === "stake" || tab === "connected") && (
@@ -118,11 +118,11 @@ const Operator = () => {
                         {tab === "form"
                           ? "Register a Node"
                           : tab === "stake" || tab === "connected"
-                          ? "Stake VDA"
-                          : ""}
+                            ? "Stake VDA"
+                            : ""}
                         {tab !== "loading" && (
-                          <Close className="transition-opacity hover:opacity-100 rounded-[100px] sm:m-0 ml-auto">
-                            <X className="h-4 w-4 text-white m-auto" />
+                          <Close className="ml-auto rounded-[100px] transition-opacity hover:opacity-100 sm:m-0">
+                            <X className="m-auto h-4 w-4 text-white" />
                           </Close>
                         )}
                       </>
@@ -160,18 +160,18 @@ const Operator = () => {
         additionalFilters={
           <>
             <div className="pb-1">
-              <div className="font-normal text-[14px] leading-[20px] text-white/60 py-2 px-6">
+              <div className="px-6 py-2 text-[14px] font-normal leading-[20px] text-white/60">
                 Status
               </div>
-              <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+              <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
                 <Checkbox id="all" />
                 <span>All</span>
               </div>
-              <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+              <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
                 <Checkbox id="australia" />
                 <span>Active</span>
               </div>
-              <div className="font-normal flex items-center gap-3 text-[14px] leading-[20px] text-white py-2 px-6 h-10">
+              <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
                 <Checkbox id="europe" />
                 <span>Inactive</span>
               </div>

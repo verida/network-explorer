@@ -13,10 +13,10 @@ export interface CountrySummary {
   count: number;
 }
 
- type DistributionType= {
+type DistributionType = {
   summary: CountrySummary[];
   isLoading: boolean;
-}
+};
 
 const getStorageOverView = async () => {
   let isLoading = true;
@@ -56,7 +56,7 @@ const getDistributions = async () => {
     throw new Error("Failed to fetch data");
   }
 
-  if(response.ok){
+  if (response.ok) {
     isLoading = false;
   }
   const data: any[] = await response.json();
@@ -86,7 +86,7 @@ const getDistributions = async () => {
   isLoading = false;
   return {
     summary,
-    isLoading
+    isLoading,
   };
 };
 const NodesPage = async () => {
@@ -95,7 +95,10 @@ const NodesPage = async () => {
   return (
     <div className="py-6">
       <Overview StorageOverView={data} />
-      <Distribution  summary={distribution.summary} isLoading={distribution.isLoading} />
+      <Distribution
+        summary={distribution.summary}
+        isLoading={distribution.isLoading}
+      />
       <NodesList />
     </div>
   );

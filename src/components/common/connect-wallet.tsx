@@ -21,7 +21,6 @@ const ConnectWalletButton = () => {
     // veridaContext is a Context object (See links below)
     if (!veridaContext) {
       // we don't have veridaContext in local state
-
       // Check if we have a stored session
       //  hasSession is from the package "@verida/account-web-vault"
       //  see below fod links to documentation
@@ -61,7 +60,7 @@ const ConnectWalletButton = () => {
   return (
     <Button
       onClick={login}
-      className="md:rounded-lg rounded-sm md:px-6 px-4 md:py-[14px] py-2.5 leading-5 font-semibold text-[14px] "
+      className="rounded-sm px-4 py-2.5 text-[14px] font-semibold leading-5 md:rounded-lg md:px-6 md:py-[14px]"
     >
       Connect Wallet
     </Button>

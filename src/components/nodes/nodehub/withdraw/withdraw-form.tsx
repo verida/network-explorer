@@ -46,10 +46,10 @@ const WithdrawForm = ({
 
   return (
     <>
-      <DialogTitle className="text-center font-bold text-[18px] leading-[20px] text-white">
+      <DialogTitle className="text-center text-[18px] font-bold leading-[20px] text-white">
         Withdraw Node
       </DialogTitle>
-      <div className="text-white/60 font-normal text-[14px] leading-[21px] mt-4">
+      <div className="mt-4 text-[14px] font-normal leading-[21px] text-white/60">
         By removing a node, the status will change to{" "}
         <span className="text-white">'Deregister'</span>. The node remains in
         this status for a notice period of{" "}
@@ -59,7 +59,7 @@ const WithdrawForm = ({
         initiate the unstaking process.
       </div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-4">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-8">
           <FormField
             control={form.control}
             name="fallback"
@@ -98,13 +98,13 @@ const WithdrawForm = ({
             )}
           />
           <Button
-            className="bg-white text-black py-[14px] px-6 rounded-lg h-[48px] disabled:opacity-30 w-full"
+            className="h-[48px] w-full rounded-lg bg-white px-6 py-[14px] text-black disabled:opacity-30"
             type="submit"
             disabled={!form.formState.isValid}
           >
             Confirm
           </Button>
-          <div className="flex justify-between font-semibold text-[11px] leading-[16px]">
+          <div className="flex justify-between text-[11px] font-semibold leading-[16px]">
             <div>Gas fees</div>
             <div>$ 15.14</div>
           </div>

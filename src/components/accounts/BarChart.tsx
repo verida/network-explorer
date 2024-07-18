@@ -61,8 +61,8 @@ const BarChart = ({ data, tab }: BarChartProps) => {
             numberOfBars === 12
               ? "MMM YYYY"
               : numberOfBars === 20
-              ? "DD MMM"
-              : "DD MMM YYYY"
+                ? "DD MMM"
+                : "DD MMM YYYY"
           )
         );
         result.values.push(Math.round(sum / count));

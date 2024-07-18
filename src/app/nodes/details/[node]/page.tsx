@@ -98,19 +98,19 @@ const DetailsPage = () => {
           onClick={() => {
             router.back();
           }}
-          className="cursor-pointer text-white/60 h-3"
+          className="h-3 cursor-pointer text-white/60"
         />
-        <div className="font-bold text-[24px] leading-[28.8px]">
+        <div className="text-[24px] font-bold leading-[28.8px]">
           Node Details
         </div>
       </div>
-      <div className="flex justify-between lg:gap-4 gap-10 items-start lg:flex-row flex-col w-full">
-        <div className="result-box rounded-lg gap-6 lg:px-6 p-5 lg:py-8 border border-white/20 flex flex-col lg:w-8/12 w-full">
-          <div className="font-semibold text-[18px] leading-[20px] ">
+      <div className="flex w-full flex-col items-start justify-between gap-10 lg:flex-row lg:gap-4">
+        <div className="result-box flex w-full flex-col gap-6 rounded-lg border border-white/20 p-5 lg:w-8/12 lg:px-6 lg:py-8">
+          <div className="text-[18px] font-semibold leading-[20px]">
             Node Info
           </div>
-          <div className="flex gap-4 font-normal text-sm leading-5 flex-col items-start">
-            <div className="flex justify-between w-full">
+          <div className="flex flex-col items-start gap-4 text-sm font-normal leading-5">
+            <div className="flex w-full justify-between">
               <span>Node Name</span>
               <span>{name}</span>
             </div>
@@ -151,19 +151,19 @@ const DetailsPage = () => {
                 />
               </div>
             </div> */}
-            <div className="flex justify-between w-full">
+            <div className="flex w-full justify-between">
               <span>Datacenter</span>
               <span>{datacenter}</span>
             </div>
-            <div className="flex justify-between w-full">
+            <div className="flex w-full justify-between">
               <span>Region</span>
               <span>{region}</span>
             </div>
-            <div className="flex justify-between w-full">
+            <div className="flex w-full justify-between">
               <span>Country</span>
               <span>{country}</span>
             </div>
-            <div className="flex justify-between w-full">
+            <div className="flex w-full justify-between">
               <span>Available Slots</span>
               <div>
                 <span>{storageSlotsUsed}</span>{" "}
@@ -182,15 +182,15 @@ const DetailsPage = () => {
               <div>Days on Network</div>
               <div>{daysOnNetwork}</div>
             </div> */}
-            <div className="flex justify-between w-full">
+            <div className="flex w-full justify-between">
               <div>Status</div>
               <div>
                 <div
                   className={`${
                     status === "Active"
-                      ? "bg-[#16A34A33] border-[#16A34A33]"
-                      : "bg-white/20 border-white/20"
-                  } w-fit border  py-1.5 px-3 rounded-[53px]`}
+                      ? "border-[#16A34A33] bg-[#16A34A33]"
+                      : "border-white/20 bg-white/20"
+                  } w-fit rounded-[53px] border px-3 py-1.5`}
                 >
                   Active
                 </div>
@@ -198,7 +198,7 @@ const DetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="bg-[#191a1a] w-3/5 rounded-[12px] border-white/20 border bg-opacity-70">
+        <div className="w-3/5 rounded-[12px] border border-white/20 bg-[#191a1a] bg-opacity-70">
           <ComposableMap
             height={300}
             projectionConfig={{ rotate: [-20, 0, 0] }}

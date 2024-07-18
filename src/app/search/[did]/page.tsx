@@ -39,7 +39,6 @@ const SearchPage = () => {
   );
 
   console.log(profile);
-  
 
   return (
     params.did &&
@@ -48,13 +47,13 @@ const SearchPage = () => {
     ) : (
       <div className="my-6 flex flex-col gap-10">
         {searchBoxVisible && (
-          <div className="network-search border border-white/60 py-2 px-4 rounded-lg flex items-center gap-2 h-[64px]">
+          <div className="network-search flex h-[64px] items-center gap-2 rounded-lg border border-white/60 px-4 py-2">
             <SearchIcon />
-            <div className="font-normal text-[16px] w-full truncate sm:border-none border-r-2 border-[#8566F2]">
+            <div className="w-full truncate border-r-2 border-[#8566F2] text-[16px] font-normal sm:border-none">
               {did}
             </div>
             <IoMdClose
-              className="cursor-pointer h-5 w-5 text-white"
+              className="h-5 w-5 cursor-pointer text-white"
               onClick={() => setSearchBoxVisible(false)}
             />
           </div>
