@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { IoMenu } from "react-icons/io5";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -119,11 +119,11 @@ const Navbar = () => {
                   {nav.name}
                 </Link>
               ))}
-              <DropdownMenuSeparator className="bg-white/10" />
+              {/* <DropdownMenuSeparator className="bg-white/10" />
               <div className="text-semibold mt-2 flex items-center gap-2 text-[14px] leading-[17.64px] text-white/30">
                 <VeridaIcon />
                 <span>VDA Price: $245</span>
-              </div>
+              </div> */}
             </DropdownMenuContent>
           </DropdownMenu>
           <Link href="/">
@@ -161,11 +161,11 @@ const Navbar = () => {
           </div>
         </div>
         <div className="flex items-center gap-3 py-4 md:py-5 lg:gap-6">
-          <div className="text-semibold hidden cursor-pointer text-[14px] leading-[17.64px] text-white/30 md:block">
+          {/* <div className="text-semibold hidden cursor-pointer text-[14px] leading-[17.64px] text-white/30 md:block">
             VDA Price: $245
-          </div>
-          <div>
-            {user.registered ? <ConnectedWallet /> : <ConnectWalletButton />}
+          </div> */}
+          <div className="p-5">
+            {/* {user.registered ? <ConnectedWallet /> : <ConnectWalletButton />} */}
           </div>
         </div>
       </div>

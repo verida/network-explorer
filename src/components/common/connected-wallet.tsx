@@ -15,7 +15,7 @@ import { userAtom } from "@/lib/atom";
 import UnAuthorizedContent from "./unauthorized-content";
 import AuthorizedContent from "./authorized-content";
 import ConnectedContent from "./connected-content";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 const ConnectedWallet = () => {
   const user = useRecoilValue(userAtom);
