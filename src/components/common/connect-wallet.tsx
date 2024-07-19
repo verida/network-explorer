@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import QrIcon from "@/assets/svg/qrcode.svg";
-import RightAngleIcon from "@/assets/svg/right-angle.svg";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { Close } from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
+
 import { VaultAccount, hasSession } from "@verida/account-web-vault";
 import { config } from "@/lib/config";
 import { Context, Network } from "@verida/client-ts";
