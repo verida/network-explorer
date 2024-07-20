@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { useMediaQuery } from "react-responsive";
 import dayjs from "dayjs";
+import isoWeek from "dayjs/plugin/isoWeek";
+
+dayjs.extend(isoWeek);
 
 type DataPoint = number[][];
 
@@ -18,55 +21,47 @@ interface BarChartProps {
 const BarChart = ({ data, tab }: BarChartProps) => {
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
 
-  const getAverageBars = (
-    data: DataPoint,
-    numberOfBars: number
-  ): AverageBarsResult => {
-    const result: AverageBarsResult = { dates: [], values: [] };
-    const dataSize = data.length;
-
-    if (dataSize === 0) return result;
-
-    // Extract dates and values separately
-    const dates = data.map((item) => item[0]);
-    const values = data.map((item) => item[1]);
-
-    // Find the minimum and maximum dates
-    const minDate = Math.min(...dates);
-    const maxDate = Math.max(...dates);
-
-    // Calculate the interval duration
-    const intervalDuration = (maxDate - minDate) / (numberOfBars - 1);
-
-    for (let i = 0; i < numberOfBars; i++) {
-      let sum = 0;
-      let count = 0;
-      const intervalStart = minDate + i * intervalDuration;
-      const intervalEnd = minDate + (i + 1) * intervalDuration;
-      let firstDateInInterval = null;
-
-      for (let j = 0; j < dataSize; j++) {
-        if (dates[j] >= intervalStart && dates[j] < intervalEnd) {
-          sum += values[j];
-          count++;
-          if (firstDateInInterval === null) {
-            firstDateInInterval = dates[j];
-          }
+  const groupBy = (data: DataPoint, format: string, isWeekly = false) => {
+    const grouped: Record<
+      string,
+      { sum: number; count: number; firstDate?: string }
+    > = {};
+    data.forEach(([date, value]) => {
+      let key = dayjs(date).format(format);
+      if (isWeekly) {
+        const weekStart = dayjs(date).startOf("isoWeek");
+        key = weekStart.format("YYYY-MM-DD");
+        if (!grouped[key]) {
+          grouped[key] = {
+            sum: 0,
+            count: 0,
+            firstDate: weekStart.format("DD MMM YYYY"),
+          };
+        }
+      } else {
+        if (!grouped[key]) {
+          grouped[key] = { sum: 0, count: 0 };
         }
       }
+      grouped[key].sum += value;
+      grouped[key].count += 1;
+    });
+    return grouped;
+  };
 
-      if (count > 0) {
-        result.dates.push(
-          dayjs(firstDateInInterval!).format(
-            numberOfBars === 12
-              ? "MMM YYYY"
-              : numberOfBars === 20
-                ? "DD MMM"
-                : "DD MMM YYYY"
-          )
-        );
-        result.values.push(Math.round(sum / count));
-      }
+  const getAverageBars = (
+    data: DataPoint,
+    format: string,
+    isWeekly = false
+  ): AverageBarsResult => {
+    const groupedData = groupBy(data, format, isWeekly);
+    const result: AverageBarsResult = { dates: [], values: [] };
+
+    for (const [key, { sum, count, firstDate }] of Object.entries(
+      groupedData
+    )) {
+      result.dates.push(isWeekly ? firstDate! : key);
+      result.values.push(Math.round(sum / count));
     }
 
     return result;
@@ -75,13 +70,14 @@ const BarChart = ({ data, tab }: BarChartProps) => {
   const [displayableData, setDisplayableData] = useState<
     AverageBarsResult | undefined
   >();
+
   useEffect(() => {
     if (tab === "daily") {
-      setDisplayableData(getAverageBars(data, 52));
+      setDisplayableData(getAverageBars(data, "YYYY-MM-DD"));
     } else if (tab === "weekly") {
-      setDisplayableData(getAverageBars(data, 20));
+      setDisplayableData(getAverageBars(data, "YYYY-MM-DD", true));
     } else if (tab === "monthly") {
-      setDisplayableData(getAverageBars(data, 12));
+      setDisplayableData(getAverageBars(data, "MMMM-YYYY"));
     }
   }, [data, tab]);
 

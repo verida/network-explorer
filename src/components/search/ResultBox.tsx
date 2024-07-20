@@ -77,11 +77,11 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
                     viewBox="0 0 160 160"
                   />
                 </div>
-                {!showResultJson && (
+                {/* {!showResultJson && (
                   <div className="text-[11px] font-normal leading-[16px]">
                     Scan to add contact
                   </div>
-                )}
+                )} */}
               </div>
               <div className="flex flex-col justify-between sm:flex-row">
                 <div className="text-[14px] font-normal leading-[20px] text-white/60">
@@ -143,7 +143,7 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
                 viewBox="0 0 160 160"
               />
             </div>
-            {!showResultJson && <div>Scan to add contact</div>}
+            {/* {!showResultJson && <div>Scan to add contact</div>} */}
           </div>
         </div>
         {showResultJson &&
