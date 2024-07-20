@@ -60,9 +60,7 @@ const Accounts = () => {
 
       return profiles.filter(
         (profile) =>
-          profile?.did !== null ||
-          profiles !== undefined ||
-          profile?.name !== null
+          profile?.did !== undefined || profile?.country !== undefined
       );
     },
     {
@@ -86,13 +84,15 @@ const Accounts = () => {
     }
   );
 
-  console.log(data);
+  const validData = data?.filter(
+    (profile) => profile?.did !== undefined || profile?.country !== undefined
+  );
 
   return (
     <div className="flex flex-col gap-6 sm:mb-12">
       <DataTable
         columns={columns as ColumnDef<Account | null | undefined, unknown>[]}
-        data={data as (Account | null | undefined)[]}
+        data={validData as (Account | null | undefined)[]}
         page={page}
         limit={limit}
         setLimit={setLimit}

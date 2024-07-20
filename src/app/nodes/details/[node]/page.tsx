@@ -203,7 +203,7 @@ const DetailsPage = () => {
             height={300}
             projectionConfig={{ rotate: [-20, 0, 0] }}
           >
-            <ZoomableGroup center={[0, 0]} zoom={1}>
+            <ZoomableGroup center={[0, 0]} zoom={2}>
               <Geographies geography={map}>
                 {({ geographies }) =>
                   geographies.map((geo) => (

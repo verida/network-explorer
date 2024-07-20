@@ -58,8 +58,8 @@ const NetworkExplorer = () => {
               have access to, and find the DIDs that you need.
             </div>
           </div>
-          <Popover open={popoverOpen} onOpenChange={setPopoverOpen}>
-            <div className="network-search flex flex-col items-center gap-6 rounded-lg border border-white/60 p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
+          <div className="relative">
+            <div className="network-search z-50 flex flex-col items-center gap-6 rounded-lg border border-white/60 p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
               <div className="flex w-full gap-2">
                 <SearchIcon />
                 <input
@@ -70,15 +70,16 @@ const NetworkExplorer = () => {
                   className="w-[80%] bg-transparent focus:border-none focus:outline-none"
                 />
               </div>
-              <PopoverTrigger className="h-[48px] w-full rounded-sm bg-white py-2.5 text-[14px] font-semibold leading-[17.64px] text-black md:w-[94px] md:rounded-lg md:py-3 md:pl-6 md:pr-5">
+              <button
+                onClick={() => setPopoverOpen((prev) => !prev)}
+                className="flex h-[48px] w-full items-center justify-center rounded-sm bg-white py-2.5 text-[14px] font-semibold leading-[17.64px] text-black md:w-[94px] md:rounded-lg md:py-3 md:pl-6 md:pr-5"
+              >
                 Search
-              </PopoverTrigger>
+              </button>
             </div>
 
-            <PopoverContent
-              align="end"
-              alignOffset={-10}
-              className="mt-7 w-[calc(100vw-40px)] rounded-lg border border-white/60 bg-[#333153] px-4 py-5 md:w-[704px]"
+            <div
+              className={`mt-7 w-full rounded-lg border border-white/60 bg-[#333153] px-4 py-5 ${popoverOpen ? "-translate-y-0 opacity-100" : "-translate-y-7 opacity-0"} z-10 transition-all duration-150`}
             >
               {profile ? (
                 <Link
@@ -94,7 +95,7 @@ const NetworkExplorer = () => {
                   />
                   <div className="mt-2 flex flex-col gap-1.5 break-words text-white">
                     <div className="text-[14px] font-bold leading-[17.64px]">
-                      {profile.name}
+                      {profile?.name}
                     </div>
                     <div className="leadig-[17.64px] w-[calc(100vw-125px)] break-words text-[14px] font-normal">
                       {searchDidinput}
@@ -113,10 +114,12 @@ const NetworkExplorer = () => {
                   />
                 </div>
               )}
-            </PopoverContent>
-          </Popover>
+            </div>
+          </div>
         </div>
-        <SearchAccount />
+        <div>
+          <SearchAccount clas className="h-full w-full object-cover" />
+        </div>
       </div>
       <Separator className="mt-10 hidden bg-white/20 md:block" />
     </>
