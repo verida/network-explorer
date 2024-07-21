@@ -7,8 +7,10 @@ import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import dayjs from "dayjs";
 import { Account } from "@/types/account";
+import Avatar from "@/assets/svg/avatar.svg";
 
 import { getDidDocument } from "@/lib/utils/veridaUtils";
+import { extractAndShortenAddress } from "@/lib/utils/utils";
 
 export const columns: ColumnDef<Account>[] = [
   {
@@ -32,11 +34,15 @@ export const columns: ColumnDef<Account>[] = [
     ),
     cell: ({ row }) => (
       <div className="flex items-center gap-4 pl-6 text-[14px] font-normal leading-[20px]">
-        <img
-          src={row.original?.avatarUri}
-          className="h-10 w-10 rounded-sm object-cover"
-          alt="account-image"
-        />
+        {row.original?.avatarUri ? (
+          <img
+            src={row.original?.avatarUri}
+            className="h-10 w-10 rounded-sm object-cover"
+            alt="account-image"
+          />
+        ) : (
+          <Avatar />
+        )}
         <div>{row.original.name}</div>
       </div>
     ),
@@ -52,7 +58,7 @@ export const columns: ColumnDef<Account>[] = [
       const { toast } = useToast();
       return (
         <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-[#8566F2]">
-          <div>{row.original.did}</div>
+          <div>{extractAndShortenAddress(row.original.did)}</div>
           <CopyIcon
             className="cursor-pointer"
             color="#8566F2"
