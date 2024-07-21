@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import SearchAccount from "@/assets/svg/search-account.svg";
+import Avatar from "@/assets/svg/avatar.svg";
 import { Button } from "../ui/button";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Separator } from "@/components/ui/separator";
@@ -86,13 +87,14 @@ const NetworkExplorer = () => {
                   href={`/search/${searchDidinput}`}
                   className="flex items-center gap-4"
                 >
-                  <img
-                    src={
-                      profile.avatarUri ??
-                      "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-                    }
-                    className="h-10 w-10 rounded object-cover"
-                  />
+                  {profile.avatarUri ? (
+                    <img
+                      src={profile.avatarUri}
+                      className="h-10 w-10 rounded object-cover"
+                    />
+                  ) : (
+                    <Avatar />
+                  )}
                   <div className="mt-2 flex flex-col gap-1.5 break-words text-white">
                     <div className="text-[14px] font-bold leading-[17.64px]">
                       {profile?.name}

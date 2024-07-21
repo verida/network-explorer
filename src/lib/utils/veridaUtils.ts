@@ -12,6 +12,7 @@ import { config } from "../config";
 import { Resolver } from "did-resolver";
 import { getResolver } from "@verida/vda-did-resolver";
 import { Account } from "@/types/account";
+import Avatar from "@/assets/svg/avatar.svg"
 
 const vdaDidResolver = getResolver();
 const didResolver = new Resolver(vdaDidResolver);
@@ -128,20 +129,20 @@ export const getAnyPublicProfile = async (
     return {
       name: profileInstance.hasOwnProperty("name")
         ? profileInstance["name"]
-        : "UNKOWN",
+        : "--",
       did: did,
       avatarUri: profileInstance.hasOwnProperty("avatar")
         ? (profileInstance["avatar"] as { uri?: string })?.uri
-        : "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg",
+        : undefined,
       country: profileInstance.hasOwnProperty("country")
         ? profileInstance["country"]
-        : "UNKOWN",
+        : "--",
       description: profileInstance.hasOwnProperty("description")
         ? profileInstance["description"]
-        : "UNKOWN",
+        : "--",
       createdAt: profileInstance.hasOwnProperty("modifiedAt")
         ? profileInstance["modifiedAt"]
-        : "",
+        : "-- ",
     };
   } catch (error) {
     return;
