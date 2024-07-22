@@ -54,17 +54,17 @@ const Operator = () => {
           <div className="text-[24px] font-bold leading-[28.8px]">Operator</div>
           <div className="flex items-center gap-2.5 rounded bg-white/10 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-white/60">
             <div className="max-w-[150px] truncate sm:max-w-max">
-              did:VDA:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
+              did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
             </div>
             <CopyIcon
               className="scale-90 cursor-pointer"
               color="#FFFFFF99"
               onClick={() => {
                 navigator.clipboard.writeText(
-                  "did:VDA:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
+                  "did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
                 );
                 toast({
-                  description: "Did Copied",
+                  description: "DID Copied",
                 });
               }}
             />
