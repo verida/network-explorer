@@ -64,7 +64,7 @@ const Operator = () => {
                   "did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
                 );
                 toast({
-                  description: "Did Copied",
+                  description: "DID Copied",
                 });
               }}
             />

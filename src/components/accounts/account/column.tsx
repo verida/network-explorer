@@ -65,7 +65,7 @@ export const columns: ColumnDef<Account>[] = [
             onClick={() => {
               navigator.clipboard.writeText(row.getValue("did"));
               toast({
-                description: "Account did copied!!!",
+                description: "Account DID copied!!!",
               });
             }}
           />
