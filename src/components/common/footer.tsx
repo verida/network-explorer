@@ -23,11 +23,11 @@ const Footer = () => {
     },
     {
       icon: <FaLinkedinIn />,
-      link: "https://linkedin.com",
+      link: "https://www.linkedin.com/company/verida-technology",
     },
     {
       icon: <FaDiscord />,
-      link: "https://discord.com/invite/qb6vS43",
+      link: "https://discord.gg/veridanetwork",
     },
     {
       icon: <FaYoutube />,
@@ -42,7 +42,7 @@ const Footer = () => {
     <div className="mx-auto max-w-[1350px] px-4 pb-5 sm:py-10 lg:px-[112px]">
       <Separator className="mb-6 mt-5 bg-white/20 sm:hidden" />
       <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row sm:items-start sm:gap-0">
-        <div>&copy; {currentDate.getFullYear()} Verida Storage Node</div>
+        <div>&copy; {currentDate.getFullYear()} Verida </div>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
           <div className="text-[16px] font-normal leading-[24px]">
             Find us on
