@@ -2,19 +2,19 @@ import Link from "next/link";
 import React from "react";
 import {
   FaDiscord,
-  FaTwitter,
   FaTelegramPlane,
   FaLinkedinIn,
   FaYoutube,
   FaGithub,
 } from "react-icons/fa";
+import {FaXTwitter} from "react-icons/fa6";
 import { Separator } from "../ui/separator";
 
 const Footer = () => {
   const currentDate = new Date();
   const navs = [
     {
-      icon: <FaTwitter />,
+      icon: <FaXTwitter />,
       link: "https://twitter.com/verida_io",
     },
     {
@@ -27,11 +27,11 @@ const Footer = () => {
     },
     {
       icon: <FaDiscord />,
-      link: "https://discord.gg/veridanetwork",
+      link: "https://discord.verida.io/",
     },
     {
       icon: <FaYoutube />,
-      link: "https://www.youtube.com/channel/UC4FkEDSI7Kart2wNjj9Iozw",
+      link: "https://www.youtube.com/@verida_io",
     },
     {
       icon: <FaGithub />,
@@ -42,7 +42,7 @@ const Footer = () => {
     <div className="mx-auto max-w-[1350px] px-4 pb-5 sm:py-10 lg:px-[112px]">
       <Separator className="mb-6 mt-5 bg-white/20 sm:hidden" />
       <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row sm:items-start sm:gap-0">
-        <div>&copy; {currentDate.getFullYear()} Verida </div>
+        <div>&copy; {currentDate.getFullYear()} Verida Network</div>
         <div className="flex flex-col items-center gap-4 sm:flex-row sm:gap-6">
           <div className="text-[16px] font-normal leading-[24px]">
             Find us on
