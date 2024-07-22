@@ -53,7 +53,7 @@ export const columns: ColumnDef<Account>[] = [
   },
   {
     accessorKey: "did",
-    header: "Did",
+    header: "DID",
     cell: ({ row }) => {
       const { toast } = useToast();
       return (
@@ -75,7 +75,7 @@ export const columns: ColumnDef<Account>[] = [
   },
   {
     accessorKey: "description",
-    header: "Bio",
+    header: "Description",
   },
   {
     accessorKey: "createdAt",

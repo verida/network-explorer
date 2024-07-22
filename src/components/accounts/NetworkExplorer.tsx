@@ -64,7 +64,7 @@ const NetworkExplorer = () => {
               <div className="flex w-full gap-2">
                 <SearchIcon />
                 <input
-                  placeholder="Search by DID (did:VDA:polpos:0x486e..644a55)"
+                  placeholder="Search by DID (did:vda:polpos:0x486e..644a55)"
                   onChange={(e) => {
                     setSearchDidInput(e.target.value);
                   }}
