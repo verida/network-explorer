@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 // import QrCode from "@/assets/svg/qrcode.svg";
 import CopyIcon from "@/assets/icons/copy.svg";
+import Avatar from "@/assets/svg/avatar-88x88.svg";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
@@ -47,14 +48,15 @@ const ResultBox = ({ profile }: { profile: Account }) => {
       <div className="result-box flex flex-col gap-6 rounded-lg border border-white/20 px-4 py-6 sm:gap-10 lg:p-9">
         <div className="flex flex-col justify-between sm:flex-row sm:gap-3">
           <div className="flex flex-col gap-4 sm:flex-row">
-            <Image
-              src={
-                profile.avatarUri ??
-                "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-              }
-              alt=""
-              className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0"
-            />
+            {profile.avatarUri ? (
+              <Image
+                src={profile.avatarUri}
+                alt=""
+                className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0"
+              />
+            ) : (
+              <Avatar className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0" />
+            )}
             <div className="flex w-full flex-col gap-4 sm:w-auto sm:gap-3 lg:w-[619px]">
               <div className="mx-auto text-[20px] font-bold leading-[24px] sm:mx-0 sm:font-normal md:text-base">
                 {profile.name}
