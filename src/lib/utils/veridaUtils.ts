@@ -1,5 +1,4 @@
 import { Client } from "@verida/client-ts";
-import { WebUserProfile } from "@verida/web-helpers";
 import { BlockchainAnchor, DatastoreOpenConfig } from "@verida/types";
 import {
   DID_METHOD,
@@ -8,11 +7,9 @@ import {
 } from "@/lib/constants";
 import { ResolvedIdentity } from "@/lib/types/verida";
 import { getDIDs } from "@verida/vda-did-resolver";
-import { config } from "../config";
 import { Resolver } from "did-resolver";
 import { getResolver } from "@verida/vda-did-resolver";
 import { Account } from "@/types/account";
-import Avatar from "@/assets/svg/avatar.svg"
 
 const vdaDidResolver = getResolver();
 const didResolver = new Resolver(vdaDidResolver);

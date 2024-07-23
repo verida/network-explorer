@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { useMediaQuery } from "react-responsive";
 import dayjs from "dayjs";
@@ -49,23 +49,22 @@ const BarChart = ({ data, tab }: BarChartProps) => {
     return grouped;
   };
 
-  const getAverageBars = (
-    data: DataPoint,
-    format: string,
-    isWeekly = false
-  ): AverageBarsResult => {
-    const groupedData = groupBy(data, format, isWeekly);
-    const result: AverageBarsResult = { dates: [], values: [] };
+  const getAverageBars = useCallback(
+    (data: DataPoint, format: string, isWeekly = false): AverageBarsResult => {
+      const groupedData = groupBy(data, format, isWeekly);
+      const result: AverageBarsResult = { dates: [], values: [] };
 
-    for (const [key, { sum, count, firstDate }] of Object.entries(
-      groupedData
-    )) {
-      result.dates.push(isWeekly ? firstDate! : key);
-      result.values.push(Math.round(sum / count));
-    }
+      for (const [key, { sum, count, firstDate }] of Object.entries(
+        groupedData
+      )) {
+        result.dates.push(isWeekly ? firstDate! : key);
+        result.values.push(Math.round(sum / count));
+      }
 
-    return result;
-  };
+      return result;
+    },
+    []
+  );
 
   const [displayableData, setDisplayableData] = useState<
     AverageBarsResult | undefined
@@ -79,7 +78,7 @@ const BarChart = ({ data, tab }: BarChartProps) => {
     } else if (tab === "monthly") {
       setDisplayableData(getAverageBars(data, "MMMM-YYYY"));
     }
-  }, [data, tab]);
+  }, [data, tab, getAverageBars]);
 
   return (
     displayableData && (

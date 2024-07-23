@@ -51,8 +51,8 @@ const WithdrawForm = ({
       </DialogTitle>
       <div className="mt-4 text-[14px] font-normal leading-[21px] text-white/60">
         By removing a node, the status will change to{" "}
-        <span className="text-white">'Deregister'</span>. The node remains in
-        this status for a notice period of{" "}
+        <span className="text-white">{`'Deregister'`}</span>. The node remains
+        in this status for a notice period of{" "}
         <span className="text-white">28 days</span>. After that period, you will
         have the option to <span className="text-white">unstake your VDA.</span>{" "}
         Please check back in <span className="text-white">28 days</span> to
@@ -90,9 +90,9 @@ const WithdrawForm = ({
                   </SelectContent>
                 </Select>
                 <FormDescription>
-                  This node will manage the user data that hasn't been moved
+                  {`This node will manage the user data that hasn't been moved
                   before the notice period. This node must be in the same region
-                  and country.
+                  and country.`}
                 </FormDescription>
               </FormItem>
             )}

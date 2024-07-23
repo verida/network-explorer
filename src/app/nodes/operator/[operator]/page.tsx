@@ -157,27 +157,27 @@ const Operator = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalCount={0}
-        additionalFilters={
-          <>
-            <div className="pb-1">
-              <div className="px-6 py-2 text-[14px] font-normal leading-[20px] text-white/60">
-                Status
-              </div>
-              <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
-                <Checkbox id="all" />
-                <span>All</span>
-              </div>
-              <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
-                <Checkbox id="australia" />
-                <span>Active</span>
-              </div>
-              <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
-                <Checkbox id="europe" />
-                <span>Inactive</span>
-              </div>
-            </div>
-          </>
-        }
+        // additionalFilters={
+        //   <>
+        //     <div className="pb-1">
+        //       <div className="px-6 py-2 text-[14px] font-normal leading-[20px] text-white/60">
+        //         Status
+        //       </div>
+        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
+        //         <Checkbox id="all" />
+        //         <span>All</span>
+        //       </div>
+        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
+        //         <Checkbox id="australia" />
+        //         <span>Active</span>
+        //       </div>
+        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
+        //         <Checkbox id="europe" />
+        //         <span>Inactive</span>
+        //       </div>
+        //     </div>
+        //   </>
+        // }
       />
     </div>
   );

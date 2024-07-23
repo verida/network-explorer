@@ -16,9 +16,9 @@ const HubError = ({
           Registration Failed
         </div>
         <div className="text-center text-[14px] font-normal leading-[20px] text-white/60">
-          We're sorry, but the registration process for your storage node and
+          {`We're sorry, but the registration process for your storage node and
           VDA token stake has encountered an issue. Please review the details
-          below and try again.
+          below and try again.`}
         </div>
         <Button
           onClick={() => {
