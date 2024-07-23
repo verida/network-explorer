@@ -27,11 +27,11 @@ jobs:
           node-version: "${{ env.NODE_VERSION }}"
           cache: yarn
 
-      - name: Check TypeScript compilation
-        run: npx tsc --noEmit
-
       - name: Install dependencies
         run: yarn install --frozen-lockfile
+
+      - name: Check TypeScript compilation
+        run: npx tsc --noEmit
 
       # TODO: Add test in CI when available
       # - name: Test
