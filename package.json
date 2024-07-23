@@ -6,9 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "check:typescript": "npx tsc --noEmit",
     "check:format": "npx prettier . --check",
-    "fix:format": "npx prettier . --write"
+    "check:lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "check": "yarn run check:format && yarn run check:lint && yarn run check:typescript",
+    "fix:format": "npx prettier . --write",
+    "fix:lint": "eslint . --fix --ext .js,.jsx,.ts,.tsx",
+    "fix": "yarn run fix:format && yarn run fix:lint"
   },
   "dependencies": {
     "@emotion/react": "^11.11.4",
@@ -64,7 +68,9 @@
     "@types/react-simple-maps": "^3.0.4",
     "autoprefixer": "^10.4.19",
     "base64-inline-loader": "^2.0.1",
-    "eslint": "^9",
+    "eslint": "^8",
+    "eslint-config-next": "14.2.5",
+    "eslint-config-prettier": "^9.1.0",
     "file-loader": "^6.2.0",
     "postcss": "^8.4.38",
     "prettier": "^3.3.2",
