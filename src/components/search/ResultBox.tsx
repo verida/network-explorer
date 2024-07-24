@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+"use client";
+
+import React, { useMemo, useState } from "react";
 // import QrCode from "@/assets/svg/qrcode.svg";
 import CopyIcon from "@/assets/icons/copy.svg";
 import DefaultAvatar from "@/assets/svg/avatar.svg";
@@ -40,6 +42,14 @@ const ResultBox = ({ profile }: { profile: Account }) => {
     }
   );
 
+  const qrCodeMessage = useMemo(() => {
+    // The QR code would simply be the URL to the account on that Network
+    // Explorer application. The account page is currently `/search/:did`
+    // TODO: Consider using the env var baseURL so this component can be a
+    // server component, but not too keen on setting a baseURL in the env vars
+    return `${window.location.origin}/search/${profile.did}`;
+  }, [profile.did]);
+
   return (
     <div className="flex flex-col gap-3">
       <div className="text-[12px] font-normal leading-[18px] text-white/60">
@@ -79,7 +89,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
                   <QRCode
                     size={160}
                     className="h-auto w-full max-w-full"
-                    value={config.baseUrl + "/did/" + profile.did}
+                    value={qrCodeMessage}
                     viewBox="0 0 160 160"
                   />
                 </div>
@@ -145,7 +155,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
               <QRCode
                 size={160}
                 className="h-auto w-full max-w-full"
-                value={config.baseUrl + "/did/" + profile.did}
+                value={qrCodeMessage}
                 viewBox="0 0 160 160"
               />
             </div>
