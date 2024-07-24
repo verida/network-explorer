@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userAtom, showSearchBarAtom } from "@/lib/atom";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,6 +34,11 @@ const Navbar = () => {
     useRecoilState(showSearchBarAtom);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [search, setSearch] = useState("");
+
+  const handleClickNavigationLink = useCallback(() => {
+    setIsDropdownOpen(false);
+  }, []);
+
   return showSearchField ? (
     <div
       className="fixed top-0 z-50 h-screen w-screen bg-[#060520]"
@@ -112,6 +117,7 @@ const Navbar = () => {
                     "cursor-pointer rounded p-3 text-white hover:bg-white/10",
                     nav.paths.includes(pathname) ? "bg-white/10" : ""
                   )}
+                  onClick={handleClickNavigationLink}
                 >
                   {nav.name}
                 </Link>
