@@ -14,8 +14,7 @@ const nextConfig = {
       use: [
         {
           loader: "@svgr/webpack",
-          options: { icon: true },
-          // options: { icon: true, removeViewBox: true },
+          options: { icon: true, removeViewBox: true },
         },
       ],
     });
