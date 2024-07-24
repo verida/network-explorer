@@ -42,7 +42,7 @@ export const columns: ColumnDef<Account>[] = [
             alt="account-image"
           />
         ) : (
-          <Avatar />
+          <Avatar className="h-10 w-10" />
         )}
         <div>{row.original.name}</div>
       </div>
