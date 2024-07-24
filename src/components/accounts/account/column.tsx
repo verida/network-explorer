@@ -1,15 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { ColumnDef } from "@tanstack/react-table";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import dayjs from "dayjs";
 import { Account } from "@/types/account";
 import Avatar from "@/assets/svg/avatar.svg";
 
-import { getDidDocument } from "@/lib/utils/veridaUtils";
 import { extractAndShortenAddress } from "@/lib/utils/utils";
 import Image from "next/image";
 
