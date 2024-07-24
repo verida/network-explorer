@@ -11,7 +11,12 @@ const nextConfig = {
 
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"],
+      use: [
+        {
+          loader: "@svgr/webpack",
+          options: { icon: true, removeViewBox: true },
+        },
+      ],
     });
 
     config.module.rules.push({

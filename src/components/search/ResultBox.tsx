@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 // import QrCode from "@/assets/svg/qrcode.svg";
 import CopyIcon from "@/assets/icons/copy.svg";
-import Avatar from "@/assets/svg/avatar-88x88.svg";
+import DefaultAvatar from "@/assets/svg/avatar.svg";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
@@ -53,9 +53,15 @@ const ResultBox = ({ profile }: { profile: Account }) => {
                 src={profile.avatarUri}
                 alt=""
                 className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0"
+                width={88}
+                height={88}
               />
             ) : (
-              <Avatar className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0" />
+              <DefaultAvatar
+                width="100%"
+                height="100%"
+                className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0"
+              />
             )}
             <div className="flex w-full flex-col gap-4 sm:w-auto sm:gap-3 lg:w-[619px]">
               <div className="mx-auto text-[20px] font-bold leading-[24px] sm:mx-0 sm:font-normal md:text-base">

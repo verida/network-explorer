@@ -84,7 +84,7 @@ const NetworkExplorer = () => {
               {profile ? (
                 <Link
                   href={`/search/${searchDidinput}`}
-                  className="flex items-center gap-4"
+                  className="flex flex-row items-center gap-4"
                 >
                   {profile.avatarUri ? (
                     <Image
@@ -93,13 +93,17 @@ const NetworkExplorer = () => {
                       alt={profile.name}
                     />
                   ) : (
-                    <Avatar />
+                    <Avatar
+                      className="aspect-square w-10"
+                      width="100%"
+                      height="100%"
+                    />
                   )}
-                  <div className="mt-2 flex flex-col gap-1.5 break-words text-white">
-                    <div className="text-[14px] font-bold leading-[17.64px]">
+                  <div className="flex flex-1 flex-col gap-1.5 truncate text-white">
+                    <div className="truncate text-[14px] font-bold leading-[17.64px]">
                       {profile?.name}
                     </div>
-                    <div className="leadig-[17.64px] w-[calc(100vw-125px)] break-words text-[14px] font-normal">
+                    <div className="truncate text-[14px] font-normal leading-[17.64px]">
                       {searchDidinput}
                     </div>
                   </div>
@@ -120,7 +124,7 @@ const NetworkExplorer = () => {
           </div>
         </div>
         <div>
-          <SearchAccount className="h-full w-full object-cover" />
+          <SearchAccount width="100%" height="100%" />
         </div>
       </div>
       <Separator className="mt-10 hidden bg-white/20 md:block" />
