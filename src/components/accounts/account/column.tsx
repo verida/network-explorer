@@ -16,23 +16,7 @@ import Image from "next/image";
 export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: "user",
-    enableSorting: true,
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        className="flex items-center gap-2 hover:bg-transparent"
-        onClick={() => {
-          column.toggleSorting(column.getIsSorted() === "asc");
-        }}
-      >
-        <span>Account Name</span>
-        {column.getIsSorted() === "asc" ? (
-          <FaCaretUp size={15} />
-        ) : (
-          <FaCaretDown size={15} />
-        )}
-      </Button>
-    ),
+    header: "Account Name",
     cell: ({ row }) => (
       <div className="flex items-center gap-4 pl-6 text-[14px] font-normal leading-[20px]">
         {row.original?.avatarUri ? (
@@ -82,22 +66,7 @@ export const columns: ColumnDef<Account>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: ({ column }) => (
-      <Button
-        variant="ghost"
-        className="flex items-center gap-2 p-0 hover:bg-transparent"
-        onClick={() => {
-          column.toggleSorting(column.getIsSorted() === "asc");
-        }}
-      >
-        <span>Date/time created</span>
-        {column.getIsSorted() === "asc" ? (
-          <FaCaretUp size={15} />
-        ) : (
-          <FaCaretDown size={15} />
-        )}
-      </Button>
-    ),
+    header: "Date/time created",
     cell: ({ row }) => {
       return dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A");
     },
