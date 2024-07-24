@@ -60,14 +60,14 @@ const NetworkExplorer = () => {
           </div>
           <div className="relative">
             <div className="network-search z-50 flex flex-col items-center gap-6 rounded-lg border border-white/60 p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
-              <div className="flex w-full gap-2">
+              <div className="flex w-full flex-row items-center gap-2">
                 <SearchIcon />
                 <input
                   placeholder="Search by DID (did:vda:polpos:0x486e..644a55)"
                   onChange={(e) => {
                     setSearchDidInput(e.target.value);
                   }}
-                  className="w-[80%] bg-transparent focus:border-none focus:outline-none"
+                  className="flex-1 truncate bg-transparent focus:border-none focus:outline-none"
                 />
               </div>
               <button
