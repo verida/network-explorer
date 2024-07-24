@@ -28,7 +28,6 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/search/[did]"
   ],
   "exclude": ["node_modules"]
 }

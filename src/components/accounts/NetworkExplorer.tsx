@@ -3,24 +3,23 @@
 import React, { useEffect, useState } from "react";
 import SearchAccount from "@/assets/svg/search-account.svg";
 import Avatar from "@/assets/svg/avatar.svg";
-import { Button } from "../ui/button";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 import { useToast } from "../ui/use-toast";
 import { Oval } from "react-loader-spinner";
-import { WebUserProfile } from "@verida/web-helpers";
 import { getAnyPublicProfile } from "@/lib/utils/veridaUtils";
 import { config } from "@/lib/config";
 import { useQuery } from "react-query";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import Image from "next/image";
 
 const NetworkExplorer = () => {
   const { toast } = useToast();
   const [popoverOpen, setPopoverOpen] = useState(false);
   const [searchDidinput, setSearchDidInput] = useState("");
-  const { data: profile, isLoading } = useQuery<WebUserProfile>(
+
+  const { data: profile, isLoading } = useQuery(
     ["accounts", searchDidinput],
     async () => {
       return await getAnyPublicProfile(config.client, searchDidinput);
@@ -44,7 +43,7 @@ const NetworkExplorer = () => {
     } else {
       setPopoverOpen(false);
     }
-  }, [isLoading]);
+  }, [isLoading, profile]);
 
   return (
     <>
@@ -88,9 +87,10 @@ const NetworkExplorer = () => {
                   className="flex items-center gap-4"
                 >
                   {profile.avatarUri ? (
-                    <img
+                    <Image
                       src={profile.avatarUri}
                       className="h-10 w-10 rounded object-cover"
+                      alt={profile.name}
                     />
                   ) : (
                     <Avatar />
@@ -120,7 +120,7 @@ const NetworkExplorer = () => {
           </div>
         </div>
         <div>
-          <SearchAccount clas className="h-full w-full object-cover" />
+          <SearchAccount className="h-full w-full object-cover" />
         </div>
       </div>
       <Separator className="mt-10 hidden bg-white/20 md:block" />

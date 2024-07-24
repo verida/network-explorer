@@ -134,7 +134,7 @@ const DataTable = <TData, TValue>({
     } else {
       setShowSearch(false);
     }
-  }, [isSmScreen]);
+  }, [isSmScreen, setShowSearch]);
 
   const [filter, setFilter] = useState<Filter>();
 

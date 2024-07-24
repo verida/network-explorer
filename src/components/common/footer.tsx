@@ -1,4 +1,3 @@
-import Link from "next/link";
 import React from "react";
 import {
   FaDiscord,
@@ -7,7 +6,7 @@ import {
   FaYoutube,
   FaGithub,
 } from "react-icons/fa";
-import {FaXTwitter} from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
 import { Separator } from "../ui/separator";
 
 const Footer = () => {

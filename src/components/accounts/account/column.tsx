@@ -11,6 +11,7 @@ import Avatar from "@/assets/svg/avatar.svg";
 
 import { getDidDocument } from "@/lib/utils/veridaUtils";
 import { extractAndShortenAddress } from "@/lib/utils/utils";
+import Image from "next/image";
 
 export const columns: ColumnDef<Account>[] = [
   {
@@ -35,7 +36,7 @@ export const columns: ColumnDef<Account>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-4 pl-6 text-[14px] font-normal leading-[20px]">
         {row.original?.avatarUri ? (
-          <img
+          <Image
             src={row.original?.avatarUri}
             className="h-10 w-10 rounded-sm object-cover"
             alt="account-image"
@@ -55,6 +56,8 @@ export const columns: ColumnDef<Account>[] = [
     accessorKey: "did",
     header: "DID",
     cell: ({ row }) => {
+      // TODO: Extract the component to properly use the hook inside
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const { toast } = useToast();
       return (
         <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-[#8566F2]">

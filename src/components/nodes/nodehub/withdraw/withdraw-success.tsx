@@ -18,9 +18,9 @@ const WithdrawSuccess = ({
           Success! Removal Process Began
         </div>
         <div className="text-center text-[14px] font-normal text-white/60">
-          You have successfully initiated the removal process for the node. The
-          status has been updated to 'Removing,' and the node will remain in
-          this state for the next 28 days.
+          {`You have successfully initiated the removal process for the node. The
+          status has been updated to 'Removing' and the node will remain in this
+          state for the next 28 days.`}
         </div>
       </div>
       <Button

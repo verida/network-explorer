@@ -1,22 +1,20 @@
 import React, { useState } from "react";
 // import QrCode from "@/assets/svg/qrcode.svg";
 import CopyIcon from "@/assets/icons/copy.svg";
+import Avatar from "@/assets/svg/avatar-88x88.svg";
 import { useToast } from "../ui/use-toast";
 import { Button } from "../ui/button";
 import { Separator } from "../ui/separator";
 import { useMediaQuery } from "react-responsive";
-import { WebUserProfile } from "@verida/web-helpers";
 import { getDidDocument } from "@/lib/utils/veridaUtils";
 import { useQuery } from "react-query";
 import QRCode from "react-qr-code";
 import Loader from "../common/loader";
 import { config } from "@/lib/config";
+import Image from "next/image";
+import { Account } from "@/types/account";
 
-interface Profile extends WebUserProfile {
-  did: string;
-}
-
-const ResultBox = ({ profile }: { profile: Profile }) => {
+const ResultBox = ({ profile }: { profile: Account }) => {
   const { toast } = useToast();
   const [showResultJson, setShowResultJson] = useState(false);
   const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
@@ -50,13 +48,15 @@ const ResultBox = ({ profile }: { profile: Profile }) => {
       <div className="result-box flex flex-col gap-6 rounded-lg border border-white/20 px-4 py-6 sm:gap-10 lg:p-9">
         <div className="flex flex-col justify-between sm:flex-row sm:gap-3">
           <div className="flex flex-col gap-4 sm:flex-row">
-            <img
-              src={
-                profile.avatarUri ??
-                "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
-              }
-              className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0"
-            />
+            {profile.avatarUri ? (
+              <Image
+                src={profile.avatarUri}
+                alt=""
+                className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0"
+              />
+            ) : (
+              <Avatar className="mx-auto h-[88px] w-[88px] rounded-sm object-cover sm:mx-0" />
+            )}
             <div className="flex w-full flex-col gap-4 sm:w-auto sm:gap-3 lg:w-[619px]">
               <div className="mx-auto text-[20px] font-bold leading-[24px] sm:mx-0 sm:font-normal md:text-base">
                 {profile.name}

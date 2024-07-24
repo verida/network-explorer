@@ -194,7 +194,10 @@ export const columns: ColumnDef<Node>[] = [
     accessorKey: "date",
     header: "",
     cell: ({ row }) => {
+      // TODO: Extract the component to properly use the hook inside
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const user = useRecoilValue(userAtom);
+      // eslint-disable-next-line react-hooks/rules-of-hooks
       const [tab, setTab] = useState<Tab>("form");
 
       if (user.registered) {

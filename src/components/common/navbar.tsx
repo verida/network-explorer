@@ -4,23 +4,20 @@ import { cn } from "@/lib/utils/utils";
 import { IoMenu } from "react-icons/io5";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import ConnectWalletButton from "./connect-wallet";
-import ConnectedWallet from "./connected-wallet";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userAtom, showSearchBarAtom } from "@/lib/atom";
 import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { X } from "lucide-react";
-import VeridaIcon from "@/assets/svg/verida.svg";
 import { Input } from "../ui/input";
 import { LuSearch } from "react-icons/lu";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
+import Image from "next/image";
 
 const Navbar = () => {
   const navs = [
@@ -127,10 +124,12 @@ const Navbar = () => {
             </DropdownMenuContent>
           </DropdownMenu>
           <Link href="/">
-            <img
-              src="/logo.svg"
+            <Image
+              src="./logo.svg"
               className="w-[70px] cursor-pointer lg:w-[100px]"
-              alt="logo"
+              alt="Verida Network logo"
+              width={96}
+              height={32}
             />
           </Link>
           <div className="hidden items-center gap-4 md:flex lg:gap-10">

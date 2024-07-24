@@ -7,7 +7,6 @@ import { useState } from "react";
 import ResultBox from "@/components/search/ResultBox";
 import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
-import { WebUserProfile } from "@verida/web-helpers";
 import { useToast } from "@/components/ui/use-toast";
 import { getAnyPublicProfile } from "@/lib/utils/veridaUtils";
 import { config } from "@/lib/config";
@@ -20,7 +19,7 @@ const SearchPage = () => {
 
   const { toast } = useToast();
 
-  const { data: profile, isLoading } = useQuery<WebUserProfile>(
+  const { data: profile, isLoading } = useQuery(
     ["accounts", did],
     async () => {
       return await getAnyPublicProfile(config.client, did);
@@ -38,13 +37,11 @@ const SearchPage = () => {
     }
   );
 
-  console.log(profile);
-
   return (
     params.did &&
     (isLoading ? (
       <Loader isLoading={isLoading} className="h-screen" />
-    ) : (
+    ) : profile ? (
       <div className="my-6 flex flex-col gap-10">
         {searchBoxVisible && (
           <div className="network-search flex h-[64px] items-center gap-2 rounded-lg border border-white/60 px-4 py-2">
@@ -58,14 +55,9 @@ const SearchPage = () => {
             />
           </div>
         )}
-        <ResultBox
-          profile={{
-            ...profile,
-            did,
-          }}
-        />
+        <ResultBox profile={profile} />
       </div>
-    ))
+    ) : null) // TODO: Handle not found
   );
 };
 

@@ -107,7 +107,7 @@ const NodesList = () => {
     if (data) {
       setNodes(filterNodes(data, filter));
     }
-  }, [filter]);
+  }, [filter, data]);
 
   if (isLoading) {
     return <Loader isLoading className="h-[300px]" />;
