@@ -67,6 +67,8 @@ interface DataTableProps<TData, TValue> {
   totalCount: number;
   onApplyFilters?: (filter?: Filter) => void;
   showStatusFilters?: boolean;
+  showFilters?: boolean;
+  showSearch?: boolean;
   additionalTitles?: JSX.Element;
   isLoading?: boolean;
 }
@@ -91,6 +93,7 @@ const DataTable = <TData, TValue>({
   totalCount,
   onApplyFilters,
   showStatusFilters = false,
+  showSearch = true,
   isLoading,
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
@@ -146,135 +149,137 @@ const DataTable = <TData, TValue>({
         <div className="text-[18px] font-semibold capitalize leading-[20px]">
           {totalCount} {title}
         </div>
-        <div className="flex items-center gap-3">
-          <Button
-            size="icon"
-            className={cn(
-              "flex justify-center gap-1 rounded-sm bg-[#FFFFFF26] p-2 transition-all duration-500 hover:bg-[#FFFFFF26]",
-              showSearchField ? "w-[200px]" : ""
-            )}
-            onClick={() => {
-              if (isSmScreen) setShowSearchField(true);
-              else setShowSearch(true);
-            }}
-          >
-            <FiSearch color="white" size={20} />
-            {showSearchField && (
-              <>
-                <Input
-                  type="text"
-                  className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-white hover:bg-transparent focus-visible:ring-0"
-                  onChange={(event) =>
-                    table.getColumn("did")?.setFilterValue(event.target.value)
-                  }
+        {showSearch && (
+          <div className="flex items-center gap-3">
+            <Button
+              size="icon"
+              className={cn(
+                "flex justify-center gap-1 rounded-sm bg-[#FFFFFF26] p-2 transition-all duration-500 hover:bg-[#FFFFFF26]",
+                showSearchField ? "w-[200px]" : ""
+              )}
+              onClick={() => {
+                if (isSmScreen) setShowSearchField(true);
+                else setShowSearch(true);
+              }}
+            >
+              <FiSearch color="white" size={20} />
+              {showSearchField && (
+                <>
+                  <Input
+                    type="text"
+                    className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-white hover:bg-transparent focus-visible:ring-0"
+                    onChange={(event) =>
+                      table.getColumn("did")?.setFilterValue(event.target.value)
+                    }
+                  />
+                </>
+              )}
+            </Button>
+            <Drawer
+              onClose={() => {
+                setDrawerOpen(false);
+              }}
+              open={drawerOpen}
+              onOpenChange={setDrawerOpen}
+            >
+              <DrawerTrigger asChild>
+                <Button
+                  size="icon"
+                  className="flex bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:hidden"
+                >
+                  <MdTune color="white" size={20} />
+                </Button>
+              </DrawerTrigger>
+              <DrawerContent className="rounded-3 border border-white/30 bg-[#333153]">
+                <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-white">
+                  <div>Filters</div>
+                  <X
+                    className="mr-2 block h-5 w-5 cursor-pointer sm:hidden"
+                    onClick={() => {
+                      setDrawerOpen(false);
+                    }}
+                  />
+                </div>
+                <DisplayFilters
+                  showStatus={showStatusFilters}
+                  filter={filter}
+                  setFilter={setFilter}
                 />
-              </>
-            )}
-          </Button>
-          <Drawer
-            onClose={() => {
-              setDrawerOpen(false);
-            }}
-            open={drawerOpen}
-            onOpenChange={setDrawerOpen}
-          >
-            <DrawerTrigger asChild>
-              <Button
-                size="icon"
-                className="flex bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:hidden"
+                <div className="flex w-full justify-end py-2 pr-4">
+                  <DrawerClose asChild>
+                    <Button
+                      onClick={() => {
+                        if (
+                          filter?.regions[0] !== "All" ||
+                          filter !== undefined
+                        ) {
+                          table
+                            .getColumn("country")
+                            ?.setFilterValue(filter?.regions[0]);
+                        }
+                      }}
+                      className="h-8 w-auto rounded-sm px-3"
+                    >
+                      Apply
+                    </Button>
+                  </DrawerClose>
+                </div>
+              </DrawerContent>
+            </Drawer>
+            <DropdownMenu
+              modal={false}
+              onOpenChange={setDropdownOpen}
+              open={dropdownOpen}
+            >
+              <DropdownMenuTrigger asChild>
+                <Button
+                  size="icon"
+                  className="hidden bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex"
+                >
+                  <MdTune color="white" size={20} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent
+                className="rounded-3 w-screen border border-white/30 bg-[#333153] sm:w-[356px]"
+                align="end"
               >
-                <MdTune color="white" size={20} />
-              </Button>
-            </DrawerTrigger>
-            <DrawerContent className="rounded-3 border border-white/30 bg-[#333153]">
-              <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-white">
-                <div>Filters</div>
-                <X
-                  className="mr-2 block h-5 w-5 cursor-pointer sm:hidden"
-                  onClick={() => {
-                    setDrawerOpen(false);
-                  }}
+                <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-white">
+                  <div>Filters</div>
+                  <X
+                    className="block h-5 w-5 cursor-pointer sm:hidden"
+                    onClick={() => {
+                      setDropdownOpen(false);
+                    }}
+                  />
+                </DropdownMenuLabel>
+                <DisplayFilters
+                  filter={filter}
+                  setFilter={setFilter}
+                  showStatus={showStatusFilters}
                 />
-              </div>
-              <DisplayFilters
-                showStatus={showStatusFilters}
-                filter={filter}
-                setFilter={setFilter}
-              />
-              <div className="flex w-full justify-end py-2 pr-4">
-                <DrawerClose asChild>
+                <div className="flex w-full justify-end py-2 pr-4">
                   <Button
                     onClick={() => {
-                      if (
-                        filter?.regions[0] !== "All" ||
-                        filter !== undefined
-                      ) {
-                        table
-                          .getColumn("country")
-                          ?.setFilterValue(filter?.regions[0]);
+                      if (filter !== undefined) {
+                        if (filter.regions[0] !== "All") {
+                          table
+                            .getColumn("country")
+                            ?.setFilterValue(filter?.regions[0]);
+                        } else {
+                          table.getColumn("country")?.setFilterValue("");
+                        }
                       }
+                      setDropdownOpen(false);
                     }}
                     className="h-8 w-auto rounded-sm px-3"
                   >
                     Apply
                   </Button>
-                </DrawerClose>
-              </div>
-            </DrawerContent>
-          </Drawer>
-          <DropdownMenu
-            modal={false}
-            onOpenChange={setDropdownOpen}
-            open={dropdownOpen}
-          >
-            <DropdownMenuTrigger asChild>
-              <Button
-                size="icon"
-                className="hidden bg-[#FFFFFF26] hover:bg-current hover:opacity-50 sm:flex"
-              >
-                <MdTune color="white" size={20} />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent
-              className="rounded-3 w-screen border border-white/30 bg-[#333153] sm:w-[356px]"
-              align="end"
-            >
-              <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-white">
-                <div>Filters</div>
-                <X
-                  className="block h-5 w-5 cursor-pointer sm:hidden"
-                  onClick={() => {
-                    setDropdownOpen(false);
-                  }}
-                />
-              </DropdownMenuLabel>
-              <DisplayFilters
-                filter={filter}
-                setFilter={setFilter}
-                showStatus={showStatusFilters}
-              />
-              <div className="flex w-full justify-end py-2 pr-4">
-                <Button
-                  onClick={() => {
-                    if (filter !== undefined) {
-                      if (filter.regions[0] !== "All") {
-                        table
-                          .getColumn("country")
-                          ?.setFilterValue(filter?.regions[0]);
-                      } else {
-                        table.getColumn("country")?.setFilterValue("");
-                      }
-                    }
-                    setDropdownOpen(false);
-                  }}
-                  className="h-8 w-auto rounded-sm px-3"
-                >
-                  Apply
-                </Button>
-              </div>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        )}
         {additionalTitles}
       </div>
       <div className="min-h-[18rem]">

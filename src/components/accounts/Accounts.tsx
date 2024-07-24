@@ -100,6 +100,7 @@ const Accounts = () => {
         title="accounts"
         totalCount={count}
         isLoading={isLoading}
+        showSearch={false}
       />
     </div>
   );
