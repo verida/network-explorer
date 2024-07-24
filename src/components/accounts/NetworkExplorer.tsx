@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import SearchAccount from "@/assets/svg/search-account.svg";
+import SearchAccountIllustration from "@/assets/svg/search-account.svg";
 import Avatar from "@/assets/svg/avatar.svg";
 import SearchIcon from "@/assets/icons/search.svg";
 import { Separator } from "@/components/ui/separator";
@@ -123,8 +123,8 @@ const NetworkExplorer = () => {
             </div>
           </div>
         </div>
-        <div>
-          <SearchAccount width="100%" height="100%" />
+        <div className="hidden md:block">
+          <SearchAccountIllustration width="100%" height="100%" />
         </div>
       </div>
       <Separator className="mt-10 hidden bg-white/20 md:block" />
