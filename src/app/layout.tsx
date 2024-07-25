@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/providers";
-import Navbar from "@/components/common/navbar";
+import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
 import Head from "next/head";
@@ -51,7 +51,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <div className="flex min-h-screen flex-col">
-            <Navbar />
+            <Header />
             <div className="flex flex-1 flex-row justify-center">
               <main className="w-full max-w-screen-xl px-4 pb-14 pt-4 sm:px-8 sm:pt-8">
                 {children}
