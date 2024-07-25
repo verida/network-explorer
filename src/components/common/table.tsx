@@ -127,7 +127,7 @@ const DataTable = <TData, TValue>({
 
   const [showSearchField, setShowSearchField] = useState(false);
   const pageLimits = [10, 20, 30];
-  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+  const isSmScreen = useMediaQuery({ query: "(max-width: 640px)" });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const setShowSearch = useSetRecoilState(showSearchBarAtom);
@@ -140,8 +140,6 @@ const DataTable = <TData, TValue>({
   }, [isSmScreen, setShowSearch]);
 
   const [filter, setFilter] = useState<Filter>();
-
-  console.log(filter);
 
   return (
     <>
@@ -353,7 +351,7 @@ const DataTable = <TData, TValue>({
       </div>
       <div className="flex w-full justify-between">
         <div className="flex items-center gap-4">
-          <div>Show rows</div>
+          <div>{isSmScreen ? "Rows" : "Show rows"}</div>
           <Select
             onValueChange={(value) => setLimit(parseInt(value as string))}
           >
