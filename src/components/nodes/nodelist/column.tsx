@@ -111,7 +111,7 @@ export const columns: ColumnDef<Node>[] = [
           column.toggleSorting(column.getIsSorted() === "asc");
         }}
       >
-        <span>Available Slots</span>
+        <span>Used/Total slots</span>
         {column.getIsSorted() === "asc" ? (
           <FaCaretUp size={15} />
         ) : (
