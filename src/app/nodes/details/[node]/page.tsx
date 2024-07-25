@@ -164,7 +164,7 @@ const DetailsPage = () => {
               <span>{country}</span>
             </div>
             <div className="flex w-full justify-between">
-              <span>Available Slots</span>
+              <span>Used/Total slots</span>
               <div>
                 <span>{storageSlotsUsed}</span>{" "}
                 <span className="text-white/60">/ {maxStorageSlots}</span>
