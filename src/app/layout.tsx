@@ -3,7 +3,7 @@ import { Sora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/providers";
 import Navbar from "@/components/common/navbar";
-import Footer from "@/components/common/footer";
+import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
 import Head from "next/head";
 
@@ -33,7 +33,6 @@ export const metadata: Metadata = {
     siteName: "Verida Network Explorer",
   },
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -51,11 +50,15 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="mx-auto min-h-screen max-w-[1300px] overflow-x-hidden px-4 py-4 md:px-8 lg:px-[92px]">
-            {children}
+          <div className="flex min-h-screen flex-col">
+            <Navbar />
+            <div className="flex flex-1 flex-row justify-center">
+              <main className="w-full max-w-screen-xl px-4 pb-14 pt-4 sm:px-8 sm:pt-8">
+                {children}
+              </main>
+            </div>
+            <Footer />
           </div>
-          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>
