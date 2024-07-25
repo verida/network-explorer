@@ -1,7 +1,7 @@
 import Distribution from "@/components/nodes/Distribution";
 import NodesList from "@/components/nodes/NodesList";
 import React from "react";
-import Overview from "@/components/nodes/Overview";
+// import Overview from "@/components/nodes/Overview";
 import { csv2json } from "@/lib/utils/csvToArray";
 
 import { COUNTRY_CODES } from "@/lib/constants/misc";
@@ -94,7 +94,7 @@ const NodesPage = async () => {
   const distribution = await getDistributions();
   return (
     <div className="py-6">
-      <Overview StorageOverView={data} />
+      {/* <Overview StorageOverView={data} /> */}
       <Distribution
         summary={distribution.summary}
         isLoading={distribution.isLoading}
