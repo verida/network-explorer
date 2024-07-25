@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils/utils";
-import { IoMenu } from "react-icons/io5";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRecoilState, useRecoilValue } from "recoil";
@@ -18,7 +17,7 @@ import { LuSearch } from "react-icons/lu";
 import { Separator } from "../ui/separator";
 import { Button } from "../ui/button";
 import Image from "next/image";
-
+import MenuIcon from "@/assets/svg/menu-icon.svg";
 const Navbar = () => {
   const navs = [
     { name: "Accounts", paths: ["/", "/search"] },
@@ -88,14 +87,15 @@ const Navbar = () => {
           <DropdownMenu onOpenChange={setIsDropdownOpen} open={isDropdownOpen}>
             {isDropdownOpen ? (
               <X
-                className="h-5 w-5 cursor-pointer text-white"
+                className="h-[28px] w-[28px] cursor-pointer text-white"
                 onClick={() => {
                   setIsDropdownOpen(false);
                 }}
               />
             ) : (
               <DropdownMenuTrigger className="block md:hidden">
-                <IoMenu size={24} />
+                <MenuIcon 
+                className="mx-auto h-[28px] w-[28px] rounded-sm object-cover sm:mx-0" />
               </DropdownMenuTrigger>
             )}
             <DropdownMenuContent className="mt-[4rem] flex h-[calc(100vh-4rem)] w-screen flex-col gap-1 overflow-y-auto rounded-none border-none bg-[#060520] p-4">
@@ -132,7 +132,7 @@ const Navbar = () => {
           <Link href="/">
             <Image
               src="./logo.svg"
-              className="w-[70px] cursor-pointer lg:w-[100px]"
+              className="w-[85px] cursor-pointer lg:w-[100px]"
               alt="Verida Network logo"
               width={96}
               height={32}
