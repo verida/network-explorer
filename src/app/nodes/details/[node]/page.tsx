@@ -111,37 +111,29 @@ const DetailsPage = () => {
           <div className="flex flex-col items-start gap-4 text-sm font-normal leading-5">
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span className="text-muted-foreground">Node Name</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {name}
-                </div>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {name}
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span className="text-muted-foreground">Datacenter</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {datacenter}
-                </div>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {datacenter}
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span className="text-muted-foreground">Region</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {region}
-                </div>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {region}
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span className="text-muted-foreground">Country</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {country}
-                </div>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {country}
               </div>
             </div>
 
@@ -155,16 +147,14 @@ const DetailsPage = () => {
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span className="text-muted-foreground">Status</span>
-              <div className="flex items-center gap-2.5">
-                <div
-                  className={`${
-                    status === "Active"
-                      ? "border-[#16A34A33] bg-[#16A34A33] text-[#16A34A]"
-                      : "border-white/20 bg-white/20"
-                  } w-fit rounded-[53px] border px-3 py-1.5`}
-                >
-                  Active
-                </div>
+              <div
+                className={`${
+                  status === "Active"
+                    ? "border-[#16A34A33] bg-[#16A34A33] text-[#16A34A]"
+                    : "border-white/20 bg-white/20"
+                } w-fit rounded-[53px] border px-3 py-1.5`}
+              >
+                Active
               </div>
             </div>
           </div>
