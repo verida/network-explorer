@@ -122,7 +122,7 @@ const NodesList = () => {
   }
 
   return (
-    <div className="my-10 flex flex-col gap-4">
+    <div className="flex flex-col gap-4">
       <DataTable
         data={nodes?.slice((page - 1) * limit, page * limit) ?? []}
         columns={columns}

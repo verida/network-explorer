@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
     <header
       {...headerProps}
       className={cn(
-        "flex flex-row justify-center border-b border-foreground/20",
+        "flex flex-row justify-center",
         isDropdownOpen || showSearchField ? "w-screen bg-[#060520]" : "",
         className
       )}
@@ -94,12 +94,13 @@ export const Header: React.FC<HeaderProps> = (props) => {
         <div className="flex flex-row items-stretch gap-4 sm:gap-10">
           <DropdownMenu onOpenChange={setIsDropdownOpen} open={isDropdownOpen}>
             {isDropdownOpen ? (
-              <X
-                className="aspect-square w-7 cursor-pointer text-foreground"
+              <button
                 onClick={() => {
                   setIsDropdownOpen(false);
                 }}
-              />
+              >
+                <X className="aspect-square w-7" />
+              </button>
             ) : (
               <DropdownMenuTrigger className="block sm:hidden">
                 <MenuIcon

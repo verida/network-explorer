@@ -40,9 +40,11 @@ const SearchPage = () => {
   return (
     params.did &&
     (isLoading ? (
-      <Loader isLoading={isLoading} className="h-screen" />
+      <div className="flex h-full flex-row items-center justify-center">
+        <Loader isLoading={isLoading} />
+      </div>
     ) : profile ? (
-      <div className="my-6 flex flex-col gap-10">
+      <div className="flex flex-col gap-10">
         {searchBoxVisible && (
           <div className="network-search flex h-[64px] items-center gap-2 rounded-lg border border-white/60 px-4 py-2">
             <SearchIcon />

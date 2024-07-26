@@ -45,7 +45,7 @@ export const Footer: React.FC<FooterProps> = (props) => {
 
   return (
     <footer className={cn("", className)} {...footerProps}>
-      <div className="flex flex-row justify-center border-t border-foreground/20">
+      <div className="flex flex-row justify-center">
         <div className="flex w-full max-w-screen-xl flex-col items-center gap-6 px-4 py-6 sm:flex-row-reverse sm:justify-between sm:px-8 sm:py-10">
           <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-6">
             <div className="text-[16px] font-normal leading-[24px]">
