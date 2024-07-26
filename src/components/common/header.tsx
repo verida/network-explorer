@@ -53,15 +53,15 @@ export const Header: React.FC<HeaderProps> = (props) => {
         }, 100);
       }}
     >
-      <div className="flex items-center justify-between gap-3 border-b border-white/10 p-4">
-        <div className="flex w-full items-center rounded-sm border border-white/60 px-3">
+      <div className="border-border-10 flex items-center justify-between gap-3 border-b p-4">
+        <div className="border-border-60 flex w-full items-center rounded-sm border px-3">
           <LuSearch size={22} />
           <Separator
             orientation="vertical"
             className="ml-2 h-5 w-0.5 rounded bg-[#8566F2]"
           />
           <Input
-            className="rounded-none border-none bg-transparent text-white hover:bg-transparent focus-visible:ring-0"
+            className="rounded-none border-none bg-transparent text-foreground hover:bg-transparent focus-visible:ring-0"
             placeholder="Search"
             value={search}
             onChange={(e) => {
@@ -72,7 +72,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
         </div>
         <Button
           variant="ghost"
-          className="p-0 text-[14px] font-bold leading-[20px] text-white"
+          className="p-0 text-[14px] font-bold leading-[20px] text-foreground"
           onClick={() => {
             setSearch("");
           }}
@@ -116,7 +116,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                   href={navigationItem.paths[0]}
                   key={navigationItem.name}
                   className={cn(
-                    "cursor-pointer rounded p-3 text-white hover:bg-white/10",
+                    "cursor-pointer rounded p-3 text-foreground hover:bg-white/10",
                     navigationItem.paths.includes(pathname) ? "bg-white/10" : ""
                   )}
                   onClick={handleClickNavigationLink}

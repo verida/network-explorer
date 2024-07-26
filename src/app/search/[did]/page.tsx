@@ -46,13 +46,13 @@ const SearchPage = () => {
     ) : profile ? (
       <div className="flex flex-col gap-10">
         {searchBoxVisible && (
-          <div className="network-search flex h-[64px] items-center gap-2 rounded-lg border border-white/60 px-4 py-2">
+          <div className="network-search border-border-60 flex h-[64px] items-center gap-2 rounded-lg border px-4 py-2">
             <SearchIcon />
-            <div className="w-full truncate border-r-2 border-[#8566F2] text-[16px] font-normal sm:border-none">
+            <div className="w-full truncate text-[16px] font-normal sm:border-none">
               {did}
             </div>
             <IoMdClose
-              className="h-5 w-5 cursor-pointer text-white"
+              className="h-5 w-5 cursor-pointer text-foreground"
               onClick={() => setSearchBoxVisible(false)}
             />
           </div>

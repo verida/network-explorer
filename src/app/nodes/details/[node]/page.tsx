@@ -75,14 +75,14 @@ const DetailsPage = () => {
           onClick={() => {
             router.back();
           }}
-          className="h-6 w-6 cursor-pointer text-white/60"
+          className="h-6 w-6 cursor-pointer text-muted-foreground"
         />
         <div className="text-[24px] font-bold leading-[28.8px]">
           Node Details
         </div>
       </div>
       <div className="flex flex-col gap-10 lg:flex-row">
-        <div className="result-box flex flex-1 flex-col gap-6 rounded-lg border border-foreground/20 px-6 py-8">
+        <div className="result-box flex flex-1 flex-col gap-6 rounded-lg border border-border px-6 py-8">
           <div className="text-[18px] font-semibold leading-[20px]">
             Node Info
           </div>
@@ -119,7 +119,9 @@ const DetailsPage = () => {
               <span className="text-muted-foreground">Used/Total slots</span>
               <div>
                 <span>{storageSlotsUsed}</span>{" "}
-                <span className="text-white/60">/ {maxStorageSlots}</span>
+                <span className="text-muted-foreground">
+                  / {maxStorageSlots}
+                </span>
               </div>
             </div>
 
@@ -129,7 +131,7 @@ const DetailsPage = () => {
                 className={`${
                   status === "Active"
                     ? "border-[#16A34A33] bg-[#16A34A33] text-[#16A34A]"
-                    : "border-white/20 bg-white/20"
+                    : "border-border bg-white/20"
                 } w-fit rounded-[53px] border px-3 py-1.5`}
               >
                 Active
@@ -137,7 +139,7 @@ const DetailsPage = () => {
             </div>
           </div>
         </div>
-        <div className="rounded-[12px] border border-foreground/20 bg-[#191a1a] bg-opacity-70 lg:w-2/5">
+        <div className="rounded-[12px] border border-border bg-[#191a1a] bg-opacity-70 lg:w-2/5">
           <ComposableMap className="h-[324px] w-full">
             <ZoomableGroup
               center={[Number(longitude), Number(latitude)]}

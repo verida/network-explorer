@@ -28,10 +28,10 @@ const MyNodeHub = () => {
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex w-full flex-col gap-4 rounded-lg border border-white/20 p-6"
+            className="flex w-full flex-col gap-4 rounded-lg border p-6"
           >
             <div className="flex gap-2">
-              <span className="text-[16px] font-normal leading-[20px] text-white/60">
+              <span className="text-[16px] font-normal leading-[20px] text-muted-foreground">
                 {item.label}
               </span>
               <IoAlertCircleOutline color="#FFFFFF99" />

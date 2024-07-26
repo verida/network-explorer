@@ -41,11 +41,10 @@ export const columns: ColumnDef<Account>[] = [
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const { toast } = useToast();
       return (
-        <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-[#8566F2]">
+        <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent-foreground">
           <div>{extractAndShortenAddress(row.original.did)}</div>
           <CopyIcon
             className="cursor-pointer"
-            color="#8566F2"
             onClick={() => {
               navigator.clipboard.writeText(row.getValue("did"));
               toast({

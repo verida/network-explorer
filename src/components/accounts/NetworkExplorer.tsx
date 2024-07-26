@@ -13,6 +13,7 @@ import { config } from "@/lib/config";
 import { useQuery } from "react-query";
 import Image from "next/image";
 import { cn } from "@/lib/utils/utils";
+import { Button } from "@/components/ui/button";
 
 const NetworkExplorer = () => {
   const { toast } = useToast();
@@ -59,7 +60,7 @@ const NetworkExplorer = () => {
         </div>
         <div className="flex flex-col gap-3">
           {/* TODO: Rework the search and search result */}
-          <div className="network-search flex flex-col items-center gap-6 rounded-lg border border-foreground/60 p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
+          <div className="network-search border-border-60 flex flex-col items-center gap-6 rounded-lg border p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
             <div className="flex w-full flex-row items-center gap-2">
               <SearchIcon />
               <input
@@ -70,16 +71,16 @@ const NetworkExplorer = () => {
                 className="flex-1 truncate bg-transparent focus:border-none focus:outline-none"
               />
             </div>
-            <button
+            <Button
               onClick={() => setPopoverOpen((prev) => !prev)}
-              className="flex h-[48px] w-full items-center justify-center rounded-sm bg-white py-2.5 text-[14px] font-semibold leading-[17.64px] text-black md:w-[94px] md:rounded-lg md:py-3 md:pl-6 md:pr-5"
+              className="w-full md:w-fit"
             >
               Search
-            </button>
+            </Button>
           </div>
           <div
             className={cn(
-              "rounded-lg border border-foreground/60 bg-[#333153] px-4 py-5 transition-all duration-150",
+              "border-border-60 rounded-lg border bg-[#333153] px-4 py-5 transition-all duration-150",
               popoverOpen ? "opacity-100" : "opacity-0"
             )}
           >

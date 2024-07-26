@@ -6,6 +6,7 @@ import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
 import Head from "next/head";
+import { cn } from "@/lib/utils/utils";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
@@ -43,22 +44,25 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body className={sora.className}>
+      <body
+        className={cn(
+          "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
+          sora.variable
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex min-h-screen flex-col">
-            <Header />
-            <div className="flex flex-1 flex-row justify-center">
-              <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
-                {children}
-              </main>
-            </div>
-            <Footer />
+          <Header />
+          <div className="flex flex-1 flex-row justify-center">
+            <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
+              {children}
+            </main>
           </div>
+          <Footer />
           <Toaster />
         </ThemeProvider>
       </body>

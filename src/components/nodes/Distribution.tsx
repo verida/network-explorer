@@ -34,7 +34,7 @@ const Distribution = ({ summary: data }: DistributionProps) => {
   });
 
   return (
-    <div className="relative h-[352px] rounded-lg border border-foreground/20 bg-[#191a1a] bg-opacity-70">
+    <div className="relative h-[352px] rounded-lg border border-border bg-[#191a1a] bg-opacity-70">
       <div className="absolute left-6 top-6 text-[24px] font-semibold leading-[36px]">
         Node Distribution
       </div>

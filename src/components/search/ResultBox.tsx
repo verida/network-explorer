@@ -51,7 +51,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
       <div className="text-[12px] font-normal leading-[18px] text-muted-foreground">
         RESULTS:
       </div>
-      <div className="result-box flex flex-col gap-6 rounded-lg border border-foreground/20 px-4 py-6 sm:gap-10 sm:p-9">
+      <div className="result-box flex flex-col gap-6 rounded-lg border border-border px-4 py-6 sm:gap-10 sm:p-9">
         <div className="flex flex-row gap-3">
           <div className="flex min-w-0 flex-col items-center gap-4 sm:flex-1 sm:flex-row sm:items-start">
             <div>
@@ -93,7 +93,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
                   <div className="text-[14px] font-normal leading-[20px] text-muted-foreground">
                     DID
                   </div>
-                  <div className="flex flex-row items-center gap-2 text-[14px] font-normal leading-[20px] text-[#8566F2]">
+                  <div className="flex flex-row items-center gap-2 text-[14px] font-normal leading-[20px] text-accent-foreground">
                     <span className="truncate">{profile.did}</span>
                     <CopyIcon
                       color="#8566F2"
@@ -125,7 +125,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
                 </div>
               </div>
               <Button
-                className="rounded-sm border-foreground/40 bg-transparent sm:w-fit"
+                className="border-border-40 rounded-sm bg-transparent hover:bg-foreground/10 hover:text-foreground sm:w-fit"
                 variant="outline"
                 onClick={async () => {
                   setShowResultJson(!showResultJson);

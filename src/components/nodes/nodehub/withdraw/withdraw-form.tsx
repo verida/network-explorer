@@ -46,17 +46,18 @@ const WithdrawForm = ({
 
   return (
     <>
-      <DialogTitle className="text-center text-[18px] font-bold leading-[20px] text-white">
+      <DialogTitle className="text-center text-[18px] font-bold leading-[20px] text-foreground">
         Withdraw Node
       </DialogTitle>
-      <div className="mt-4 text-[14px] font-normal leading-[21px] text-white/60">
+      <div className="mt-4 text-[14px] font-normal leading-[21px] text-muted-foreground">
         By removing a node, the status will change to{" "}
-        <span className="text-white">{`'Deregister'`}</span>. The node remains
-        in this status for a notice period of{" "}
-        <span className="text-white">28 days</span>. After that period, you will
-        have the option to <span className="text-white">unstake your VDA.</span>{" "}
-        Please check back in <span className="text-white">28 days</span> to
-        initiate the unstaking process.
+        <span className="text-foreground">{`'Deregister'`}</span>. The node
+        remains in this status for a notice period of{" "}
+        <span className="text-foreground">28 days</span>. After that period, you
+        will have the option to{" "}
+        <span className="text-foreground">unstake your VDA.</span> Please check
+        back in <span className="text-foreground">28 days</span> to initiate the
+        unstaking process.
       </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-8">
@@ -65,7 +66,7 @@ const WithdrawForm = ({
             name="fallback"
             render={({ field }) => (
               <FormItem>
-                <FormLabel htmlFor="fallback" className="text-white">
+                <FormLabel htmlFor="fallback" className="text-foreground">
                   Select a fallback node
                 </FormLabel>
                 <Select

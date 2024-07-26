@@ -139,7 +139,7 @@ const NodesList = () => {
         additionalTitles={
           <>
             {setupWizard && (
-              <Button className="h-10 w-[188px] rounded-sm bg-white/15 px-6 py-2.5 text-[14px] font-semibold leading-[20px] text-white">
+              <Button className="h-10 w-[188px] rounded-sm bg-white/15 px-6 py-2.5 text-[14px] font-semibold leading-[20px] text-foreground">
                 Node Setup Wizard
               </Button>
             )}
@@ -165,7 +165,7 @@ const NodesList = () => {
                             : ""
                     }
                   >
-                    <DialogTitle className="flex w-full items-center justify-between text-[18px] font-bold leading-[20px] text-white">
+                    <DialogTitle className="flex w-full items-center justify-between text-[18px] font-bold leading-[20px] text-foreground">
                       <>
                         {tab === "form" && <div></div>}
                         {(tab === "stake" || tab === "connected") && (
@@ -183,7 +183,7 @@ const NodesList = () => {
                             : ""}
                         {tab !== "loading" && (
                           <Close className="ml-auto rounded-[100px] transition-opacity hover:opacity-100 sm:m-0">
-                            <X className="m-auto h-4 w-4 text-white" />
+                            <X className="m-auto h-4 w-4 text-foreground" />
                           </Close>
                         )}
                       </>

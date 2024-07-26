@@ -53,7 +53,7 @@ const TotalAccounts = ({ data }: { data: any }) => {
       onValueChange={(value) => {
         setSelectedTab(value);
       }}
-      className="bar-container flex flex-col gap-8 rounded-xl pt-6 sm:p-6 md:px-4"
+      className="bar-container flex flex-col gap-8 rounded-xl border border-border pt-6 sm:p-6 md:px-4"
     >
       <div className="flex flex-col justify-between px-4 sm:flex-row md:px-0">
         <div className="text-[24px] font-bold leading-[36px]">
