@@ -94,7 +94,8 @@ const Navbar = () => {
               />
             ) : (
               <DropdownMenuTrigger className="block md:hidden">
-                <MenuIcon className="mx-auto h-[28px] w-[28px] rounded-sm object-cover sm:mx-0" />
+                <MenuIcon 
+                className="mx-auto h-[28px] w-[28px] rounded-sm object-cover sm:mx-0" />
               </DropdownMenuTrigger>
             )}
             <DropdownMenuContent className="mt-[4rem] flex h-[calc(100vh-4rem)] w-screen flex-col gap-1 overflow-y-auto rounded-none border-none bg-[#060520] p-4">

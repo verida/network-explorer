@@ -112,7 +112,7 @@ const DetailsPage = () => {
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span>Node Name</span>
               <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] text-[#8566F2] sm:w-auto">
+                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
                   {name}
                 </div>
               </div>
@@ -121,7 +121,7 @@ const DetailsPage = () => {
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span>Datacenter</span>
               <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] text-[#8566F2] sm:w-auto">
+                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
                   {datacenter}
                 </div>
               </div>
@@ -130,7 +130,7 @@ const DetailsPage = () => {
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span>Region</span>
               <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] text-[#8566F2] sm:w-auto">
+                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
                   {region}
                 </div>
               </div>
@@ -139,19 +139,17 @@ const DetailsPage = () => {
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
               <span>Country</span>
               <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] text-[#8566F2] sm:w-auto">
+                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
                   {country}
                 </div>
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <span>Available Slots</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] text-[#8566F2] sm:w-auto">
-                  <span>{storageSlotsUsed}</span>{" "}
-                  <span>/ {maxStorageSlots}</span>
-                </div>
+              <span>Used/Total slots</span>
+              <div>
+                <span>{storageSlotsUsed}</span>{" "}
+                <span className="text-white/60">/ {maxStorageSlots}</span>
               </div>
             </div>
 
