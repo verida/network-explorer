@@ -38,8 +38,12 @@ const Accounts = () => {
   const { data, isLoading, isError } = useQuery(
     ["accounts", page, limit],
     async () => {
-      // return await paginateDids(page, limit);
-      const dids = await getDIDs(BlockchainAnchor.POLPOS, page, limit);
+      const dids = await getDIDs(
+        BlockchainAnchor.POLPOS,
+        (page - 1) * limit,
+        limit,
+        true
+      );
 
       const profiles = await Promise.all(
         dids.map(async (did: string) => {
