@@ -3,8 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import React from "react";
 import { FaChevronLeft } from "react-icons/fa";
-// import CopyIcon from "@/assets/icons/copy.svg";
-import { useToast } from "@/components/ui/use-toast";
+
 import LocationIcon from "@/assets/icons/location.svg";
 import { useQuery } from "react-query";
 import {
@@ -86,7 +85,7 @@ const DetailsPage = () => {
     // tokensStaked,
     // failureReports,
     // daysOnNetwork,
-    status,
+    status = "Active",
   } = nodeData;
 
   const { latitude, longitude, map } = getCountryData(country);
@@ -98,112 +97,77 @@ const DetailsPage = () => {
           onClick={() => {
             router.back();
           }}
-          className="h-3 cursor-pointer text-white/60"
+          className="h-6 w-6 cursor-pointer text-white/60"
         />
         <div className="text-[24px] font-bold leading-[28.8px]">
           Node Details
         </div>
       </div>
-      <div className="flex w-full flex-col items-start justify-between gap-10 lg:flex-row lg:gap-4">
-        <div className="result-box flex w-full flex-col gap-6 rounded-lg border border-white/20 p-5 lg:w-8/12 lg:px-6 lg:py-8">
+      <div className="flex flex-col items-start gap-10 lg:flex-row lg:gap-4">
+        <div className="result-box flex h-full w-full flex-col gap-6 rounded-lg border border-white/20 p-5 lg:w-8/12 lg:px-6 lg:py-8">
           <div className="text-[18px] font-semibold leading-[20px]">
             Node Info
           </div>
           <div className="flex flex-col items-start gap-4 text-sm font-normal leading-5">
-            <div className="flex w-full justify-between">
-              <span>Node Name</span>
-              <span>{name}</span>
+            <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground">Node Name</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {name}
+              </div>
             </div>
 
-            {/* <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
-              <div>Operator</div>
-              <div className="flex items-center gap-2.5">
-                <div className="text-[#8566F2] leading-[20px] text-[14px] font-normal sm:w-auto w-[calc(100%-13rem)] truncate">
-                  {operator}
-                </div>
-                <CopyIcon
-                  color="#8566F2"
-                  className="cursor-pointer"
-                  onClick={() => {
-                    navigator.clipboard.writeText(operator);
-                    toast({
-                      description: "Copied DID",
-                    });
-                  }}
-                />
+            <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground">Datacenter</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {datacenter}
               </div>
             </div>
-            <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
-              <div>Public Key</div>
-              <div className="flex items-center gap-2.5">
-                <div className="text-[#8566F2] leading-[20px] text-[14px] font-normal truncate sm:w-auto w-[calc(100%-6.2rem)]">
-                  {publicKey}
-                </div>
-                <CopyIcon
-                  color="#8566F2"
-                  className="cursor-pointer"
-                  onClick={() => {
-                    navigator.clipboard.writeText(publicKey);
-                    toast({
-                      description: "Copied Public Key",
-                    });
-                  }}
-                />
+
+            <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground">Region</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {region}
               </div>
-            </div> */}
-            <div className="flex w-full justify-between">
-              <span>Datacenter</span>
-              <span>{datacenter}</span>
             </div>
-            <div className="flex w-full justify-between">
-              <span>Region</span>
-              <span>{region}</span>
+
+            <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground">Country</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {country}
+              </div>
             </div>
-            <div className="flex w-full justify-between">
-              <span>Country</span>
-              <span>{country}</span>
-            </div>
-            <div className="flex w-full justify-between">
-              <span>Used/Total slots</span>
+
+            <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground">Used/Total slots</span>
               <div>
                 <span>{storageSlotsUsed}</span>{" "}
                 <span className="text-white/60">/ {maxStorageSlots}</span>
               </div>
             </div>
-            {/* <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
-              <div>Tokens Staked</div>
-              <div>{tokensStaked} VDA</div>
-            </div> */}
-            {/* <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
-              <div>Failure Reports</div>
-              <div>{failureReports}</div>
-            </div> */}
-            {/* <div className="flex justify-between sm:items-center gap-2 sm:flex-row flex-col">
-              <div>Days on Network</div>
-              <div>{daysOnNetwork}</div>
-            </div> */}
-            <div className="flex w-full justify-between">
-              <div>Status</div>
-              <div>
-                <div
-                  className={`${
-                    status === "Active"
-                      ? "border-[#16A34A33] bg-[#16A34A33]"
-                      : "border-white/20 bg-white/20"
-                  } w-fit rounded-[53px] border px-3 py-1.5`}
-                >
-                  Active
-                </div>
+
+            <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
+              <span className="text-muted-foreground">Status</span>
+              <div
+                className={`${
+                  status === "Active"
+                    ? "border-[#16A34A33] bg-[#16A34A33] text-[#16A34A]"
+                    : "border-white/20 bg-white/20"
+                } w-fit rounded-[53px] border px-3 py-1.5`}
+              >
+                Active
               </div>
             </div>
           </div>
         </div>
-        <div className="w-3/5 rounded-[12px] border border-white/20 bg-[#191a1a] bg-opacity-70">
+        <div className="w-full rounded-[12px] border border-white/20 bg-[#191a1a] bg-opacity-70 lg:w-3/5">
           <ComposableMap
-            height={300}
+            className="h-[324px] w-full"
             projectionConfig={{ rotate: [-20, 0, 0] }}
           >
-            <ZoomableGroup center={[0, 0]} zoom={2}>
+            <ZoomableGroup
+              center={[Number(longitude), Number(latitude)]}
+              zoom={3}
+            >
               <Geographies geography={map}>
                 {({ geographies }) =>
                   geographies.map((geo) => (
