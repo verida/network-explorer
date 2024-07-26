@@ -55,6 +55,7 @@ import {
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
 import Loader from "./loader";
+import { screenSizes } from "@/lib/constants";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -127,7 +128,7 @@ const DataTable = <TData, TValue>({
 
   const [showSearchField, setShowSearchField] = useState(false);
   const pageLimits = [10, 20, 30];
-  const isSmScreen = useMediaQuery({ query: "(max-width: 640px)" });
+  const isSmScreen = useMediaQuery({ query: `(max-width: ${screenSizes.sm})` });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const setShowSearch = useSetRecoilState(showSearchBarAtom);
