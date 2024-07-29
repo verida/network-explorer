@@ -20,7 +20,7 @@ import Image from "next/image";
 import MenuIcon from "@/assets/svg/menu-icon.svg";
 
 const navigationItems = [
-  { name: "Accounts", paths: ["/", "/search"] },
+  { name: "Identities", paths: ["/", "/search"] },
   {
     name: "Nodes",
     paths: ["/nodes", "/nodes/details"],
