@@ -38,12 +38,15 @@ const Accounts = () => {
   const { data, isLoading, isError } = useQuery(
     ["accounts", page, limit],
     async () => {
-      const dids = await getDIDs(
+      let dids = await getDIDs(
         BlockchainAnchor.POLPOS,
         (page - 1) * limit,
         limit,
         true
       );
+
+      // revert orders for `createdAt` desc
+      dids.reverse();
 
       const profiles = await Promise.all(
         dids.map(async (did: string) => {
@@ -53,6 +56,7 @@ const Accounts = () => {
 
             return {
               ...profile,
+              did: did,
               createdAt: didDocument?.created,
             };
           } catch (error) {
@@ -63,8 +67,7 @@ const Accounts = () => {
       );
 
       return profiles.filter(
-        (profile) =>
-          profile?.did !== undefined || profile?.country !== undefined
+        (profile) => profile !== undefined && profile !== null
       );
     },
     {
@@ -88,15 +91,11 @@ const Accounts = () => {
     }
   );
 
-  const validData = data?.filter(
-    (profile) => profile?.did !== undefined || profile?.country !== undefined
-  );
-
   return (
     <div className="flex flex-col gap-6 sm:mb-12">
       <DataTable
         columns={columns as ColumnDef<Account | null | undefined, unknown>[]}
-        data={validData as (Account | null | undefined)[]}
+        data={data as Account[]}
         page={page}
         limit={limit}
         setLimit={setLimit}
