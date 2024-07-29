@@ -5,7 +5,6 @@ import { ThemeProvider } from "@/components/common/providers";
 import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
-import Head from "next/head";
 import { cn } from "@/lib/utils/utils";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
@@ -41,9 +40,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       <body
         className={cn(
           "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
