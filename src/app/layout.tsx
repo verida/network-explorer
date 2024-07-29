@@ -6,31 +6,32 @@ import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils/utils";
+import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
 export const metadata: Metadata = {
   title: {
-    default: "Verida Network Explorer",
+    default: APP_NAME,
     template: "%s | Verida Network Explorer",
   },
-  description: "Verida - Enhancing the way you interact with the blockchain.",
-  applicationName: "Verida",
+  description: APP_DESCRIPTION,
+  applicationName: APP_NAME,
   keywords: ["Verida"],
   metadataBase: new URL("https://verida-explorer.vercel.app"),
   openGraph: {
     url: "https://verida-explorer.vercel.app",
-    title: "Verida",
-    description: "Verida - Enhancing the way you interact with the blockchain.",
+    title: APP_NAME,
+    description: APP_DESCRIPTION,
     images: [
       {
         url: "https://verida-explorer.vercel.app/logo.svg",
         width: 1200,
         height: 630,
-        alt: "Verida",
+        alt: APP_NAME,
       },
     ],
-    siteName: "Verida Network Explorer",
+    siteName: APP_NAME,
   },
 };
 export default function RootLayout({
