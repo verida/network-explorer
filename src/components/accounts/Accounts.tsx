@@ -99,6 +99,7 @@ const Accounts = () => {
         setPage={setPage}
         title="accounts"
         totalCount={count}
+        onApplyFilters={() => {}}
         isLoading={isLoading}
         showSearch={false}
       />
