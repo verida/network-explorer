@@ -15,7 +15,7 @@ const WithdrawError = ({
         <div className="text-[24px] font-bold leading-[28.8.px]">
           Node Removal Failed
         </div>
-        <div className="text-center text-[14px] font-normal leading-[20px] text-white/60">
+        <div className="text-center text-[14px] font-normal leading-[20px] text-muted-foreground">
           Oops! Something went wrong during the node removal process. Please
           check your connection, ensure your crypto wallet is properly
           connected, and try again. If the issue persists, contact our support

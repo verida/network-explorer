@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/providers";
-import Navbar from "@/components/common/navbar";
-import Footer from "@/components/common/footer";
+import { Header } from "@/components/common/header";
+import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
 import Head from "next/head";
+import { cn } from "@/lib/utils/utils";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
@@ -33,7 +34,6 @@ export const metadata: Metadata = {
     siteName: "Verida Network Explorer",
   },
 };
-
 export default function RootLayout({
   children,
 }: {
@@ -44,16 +44,23 @@ export default function RootLayout({
       <Head>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <body className={sora.className}>
+      <body
+        className={cn(
+          "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
+          sora.variable
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="mx-auto min-h-screen max-w-[1300px] overflow-x-hidden px-4 py-4 md:px-8 lg:px-[92px]">
-            {children}
+          <Header />
+          <div className="flex flex-1 flex-row justify-center">
+            <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
+              {children}
+            </main>
           </div>
           <Footer />
           <Toaster />

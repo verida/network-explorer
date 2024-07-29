@@ -13,10 +13,10 @@ const HubLoading = () => {
         wrapperClass=""
       />
       <div className="flex flex-col items-center gap-3">
-        <div className="text-[18px] font-bold leading-[20px] text-white">
+        <div className="text-[18px] font-bold leading-[20px] text-foreground">
           Processing Transaction
         </div>
-        <div className="text-center text-[14px] font-normal leading-[20px] text-white/60">
+        <div className="text-center text-[14px] font-normal leading-[20px] text-muted-foreground">
           Your transaction is currently being processed. This may take a few
           moments as it is confirmed on the blockchain. Please be patient.
         </div>

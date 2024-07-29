@@ -69,8 +69,8 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
           )}
         </div>
         <div className="flex flex-col justify-between gap-3">
-          <div className="result-box flex min-w-[356px] flex-col gap-4 rounded-lg border border-white/20 p-4">
-            <div className="text-white/60">Network Capacity</div>
+          <div className="result-box flex min-w-[356px] flex-col gap-4 rounded-lg border border-border p-4">
+            <div className="text-muted-foreground">Network Capacity</div>
             <div className="flex flex-wrap items-center gap-3">
               <Loader isLoading={isLoading} className="h-[200px] w-[200px]" />
               {data && (
@@ -108,8 +108,8 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
               )}
             </div>
           </div>
-          <div className="result-box gap-4 rounded-lg border border-white/20 px-6 py-8">
-            <div className="text-[16px] font-normal leading-[20px] text-white/60">
+          <div className="result-box gap-4 rounded-lg border border-border px-6 py-8">
+            <div className="text-[16px] font-normal leading-[20px] text-muted-foreground">
               Staked Tokens
             </div>
             <div className="text-[32px] font-semibold leading-[48px]">

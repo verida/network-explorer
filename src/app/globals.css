@@ -37,25 +37,25 @@
   }
 
   .dark {
-    --background: 224 71% 4%;
-    --foreground: 213 31% 91%;
+    --background: 243 73% 7%;
+    --foreground: 0 0% 100%;
 
     --muted: 223 47% 11%;
-    --muted-foreground: 215.4 16.3% 56.9%;
+    --muted-foreground: 0 0% 100%;
 
-    --accent: 216 34% 17%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 253 84% 67%;
+    --accent-foreground: 253 84% 67%;
 
     --popover: 224 71% 4%;
     --popover-foreground: 215 20.2% 65.1%;
 
-    --border: 216 34% 17%;
+    --border: 0 0% 100%;
     --input: 216 34% 17%;
 
     --card: 224 71% 4%;
     --card-foreground: 213 31% 91%;
 
-    --primary: 210 40% 98%;
+    --primary: 0 0% 100%;
     --primary-foreground: 222.2 47.4% 1.2%;
 
     --secondary: 222.2 47.4% 11.2%;
@@ -74,11 +74,20 @@
   * {
     @apply border-border;
   }
+
   body {
-    @apply text-foreground;
-    background: url("../assets/images/background.png") 0 0 / cover;
-    background-attachment: fixed;
-    background-repeat: no-repeat;
+    background-image: url("../assets/images/bg-app-top-left.png"),
+      url("../assets/images/bg-app-top-right.png"),
+      url("../assets/images/bg-app-bottom.png");
+    background-position:
+      top left,
+      top right,
+      bottom;
+    background-repeat: no-repeat, no-repeat, no-repeat;
+    background-size:
+      auto 800px,
+      auto 800px,
+      100% 300px;
   }
 
   .network-search {
@@ -94,12 +103,6 @@
       107deg,
       rgba(255, 255, 255, 0.06) 1.54%,
       rgba(255, 255, 255, 0.024) 100%
-    );
-    border: 1px solid;
-    border-image-source: linear-gradient(
-      106.88deg,
-      rgba(255, 255, 255, 0.2) 0.94%,
-      rgba(255, 255, 255, 0.08) 100%
     );
   }
 

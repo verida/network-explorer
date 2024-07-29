@@ -54,12 +54,12 @@ export const columns: ColumnDef<Node>[] = [
     ),
     cell: ({ row }) => (
       <div className="flex items-center gap-4">
-        <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-white/20">
+        <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-foreground/20">
           <StorageIcon />
         </div>
         <Link
           href={`/nodes/details/${row.original.id}`}
-          className="text-[14px] font-normal leading-[20px] text-[#8566F2]"
+          className="text-[14px] font-normal leading-[20px] text-accent-foreground"
         >
           {row.getValue("name")}
         </Link>
@@ -124,7 +124,7 @@ export const columns: ColumnDef<Node>[] = [
         <span className="text-[14px] font-normal leading-[20px]">
           {row.original.storageSlotsUsed}&nbsp;
         </span>
-        <span className="text-[14px] font-normal leading-[20px] text-white/60">
+        <span className="text-[14px] font-normal leading-[20px] text-muted-foreground">
           / {row.original.maxStorageSlots}
         </span>
       </div>
@@ -178,7 +178,7 @@ export const columns: ColumnDef<Node>[] = [
       //   className={`${
       //     row.getValue("status") === "Active"
       //       ? "bg-[#16A34A33] border-[#16A34A33]"
-      //       : "bg-white/20 border-white/20"
+      //       : "bg-white/20 border-border"
       //   } w-fit border  py-1.5 px-3 rounded-[53px]`}
       // >
       //   {row.getValue("status")}
@@ -210,13 +210,13 @@ export const columns: ColumnDef<Node>[] = [
             </PopoverTrigger>
             <PopoverContent
               align="end"
-              className="result-box flex w-[200px] flex-col border border-white/30 bg-[#333153] py-1"
+              className="result-box border-border-30 flex w-[200px] flex-col border bg-[#333153] py-1"
             >
               {row.getValue("status") === "Active" ? (
                 <>
                   <Dialog>
                     <DialogTrigger>
-                      <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-white">
+                      <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-foreground">
                         Withdraw
                       </div>
                     </DialogTrigger>
@@ -228,7 +228,7 @@ export const columns: ColumnDef<Node>[] = [
                       }
                     >
                       <Close className="absolute right-4 top-4 z-50 h-[30px] w-[30px] rounded-[100px] transition-opacity hover:opacity-100">
-                        <X className="m-auto h-4 w-4 text-white" />
+                        <X className="m-auto h-4 w-4 text-foreground" />
                       </Close>
                       {tab === "form" ? (
                         <WithdrawForm setTab={setTab} />
@@ -239,14 +239,14 @@ export const columns: ColumnDef<Node>[] = [
                       )}
                     </DialogContent>
                   </Dialog>
-                  <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-white">
+                  <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-foreground">
                     Deposit
                   </div>
                 </>
               ) : (
                 <Dialog>
                   <DialogTrigger>
-                    <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-white">
+                    <div className="px-2 py-2 text-start text-[14px] font-bold leading-[20px] text-foreground">
                       Un-Stake
                     </div>
                   </DialogTrigger>
@@ -254,7 +254,7 @@ export const columns: ColumnDef<Node>[] = [
                     {tab === "form" && (
                       <DialogTitle
                         className={cn(
-                          "text-center text-[18px] font-bold leading-[20px] text-white"
+                          "text-center text-[18px] font-bold leading-[20px] text-foreground"
                         )}
                       >
                         Un-Stake VDA
@@ -262,7 +262,7 @@ export const columns: ColumnDef<Node>[] = [
                     )}
                     {tab !== "loading" && (
                       <Close className="absolute right-4 top-4 z-50 h-[30px] w-[30px] rounded-[100px] transition-opacity hover:opacity-100">
-                        <X className="m-auto h-4 w-4 text-white" />
+                        <X className="m-auto h-4 w-4 text-foreground" />
                       </Close>
                     )}
                     {tab === "loading" ? (

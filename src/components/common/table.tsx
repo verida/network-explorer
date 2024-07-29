@@ -166,7 +166,7 @@ const DataTable = <TData, TValue>({
                 <>
                   <Input
                     type="text"
-                    className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-white hover:bg-transparent focus-visible:ring-0"
+                    className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-foreground hover:bg-transparent focus-visible:ring-0"
                     onChange={(event) =>
                       table.getColumn("did")?.setFilterValue(event.target.value)
                     }
@@ -189,8 +189,8 @@ const DataTable = <TData, TValue>({
                   <MdTune color="white" size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="rounded-3 border border-white/30 bg-[#333153]">
-                <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-white">
+              <DrawerContent className="rounded-3 border-border-30 border bg-[#333153]">
+                <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-foreground">
                   <div>Filters</div>
                   <X
                     className="mr-2 block h-5 w-5 cursor-pointer sm:hidden"
@@ -239,10 +239,10 @@ const DataTable = <TData, TValue>({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="rounded-3 w-screen border border-white/30 bg-[#333153] sm:w-[356px]"
+                className="rounded-3 border-border-30 w-screen border bg-[#333153] sm:w-[356px]"
                 align="end"
               >
-                <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-white">
+                <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-foreground">
                   <div>Filters</div>
                   <X
                     className="block h-5 w-5 cursor-pointer sm:hidden"
@@ -282,7 +282,7 @@ const DataTable = <TData, TValue>({
         {additionalTitles}
       </div>
       <div className="min-h-[18rem]">
-        <div className={`overflow-hidden rounded-lg border border-white/20`}>
+        <div className={`overflow-hidden rounded-lg border border-border`}>
           <Table className="min-w-[68rem]">
             <TableHeader className="bg-[#FFFFFF0A]">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -292,7 +292,7 @@ const DataTable = <TData, TValue>({
                       <TableHead
                         key={header.id}
                         className={cn(
-                          "border-r border-white/10 md:border-none",
+                          "border-border-10 border-r md:border-none",
                           header.index === headerGroup.headers.length - 1 &&
                             "border-none"
                         )}
@@ -321,7 +321,7 @@ const DataTable = <TData, TValue>({
                         <TableCell
                           key={cell.id}
                           className={cn(
-                            "border-r border-white/10 md:border-none",
+                            "border-border-10 border-r md:border-none",
                             index === row.getVisibleCells().length - 1 &&
                               "border-none"
                           )}
@@ -369,7 +369,7 @@ const DataTable = <TData, TValue>({
           </Select>
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-[14px] font-normal leading-[20px] text-white/60">
+          <div className="text-[14px] font-normal leading-[20px] text-muted-foreground">
             Page
           </div>
           <div className="flex items-center gap-3">
@@ -383,8 +383,8 @@ const DataTable = <TData, TValue>({
               }}
             />
             <div className="flex rounded bg-white/15 px-3 py-2.5 text-[14px] font-normal leading-[20px]">
-              <div className="text-white">{page}</div>
-              <div className="text-white/60">
+              <div className="text-foreground">{page}</div>
+              <div className="text-muted-foreground">
                 /{Math.ceil(totalCount / limit)}
               </div>
             </div>
@@ -426,7 +426,7 @@ const DisplayFilters = ({
     <>
       <Separator className="h-[1px] bg-[#FFFFFF26]" />
       <div className="pb-3 pl-2 pt-2">
-        <div className="py-2 text-[14px] font-normal leading-[20px] text-white/60">
+        <div className="py-2 text-[14px] font-normal leading-[20px] text-muted-foreground">
           Region
         </div>
         <div className="mt-1 flex flex-col gap-2">
@@ -434,7 +434,7 @@ const DisplayFilters = ({
             return (
               <div
                 key={region}
-                className="flex items-center gap-3 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-white"
+                className="flex items-center gap-3 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-foreground"
               >
                 <Checkbox
                   id={region.toLowerCase()}
@@ -468,14 +468,14 @@ const DisplayFilters = ({
       </div>
       {showStatus && (
         <div className="pb-1 pl-4">
-          <div className="py-1.5 text-[14px] font-normal leading-[20px] text-white/60">
+          <div className="py-1.5 text-[14px] font-normal leading-[20px] text-muted-foreground">
             Status
           </div>
           {statuses.map((status) => {
             return (
               <div
                 key={status}
-                className="flex items-center gap-3 py-1.5 text-[14px] font-normal leading-[20px] text-white"
+                className="flex items-center gap-3 py-1.5 text-[14px] font-normal leading-[20px] text-foreground"
               >
                 <Checkbox
                   id={"status-" + status.toLowerCase()}
