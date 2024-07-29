@@ -57,7 +57,7 @@ const TotalAccounts = ({ data }: { data: any }) => {
     >
       <div className="flex flex-col justify-between px-4 sm:flex-row md:px-0">
         <div className="text-[24px] font-bold leading-[36px]">
-          Total Accounts
+          Total Identities
         </div>
         <TabsList className="h-auto rounded bg-white/10">
           <TabsTrigger

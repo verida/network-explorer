@@ -69,7 +69,7 @@ const Accounts = () => {
       onError: (error) => {
         toast({
           variant: "destructive",
-          description: "Failed to fetch accounts",
+          description: "Failed to fetch identities",
         });
         console.log(error);
       },
@@ -77,7 +77,7 @@ const Accounts = () => {
         if (data.length === 0) {
           toast({
             variant: "destructive",
-            description: "Failed to fetch accounts",
+            description: "Failed to fetch identities",
           });
         }
       },
@@ -97,7 +97,7 @@ const Accounts = () => {
         limit={limit}
         setLimit={setLimit}
         setPage={setPage}
-        title="accounts"
+        title="identities"
         totalCount={count}
         isLoading={isLoading}
         showSearch={false}

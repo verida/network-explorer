@@ -13,7 +13,7 @@ import Image from "next/image";
 export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: "user",
-    header: "Account Name",
+    header: "Name",
     cell: ({ row }) => (
       <div className="flex items-center gap-4 pl-6 text-[14px] font-normal leading-[20px]">
         {row.original?.avatarUri ? (
@@ -48,7 +48,7 @@ export const columns: ColumnDef<Account>[] = [
             onClick={() => {
               navigator.clipboard.writeText(row.getValue("did"));
               toast({
-                description: "Account DID copied!!!",
+                description: "Identity's DID copied!",
               });
             }}
           />
@@ -62,7 +62,7 @@ export const columns: ColumnDef<Account>[] = [
   },
   {
     accessorKey: "createdAt",
-    header: "Date/time created",
+    header: "Created on",
     cell: ({ row }) => {
       return dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A");
     },

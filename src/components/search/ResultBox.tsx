@@ -49,7 +49,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
   return (
     <div className="flex flex-col gap-3">
       <div className="text-[12px] font-normal leading-[18px] text-muted-foreground">
-        RESULTS:
+        Result:
       </div>
       <div className="result-box flex flex-col gap-6 rounded-lg border border-border px-4 py-6 sm:gap-10 sm:p-9">
         <div className="flex flex-row gap-3">
