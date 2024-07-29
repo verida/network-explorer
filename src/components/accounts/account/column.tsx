@@ -9,6 +9,7 @@ import Avatar from "@/assets/svg/avatar.svg";
 
 import { extractAndShortenAddress } from "@/lib/utils/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 export const columns: ColumnDef<Account>[] = [
   {
@@ -44,7 +45,9 @@ export const columns: ColumnDef<Account>[] = [
       const { toast } = useToast();
       return (
         <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-[#8566F2]">
-          <div>{extractAndShortenAddress(row.original.did)}</div>
+          <Link href={`/search/${row.original.did}`}>
+            {extractAndShortenAddress(row.original.did)}
+          </Link>
           <CopyIcon
             className="cursor-pointer"
             color="#8566F2"
