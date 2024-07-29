@@ -6,7 +6,7 @@ import { Header } from "@/components/common/header";
 import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils/utils";
-import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
+import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/lib/constants";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
@@ -17,10 +17,7 @@ const baseUrl =
   process.env.NEXT_PUBLIC_BASE_URL || "https://explorer.verida.network";
 
 export const metadata: Metadata = {
-  title: {
-    default: APP_NAME,
-    template: `%s | ${APP_NAME}`,
-  },
+  title: APP_TITLE,
   description: APP_DESCRIPTION,
   applicationName: APP_NAME,
   metadataBase: new URL(baseUrl),
@@ -29,7 +26,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     url: baseUrl,
-    title: APP_NAME,
+    title: APP_TITLE,
     description: APP_DESCRIPTION,
     images: {
       url: `${baseUrl}/logo.svg`, // TODO: Update to the actual open graph image
