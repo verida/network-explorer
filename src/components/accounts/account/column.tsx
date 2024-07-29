@@ -13,7 +13,7 @@ import Image from "next/image";
 export const columns: ColumnDef<Account>[] = [
   {
     accessorKey: "user",
-    header: "Account Name",
+    header: "Name",
     cell: ({ row }) => (
       <div className="flex items-center gap-4 pl-6 text-[14px] font-normal leading-[20px]">
         {row.original?.avatarUri ? (
@@ -21,6 +21,8 @@ export const columns: ColumnDef<Account>[] = [
             src={row.original?.avatarUri}
             className="h-10 w-10 rounded-sm object-cover"
             alt="account-image"
+            width={40}
+            height={40}
           />
         ) : (
           <Avatar className="h-10 w-10" />

@@ -27,6 +27,7 @@ const Accounts = () => {
 
   useEffect(() => {
     const getDIDCount = async () => {
+      // TODO: Get blockchain anchor dynamically from config
       const res = await activeDIDCount(BlockchainAnchor.POLPOS);
 
       if (res) setCount(res);
@@ -39,6 +40,7 @@ const Accounts = () => {
     ["accounts", page, limit],
     async () => {
       const dids = await getDIDs(
+        // TODO: Get blockchain anchor dynamically from config
         BlockchainAnchor.POLPOS,
         (page - 1) * limit,
         limit,

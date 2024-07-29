@@ -181,6 +181,7 @@ export const getExternalDatastore = async (
  * @returns The DIDs.
  */
 export const paginateDids = async (page: number, limit: number) => {
+  // TODO: Get blockchain anchor dynamically from config
   return await getDIDs(BlockchainAnchor.POLPOS, page, limit);
 };
 

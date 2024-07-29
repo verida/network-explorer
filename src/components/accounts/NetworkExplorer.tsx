@@ -91,6 +91,8 @@ const NetworkExplorer = () => {
                       src={profile.avatarUri}
                       className="h-10 w-10 rounded object-cover"
                       alt={profile.name}
+                      width={40}
+                      height={40}
                     />
                   ) : (
                     <Avatar
