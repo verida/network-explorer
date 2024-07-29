@@ -66,7 +66,7 @@ interface DataTableProps<TData, TValue> {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalCount: number;
-  onApplyFilters?: (filter?: Filter) => void;
+  onApplyFilters: (filter?: Filter) => void;
   showStatusFilters?: boolean;
   showFilters?: boolean;
   showSearch?: boolean;
@@ -213,7 +213,7 @@ const DataTable = <TData, TValue>({
                           filter !== undefined
                         ) {
                           table
-                            .getColumn("country")
+                            .getColumn("region")
                             ?.setFilterValue(filter?.regions[0]);
                         }
                       }}
@@ -262,13 +262,14 @@ const DataTable = <TData, TValue>({
                       if (filter !== undefined) {
                         if (filter.regions[0] !== "All") {
                           table
-                            .getColumn("country")
+                            .getColumn("region")
                             ?.setFilterValue(filter?.regions[0]);
                         } else {
-                          table.getColumn("country")?.setFilterValue("");
+                          table.getColumn("region")?.setFilterValue("");
                         }
                       }
                       setDropdownOpen(false);
+                      onApplyFilters(filter);
                     }}
                     className="h-8 w-auto rounded-sm px-3"
                   >
@@ -422,6 +423,7 @@ const DisplayFilters = ({
     "Asia",
     "Africa",
   ];
+
   return (
     <>
       <Separator className="h-[1px] bg-[#FFFFFF26]" />
