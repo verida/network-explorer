@@ -10,30 +10,38 @@ import { APP_DESCRIPTION, APP_NAME } from "@/lib/constants";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
+// Server component so can't get the window location. Adding a hardcoded
+// fallback is not the best for dev and preview environments but we secure the
+// production one in case we forget the base URL env var.
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL || "https://explorer.verida.network";
+
 export const metadata: Metadata = {
   title: {
     default: APP_NAME,
-    template: "%s | Verida Network Explorer",
+    template: `%s | ${APP_NAME}`,
   },
   description: APP_DESCRIPTION,
   applicationName: APP_NAME,
-  keywords: ["Verida"],
-  metadataBase: new URL("https://verida-explorer.vercel.app"),
+  metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    url: "https://verida-explorer.vercel.app",
+    url: baseUrl,
     title: APP_NAME,
     description: APP_DESCRIPTION,
-    images: [
-      {
-        url: "https://verida-explorer.vercel.app/logo.svg",
-        width: 1200,
-        height: 630,
-        alt: APP_NAME,
-      },
-    ],
+    images: {
+      url: `${baseUrl}/logo.svg`, // TODO: Update to the actual open graph image
+      width: 1200,
+      height: 630,
+      alt: APP_NAME,
+    },
     siteName: APP_NAME,
+    type: "website",
   },
 };
+
 export default function RootLayout({
   children,
 }: {
