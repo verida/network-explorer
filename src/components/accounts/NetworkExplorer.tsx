@@ -90,7 +90,7 @@ const NetworkExplorer = () => {
                     <Image
                       src={profile.avatarUri}
                       className="h-10 w-10 rounded object-cover"
-                      alt={profile.name}
+                      alt="Avatar"
                     />
                   ) : (
                     <Avatar
