@@ -1,18 +1,16 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // import { accounts } from "@/lib/sample";
 import { columns } from "./account/column";
 import DataTable from "../common/table";
 import { useQuery } from "react-query";
-import {
-  getAnyPublicProfile,
-  getDidDocument,
-} from "@/lib/utils/veridaUtils";
+import { getAnyPublicProfile, getDidDocument } from "@/lib/utils/veridaUtils";
 import { useToast } from "../ui/use-toast";
 import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
 import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
+import { Account } from "@/types/account";
 
 const Accounts = () => {
   const [page, setPage] = useState(1);
@@ -62,9 +60,7 @@ const Accounts = () => {
         })
       );
 
-      return profiles.filter(
-        (profile) => !!profile
-      );
+      return profiles.filter((profile) => !!profile);
     },
     {
       refetchOnWindowFocus: false,
@@ -87,7 +83,9 @@ const Accounts = () => {
     }
   );
 
-  const validData = data ?? [];
+  const fallbackData: Account[] = [];
+
+  const validData = useMemo(() => data ?? fallbackData, [data]);
 
   return (
     <div className="flex flex-col gap-6">
