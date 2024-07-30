@@ -52,7 +52,7 @@ const Operator = () => {
         />
         <div className="flex w-full flex-wrap items-center justify-between gap-3 sm:flex-nowrap sm:justify-normal">
           <div className="text-[24px] font-bold leading-[28.8px]">Operator</div>
-          <div className="flex items-center gap-2.5 rounded bg-white/10 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-white/60">
+          <div className="flex items-center gap-2.5 rounded bg-white/10 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-muted-foreground">
             <div className="max-w-[150px] truncate sm:max-w-max">
               did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
             </div>
@@ -78,7 +78,7 @@ const Operator = () => {
         additionalTitles={
           <>
             {setupWizard && (
-              <Button className="h-10 w-[188px] rounded-sm bg-white/15 px-6 py-2.5 text-[14px] font-semibold leading-[20px] text-white">
+              <Button className="h-10 w-[188px] rounded-sm bg-white/15 px-6 py-2.5 text-[14px] font-semibold leading-[20px] text-foreground">
                 Node Setup Wizard
               </Button>
             )}
@@ -104,7 +104,7 @@ const Operator = () => {
                             : ""
                     }
                   >
-                    <DialogTitle className="flex w-full items-center justify-between text-[18px] font-bold leading-[20px] text-white">
+                    <DialogTitle className="flex w-full items-center justify-between text-[18px] font-bold leading-[20px] text-foreground">
                       <>
                         {tab === "form" && <div></div>}
                         {(tab === "stake" || tab === "connected") && (
@@ -122,7 +122,7 @@ const Operator = () => {
                             : ""}
                         {tab !== "loading" && (
                           <Close className="ml-auto rounded-[100px] transition-opacity hover:opacity-100 sm:m-0">
-                            <X className="m-auto h-4 w-4 text-white" />
+                            <X className="m-auto h-4 w-4 text-foreground" />
                           </Close>
                         )}
                       </>
@@ -157,27 +157,6 @@ const Operator = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalCount={0}
-        // additionalFilters={
-        //   <>
-        //     <div className="pb-1">
-        //       <div className="px-6 py-2 text-[14px] font-normal leading-[20px] text-white/60">
-        //         Status
-        //       </div>
-        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
-        //         <Checkbox id="all" />
-        //         <span>All</span>
-        //       </div>
-        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
-        //         <Checkbox id="australia" />
-        //         <span>Active</span>
-        //       </div>
-        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-white">
-        //         <Checkbox id="europe" />
-        //         <span>Inactive</span>
-        //       </div>
-        //     </div>
-        //   </>
-        // }
         onApplyFilters={() => {}}
       />
     </div>
