@@ -27,7 +27,6 @@ import { useRecoilValue } from "recoil";
 import { setupWizardAtom, userAtom } from "@/lib/atom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 
 const Operator = () => {
   const { toast } = useToast();

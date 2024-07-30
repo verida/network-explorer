@@ -8,15 +8,11 @@ import { useQuery } from "react-query";
 import {
   getAnyPublicProfile,
   getDidDocument,
-  paginateDids,
 } from "@/lib/utils/veridaUtils";
 import { useToast } from "../ui/use-toast";
 import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
 import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
-import Loader from "../common/loader";
-import { ColumnDef } from "@tanstack/react-table";
-import { Account } from "@/types/account";
 
 const Accounts = () => {
   const [page, setPage] = useState(1);
