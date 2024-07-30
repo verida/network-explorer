@@ -1,3 +1,3 @@
 export const screenSizes = {
-  sm: "696px",
+  sm: "640px",
 };

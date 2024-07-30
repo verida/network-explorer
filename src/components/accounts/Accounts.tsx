@@ -90,7 +90,7 @@ const Accounts = () => {
   const validData = data ?? [];
 
   return (
-    <div className="flex flex-col gap-6 sm:mb-12">
+    <div className="flex flex-col gap-6">
       <DataTable
         columns={columns}
         data={validData}

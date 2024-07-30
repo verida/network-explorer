@@ -17,10 +17,10 @@ const UnAuthorizedContent = () => {
         </Button>
       </div>
 
-      <div className="mt-3 flex items-center gap-4 rounded-lg border border-white/60 p-6">
+      <div className="border-border-60 mt-3 flex items-center gap-4 rounded-lg border p-6">
         <VeridaIcon />
         <div className="flex flex-col gap-2">
-          <div className="text-[16px] font-normal leading-[20px] text-white/60">
+          <div className="text-[16px] font-normal leading-[20px] text-muted-foreground">
             Verida Wallet
           </div>
           <div className="flex h-5 w-[140px] gap-2">
@@ -31,7 +31,7 @@ const UnAuthorizedContent = () => {
           </div>
         </div>
       </div>
-      <Button className="mt- h-[48px] gap-2 rounded-lg bg-white/15 py-2.5 text-white hover:bg-white/15">
+      <Button className="mt- h-[48px] gap-2 rounded-lg bg-white/15 py-2.5 text-foreground hover:bg-white/15">
         <div>Disconnect</div>
         <LuLogOut />
       </Button>

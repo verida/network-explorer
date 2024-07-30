@@ -26,33 +26,11 @@ const fetchNodeData = async () => {
   return response.json();
 };
 
-const getMap = (continent?: string) => {
-  switch (continent) {
-    case "Africa":
-      return "https://code.highcharts.com/mapdata/custom/africa.topo.json";
-    case "Asia":
-      return "https://code.highcharts.com/mapdata/custom/asia.topo.json";
-    case "Europe":
-      return "https://code.highcharts.com/mapdata/custom/europe.topo.json";
-    case "North America":
-      return "https://code.highcharts.com/mapdata/custom/north-america-no-central.topo.json";
-    case "Oceania":
-      return "https://code.highcharts.com/mapdata/custom/oceania.topo.json";
-    case "South America":
-      return "https://code.highcharts.com/mapdata/custom/south-america.topo.json";
-    case "Antarctica":
-      return "https://code.highcharts.com/mapdata/custom/antarctica.topo.json";
-    default:
-      return "https://code.highcharts.com/mapdata/custom/world-highres2.topo.json";
-  }
-};
-
 const getCountryData = (country: string) => {
   const countryData = COUNTRY_CODES.find((c) => c.country === country);
   return {
     latitude: countryData?.latitude,
     longitude: countryData?.longitude,
-    map: getMap(countryData?.continent),
   };
 };
 
@@ -88,97 +66,86 @@ const DetailsPage = () => {
     status = "Active",
   } = nodeData;
 
-  const { latitude, longitude, map } = getCountryData(country);
+  const { latitude, longitude } = getCountryData(country);
 
   return (
-    <div className="mt-5 flex flex-col gap-8">
+    <div className="flex flex-col gap-10">
       <div className="flex items-center gap-2">
         <FaChevronLeft
           onClick={() => {
             router.back();
           }}
-          className="h-6 w-6 cursor-pointer text-white/60"
+          className="h-6 w-6 cursor-pointer text-muted-foreground"
         />
         <div className="text-[24px] font-bold leading-[28.8px]">
           Node Details
         </div>
       </div>
-      <div className="flex flex-col items-start gap-10 lg:flex-row lg:gap-4">
-        <div className="result-box flex h-full w-full flex-col gap-6 rounded-lg border border-white/20 p-5 lg:w-8/12 lg:px-6 lg:py-8">
+      <div className="flex flex-col gap-10 lg:flex-row">
+        <div className="result-box flex flex-1 flex-col gap-6 rounded-lg border border-border px-6 py-8">
           <div className="text-[18px] font-semibold leading-[20px]">
             Node Info
           </div>
           <div className="flex flex-col items-start gap-4 text-sm font-normal leading-5">
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <span>Node Name</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {name}
-                </div>
+              <span className="text-muted-foreground">Node Name</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {name}
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <span>Datacenter</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {datacenter}
-                </div>
+              <span className="text-muted-foreground">Datacenter</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {datacenter}
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <span>Region</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {region}
-                </div>
+              <span className="text-muted-foreground">Region</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {region}
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <span>Country</span>
-              <div className="flex items-center gap-2.5">
-                <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-                  {country}
-                </div>
+              <span className="text-muted-foreground">Country</span>
+              <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
+                {country}
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <span>Used/Total slots</span>
+              <span className="text-muted-foreground">Used/Total slots</span>
               <div>
                 <span>{storageSlotsUsed}</span>{" "}
-                <span className="text-white/60">/ {maxStorageSlots}</span>
+                <span className="text-muted-foreground">
+                  / {maxStorageSlots}
+                </span>
               </div>
             </div>
 
             <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-              <span>Status</span>
-              <div className="flex items-center gap-2.5">
-                <div
-                  className={`${
-                    status === "Active"
-                      ? "border-[#16A34A33] bg-[#16A34A33] text-[#16A34A]"
-                      : "border-white/20 bg-white/20"
-                  } w-fit rounded-[53px] border px-3 py-1.5`}
-                >
-                  Active
-                </div>
+              <span className="text-muted-foreground">Status</span>
+              <div
+                className={`${
+                  status === "Active"
+                    ? "border-[#16A34A33] bg-[#16A34A33] text-[#16A34A]"
+                    : "border-border bg-white/20"
+                } w-fit rounded-[53px] border px-3 py-1.5`}
+              >
+                Active
               </div>
             </div>
           </div>
         </div>
-        <div className="w-full rounded-[12px] border border-white/20 bg-[#191a1a] bg-opacity-70 lg:w-3/5">
-          <ComposableMap
-            className="h-[324px] w-full"
-            projectionConfig={{ rotate: [-20, 0, 0] }}
-          >
+        <div className="rounded-[12px] border border-border bg-[#191a1a] bg-opacity-70 lg:w-2/5">
+          <ComposableMap className="h-[324px] w-full">
             <ZoomableGroup
               center={[Number(longitude), Number(latitude)]}
               zoom={3}
             >
-              <Geographies geography={map}>
+              <Geographies geography="https://code.highcharts.com/mapdata/custom/world-highres2.topo.json">
                 {({ geographies }) =>
                   geographies.map((geo) => (
                     <Geography

@@ -1,4 +1,5 @@
 import { Config } from 'tailwindcss';
+import { fontFamily } from "tailwindcss/defaultTheme"
 
 const config = {
   darkMode: ["class"],
@@ -13,12 +14,20 @@ const config = {
         "2xl": "1400px",
       },
     },
-    fontFamily: {
-      sans: "Sora, sans-serif",
-    },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sora)", ...fontFamily.sans],
+      },
       colors: {
-        border: "hsl(var(--border))",
+        border: {
+          DEFAULT: "hsl(var(--border) / 0.2)",
+          10: "hsl(var(--border) / 0.10)",
+          15: "hsl(var(--border) / 0.15)",
+          20: "hsl(var(--border) / 0.20)",
+          30: "hsl(var(--border) / 0.30)",
+          40: "hsl(var(--border) / 0.40)",
+          60: "hsl(var(--border) / 0.60)",
+        },
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
@@ -37,7 +46,7 @@ const config = {
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          foreground: "hsl(var(--muted-foreground) / 0.6)",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
