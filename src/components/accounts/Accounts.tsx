@@ -67,7 +67,7 @@ const Accounts = () => {
       );
 
       return profiles.filter(
-        (profile) => profile !== undefined && profile !== null
+        (profile) => !!profile
       );
     },
     {
@@ -91,17 +91,20 @@ const Accounts = () => {
     }
   );
 
+  const validData = data ?? [];
+
   return (
     <div className="flex flex-col gap-6 sm:mb-12">
       <DataTable
-        columns={columns as ColumnDef<Account | null | undefined, unknown>[]}
-        data={data as Account[]}
+        columns={columns}
+        data={validData}
         page={page}
         limit={limit}
         setLimit={setLimit}
         setPage={setPage}
         title="accounts"
         totalCount={count}
+        onApplyFilters={() => {}}
         isLoading={isLoading}
         showSearch={false}
       />
