@@ -7,8 +7,8 @@ import { Header } from "@/components/common/header"
 import { ThemeProvider } from "@/components/common/providers"
 import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
-import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/lib/constants"
-import { cn } from "@/lib/utils/utils"
+import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/constants/app"
+import { cn } from "@/styles/utils"
 
 import "./globals.css"
 

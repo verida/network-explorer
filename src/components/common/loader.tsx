@@ -1,7 +1,7 @@
 import React from "react"
 import { useEffect, useState } from "react"
 
-import { cn } from "@/lib/utils/utils"
+import { cn } from "@/styles/utils"
 
 const Loader = ({
   className = "",

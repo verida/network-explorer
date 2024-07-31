@@ -7,8 +7,8 @@ import { useQuery } from "react-query"
 
 import CopyIcon from "@/assets/icons/copy.svg"
 import DefaultAvatar from "@/assets/svg/avatar.svg"
-import { getDidDocument } from "@/lib/utils/veridaUtils"
-import { Identity } from "@/types"
+import { Identity } from "@/features/identities/types"
+import { getDidDocument } from "@/features/verida/utils"
 
 import Loader from "../common/loader"
 import { Button } from "../ui/button"

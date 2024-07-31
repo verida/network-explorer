@@ -11,7 +11,7 @@ import { useRecoilState } from "recoil"
 
 import MenuIcon from "@/assets/svg/menu-icon.svg"
 import { showSearchBarAtom } from "@/lib/atom"
-import { cn } from "@/lib/utils/utils"
+import { cn } from "@/styles/utils"
 
 import { Button } from "../ui/button"
 import {

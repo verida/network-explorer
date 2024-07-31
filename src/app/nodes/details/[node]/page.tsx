@@ -14,9 +14,9 @@ import {
 
 import LocationIcon from "@/assets/icons/location.svg"
 import { clientEnvVars } from "@/config/client"
+import { COUNTRY_COORDINATES } from "@/features/countries/constants"
+import { StorageNode } from "@/features/storagenodes/types"
 import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils"
-import { COUNTRY_CODES } from "@/lib/constants"
-import { Node } from "@/types/node"
 
 const fetchNodeData = async () => {
   const url = getNodeMetricsFileUrl(clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK)
@@ -29,7 +29,7 @@ const fetchNodeData = async () => {
 }
 
 const getCountryData = (country: string) => {
-  const countryData = COUNTRY_CODES.find((c) => c.country === country)
+  const countryData = COUNTRY_COORDINATES.find((c) => c.country === country)
   return {
     latitude: countryData?.latitude,
     longitude: countryData?.longitude,
@@ -49,7 +49,7 @@ const DetailsPage = () => {
   if (isLoading) return <div>Loading...</div>
   if (isError) return <div>Error fetching data</div>
 
-  const nodeData = data.find((node: Node) => node.id === nodeId)
+  const nodeData = data.find((node: StorageNode) => node.id === nodeId)
 
   if (!nodeData) return <div>Node not found</div>
 

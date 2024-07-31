@@ -5,7 +5,7 @@ import { Check, ChevronDown, ChevronUp } from "lucide-react"
 import * as React from "react"
 import { FaCaretDown } from "react-icons/fa"
 
-import { cn } from "@/lib/utils/utils"
+import { cn } from "@/styles/utils"
 
 const Select = SelectPrimitive.Root
 

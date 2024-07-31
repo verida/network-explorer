@@ -5,15 +5,14 @@ import React, { useEffect, useMemo, useState } from "react"
 import { useQuery } from "react-query"
 
 import { clientEnvVars } from "@/config/client"
+import { Identity } from "@/features/identities/types"
 import { getDidRegistryBlockchainForNetwork } from "@/features/identities/utils"
 import { Logger } from "@/features/logger"
-import { client as veridaClient } from "@/features/verida"
-import { getAnyPublicProfile, getDidDocument } from "@/lib/utils/veridaUtils"
-import { Identity } from "@/types"
+import { client as veridaClient } from "@/features/verida/client"
+import { getAnyPublicProfile, getDidDocument } from "@/features/verida/utils"
 
 import DataTable from "../common/table"
 import { useToast } from "../ui/use-toast"
-// import { accounts } from "@/lib/sample";
 import { columns } from "./account/column"
 
 const logger = Logger.create("<IdentitiesTable>")

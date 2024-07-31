@@ -20,8 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { COUNTRIES } from "@/features/countries/constants"
 import { Logger } from "@/features/logger"
-import { countriesWithCodes } from "@/lib/utils/utils"
 
 const logger = Logger.create("<CreateNodeForm>")
 
@@ -151,7 +151,7 @@ const CreateNodeForm = ({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {countriesWithCodes.map((countryCode, index) => (
+                    {COUNTRIES.map((countryCode, index) => (
                       <SelectItem
                         key={index}
                         value={countryCode.code}

@@ -6,7 +6,7 @@ import NetworkExplorer from "@/components/accounts/NetworkExplorer"
 import { Separator } from "@/components/ui/separator"
 import { serverEnvVars } from "@/config/server"
 import { getIdentitiesStatsFileUrl } from "@/features/identities/utils"
-import { csv2json } from "@/lib/utils/csvToArray"
+import { csv2json } from "@/features/metrics/utils"
 
 const getIdentitiesStats = async () => {
   let isloading = true

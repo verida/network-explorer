@@ -10,9 +10,9 @@ import SearchIcon from "@/assets/icons/search.svg"
 import Avatar from "@/assets/svg/avatar.svg"
 import SearchAccountIllustration from "@/assets/svg/search-account.svg"
 import { Button } from "@/components/ui/button"
-import { client as veridaClient } from "@/features/verida"
-import { cn } from "@/lib/utils/utils"
-import { getAnyPublicProfile } from "@/lib/utils/veridaUtils"
+import { client as veridaClient } from "@/features/verida/client"
+import { getAnyPublicProfile } from "@/features/verida/utils"
+import { cn } from "@/styles/utils"
 
 import { useToast } from "../ui/use-toast"
 

@@ -23,9 +23,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { StorageNode } from "@/features/storagenodes/types"
 import { userAtom } from "@/lib/atom"
-import { cn } from "@/lib/utils/utils"
-import { Node } from "@/types/node"
+import { cn } from "@/styles/utils"
 
 import HubLoading from "../nodehub/hub/hub-loading"
 import UnStakeForm from "../nodehub/unstake/unstake-form"
@@ -34,7 +34,7 @@ import WithdrawError from "../nodehub/withdraw/withdraw-error"
 import WithdrawForm from "../nodehub/withdraw/withdraw-form"
 import WithdrawSuccess from "../nodehub/withdraw/withdraw-success"
 
-export const columns: ColumnDef<Node>[] = [
+export const columns: ColumnDef<StorageNode>[] = [
   {
     accessorKey: "name",
     enableSorting: true,

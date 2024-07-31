@@ -8,8 +8,8 @@ import Link from "next/link"
 import CopyIcon from "@/assets/icons/copy.svg"
 import Avatar from "@/assets/svg/avatar.svg"
 import { useToast } from "@/components/ui/use-toast"
-import { extractAndShortenAddress } from "@/lib/utils/utils"
-import { Identity } from "@/types"
+import { extractAndShortenAddress } from "@/features/did/utils"
+import { Identity } from "@/features/identities/types"
 
 export const columns: ColumnDef<Identity>[] = [
   {

@@ -52,8 +52,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { showSearchBarAtom } from "@/lib/atom"
-import { screenSizes } from "@/lib/constants"
-import { cn } from "@/lib/utils/utils"
+import { SCREEN_SIZES } from "@/styles/constants"
+import { cn } from "@/styles/utils"
 
 import { Filter, Region, Status } from "../nodes/NodesList"
 import Loader from "./loader"
@@ -132,7 +132,7 @@ const DataTable = <TData, TValue>({
 
   const [showSearchField, setShowSearchField] = useState(false)
   const pageLimits = [10, 20, 30]
-  const isSmScreen = useMediaQuery({ query: `(max-width: ${screenSizes.sm})` })
+  const isSmScreen = useMediaQuery({ query: `(max-width: ${SCREEN_SIZES.sm})` })
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const setShowSearch = useSetRecoilState(showSearchBarAtom)

@@ -10,8 +10,8 @@ import SearchIcon from "@/assets/icons/search.svg"
 import Loader from "@/components/common/loader"
 import ResultBox from "@/components/search/ResultBox"
 import { useToast } from "@/components/ui/use-toast"
-import { client as veridaClient } from "@/features/verida"
-import { getAnyPublicProfile } from "@/lib/utils/veridaUtils"
+import { client as veridaClient } from "@/features/verida/client"
+import { getAnyPublicProfile } from "@/features/verida/utils"
 
 const SearchPage = () => {
   const [searchBoxVisible, setSearchBoxVisible] = useState(true)

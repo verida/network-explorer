@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil"
 
 import VeridaIcon from "@/assets/svg/verida.svg"
 import { userAtom } from "@/lib/atom"
-import { cn } from "@/lib/utils/utils"
+import { cn } from "@/styles/utils"
 
 import { Button } from "../ui/button"
 import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"

@@ -3,10 +3,10 @@ import React from "react"
 import Distribution from "@/components/nodes/Distribution"
 import NodesList from "@/components/nodes/NodesList"
 import { serverEnvVars } from "@/config/server"
-import { getNodeRegistryUrl } from "@/features/storagenodes/utils"
 // import Overview from "@/components/nodes/Overview";
 // import { csv2json } from "@/lib/utils/csvToArray";
-import { COUNTRY_CODES } from "@/lib/constants/misc"
+import { COUNTRY_COORDINATES } from "@/features/countries/constants"
+import { getNodeRegistryUrl } from "@/features/storagenodes/utils"
 
 export interface CountrySummary {
   country: string
@@ -79,7 +79,7 @@ const getDistributions = async () => {
   }, {})
 
   const summary = Object.values(countryCounts).map((country: any) => {
-    const countryData = COUNTRY_CODES.find(
+    const countryData = COUNTRY_COORDINATES.find(
       (c) => c.alpha2 === country["countryLocation"]
     )
     return {
