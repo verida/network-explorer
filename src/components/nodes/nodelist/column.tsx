@@ -210,7 +210,7 @@ export const columns: ColumnDef<Node>[] = [
             </PopoverTrigger>
             <PopoverContent
               align="end"
-              className="result-box border-border-30 flex w-[200px] flex-col border bg-[#333153] py-1"
+              className="result-box flex w-[200px] flex-col border border-border-30 bg-[#333153] py-1"
             >
               {row.getValue("status") === "Active" ? (
                 <>

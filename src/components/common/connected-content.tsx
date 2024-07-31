@@ -32,7 +32,7 @@ const ConnectedContent = () => {
       <div className="text-[14px] font-bold leading-[20px] text-muted-foreground">
         Connected Crypto Wallet
       </div>
-      <div className="border-border-15 mt-3 flex cursor-pointer items-center gap-4 rounded-lg border p-6">
+      <div className="mt-3 flex cursor-pointer items-center gap-4 rounded-lg border border-border-15 p-6">
         <div className="rounded-[300px] bg-[#37D5C7] p-1">
           <MetamaskIcon width={50} />
         </div>

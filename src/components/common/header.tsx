@@ -53,8 +53,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
         }, 100);
       }}
     >
-      <div className="border-border-10 flex items-center justify-between gap-3 border-b p-4">
-        <div className="border-border-60 flex w-full items-center rounded-sm border px-3">
+      <div className="flex items-center justify-between gap-3 border-b border-border-10 p-4">
+        <div className="flex w-full items-center rounded-sm border border-border-60 px-3">
           <LuSearch size={22} />
           <Separator
             orientation="vertical"
@@ -128,8 +128,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
           </DropdownMenu>
           <Link href="/" className="py-[1.375rem]">
             <Image
-              src="./logo.svg"
-              className="aspect-[1/3] h-7"
+              src="/logo.svg"
+              className="h-7 w-auto"
               alt="Verida Network logo"
               width={96}
               height={32}
