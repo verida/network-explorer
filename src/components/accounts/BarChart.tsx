@@ -135,7 +135,7 @@ const BarChart = ({ data, tab }: BarChartProps) => {
         }}
         series={[
           {
-            name: "Total Accounts",
+            name: "Total Identities",
             data: displayableData.values,
           },
         ]}

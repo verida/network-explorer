@@ -11,9 +11,9 @@ import { useQuery } from "react-query";
 import QRCode from "react-qr-code";
 import Loader from "../common/loader";
 import Image from "next/image";
-import { Account } from "@/types/account";
+import { Identity } from "@/types";
 
-const ResultBox = ({ profile }: { profile: Account }) => {
+const ResultBox = ({ profile }: { profile: Identity }) => {
   const { toast } = useToast();
   const [showResultJson, setShowResultJson] = useState(false);
 
@@ -22,7 +22,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
     isLoading,
     isError,
   } = useQuery(
-    ["didDocument", profile],
+    ["didDocument", profile.did],
     async () => {
       return await getDidDocument(profile.did);
     },
@@ -49,7 +49,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
   return (
     <div className="flex flex-col gap-3">
       <div className="text-[12px] font-normal leading-[18px] text-muted-foreground">
-        RESULTS:
+        Result:
       </div>
       <div className="result-box flex flex-col gap-6 rounded-lg border border-border px-4 py-6 sm:gap-10 sm:p-9">
         <div className="flex flex-row gap-3">

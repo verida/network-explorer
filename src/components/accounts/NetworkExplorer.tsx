@@ -54,8 +54,8 @@ const NetworkExplorer = () => {
             Network Explorer
           </h1>
           <p className="text-sm font-light leading-normal tracking-[-3%] sm:text-lg">
-            Use this to search through your account. Search what account you
-            have access to, and find the DIDs that you need.
+            Search for an identity by its identifier (DID) to view its profile
+            and DID document
           </p>
         </div>
         <div className="flex flex-col gap-3">
