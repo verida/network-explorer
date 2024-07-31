@@ -40,6 +40,7 @@ jobs:
         run: yarn run check:ts
 
       # TODO: Add tests in CI when available
-      - name: Build
-        run: yarn run build
-        # Building Next.js also check the linting so no need for a step
+      #
+      # TODO: Add build in CI. Building needs the env vars to be set.
+      # - name: Build
+      #   run: yarn run build --no-lint
