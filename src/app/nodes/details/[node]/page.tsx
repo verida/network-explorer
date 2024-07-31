@@ -15,11 +15,13 @@ import {
 } from "react-simple-maps";
 import { Node } from "@/types/node";
 import { COUNTRY_CODES } from "@/lib/constants";
+import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils";
+import { clientEnvVars } from "@/config/client";
 
 const fetchNodeData = async () => {
-  const response = await fetch(
-    "https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json"
-  );
+  const url = getNodeMetricsFileUrl(clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK);
+
+  const response = await fetch(url);
   if (!response.ok) {
     throw new Error("Network response was not ok");
   }
