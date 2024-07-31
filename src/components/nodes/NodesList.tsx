@@ -103,7 +103,6 @@ const NodesList = () => {
   }, [limit]);
 
   useEffect(() => {
-    console.log(data);
     if (data) {
       setNodes(filterNodes(data, filter));
     }

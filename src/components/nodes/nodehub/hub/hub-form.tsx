@@ -20,6 +20,9 @@ import {
 } from "@/components/ui/select";
 import { countriesWithCodes } from "@/lib/utils/utils";
 import { Tab } from "@/components/common/table";
+import { Logger } from "@/features/logger";
+
+const logger = Logger.create("<CreateNodeForm>");
 
 const regions = ["Africa", "Asia", "Australia", "Europe", "USA"];
 
@@ -43,7 +46,7 @@ const CreateNodeForm = ({
   });
 
   function onSubmit(values: z.infer<typeof nodeFormSchema>) {
-    console.log(values);
+    logger.debug("Submitted values", values);
   }
 
   return (

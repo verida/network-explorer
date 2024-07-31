@@ -11,6 +11,9 @@ import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
 import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
 import { Identity } from "@/types";
+import { Logger } from "@/features/logger";
+
+const logger = Logger.create("<IdentitiesTable>");
 
 const fallbackData: Identity[] = [];
 
@@ -58,7 +61,11 @@ export function IdentitiesTable() {
               createdAt: didDocument?.created,
             };
           } catch (error) {
-            console.error(`Failed to get profile for DID: ${did}`, error);
+            logger.error(
+              new Error(`Failed to get profile for DID: ${did}`, {
+                cause: error,
+              })
+            );
             return null; // or handle the error as needed
           }
         })
@@ -74,7 +81,7 @@ export function IdentitiesTable() {
           variant: "destructive",
           description: "Failed to fetch identities",
         });
-        console.log(error);
+        logger.error(error);
       },
       onSuccess: (data) => {
         if (data.length === 0) {
