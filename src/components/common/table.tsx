@@ -58,7 +58,7 @@ import { cn } from "@/lib/utils/utils"
 import { Filter, Region, Status } from "../nodes/NodesList"
 import Loader from "./loader"
 
-interface DataTableProps<TData, TValue> {
+type DataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   title: string
@@ -67,11 +67,12 @@ interface DataTableProps<TData, TValue> {
   setPage: React.Dispatch<React.SetStateAction<number>>
   setLimit: React.Dispatch<React.SetStateAction<number>>
   totalCount: number
-  onApplyFilters: (filter?: Filter) => void
+  // eslint-disable-next-line no-unused-vars
+  onApplyFilters?: (filter?: Filter) => void
   showStatusFilters?: boolean
   showFilters?: boolean
   showSearch?: boolean
-  additionalTitles?: JSX.Element
+  additionalTitles?: React.ReactNode
   isLoading?: boolean
 }
 
@@ -83,6 +84,8 @@ export type Tab =
   | "success"
   | "connected"
 
+const defaultOnApplyFilters = () => {}
+
 const DataTable = <TData, TValue>({
   data,
   columns,
@@ -93,7 +96,7 @@ const DataTable = <TData, TValue>({
   limit,
   setPage,
   totalCount,
-  onApplyFilters,
+  onApplyFilters = defaultOnApplyFilters,
   showStatusFilters = false,
   showSearch = true,
   isLoading,

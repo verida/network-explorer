@@ -26,7 +26,6 @@ import { setupWizardAtom, userAtom } from "@/lib/atom"
 import Loader from "../common/loader"
 import DataTable, { Tab } from "../common/table"
 import { Button } from "../ui/button"
-import { Checkbox } from "../ui/checkbox"
 import { useToast } from "../ui/use-toast"
 import { columns } from "./nodelist/column"
 
@@ -52,7 +51,7 @@ const filterNodes = (nodes: any[], filter?: Filter) => {
       }
       return filter.regions.includes(node.region)
     })
-    .filter((node) => {
+    .filter(() => {
       if (
         filter?.status === "All" ||
         filter?.status === "Active" ||

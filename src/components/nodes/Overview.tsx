@@ -2,9 +2,6 @@
 
 import dynamic from "next/dynamic"
 import React from "react"
-import { useQuery } from "react-query"
-
-import { csv2json } from "@/lib/utils/csvToArray"
 
 import Loader from "../common/loader"
 
@@ -12,14 +9,15 @@ const StorageChart = dynamic(() => import("../common/storage"), { ssr: false })
 
 const DonutChart = dynamic(() => import("../common/donut"), { ssr: false })
 
-type storageOverview = {
-  data: {
-    datetime_utc: string
-    max_storage_slots: string
-    storage_slots_used: string
-  }[]
-  isLoading: boolean
-}
+// type storageOverview = {
+//   data: {
+//     datetime_utc: string
+//     max_storage_slots: string
+//     storage_slots_used: string
+//   }[]
+//   isLoading: boolean
+// }
+
 const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
   const { converted_data: data, isLoading } = StorageOverView
 

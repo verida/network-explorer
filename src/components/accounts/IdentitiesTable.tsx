@@ -40,7 +40,7 @@ export function IdentitiesTable() {
     getDIDCount()
   }, [])
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading } = useQuery(
     ["identities", page, limit],
     async () => {
       const didRegistryBlockchain = getDidRegistryBlockchainForNetwork(
@@ -115,7 +115,6 @@ export function IdentitiesTable() {
         setPage={setPage}
         title="identities"
         totalCount={count}
-        onApplyFilters={() => {}}
         isLoading={isLoading}
         showSearch={false}
       />

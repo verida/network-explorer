@@ -29,7 +29,7 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
       return await getDidDocument(profile.did)
     },
     {
-      onError: (error) => {
+      onError: () => {
         toast({
           variant: "destructive",
           description: "Failed to fetch DID Document",

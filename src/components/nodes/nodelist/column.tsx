@@ -175,17 +175,7 @@ export const columns: ColumnDef<Node>[] = [
     ),
     enableSorting: true,
 
-    cell: ({ row }) => (
-      // <div
-      //   className={`${
-      //     row.getValue("status") === "Active"
-      //       ? "bg-[#16A34A33] border-[#16A34A33]"
-      //       : "bg-white/20 border-border"
-      //   } w-fit border  py-1.5 px-3 rounded-[53px]`}
-      // >
-      //   {row.getValue("status")}
-      // </div>
-
+    cell: () => (
       <div className="w-fit rounded-[53px] border border-[#16A34A33] bg-[#16A34A33] px-3 py-1.5">
         Active
       </div>
@@ -235,7 +225,7 @@ export const columns: ColumnDef<Node>[] = [
                       {tab === "form" ? (
                         <WithdrawForm setTab={setTab} />
                       ) : tab === "success" ? (
-                        <WithdrawSuccess setTab={setTab} />
+                        <WithdrawSuccess />
                       ) : (
                         <WithdrawError setTab={setTab} />
                       )}

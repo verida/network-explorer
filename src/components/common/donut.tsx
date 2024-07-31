@@ -35,7 +35,7 @@ const DonutChart = ({ percentage }: { percentage: string }) => {
                 },
                 value: {
                   show: true,
-                  formatter: (v) => {
+                  formatter: () => {
                     return "Used"
                   },
                   color: "white",

@@ -30,7 +30,7 @@ const NetworkExplorer = () => {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       enabled: searchDidinput.length > 0,
-      onError: (error) => {
+      onError: () => {
         toast({
           variant: "destructive",
           description: "Failed to fetch profile",

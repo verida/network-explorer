@@ -157,7 +157,6 @@ const Operator = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalCount={0}
-        onApplyFilters={() => {}}
       />
     </div>
   )

@@ -2,15 +2,11 @@ import { useRouter } from "next/navigation"
 import React from "react"
 
 import SuccessIcon from "@/assets/svg/success.svg"
-import { Tab } from "@/components/common/table"
 import { Button } from "@/components/ui/button"
 
-const WithdrawSuccess = ({
-  setTab,
-}: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>
-}) => {
+const WithdrawSuccess = () => {
   const router = useRouter()
+
   return (
     <div className="flex flex-col items-center gap-10 pt-10">
       <SuccessIcon />
