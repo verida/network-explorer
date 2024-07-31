@@ -66,7 +66,7 @@ interface DataTableProps<TData, TValue> {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalCount: number;
-  onApplyFilters?: (filter?: Filter) => void;
+  onApplyFilters: (filter?: Filter) => void;
   showStatusFilters?: boolean;
   showFilters?: boolean;
   showSearch?: boolean;
@@ -189,7 +189,7 @@ const DataTable = <TData, TValue>({
                   <MdTune color="white" size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="rounded-3 border-border-30 border bg-[#333153]">
+              <DrawerContent className="rounded-3 border border-border-30 bg-[#333153]">
                 <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-foreground">
                   <div>Filters</div>
                   <X
@@ -213,7 +213,7 @@ const DataTable = <TData, TValue>({
                           filter !== undefined
                         ) {
                           table
-                            .getColumn("country")
+                            .getColumn("region")
                             ?.setFilterValue(filter?.regions[0]);
                         }
                       }}
@@ -239,7 +239,7 @@ const DataTable = <TData, TValue>({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="rounded-3 border-border-30 w-screen border bg-[#333153] sm:w-[356px]"
+                className="rounded-3 w-screen border border-border-30 bg-[#333153] sm:w-[356px]"
                 align="end"
               >
                 <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-foreground">
@@ -262,13 +262,14 @@ const DataTable = <TData, TValue>({
                       if (filter !== undefined) {
                         if (filter.regions[0] !== "All") {
                           table
-                            .getColumn("country")
+                            .getColumn("region")
                             ?.setFilterValue(filter?.regions[0]);
                         } else {
-                          table.getColumn("country")?.setFilterValue("");
+                          table.getColumn("region")?.setFilterValue("");
                         }
                       }
                       setDropdownOpen(false);
+                      onApplyFilters(filter);
                     }}
                     className="h-8 w-auto rounded-sm px-3"
                   >
@@ -292,7 +293,7 @@ const DataTable = <TData, TValue>({
                       <TableHead
                         key={header.id}
                         className={cn(
-                          "border-border-10 border-r md:border-none",
+                          "border-r border-border-10 md:border-none",
                           header.index === headerGroup.headers.length - 1 &&
                             "border-none"
                         )}
@@ -309,7 +310,7 @@ const DataTable = <TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            {data && (
+            {!isLoading && data && (
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
@@ -321,7 +322,7 @@ const DataTable = <TData, TValue>({
                         <TableCell
                           key={cell.id}
                           className={cn(
-                            "border-border-10 border-r md:border-none",
+                            "border-r border-border-10 md:border-none",
                             index === row.getVisibleCells().length - 1 &&
                               "border-none"
                           )}
@@ -422,6 +423,7 @@ const DisplayFilters = ({
     "Asia",
     "Africa",
   ];
+
   return (
     <>
       <Separator className="h-[1px] bg-[#FFFFFF26]" />

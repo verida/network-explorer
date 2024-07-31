@@ -117,7 +117,6 @@ export const getAnyPublicProfile = async (
         console.log(`${key}: ${profileInstance[key]}`);
       }
     }
-    console.log(profileInstance ? profileInstance["avatar"] : "");
 
     if (!profileInstance) {
       throw new Error("No public profile exists for this did");

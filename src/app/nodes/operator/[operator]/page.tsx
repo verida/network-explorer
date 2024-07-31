@@ -27,7 +27,6 @@ import { useRecoilValue } from "recoil";
 import { setupWizardAtom, userAtom } from "@/lib/atom";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 
 const Operator = () => {
   const { toast } = useToast();
@@ -157,27 +156,7 @@ const Operator = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalCount={0}
-        // additionalFilters={
-        //   <>
-        //     <div className="pb-1">
-        //       <div className="px-6 py-2 text-[14px] font-normal leading-[20px] text-muted-foreground">
-        //         Status
-        //       </div>
-        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-foreground">
-        //         <Checkbox id="all" />
-        //         <span>All</span>
-        //       </div>
-        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-foreground">
-        //         <Checkbox id="australia" />
-        //         <span>Active</span>
-        //       </div>
-        //       <div className="flex h-10 items-center gap-3 px-6 py-2 text-[14px] font-normal leading-[20px] text-foreground">
-        //         <Checkbox id="europe" />
-        //         <span>Inactive</span>
-        //       </div>
-        //     </div>
-        //   </>
-        // }
+        onApplyFilters={() => {}}
       />
     </div>
   );

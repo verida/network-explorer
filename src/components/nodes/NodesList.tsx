@@ -132,7 +132,7 @@ const NodesList = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalCount={nodes?.length ?? 0}
-        showStatusFilters
+        // showStatusFilters
         onApplyFilters={(filter) => {
           setFilter(filter);
         }}
