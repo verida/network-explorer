@@ -1,18 +1,18 @@
-import Distribution from "@/components/nodes/Distribution";
-import NodesList from "@/components/nodes/NodesList";
-import React from "react";
+import React from "react"
+
+import Distribution from "@/components/nodes/Distribution"
+import NodesList from "@/components/nodes/NodesList"
+import { serverEnvVars } from "@/config/server"
+import { getNodeRegistryUrl } from "@/features/storagenodes/utils"
 // import Overview from "@/components/nodes/Overview";
 // import { csv2json } from "@/lib/utils/csvToArray";
-
-import { COUNTRY_CODES } from "@/lib/constants/misc";
-import { getNodeRegistryUrl } from "@/features/storagenodes/utils";
-import { serverEnvVars } from "@/config/server";
+import { COUNTRY_CODES } from "@/lib/constants/misc"
 
 export interface CountrySummary {
-  country: string;
-  latitude: number | undefined;
-  longitude: number | undefined;
-  count: number;
+  country: string
+  latitude: number | undefined
+  longitude: number | undefined
+  count: number
 }
 
 // type DistributionType = {
@@ -46,58 +46,58 @@ export interface CountrySummary {
 // };
 
 const getDistributions = async () => {
-  let isLoading = true;
+  let isLoading = true
 
   // We fetch the registry file only to get the node countryLocation. If we can
   // get that information from the nodes metrics file, it would be less complex
   // as we can factorise some of the code.
   // TODO: Factorise the use of the registry file and the metrics file
-  const url = getNodeRegistryUrl(serverEnvVars.NEXT_PUBLIC_VERIDA_NETWORK);
+  const url = getNodeRegistryUrl(serverEnvVars.NEXT_PUBLIC_VERIDA_NETWORK)
 
   const response = await fetch(url, {
     method: "get",
-  });
+  })
   if (!response.ok) {
-    isLoading = false;
-    throw new Error("Failed to fetch data");
+    isLoading = false
+    throw new Error("Failed to fetch data")
   }
 
   if (response.ok) {
-    isLoading = false;
+    isLoading = false
   }
-  const data: any[] = await response.json();
+  const data: any[] = await response.json()
 
   // remove repeating countries and add long,lat properties
   const countryCounts = data.reduce((acc, country) => {
-    const countryLocation = country["countryLocation"];
+    const countryLocation = country["countryLocation"]
     if (!acc[countryLocation]) {
-      acc[countryLocation] = { ...country, count: 1 };
+      acc[countryLocation] = { ...country, count: 1 }
     } else {
-      acc[countryLocation].count += 1;
+      acc[countryLocation].count += 1
     }
-    return acc;
-  }, {});
+    return acc
+  }, {})
 
   const summary = Object.values(countryCounts).map((country: any) => {
     const countryData = COUNTRY_CODES.find(
       (c) => c.alpha2 === country["countryLocation"]
-    );
+    )
     return {
       country: country["countryLocation"],
       latitude: countryData?.latitude,
       longitude: countryData?.longitude,
       count: country.count,
-    };
-  });
-  isLoading = false;
+    }
+  })
+  isLoading = false
   return {
     summary,
     isLoading,
-  };
-};
+  }
+}
 const NodesPage = async () => {
   // const data = await getStorageOverView();
-  const distribution = await getDistributions();
+  const distribution = await getDistributions()
   return (
     <div className="flex flex-col gap-16">
       {/* <Overview StorageOverView={data} /> */}
@@ -107,7 +107,7 @@ const NodesPage = async () => {
       />
       <NodesList />
     </div>
-  );
-};
+  )
+}
 
-export default NodesPage;
+export default NodesPage

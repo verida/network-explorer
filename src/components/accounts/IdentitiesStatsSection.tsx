@@ -1,28 +1,30 @@
-"use client";
+"use client"
 
-import React from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import dynamic from "next/dynamic";
-import Loader from "../common/loader";
-import { useState } from "react";
+import dynamic from "next/dynamic"
+import React from "react"
+import { useState } from "react"
 
-const BarChart = dynamic(() => import("./BarChart"), { ssr: false });
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+import Loader from "../common/loader"
+
+const BarChart = dynamic(() => import("./BarChart"), { ssr: false })
 
 export type IdentitiesStatsSectionProps = {
-  data: any; // TODO: Define type
-};
+  data: any // TODO: Define type
+}
 
 export function IdentitiesStatsSection(props: IdentitiesStatsSectionProps) {
-  const { data } = props;
-  const { AccountData, isLoading } = data;
+  const { data } = props
+  const { AccountData, isLoading } = data
 
-  const [selectedTab, setSelectedTab] = useState("monthly");
+  const [selectedTab, setSelectedTab] = useState("monthly")
 
   return (
     <Tabs
       defaultValue="monthly"
       onValueChange={(value) => {
-        setSelectedTab(value);
+        setSelectedTab(value)
       }}
       className="bar-container flex flex-col gap-8 rounded-xl border border-border pt-6 sm:p-6 md:px-4"
     >
@@ -54,5 +56,5 @@ export function IdentitiesStatsSection(props: IdentitiesStatsSectionProps) {
       <Loader isLoading={isLoading} className="h-[150px] sm:h-[350px]" />
       {data && <BarChart data={AccountData} tab={selectedTab} />}
     </Tabs>
-  );
+  )
 }

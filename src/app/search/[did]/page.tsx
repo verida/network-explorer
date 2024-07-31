@@ -1,41 +1,42 @@
-"use client";
+"use client"
 
-import React from "react";
-import SearchIcon from "@/assets/icons/search.svg";
-import { IoMdClose } from "react-icons/io";
-import { useState } from "react";
-import ResultBox from "@/components/search/ResultBox";
-import { useParams } from "next/navigation";
-import { useQuery } from "react-query";
-import { useToast } from "@/components/ui/use-toast";
-import { getAnyPublicProfile } from "@/lib/utils/veridaUtils";
-import Loader from "@/components/common/loader";
-import { client as veridaClient } from "@/features/verida";
+import { useParams } from "next/navigation"
+import React from "react"
+import { useState } from "react"
+import { IoMdClose } from "react-icons/io"
+import { useQuery } from "react-query"
+
+import SearchIcon from "@/assets/icons/search.svg"
+import Loader from "@/components/common/loader"
+import ResultBox from "@/components/search/ResultBox"
+import { useToast } from "@/components/ui/use-toast"
+import { client as veridaClient } from "@/features/verida"
+import { getAnyPublicProfile } from "@/lib/utils/veridaUtils"
 
 const SearchPage = () => {
-  const [searchBoxVisible, setSearchBoxVisible] = useState(true);
-  const params = useParams();
-  const did = decodeURIComponent(params.did as unknown as string);
+  const [searchBoxVisible, setSearchBoxVisible] = useState(true)
+  const params = useParams()
+  const did = decodeURIComponent(params.did as unknown as string)
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
   const { data: profile, isLoading } = useQuery(
     ["accounts", did],
     async () => {
-      return await getAnyPublicProfile(veridaClient, did);
+      return await getAnyPublicProfile(veridaClient, did)
     },
     {
       refetchOnWindowFocus: false,
       refetchOnMount: false,
       enabled: params.did !== undefined,
-      onError: (error) => {
+      onError: () => {
         toast({
           variant: "destructive",
           description: "Failed to fetch profile",
-        });
+        })
       },
     }
-  );
+  )
 
   return (
     params.did &&
@@ -60,7 +61,7 @@ const SearchPage = () => {
         <ResultBox profile={profile} />
       </div>
     ) : null) // TODO: Handle not found
-  );
-};
+  )
+}
 
-export default SearchPage;
+export default SearchPage

@@ -1,19 +1,22 @@
-import type { Metadata } from "next";
-import { Sora } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/common/providers";
-import { Header } from "@/components/common/header";
-import { Footer } from "@/components/common/footer";
-import { Toaster } from "@/components/ui/toaster";
-import { cn } from "@/lib/utils/utils";
-import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/lib/constants";
-import { serverEnvVars } from "@/config/server";
+import type { Metadata } from "next"
+import { Sora } from "next/font/google"
+import React from "react"
 
-const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
+import { Footer } from "@/components/common/footer"
+import { Header } from "@/components/common/header"
+import { ThemeProvider } from "@/components/common/providers"
+import { Toaster } from "@/components/ui/toaster"
+import { serverEnvVars } from "@/config/server"
+import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/lib/constants"
+import { cn } from "@/lib/utils/utils"
+
+import "./globals.css"
+
+const sora = Sora({ subsets: ["latin"], variable: "--font-sora" })
 
 // Server component so can't get the window location. Using an env var is not
 // ideal but it's the best we can do.
-const baseUrl = serverEnvVars.NEXT_PUBLIC_BASE_URL;
+const baseUrl = serverEnvVars.NEXT_PUBLIC_BASE_URL
 
 export const metadata: Metadata = {
   title: APP_TITLE,
@@ -36,12 +39,12 @@ export const metadata: Metadata = {
     siteName: APP_NAME,
     type: "website",
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -68,5 +71,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }

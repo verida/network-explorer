@@ -1,32 +1,34 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import { columns } from "./nodelist/column";
-import DataTable, { Tab } from "../common/table";
+import { Close } from "@radix-ui/react-dialog"
+import { X } from "lucide-react"
+import React, { useEffect, useState } from "react"
+import { LuArrowLeft } from "react-icons/lu"
+import { useQuery } from "react-query"
+import { useRecoilValue } from "recoil"
+
+import ConnectedContent from "@/components/common/connected-content"
+import HubError from "@/components/nodes/nodehub/hub/hub-error"
+import CreateNodeForm from "@/components/nodes/nodehub/hub/hub-form"
+import HubLoading from "@/components/nodes/nodehub/hub/hub-loading"
+import HubStake from "@/components/nodes/nodehub/hub/hub-stake"
+import HubSuccess from "@/components/nodes/nodehub/hub/hub-success"
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { X } from "lucide-react";
-import { Close } from "@radix-ui/react-dialog";
-import { LuArrowLeft } from "react-icons/lu";
-import CreateNodeForm from "@/components/nodes/nodehub/hub/hub-form";
-import HubStake from "@/components/nodes/nodehub/hub/hub-stake";
-import HubLoading from "@/components/nodes/nodehub/hub/hub-loading";
-import HubError from "@/components/nodes/nodehub/hub/hub-error";
-import HubSuccess from "@/components/nodes/nodehub/hub/hub-success";
-import ConnectedContent from "@/components/common/connected-content";
-import { useRecoilValue } from "recoil";
-import { setupWizardAtom, userAtom } from "@/lib/atom";
-import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
-import { useQuery } from "react-query";
-import { useToast } from "../ui/use-toast";
-import Loader from "../common/loader";
-import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils";
-import { clientEnvVars } from "@/config/client";
+} from "@/components/ui/dialog"
+import { clientEnvVars } from "@/config/client"
+import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils"
+import { setupWizardAtom, userAtom } from "@/lib/atom"
+
+import Loader from "../common/loader"
+import DataTable, { Tab } from "../common/table"
+import { Button } from "../ui/button"
+import { Checkbox } from "../ui/checkbox"
+import { useToast } from "../ui/use-toast"
+import { columns } from "./nodelist/column"
 
 export type Region =
   | "All"
@@ -34,21 +36,21 @@ export type Region =
   | "Oceania"
   | "Asia"
   | "Europe"
-  | "Africa";
-export type Status = "All" | "Active" | "Inactive";
+  | "Africa"
+export type Status = "All" | "Active" | "Inactive"
 
 export interface Filter {
-  regions: Region[];
-  status?: Status;
+  regions: Region[]
+  status?: Status
 }
 
 const filterNodes = (nodes: any[], filter?: Filter) => {
   return nodes
     .filter((node) => {
       if (!filter || filter.regions.includes("All")) {
-        return true;
+        return true
       }
-      return filter.regions.includes(node.region);
+      return filter.regions.includes(node.region)
     })
     .filter((node) => {
       if (
@@ -56,64 +58,64 @@ const filterNodes = (nodes: any[], filter?: Filter) => {
         filter?.status === "Active" ||
         !filter?.status
       ) {
-        return true;
+        return true
       }
       // return node.status === filters.status;
-      return false;
-    });
-};
+      return false
+    })
+}
 
 const NodesList = () => {
-  const user = useRecoilValue(userAtom);
-  const [nodeDialogOpen, setNodeDialogOpen] = useState(false);
-  const [tab, setTab] = useState<Tab>("form");
-  const setupWizard = useRecoilValue(setupWizardAtom);
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const user = useRecoilValue(userAtom)
+  const [nodeDialogOpen, setNodeDialogOpen] = useState(false)
+  const [tab, setTab] = useState<Tab>("form")
+  const setupWizard = useRecoilValue(setupWizardAtom)
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(10)
 
-  const { toast } = useToast();
+  const { toast } = useToast()
 
-  const [nodes, setNodes] = useState<any[]>();
+  const [nodes, setNodes] = useState<any[]>()
 
   const { data, isLoading, isError } = useQuery(
     "nodes",
     async () => {
       const url = getNodeMetricsFileUrl(
         clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
-      );
+      )
 
-      const response = await fetch(url);
-      return await response.json();
+      const response = await fetch(url)
+      return await response.json()
     },
     {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       onSuccess: (data) => {
-        setNodes(filterNodes(data));
+        setNodes(filterNodes(data))
       },
       onError: () => {
         toast({
           description: "An error occurred while fetching nodes",
           variant: "destructive",
-        });
+        })
       },
     }
-  );
+  )
 
-  const [filter, setFilter] = useState<Filter>();
+  const [filter, setFilter] = useState<Filter>()
 
   useEffect(() => {
-    setPage(1);
-  }, [limit]);
+    setPage(1)
+  }, [limit])
 
   useEffect(() => {
     if (data) {
-      setNodes(filterNodes(data, filter));
+      setNodes(filterNodes(data, filter))
     }
-  }, [filter, data]);
+  }, [filter, data])
 
   if (isLoading) {
-    return <Loader isLoading className="h-[300px]" />;
+    return <Loader isLoading className="h-[300px]" />
   }
 
   if (isError) {
@@ -121,7 +123,7 @@ const NodesList = () => {
       <div>
         <p>There was an error fetching the nodes</p>
       </div>
-    );
+    )
   }
 
   return (
@@ -137,7 +139,7 @@ const NodesList = () => {
         totalCount={nodes?.length ?? 0}
         // showStatusFilters
         onApplyFilters={(filter) => {
-          setFilter(filter);
+          setFilter(filter)
         }}
         additionalTitles={
           <>
@@ -174,7 +176,7 @@ const NodesList = () => {
                         {(tab === "stake" || tab === "connected") && (
                           <LuArrowLeft
                             onClick={() => {
-                              setNodeDialogOpen(false);
+                              setNodeDialogOpen(false)
                             }}
                             className="ml-4"
                           />
@@ -218,7 +220,7 @@ const NodesList = () => {
         }
       />
     </div>
-  );
-};
+  )
+}
 
-export default NodesList;
+export default NodesList

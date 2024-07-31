@@ -1,5 +1,6 @@
-import { clientEnvVars } from "@/config/client";
-import { BlockchainAnchor, Network } from "@verida/types";
+import { BlockchainAnchor, Network } from "@verida/types"
+
+import { clientEnvVars } from "@/config/client"
 
 /**
  * Build the URL of the identities stats file, based on the metrics base URL and the network.
@@ -11,9 +12,9 @@ export function getIdentitiesStatsFileUrl(network: Network) {
   // Note 1: Since the protocol v4, the identities are not related to the Verida
   // Network, but we still use the asumption of a one-one mapping for now.
   // Note 2: The metrics endpoint is not up-to-date with the network names.
-  const resolvedNetwork = network === Network.MYRTLE ? "mainnet" : "testnet";
+  const resolvedNetwork = network === Network.MYRTLE ? "mainnet" : "testnet"
 
-  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/network/${resolvedNetwork}/stats.csv`;
+  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/network/${resolvedNetwork}/stats.csv`
 }
 
 /**
@@ -32,5 +33,5 @@ export function getDidRegistryBlockchainForNetwork(network: Network) {
   // Network, but we still use the asumption of a one-one mapping for now.
   return network === Network.MYRTLE
     ? BlockchainAnchor.POLPOS
-    : BlockchainAnchor.POLAMOY;
+    : BlockchainAnchor.POLAMOY
 }

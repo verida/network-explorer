@@ -1,57 +1,57 @@
-"use client";
+"use client"
 
-import { useParams, useRouter } from "next/navigation";
-import React from "react";
-import { FaChevronLeft } from "react-icons/fa";
-
-import LocationIcon from "@/assets/icons/location.svg";
-import { useQuery } from "react-query";
+import { useParams, useRouter } from "next/navigation"
+import React from "react"
+import { FaChevronLeft } from "react-icons/fa"
+import { useQuery } from "react-query"
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
   ZoomableGroup,
-} from "react-simple-maps";
-import { Node } from "@/types/node";
-import { COUNTRY_CODES } from "@/lib/constants";
-import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils";
-import { clientEnvVars } from "@/config/client";
+} from "react-simple-maps"
+
+import LocationIcon from "@/assets/icons/location.svg"
+import { clientEnvVars } from "@/config/client"
+import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils"
+import { COUNTRY_CODES } from "@/lib/constants"
+import { Node } from "@/types/node"
 
 const fetchNodeData = async () => {
-  const url = getNodeMetricsFileUrl(clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK);
+  const url = getNodeMetricsFileUrl(clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK)
 
-  const response = await fetch(url);
+  const response = await fetch(url)
   if (!response.ok) {
-    throw new Error("Network response was not ok");
+    throw new Error("Network response was not ok")
   }
-  return response.json();
-};
+  return response.json()
+}
 
 const getCountryData = (country: string) => {
-  const countryData = COUNTRY_CODES.find((c) => c.country === country);
+  const countryData = COUNTRY_CODES.find((c) => c.country === country)
   return {
     latitude: countryData?.latitude,
     longitude: countryData?.longitude,
-  };
-};
+  }
+}
 
 const DetailsPage = () => {
-  const router = useRouter();
-  const params = useParams();
-  const nodeId = decodeURIComponent(params.node as unknown as string);
+  const router = useRouter()
+  const params = useParams()
+  const nodeId = decodeURIComponent(params.node as unknown as string)
 
   const { data, isError, isLoading } = useQuery(["nodeData"], fetchNodeData, {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
-  });
+  })
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching data</div>;
+  if (isLoading) return <div>Loading...</div>
+  if (isError) return <div>Error fetching data</div>
 
-  const nodeData = data.find((node: Node) => node.id === nodeId);
+  const nodeData = data.find((node: Node) => node.id === nodeId)
 
-  if (!nodeData) return <div>Node not found</div>;
+  if (!nodeData) return <div>Node not found</div>
 
   const {
     name,
@@ -66,16 +66,16 @@ const DetailsPage = () => {
     // failureReports,
     // daysOnNetwork,
     status = "Active",
-  } = nodeData;
+  } = nodeData
 
-  const { latitude, longitude } = getCountryData(country);
+  const { latitude, longitude } = getCountryData(country)
 
   return (
     <div className="flex flex-col gap-10">
       <div className="flex items-center gap-2">
         <FaChevronLeft
           onClick={() => {
-            router.back();
+            router.back()
           }}
           className="h-6 w-6 cursor-pointer text-muted-foreground"
         />
@@ -166,7 +166,7 @@ const DetailsPage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default DetailsPage;
+export default DetailsPage

@@ -1,15 +1,15 @@
-import React from "react";
-import Chart from "react-apexcharts";
-import { useMediaQuery } from "react-responsive";
+import React from "react"
+import Chart from "react-apexcharts"
+import { useMediaQuery } from "react-responsive"
 
 const StorageChart = ({
   utilization,
   capacity,
 }: {
-  utilization: number[][];
-  capacity: number[][];
+  utilization: number[][]
+  capacity: number[][]
 }) => {
-  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" })
 
   return (
     <Chart
@@ -53,7 +53,7 @@ const StorageChart = ({
             // max: 100,
             labels: {
               formatter: (value) => {
-                return value.toFixed(0);
+                return value.toFixed(0)
               },
               style: {
                 colors: "#FFFFFF99",
@@ -97,7 +97,7 @@ const StorageChart = ({
       type="area"
       height={!isSmScreen ? 250 : 350}
     />
-  );
-};
+  )
+}
 
-export default StorageChart;
+export default StorageChart

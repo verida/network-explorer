@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import { ColumnDef } from "@tanstack/react-table";
-import CopyIcon from "@/assets/icons/copy.svg";
-import { useToast } from "@/components/ui/use-toast";
-import dayjs from "dayjs";
-import { Identity } from "@/types";
-import Avatar from "@/assets/svg/avatar.svg";
+import { ColumnDef } from "@tanstack/react-table"
+import dayjs from "dayjs"
+import Image from "next/image"
+import Link from "next/link"
 
-import { extractAndShortenAddress } from "@/lib/utils/utils";
-import Image from "next/image";
-import Link from "next/link";
+import CopyIcon from "@/assets/icons/copy.svg"
+import Avatar from "@/assets/svg/avatar.svg"
+import { useToast } from "@/components/ui/use-toast"
+import { extractAndShortenAddress } from "@/lib/utils/utils"
+import { Identity } from "@/types"
 
 export const columns: ColumnDef<Identity>[] = [
   {
@@ -42,7 +42,7 @@ export const columns: ColumnDef<Identity>[] = [
     cell: ({ row }) => {
       // TODO: Extract the component to properly use the hook inside
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { toast } = useToast();
+      const { toast } = useToast()
       return (
         <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent-foreground">
           <Link href={`/search/${row.original.did}`}>
@@ -51,14 +51,14 @@ export const columns: ColumnDef<Identity>[] = [
           <CopyIcon
             className="cursor-pointer"
             onClick={() => {
-              navigator.clipboard.writeText(row.getValue("did"));
+              navigator.clipboard.writeText(row.getValue("did"))
               toast({
                 description: "Identity's DID copied!",
-              });
+              })
             }}
           />
         </div>
-      );
+      )
     },
   },
   {
@@ -69,7 +69,7 @@ export const columns: ColumnDef<Identity>[] = [
     accessorKey: "createdAt",
     header: "Created on",
     cell: ({ row }) => {
-      return dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A");
+      return dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A")
     },
   },
-];
+]

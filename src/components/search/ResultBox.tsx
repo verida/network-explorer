@@ -1,21 +1,23 @@
-"use client";
+"use client"
 
-import React, { useMemo, useState } from "react";
-import CopyIcon from "@/assets/icons/copy.svg";
-import DefaultAvatar from "@/assets/svg/avatar.svg";
-import { useToast } from "../ui/use-toast";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
-import { getDidDocument } from "@/lib/utils/veridaUtils";
-import { useQuery } from "react-query";
-import QRCode from "react-qr-code";
-import Loader from "../common/loader";
-import Image from "next/image";
-import { Identity } from "@/types";
+import Image from "next/image"
+import React, { useMemo, useState } from "react"
+import QRCode from "react-qr-code"
+import { useQuery } from "react-query"
+
+import CopyIcon from "@/assets/icons/copy.svg"
+import DefaultAvatar from "@/assets/svg/avatar.svg"
+import { getDidDocument } from "@/lib/utils/veridaUtils"
+import { Identity } from "@/types"
+
+import Loader from "../common/loader"
+import { Button } from "../ui/button"
+import { Separator } from "../ui/separator"
+import { useToast } from "../ui/use-toast"
 
 const ResultBox = ({ profile }: { profile: Identity }) => {
-  const { toast } = useToast();
-  const [showResultJson, setShowResultJson] = useState(false);
+  const { toast } = useToast()
+  const [showResultJson, setShowResultJson] = useState(false)
 
   const {
     data: resultJson,
@@ -24,27 +26,27 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
   } = useQuery(
     ["didDocument", profile.did],
     async () => {
-      return await getDidDocument(profile.did);
+      return await getDidDocument(profile.did)
     },
     {
       onError: (error) => {
         toast({
           variant: "destructive",
           description: "Failed to fetch DID Document",
-        });
+        })
       },
       refetchOnWindowFocus: false,
       refetchOnMount: false,
     }
-  );
+  )
 
   const qrCodeMessage = useMemo(() => {
     // The QR code would simply be the URL to the account on that Network
     // Explorer application. The account page is currently `/search/:did`
     // TODO: Consider using the env var baseURL so this component can be a
     // server component, but not too keen on setting a baseURL in the env vars
-    return `${window.location.origin}/search/${profile.did}`;
-  }, [profile.did]);
+    return `${window.location.origin}/search/${profile.did}`
+  }, [profile.did])
 
   return (
     <div className="flex flex-col gap-3">
@@ -99,10 +101,10 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
                       color="#8566F2"
                       className="cursor-pointer"
                       onClick={() => {
-                        navigator.clipboard.writeText(profile.did);
+                        navigator.clipboard.writeText(profile.did)
                         toast({
                           description: "Copied to clipboard",
-                        });
+                        })
                       }}
                     />
                   </div>
@@ -128,7 +130,7 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
                 className="rounded-sm border-border-40 bg-transparent hover:bg-foreground/10 hover:text-foreground sm:w-fit"
                 variant="outline"
                 onClick={async () => {
-                  setShowResultJson(!showResultJson);
+                  setShowResultJson(!showResultJson)
                 }}
               >
                 {showResultJson ? "Hide" : "Show"} DID Document
@@ -164,7 +166,7 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
           ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ResultBox;
+export default ResultBox

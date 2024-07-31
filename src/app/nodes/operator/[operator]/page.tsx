@@ -1,51 +1,52 @@
-"use client";
+"use client"
 
-import React from "react";
-import { FaChevronLeft } from "react-icons/fa";
-import CopyIcon from "@/assets/icons/copy.svg";
-import { useToast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
-import { columns } from "@/components/nodes/nodelist/column";
+import { Close } from "@radix-ui/react-dialog"
+import { X } from "lucide-react"
+import { useRouter } from "next/navigation"
+import React from "react"
+import { useState } from "react"
+import { FaChevronLeft } from "react-icons/fa"
+import { LuArrowLeft } from "react-icons/lu"
+import { useRecoilValue } from "recoil"
+
+import CopyIcon from "@/assets/icons/copy.svg"
+import ConnectedContent from "@/components/common/connected-content"
 // import { nodes } from "@/lib/sample";
-import DataTable, { Tab } from "@/components/common/table";
+import DataTable, { Tab } from "@/components/common/table"
+import HubError from "@/components/nodes/nodehub/hub/hub-error"
+import CreateNodeForm from "@/components/nodes/nodehub/hub/hub-form"
+import HubLoading from "@/components/nodes/nodehub/hub/hub-loading"
+import HubStake from "@/components/nodes/nodehub/hub/hub-stake"
+import HubSuccess from "@/components/nodes/nodehub/hub/hub-success"
+import { columns } from "@/components/nodes/nodelist/column"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { X } from "lucide-react";
-import { Close } from "@radix-ui/react-dialog";
-import { LuArrowLeft } from "react-icons/lu";
-import CreateNodeForm from "@/components/nodes/nodehub/hub/hub-form";
-import HubStake from "@/components/nodes/nodehub/hub/hub-stake";
-import HubLoading from "@/components/nodes/nodehub/hub/hub-loading";
-import HubError from "@/components/nodes/nodehub/hub/hub-error";
-import HubSuccess from "@/components/nodes/nodehub/hub/hub-success";
-import ConnectedContent from "@/components/common/connected-content";
-import { useRecoilValue } from "recoil";
-import { setupWizardAtom, userAtom } from "@/lib/atom";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/dialog"
+import { useToast } from "@/components/ui/use-toast"
+import { setupWizardAtom, userAtom } from "@/lib/atom"
 
 const Operator = () => {
-  const { toast } = useToast();
-  const router = useRouter();
+  const { toast } = useToast()
+  const router = useRouter()
 
-  const user = useRecoilValue(userAtom);
-  const [nodeDialogOpen, setNodeDialogOpen] = useState(false);
-  const [tab, setTab] = useState<Tab>("form");
-  const setupWizard = useRecoilValue(setupWizardAtom);
+  const user = useRecoilValue(userAtom)
+  const [nodeDialogOpen, setNodeDialogOpen] = useState(false)
+  const [tab, setTab] = useState<Tab>("form")
+  const setupWizard = useRecoilValue(setupWizardAtom)
 
-  const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(10)
 
   return (
     <div className="mb-10 mt-8 flex flex-col gap-10">
       <div className="flex items-center gap-4">
         <FaChevronLeft
           onClick={() => {
-            router.back();
+            router.back()
           }}
           className="cursor-pointer"
         />
@@ -61,10 +62,10 @@ const Operator = () => {
               onClick={() => {
                 navigator.clipboard.writeText(
                   "did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
-                );
+                )
                 toast({
                   description: "DID Copied",
-                });
+                })
               }}
             />
           </div>
@@ -109,7 +110,7 @@ const Operator = () => {
                         {(tab === "stake" || tab === "connected") && (
                           <LuArrowLeft
                             onClick={() => {
-                              setNodeDialogOpen(false);
+                              setNodeDialogOpen(false)
                             }}
                             className="ml-4"
                           />
@@ -159,7 +160,7 @@ const Operator = () => {
         onApplyFilters={() => {}}
       />
     </div>
-  );
-};
+  )
+}
 
-export default Operator;
+export default Operator

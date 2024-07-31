@@ -1,4 +1,4 @@
-"use client";
+"use client"
 
 import {
   ColumnDef,
@@ -11,8 +11,38 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from "@tanstack/react-table"
+import { X } from "lucide-react"
+import React, { useEffect, useState } from "react"
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
+import { FiSearch } from "react-icons/fi"
+import { MdTune } from "react-icons/md"
+import { useMediaQuery } from "react-responsive"
+import { useSetRecoilState } from "recoil"
 
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerTrigger,
+} from "@/components/ui/drawer"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import { Separator } from "@/components/ui/separator"
 import {
   Table,
   TableBody,
@@ -20,58 +50,29 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import React, { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu";
-import { MdTune } from "react-icons/md";
-import { FiSearch } from "react-icons/fi";
-import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils/utils";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { X } from "lucide-react";
-import { useMediaQuery } from "react-responsive";
-import { useSetRecoilState } from "recoil";
-import { showSearchBarAtom } from "@/lib/atom";
-import { Filter, Region, Status } from "../nodes/NodesList";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Separator } from "@/components/ui/separator";
-import Loader from "./loader";
-import { screenSizes } from "@/lib/constants";
+} from "@/components/ui/table"
+import { showSearchBarAtom } from "@/lib/atom"
+import { screenSizes } from "@/lib/constants"
+import { cn } from "@/lib/utils/utils"
+
+import { Filter, Region, Status } from "../nodes/NodesList"
+import Loader from "./loader"
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[];
-  data: TData[];
-  title: string;
-  page: number;
-  limit: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  setLimit: React.Dispatch<React.SetStateAction<number>>;
-  totalCount: number;
-  onApplyFilters: (filter?: Filter) => void;
-  showStatusFilters?: boolean;
-  showFilters?: boolean;
-  showSearch?: boolean;
-  additionalTitles?: JSX.Element;
-  isLoading?: boolean;
+  columns: ColumnDef<TData, TValue>[]
+  data: TData[]
+  title: string
+  page: number
+  limit: number
+  setPage: React.Dispatch<React.SetStateAction<number>>
+  setLimit: React.Dispatch<React.SetStateAction<number>>
+  totalCount: number
+  onApplyFilters: (filter?: Filter) => void
+  showStatusFilters?: boolean
+  showFilters?: boolean
+  showSearch?: boolean
+  additionalTitles?: JSX.Element
+  isLoading?: boolean
 }
 
 export type Tab =
@@ -80,7 +81,7 @@ export type Tab =
   | "loading"
   | "error"
   | "success"
-  | "connected";
+  | "connected"
 
 const DataTable = <TData, TValue>({
   data,
@@ -97,13 +98,13 @@ const DataTable = <TData, TValue>({
   showSearch = true,
   isLoading,
 }: DataTableProps<TData, TValue>) => {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  );
+  )
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
+    React.useState<VisibilityState>({})
+  const [rowSelection, setRowSelection] = React.useState({})
 
   const table = useReactTable({
     data,
@@ -124,23 +125,23 @@ const DataTable = <TData, TValue>({
     },
     pageCount: Math.ceil(totalCount / limit),
     manualPagination: true,
-  });
+  })
 
-  const [showSearchField, setShowSearchField] = useState(false);
-  const pageLimits = [10, 20, 30];
-  const isSmScreen = useMediaQuery({ query: `(max-width: ${screenSizes.sm})` });
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const setShowSearch = useSetRecoilState(showSearchBarAtom);
+  const [showSearchField, setShowSearchField] = useState(false)
+  const pageLimits = [10, 20, 30]
+  const isSmScreen = useMediaQuery({ query: `(max-width: ${screenSizes.sm})` })
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [drawerOpen, setDrawerOpen] = useState(false)
+  const setShowSearch = useSetRecoilState(showSearchBarAtom)
   useEffect(() => {
     if (!isSmScreen) {
-      setShowSearchField(false);
+      setShowSearchField(false)
     } else {
-      setShowSearch(false);
+      setShowSearch(false)
     }
-  }, [isSmScreen, setShowSearch]);
+  }, [isSmScreen, setShowSearch])
 
-  const [filter, setFilter] = useState<Filter>();
+  const [filter, setFilter] = useState<Filter>()
 
   return (
     <>
@@ -157,8 +158,8 @@ const DataTable = <TData, TValue>({
                 showSearchField ? "w-[200px]" : ""
               )}
               onClick={() => {
-                if (isSmScreen) setShowSearchField(true);
-                else setShowSearch(true);
+                if (isSmScreen) setShowSearchField(true)
+                else setShowSearch(true)
               }}
             >
               <FiSearch color="white" size={20} />
@@ -176,7 +177,7 @@ const DataTable = <TData, TValue>({
             </Button>
             <Drawer
               onClose={() => {
-                setDrawerOpen(false);
+                setDrawerOpen(false)
               }}
               open={drawerOpen}
               onOpenChange={setDrawerOpen}
@@ -195,7 +196,7 @@ const DataTable = <TData, TValue>({
                   <X
                     className="mr-2 block h-5 w-5 cursor-pointer sm:hidden"
                     onClick={() => {
-                      setDrawerOpen(false);
+                      setDrawerOpen(false)
                     }}
                   />
                 </div>
@@ -214,7 +215,7 @@ const DataTable = <TData, TValue>({
                         ) {
                           table
                             .getColumn("region")
-                            ?.setFilterValue(filter?.regions[0]);
+                            ?.setFilterValue(filter?.regions[0])
                         }
                       }}
                       className="h-8 w-auto rounded-sm px-3"
@@ -247,7 +248,7 @@ const DataTable = <TData, TValue>({
                   <X
                     className="block h-5 w-5 cursor-pointer sm:hidden"
                     onClick={() => {
-                      setDropdownOpen(false);
+                      setDropdownOpen(false)
                     }}
                   />
                 </DropdownMenuLabel>
@@ -263,13 +264,13 @@ const DataTable = <TData, TValue>({
                         if (filter.regions[0] !== "All") {
                           table
                             .getColumn("region")
-                            ?.setFilterValue(filter?.regions[0]);
+                            ?.setFilterValue(filter?.regions[0])
                         } else {
-                          table.getColumn("region")?.setFilterValue("");
+                          table.getColumn("region")?.setFilterValue("")
                         }
                       }
-                      setDropdownOpen(false);
-                      onApplyFilters(filter);
+                      setDropdownOpen(false)
+                      onApplyFilters(filter)
                     }}
                     className="h-8 w-auto rounded-sm px-3"
                   >
@@ -305,7 +306,7 @@ const DataTable = <TData, TValue>({
                               header.getContext()
                             )}
                       </TableHead>
-                    );
+                    )
                   })}
                 </TableRow>
               ))}
@@ -380,7 +381,7 @@ const DataTable = <TData, TValue>({
               className="cursor-pointer"
               onClick={() => {
                 if (page > 1) {
-                  setPage(page - 1);
+                  setPage(page - 1)
                 }
               }}
             />
@@ -395,7 +396,7 @@ const DataTable = <TData, TValue>({
               className="cursor-pointer"
               onClick={() => {
                 if (page < Math.ceil(totalCount / limit)) {
-                  setPage(page + 1);
+                  setPage(page + 1)
                 }
               }}
             />
@@ -403,19 +404,19 @@ const DataTable = <TData, TValue>({
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 const DisplayFilters = ({
   showStatus,
   filter,
   setFilter,
 }: {
-  showStatus: boolean;
-  filter?: Filter;
-  setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>;
+  showStatus: boolean
+  filter?: Filter
+  setFilter: React.Dispatch<React.SetStateAction<Filter | undefined>>
 }) => {
-  const statuses: Status[] = ["All", "Active", "Inactive"];
+  const statuses: Status[] = ["All", "Active", "Inactive"]
   const regions: Region[] = [
     "All",
     "Americas",
@@ -423,7 +424,7 @@ const DisplayFilters = ({
     "Europe",
     "Asia",
     "Africa",
-  ];
+  ]
 
   return (
     <>
@@ -444,28 +445,28 @@ const DisplayFilters = ({
                   onCheckedChange={(checked) => {
                     setFilter((prev) => {
                       if (!prev) {
-                        return { regions: [region], status: undefined };
+                        return { regions: [region], status: undefined }
                       }
                       if (checked) {
                         if (region === "All" || prev.regions.includes("All")) {
-                          return { regions: [region], status: prev.status };
+                          return { regions: [region], status: prev.status }
                         }
                         return {
                           ...prev,
                           regions: [region],
-                        };
+                        }
                       }
                       return {
                         ...prev,
                         regions: prev.regions.filter((r) => r !== region),
-                      };
-                    });
+                      }
+                    })
                   }}
                   checked={filter?.regions.includes(region)}
                 />
                 <label htmlFor={region.toLowerCase()}>{region}</label>
               </div>
-            );
+            )
           })}
         </div>
       </div>
@@ -485,10 +486,10 @@ const DisplayFilters = ({
                   onCheckedChange={(checked) => {
                     setFilter((prev) => {
                       if (!prev) {
-                        return { regions: [], status };
+                        return { regions: [], status }
                       }
-                      return { ...prev, status: checked ? status : undefined };
-                    });
+                      return { ...prev, status: checked ? status : undefined }
+                    })
                   }}
                   checked={filter?.status === status}
                 />
@@ -496,13 +497,13 @@ const DisplayFilters = ({
                   {status}
                 </label>
               </div>
-            );
+            )
           })}
         </div>
       )}
       <Separator className="h-[1px] bg-[#FFFFFF26]" />
     </>
-  );
-};
+  )
+}
 
-export default DataTable;
+export default DataTable

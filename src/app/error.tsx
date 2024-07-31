@@ -1,12 +1,13 @@
-"use client";
-import React from "react";
+"use client"
+
+import React from "react"
 
 const ErrorPage = () => {
   return (
     <div className="flex h-full flex-row items-center justify-center">
       There were an error in your codes or the server is down.
     </div>
-  );
-};
+  )
+}
 
-export default ErrorPage;
+export default ErrorPage

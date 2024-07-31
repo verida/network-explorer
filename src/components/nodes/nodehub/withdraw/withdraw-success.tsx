@@ -1,15 +1,16 @@
-import React from "react";
-import SuccessIcon from "@/assets/svg/success.svg";
-import { Tab } from "@/components/common/table";
-import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"
+import React from "react"
+
+import SuccessIcon from "@/assets/svg/success.svg"
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
 
 const WithdrawSuccess = ({
   setTab,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
 }) => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <div className="flex flex-col items-center gap-10 pt-10">
       <SuccessIcon />
@@ -26,14 +27,14 @@ const WithdrawSuccess = ({
       <Button
         variant="ghost"
         onClick={() => {
-          router.push("/nodes");
+          router.push("/nodes")
         }}
         className="text-[14px] font-bold leading-[20px]"
       >
         View Details
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default WithdrawSuccess;
+export default WithdrawSuccess

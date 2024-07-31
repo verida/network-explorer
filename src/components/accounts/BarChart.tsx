@@ -1,84 +1,84 @@
-import React, { useCallback, useEffect, useState } from "react";
-import Chart from "react-apexcharts";
-import { useMediaQuery } from "react-responsive";
-import dayjs from "dayjs";
-import isoWeek from "dayjs/plugin/isoWeek";
+import dayjs from "dayjs"
+import isoWeek from "dayjs/plugin/isoWeek"
+import React, { useCallback, useEffect, useState } from "react"
+import Chart from "react-apexcharts"
+import { useMediaQuery } from "react-responsive"
 
-dayjs.extend(isoWeek);
+dayjs.extend(isoWeek)
 
-type DataPoint = number[][];
+type DataPoint = number[][]
 
 interface AverageBarsResult {
-  dates: string[];
-  values: number[];
+  dates: string[]
+  values: number[]
 }
 
 interface BarChartProps {
-  data: DataPoint;
-  tab: string;
+  data: DataPoint
+  tab: string
 }
 
 const BarChart = ({ data, tab }: BarChartProps) => {
-  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" })
 
   const groupBy = (data: DataPoint, format: string, isWeekly = false) => {
     const grouped: Record<
       string,
       { sum: number; count: number; firstDate?: string }
-    > = {};
+    > = {}
     data.forEach(([date, value]) => {
-      let key = dayjs(date).format(format);
+      let key = dayjs(date).format(format)
       if (isWeekly) {
-        const weekStart = dayjs(date).startOf("isoWeek");
-        key = weekStart.format("YYYY-MM-DD");
+        const weekStart = dayjs(date).startOf("isoWeek")
+        key = weekStart.format("YYYY-MM-DD")
         if (!grouped[key]) {
           grouped[key] = {
             sum: 0,
             count: 0,
             firstDate: weekStart.format("DD MMM YYYY"),
-          };
+          }
         }
       } else {
         if (!grouped[key]) {
-          grouped[key] = { sum: 0, count: 0 };
+          grouped[key] = { sum: 0, count: 0 }
         }
       }
-      grouped[key].sum += value;
-      grouped[key].count += 1;
-    });
-    return grouped;
-  };
+      grouped[key].sum += value
+      grouped[key].count += 1
+    })
+    return grouped
+  }
 
   const getAverageBars = useCallback(
     (data: DataPoint, format: string, isWeekly = false): AverageBarsResult => {
-      const groupedData = groupBy(data, format, isWeekly);
-      const result: AverageBarsResult = { dates: [], values: [] };
+      const groupedData = groupBy(data, format, isWeekly)
+      const result: AverageBarsResult = { dates: [], values: [] }
 
       for (const [key, { sum, count, firstDate }] of Object.entries(
         groupedData
       )) {
-        result.dates.push(isWeekly ? firstDate! : key);
-        result.values.push(Math.round(sum / count));
+        result.dates.push(isWeekly ? firstDate! : key)
+        result.values.push(Math.round(sum / count))
       }
 
-      return result;
+      return result
     },
     []
-  );
+  )
 
   const [displayableData, setDisplayableData] = useState<
     AverageBarsResult | undefined
-  >();
+  >()
 
   useEffect(() => {
     if (tab === "daily") {
-      setDisplayableData(getAverageBars(data, "YYYY-MM-DD"));
+      setDisplayableData(getAverageBars(data, "YYYY-MM-DD"))
     } else if (tab === "weekly") {
-      setDisplayableData(getAverageBars(data, "YYYY-MM-DD", true));
+      setDisplayableData(getAverageBars(data, "YYYY-MM-DD", true))
     } else if (tab === "monthly") {
-      setDisplayableData(getAverageBars(data, "MMMM-YYYY"));
+      setDisplayableData(getAverageBars(data, "MMMM-YYYY"))
     }
-  }, [data, tab, getAverageBars]);
+  }, [data, tab, getAverageBars])
 
   return (
     displayableData && (
@@ -113,9 +113,9 @@ const BarChart = ({ data, tab }: BarChartProps) => {
             labels: {
               formatter: (value) => {
                 if (value >= 1000 && !isSmScreen) {
-                  return value / 1000 + "k";
+                  return value / 1000 + "k"
                 }
-                return value.toString();
+                return value.toString()
               },
               style: {
                 colors: "#666A7F",
@@ -143,7 +143,7 @@ const BarChart = ({ data, tab }: BarChartProps) => {
         height={!isSmScreen ? 250 : 350}
       />
     )
-  );
-};
+  )
+}
 
-export default BarChart;
+export default BarChart

@@ -1,29 +1,30 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
-import SearchAccountIllustration from "@/assets/svg/search-account.svg";
-import Avatar from "@/assets/svg/avatar.svg";
-import SearchIcon from "@/assets/icons/search.svg";
-import Link from "next/link";
+import Image from "next/image"
+import Link from "next/link"
+import React, { useEffect, useState } from "react"
+import { Oval } from "react-loader-spinner"
+import { useQuery } from "react-query"
 
-import { useToast } from "../ui/use-toast";
-import { Oval } from "react-loader-spinner";
-import { getAnyPublicProfile } from "@/lib/utils/veridaUtils";
-import { useQuery } from "react-query";
-import Image from "next/image";
-import { cn } from "@/lib/utils/utils";
-import { Button } from "@/components/ui/button";
-import { client as veridaClient } from "@/features/verida";
+import SearchIcon from "@/assets/icons/search.svg"
+import Avatar from "@/assets/svg/avatar.svg"
+import SearchAccountIllustration from "@/assets/svg/search-account.svg"
+import { Button } from "@/components/ui/button"
+import { client as veridaClient } from "@/features/verida"
+import { cn } from "@/lib/utils/utils"
+import { getAnyPublicProfile } from "@/lib/utils/veridaUtils"
+
+import { useToast } from "../ui/use-toast"
 
 const NetworkExplorer = () => {
-  const { toast } = useToast();
-  const [popoverOpen, setPopoverOpen] = useState(false);
-  const [searchDidinput, setSearchDidInput] = useState("");
+  const { toast } = useToast()
+  const [popoverOpen, setPopoverOpen] = useState(false)
+  const [searchDidinput, setSearchDidInput] = useState("")
 
   const { data: profile, isLoading } = useQuery(
     ["accounts", searchDidinput],
     async () => {
-      return await getAnyPublicProfile(veridaClient, searchDidinput);
+      return await getAnyPublicProfile(veridaClient, searchDidinput)
     },
     {
       refetchOnWindowFocus: false,
@@ -33,18 +34,18 @@ const NetworkExplorer = () => {
         toast({
           variant: "destructive",
           description: "Failed to fetch profile",
-        });
+        })
       },
     }
-  );
+  )
 
   useEffect(() => {
     if (isLoading || profile) {
-      setPopoverOpen(true);
+      setPopoverOpen(true)
     } else {
-      setPopoverOpen(false);
+      setPopoverOpen(false)
     }
-  }, [isLoading, profile]);
+  }, [isLoading, profile])
 
   return (
     <div className="flex flex-row justify-between gap-3">
@@ -66,7 +67,7 @@ const NetworkExplorer = () => {
               <input
                 placeholder="Search by DID (did:vda:polpos:0x486e..644a55)"
                 onChange={(e) => {
-                  setSearchDidInput(e.target.value);
+                  setSearchDidInput(e.target.value)
                 }}
                 className="flex-1 truncate bg-transparent focus:border-none focus:outline-none"
               />
@@ -133,7 +134,7 @@ const NetworkExplorer = () => {
         <SearchAccountIllustration width="100%" height="100%" />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default NetworkExplorer;
+export default NetworkExplorer

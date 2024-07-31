@@ -1,29 +1,31 @@
-"use client";
+"use client"
 
-import React from "react";
-import dynamic from "next/dynamic";
-import Loader from "../common/loader";
-import { useQuery } from "react-query";
-import { csv2json } from "@/lib/utils/csvToArray";
+import dynamic from "next/dynamic"
+import React from "react"
+import { useQuery } from "react-query"
 
-const StorageChart = dynamic(() => import("../common/storage"), { ssr: false });
+import { csv2json } from "@/lib/utils/csvToArray"
 
-const DonutChart = dynamic(() => import("../common/donut"), { ssr: false });
+import Loader from "../common/loader"
+
+const StorageChart = dynamic(() => import("../common/storage"), { ssr: false })
+
+const DonutChart = dynamic(() => import("../common/donut"), { ssr: false })
 
 type storageOverview = {
   data: {
-    datetime_utc: string;
-    max_storage_slots: string;
-    storage_slots_used: string;
-  }[];
-  isLoading: boolean;
-};
+    datetime_utc: string
+    max_storage_slots: string
+    storage_slots_used: string
+  }[]
+  isLoading: boolean
+}
 const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
-  const { converted_data: data, isLoading } = StorageOverView;
+  const { converted_data: data, isLoading } = StorageOverView
 
   const handleSlotsAndConvertToGb = (slots: string) => {
-    return ((Number(slots) * 50) / 1024).toFixed(0);
-  };
+    return ((Number(slots) * 50) / 1024).toFixed(0)
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -56,13 +58,13 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
                 return [
                   new Date(item.datetime_utc).getTime(),
                   Number(item.storage_slots_used),
-                ];
+                ]
               })}
               capacity={data.map((item: any) => {
                 return [
                   new Date(item.datetime_utc).getTime(),
                   Number(item.max_storage_slots),
-                ];
+                ]
               })}
             />
           )}
@@ -118,7 +120,7 @@ const Overview = ({ StorageOverView }: { StorageOverView: any }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Overview;
+export default Overview

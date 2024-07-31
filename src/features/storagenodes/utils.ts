@@ -1,5 +1,6 @@
-import { clientEnvVars } from "@/config/client";
-import { Network } from "@verida/types";
+import { Network } from "@verida/types"
+
+import { clientEnvVars } from "@/config/client"
 
 /**
  * Build the URL of the storage nodes registry file, based on the network.
@@ -8,11 +9,11 @@ import { Network } from "@verida/types";
  * @returns the URL of the storage nodes registry file.
  */
 export function getNodeRegistryUrl(network: Network) {
-  return `https://assets.verida.io/registry/storageNodes/${network}.json`;
+  return `https://assets.verida.io/registry/storageNodes/${network}.json`
 }
 
 export function getNodeMetricsFileUrl(network: Network) {
-  const resolvedNetwork = network === Network.MYRTLE ? "mainnet" : "testnet";
+  const resolvedNetwork = network === Network.MYRTLE ? "mainnet" : "testnet"
 
-  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/nodes/${resolvedNetwork}-nodes-summary.json`;
+  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/nodes/${resolvedNetwork}-nodes-summary.json`
 }

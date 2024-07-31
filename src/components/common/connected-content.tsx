@@ -1,9 +1,11 @@
-import React from "react";
-import CopyIcon from "@/assets/icons/copy.svg";
-import VeridaIcon from "@/assets/svg/verida.svg";
-import { LuLogOut } from "react-icons/lu";
-import { Button } from "../ui/button";
-import MetamaskIcon from "@/assets/svg/metamask.svg";
+import React from "react"
+import { LuLogOut } from "react-icons/lu"
+
+import CopyIcon from "@/assets/icons/copy.svg"
+import MetamaskIcon from "@/assets/svg/metamask.svg"
+import VeridaIcon from "@/assets/svg/verida.svg"
+
+import { Button } from "../ui/button"
 
 const ConnectedContent = () => {
   return (
@@ -53,7 +55,7 @@ const ConnectedContent = () => {
         <LuLogOut />
       </Button>
     </>
-  );
-};
+  )
+}
 
-export default ConnectedContent;
+export default ConnectedContent

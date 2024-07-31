@@ -1,23 +1,25 @@
-"use client";
+"use client"
 
-import { cn } from "@/lib/utils/utils";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { userAtom, showSearchBarAtom } from "@/lib/atom";
-import { useCallback, useState } from "react";
+import { X } from "lucide-react"
+import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import { useCallback, useState } from "react"
+import { LuSearch } from "react-icons/lu"
+import { useRecoilState, useRecoilValue } from "recoil"
+
+import MenuIcon from "@/assets/svg/menu-icon.svg"
+import { showSearchBarAtom, userAtom } from "@/lib/atom"
+import { cn } from "@/lib/utils/utils"
+
+import { Button } from "../ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { X } from "lucide-react";
-import { Input } from "../ui/input";
-import { LuSearch } from "react-icons/lu";
-import { Separator } from "../ui/separator";
-import { Button } from "../ui/button";
-import Image from "next/image";
-import MenuIcon from "@/assets/svg/menu-icon.svg";
+} from "../ui/dropdown-menu"
+import { Input } from "../ui/input"
+import { Separator } from "../ui/separator"
 
 const navigationItems = [
   { name: "Identities", paths: ["/", "/search"] },
@@ -25,23 +27,23 @@ const navigationItems = [
     name: "Nodes",
     paths: ["/nodes", "/nodes/details"],
   },
-];
+]
 
-export type HeaderProps = Omit<React.ComponentProps<"header">, "children">;
+export type HeaderProps = Omit<React.ComponentProps<"header">, "children">
 
 export const Header: React.FC<HeaderProps> = (props) => {
-  const { className, ...headerProps } = props;
+  const { className, ...headerProps } = props
 
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   const [showSearchField, setShowSearchField] =
-    useRecoilState(showSearchBarAtom);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [search, setSearch] = useState("");
+    useRecoilState(showSearchBarAtom)
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
+  const [search, setSearch] = useState("")
 
   const handleClickNavigationLink = useCallback(() => {
-    setIsDropdownOpen(false);
-  }, []);
+    setIsDropdownOpen(false)
+  }, [])
 
   return showSearchField ? (
     // TODO: Move it somewhere else but it doesn't belong here
@@ -49,8 +51,8 @@ export const Header: React.FC<HeaderProps> = (props) => {
       className="fixed top-0 z-50 h-screen w-screen bg-[#060520]"
       onClick={() => {
         setTimeout(() => {
-          setShowSearchField(false);
-        }, 100);
+          setShowSearchField(false)
+        }, 100)
       }}
     >
       <div className="flex items-center justify-between gap-3 border-b border-border-10 p-4">
@@ -65,7 +67,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
             placeholder="Search"
             value={search}
             onChange={(e) => {
-              setSearch(e.target.value);
+              setSearch(e.target.value)
             }}
             autoFocus
           />
@@ -74,7 +76,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
           variant="ghost"
           className="p-0 text-[14px] font-bold leading-[20px] text-foreground"
           onClick={() => {
-            setSearch("");
+            setSearch("")
           }}
         >
           Clear
@@ -96,7 +98,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
             {isDropdownOpen ? (
               <button
                 onClick={() => {
-                  setIsDropdownOpen(false);
+                  setIsDropdownOpen(false)
                 }}
               >
                 <X className="aspect-square w-7" />
@@ -156,5 +158,5 @@ export const Header: React.FC<HeaderProps> = (props) => {
         </div>
       </div>
     </header>
-  );
-};
+  )
+}

@@ -1,8 +1,8 @@
 // import { columns } from "@/components/nodes/nodelist/column";
 // import { DataTable } from "@/components/nodes/nodelist/data-table";
 // import { nodes } from "@/lib/sample";
-import React from "react";
-import { IoAlertCircleOutline } from "react-icons/io5";
+import React from "react"
+import { IoAlertCircleOutline } from "react-icons/io5"
 
 const MyNodeHub = () => {
   const data = [
@@ -20,7 +20,7 @@ const MyNodeHub = () => {
       label: "Annual Percentage Yield",
       value: "34.48%",
     },
-  ];
+  ]
 
   return (
     <div className="mt-10 flex flex-col gap-8">
@@ -51,7 +51,7 @@ const MyNodeHub = () => {
       </div>
       {/* <DataTable data={nodes} columns={columns} showReigsterNodeButton /> */}
     </div>
-  );
-};
+  )
+}
 
-export default MyNodeHub;
+export default MyNodeHub
