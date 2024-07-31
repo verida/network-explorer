@@ -189,7 +189,7 @@ const DataTable = <TData, TValue>({
                   <MdTune color="white" size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="rounded-3 border-border-30 border bg-[#333153]">
+              <DrawerContent className="rounded-3 border border-border-30 bg-[#333153]">
                 <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-foreground">
                   <div>Filters</div>
                   <X
@@ -239,7 +239,7 @@ const DataTable = <TData, TValue>({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="rounded-3 border-border-30 w-screen border bg-[#333153] sm:w-[356px]"
+                className="rounded-3 w-screen border border-border-30 bg-[#333153] sm:w-[356px]"
                 align="end"
               >
                 <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-foreground">
@@ -293,7 +293,7 @@ const DataTable = <TData, TValue>({
                       <TableHead
                         key={header.id}
                         className={cn(
-                          "border-border-10 border-r md:border-none",
+                          "border-r border-border-10 md:border-none",
                           header.index === headerGroup.headers.length - 1 &&
                             "border-none"
                         )}
@@ -310,7 +310,7 @@ const DataTable = <TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            {data && (
+            {!isLoading && data && (
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
@@ -322,7 +322,7 @@ const DataTable = <TData, TValue>({
                         <TableCell
                           key={cell.id}
                           className={cn(
-                            "border-border-10 border-r md:border-none",
+                            "border-r border-border-10 md:border-none",
                             index === row.getVisibleCells().length - 1 &&
                               "border-none"
                           )}

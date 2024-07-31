@@ -94,7 +94,7 @@ const NetworkExplorer = () => {
                     src={profile.avatarUri}
                     className="aspect-square w-[50px] rounded object-cover"
                     // TODO: Fix the sizing when reworking the whole search component
-                    alt={profile.name}
+                    alt="Avatar"
                   />
                 ) : (
                   <Avatar
