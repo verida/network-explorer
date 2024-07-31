@@ -179,19 +179,6 @@ export const getExternalDatastore = async (
 };
 
 /**
- * Get the DIDs of a user.
- *
- * @param environment The environment.
- * @param page The page number.
- * @param limit The limit of DIDs per page.
- * @returns The DIDs.
- */
-export const paginateDids = async (page: number, limit: number) => {
-  // TODO: Get blockchain anchor dynamically from config
-  return await getDIDs(BlockchainAnchor.POLPOS, page, limit);
-};
-
-/**
  * Get the DID document of a DID.
  *
  * @param did The DID.

@@ -8,10 +8,11 @@ import { useQuery } from "react-query";
 import { getAnyPublicProfile, getDidDocument } from "@/lib/utils/veridaUtils";
 import { useToast } from "../ui/use-toast";
 import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
-import { BlockchainAnchor } from "@verida/types";
 import { Identity } from "@/types";
 import { Logger } from "@/features/logger";
 import { client as veridaClient } from "@/features/verida";
+import { getDidRegistryBlockchainForNetwork } from "@/features/identities/utils";
+import { clientEnvVars } from "@/config/client";
 
 const logger = Logger.create("<IdentitiesTable>");
 
@@ -26,8 +27,10 @@ export function IdentitiesTable() {
 
   useEffect(() => {
     const getDIDCount = async () => {
-      // TODO: Get blockchain anchor dynamically from config
-      const res = await activeDIDCount(BlockchainAnchor.POLPOS);
+      const didRegistryBlockchain = getDidRegistryBlockchainForNetwork(
+        clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
+      );
+      const res = await activeDIDCount(didRegistryBlockchain);
 
       if (res) setCount(res);
     };
@@ -38,9 +41,12 @@ export function IdentitiesTable() {
   const { data, isLoading, isError } = useQuery(
     ["identities", page, limit],
     async () => {
+      const didRegistryBlockchain = getDidRegistryBlockchainForNetwork(
+        clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
+      );
+
       let dids = await getDIDs(
-        // TODO: Get blockchain anchor dynamically from config
-        BlockchainAnchor.POLPOS,
+        didRegistryBlockchain,
         (page - 1) * limit,
         limit,
         true
