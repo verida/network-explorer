@@ -25,6 +25,8 @@ import { Checkbox } from "../ui/checkbox";
 import { useQuery } from "react-query";
 import { useToast } from "../ui/use-toast";
 import Loader from "../common/loader";
+import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils";
+import { clientEnvVars } from "@/config/client";
 
 export type Region =
   | "All"
@@ -76,9 +78,11 @@ const NodesList = () => {
   const { data, isLoading, isError } = useQuery(
     "nodes",
     async () => {
-      const response = await fetch(
-        "https://assets.verida.io/metrics/nodes/mainnet-nodes-summary.json"
+      const url = getNodeMetricsFileUrl(
+        clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
       );
+
+      const response = await fetch(url);
       return await response.json();
     },
     {

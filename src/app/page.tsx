@@ -4,13 +4,17 @@ import { IdentitiesStatsSection } from "@/components/accounts/IdentitiesStatsSec
 import { IdentitiesTable } from "@/components/accounts/IdentitiesTable";
 import { csv2json } from "@/lib/utils/csvToArray";
 import { Separator } from "@/components/ui/separator";
+import { getIdentitiesStatsFileUrl } from "@/features/identities/utils";
+import { serverEnvVars } from "@/config/server";
 
 const getIdentitiesStats = async () => {
   let isloading = true;
-  const response = await fetch(
-    "https://assets.verida.io/metrics/network/mainnet/stats.csv",
-    { cache: "no-store" }
+
+  const url = getIdentitiesStatsFileUrl(
+    serverEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
   );
+
+  const response = await fetch(url, { cache: "no-store" });
   if (!response.ok) {
     isloading = false;
     throw new Error("Failed to fetch data");

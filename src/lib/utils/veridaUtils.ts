@@ -11,10 +11,14 @@ import { Resolver } from "did-resolver";
 import { getResolver } from "@verida/vda-did-resolver";
 import { Identity } from "@/types";
 import { Logger } from "@/features/logger";
+import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants";
+import { clientEnvVars } from "@/config/client";
 
 const logger = Logger.create("Verida");
 
-const vdaDidResolver = getResolver();
+const vdaDidResolver = getResolver({
+  rpcUrl: clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL
+});
 const didResolver = new Resolver(vdaDidResolver);
 /**
  * Check if the param as a DID syntax, ie: starts with 'did:'.
@@ -113,7 +117,7 @@ export const getAnyPublicProfile = async (
   did: string,
 ): Promise<Identity | undefined> => {
   try {
-    const profileInstance = await client.getPublicProfile(did, "Verida: Vault");
+    const profileInstance = await client.getPublicProfile(did, VERIDA_VAULT_CONTEXT_NAME);
 
     for (const key in profileInstance) {
       if (profileInstance.hasOwnProperty(key)) {
@@ -172,19 +176,6 @@ export const getExternalDatastore = async (
     datastoreConfig,
   );
   // TODO: catch error and return a dedicated error (context not found, ...)
-};
-
-/**
- * Get the DIDs of a user.
- *
- * @param environment The environment.
- * @param page The page number.
- * @param limit The limit of DIDs per page.
- * @returns The DIDs.
- */
-export const paginateDids = async (page: number, limit: number) => {
-  // TODO: Get blockchain anchor dynamically from config
-  return await getDIDs(BlockchainAnchor.POLPOS, page, limit);
 };
 
 /**
