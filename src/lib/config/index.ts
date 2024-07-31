@@ -1,5 +1,8 @@
 import { Network } from "@verida/types";
 import { Client } from "@verida/client-ts";
+import { LogLevel } from "@/features/logger";
+
+const logLevel: LogLevel = process.env.NEXT_PUBLIC_LOG_LEVEL === 'error' ? 'error' : process.env.NEXT_PUBLIC_LOG_LEVEL === 'warn' ? 'warn' : process.env.NEXT_PUBLIC_LOG_LEVEL === 'debug' ? 'debug' : 'info';
 
 // data source for summary of nodes
 const nodeSummaryUrl = process.env.NEXT_PUBLIC_NODE_SUMMARY_URL;
@@ -35,6 +38,9 @@ const baseUrl =
   "https://develop.d1lkxmbu5ufoio.amplifyapp.com/";
 
 export const config = {
+  log: {
+    level: logLevel,
+  },
   veridaEnv,
   walletProviderApiBaseUrl,
   features,
