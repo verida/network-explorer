@@ -131,7 +131,7 @@ const NodesList = () => {
         setPage={setPage}
         setLimit={setLimit}
         totalCount={nodes?.length ?? 0}
-        // showStatusFilters
+        hideSearch
         onApplyFilters={(filter) => {
           setFilter(filter);
         }}

@@ -109,7 +109,8 @@ export function IdentitiesTable() {
         totalCount={count}
         onApplyFilters={() => {}}
         isLoading={isLoading}
-        showSearch={false}
+        hideSearch
+        hideFilters
       />
     </div>
   );
