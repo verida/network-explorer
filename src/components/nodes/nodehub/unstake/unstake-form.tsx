@@ -9,11 +9,11 @@ const UnStakeForm = ({
 }) => {
   return (
     <div className="flex flex-col gap-8">
-      <div className="text-[14px] font-normal leading-[20px] text-white/60">
+      <div className="text-[14px] font-normal leading-[20px] text-muted-foreground">
         You have the following amount of VDA that can be unstaked.
       </div>
-      <div className="result-box flex flex-col items-center gap-4 rounded-lg border border-white/20 px-6 pb-8 pt-6">
-        <div className="text-[16px] font-bold leading-[20px] text-white/60">
+      <div className="result-box flex flex-col items-center gap-4 rounded-lg border border-border px-6 pb-8 pt-6">
+        <div className="text-[16px] font-bold leading-[20px] text-muted-foreground">
           AMOUNT
         </div>
         <div className="flex flex-col items-center gap-2">
@@ -34,7 +34,7 @@ const UnStakeForm = ({
       >
         Submit Transaction
       </Button>
-      <div className="flex flex-col gap-4 text-[11px] font-semibold leading-[16px] text-white">
+      <div className="flex flex-col gap-4 text-[11px] font-semibold leading-[16px] text-foreground">
         <div className="flex justify-between">
           <div>Available Balance</div>
           <div>10695.861 VDA</div>

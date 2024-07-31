@@ -3,6 +3,7 @@ import NetworkExplorer from "@/components/accounts/NetworkExplorer";
 import TotalAccounts from "@/components/accounts/TotalAccounts";
 import Accounts from "@/components/accounts/Accounts";
 import { csv2json } from "@/lib/utils/csvToArray";
+import { Separator } from "@/components/ui/separator";
 
 const getAccounts = async () => {
   let isloading = true;
@@ -52,8 +53,9 @@ const getAccounts = async () => {
 const Home = async () => {
   const AccountData = await getAccounts();
   return (
-    <div>
+    <div className="flex flex-col gap-16">
       <NetworkExplorer />
+      <Separator className="hidden bg-foreground/20 md:block" />
       <TotalAccounts data={AccountData} />
       <Accounts />
     </div>

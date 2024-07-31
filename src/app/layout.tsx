@@ -2,35 +2,40 @@ import type { Metadata } from "next";
 import { Sora } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/common/providers";
-import Navbar from "@/components/common/navbar";
-import Footer from "@/components/common/footer";
+import { Header } from "@/components/common/header";
+import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
-import Head from "next/head";
+import { cn } from "@/lib/utils/utils";
+import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/lib/constants";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
+// Server component so can't get the window location. Adding a hardcoded
+// fallback is not the best for dev and preview environments but we secure the
+// production one in case we forget the base URL env var.
+const baseUrl =
+  process.env.NEXT_PUBLIC_BASE_URL || "https://explorer.verida.network";
+
 export const metadata: Metadata = {
-  title: {
-    default: "Verida Network Explorer",
-    template: "%s | Verida Network Explorer",
+  title: APP_TITLE,
+  description: APP_DESCRIPTION,
+  applicationName: APP_NAME,
+  metadataBase: new URL(baseUrl),
+  alternates: {
+    canonical: "/",
   },
-  description: "Verida - Enhancing the way you interact with the blockchain.",
-  applicationName: "Verida",
-  keywords: ["Verida"],
-  metadataBase: new URL("https://verida-explorer.vercel.app"),
   openGraph: {
-    url: "https://verida-explorer.vercel.app",
-    title: "Verida",
-    description: "Verida - Enhancing the way you interact with the blockchain.",
-    images: [
-      {
-        url: "https://verida-explorer.vercel.app/logo.svg",
-        width: 1200,
-        height: 630,
-        alt: "Verida",
-      },
-    ],
-    siteName: "Verida Network Explorer",
+    url: baseUrl,
+    title: APP_TITLE,
+    description: APP_DESCRIPTION,
+    images: {
+      url: `${baseUrl}/logo.svg`, // TODO: Update to the actual open graph image
+      width: 1200,
+      height: 630,
+      alt: APP_NAME,
+    },
+    siteName: APP_NAME,
+    type: "website",
   },
 };
 
@@ -41,19 +46,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <body className={sora.className}>
+      <body
+        className={cn(
+          "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
+          sora.variable
+        )}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
-          <Navbar />
-          <div className="mx-auto min-h-screen max-w-[1300px] overflow-x-hidden px-4 py-4 md:px-8 lg:px-[92px]">
-            {children}
+          <Header />
+          <div className="flex flex-1 flex-row justify-center">
+            <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
+              {children}
+            </main>
           </div>
           <Footer />
           <Toaster />

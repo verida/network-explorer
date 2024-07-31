@@ -93,7 +93,7 @@ const NodesPage = async () => {
   const data = await getStorageOverView();
   const distribution = await getDistributions();
   return (
-    <div className="py-6">
+    <div className="flex flex-col gap-16">
       {/* <Overview StorageOverView={data} /> */}
       <Distribution
         summary={distribution.summary}

@@ -55,6 +55,7 @@ import {
 } from "@/components/ui/drawer";
 import { Separator } from "@/components/ui/separator";
 import Loader from "./loader";
+import { screenSizes } from "@/lib/constants";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -65,7 +66,7 @@ interface DataTableProps<TData, TValue> {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setLimit: React.Dispatch<React.SetStateAction<number>>;
   totalCount: number;
-  onApplyFilters?: (filter?: Filter) => void;
+  onApplyFilters: (filter?: Filter) => void;
   showStatusFilters?: boolean;
   showFilters?: boolean;
   showSearch?: boolean;
@@ -127,7 +128,7 @@ const DataTable = <TData, TValue>({
 
   const [showSearchField, setShowSearchField] = useState(false);
   const pageLimits = [10, 20, 30];
-  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" });
+  const isSmScreen = useMediaQuery({ query: `(max-width: ${screenSizes.sm})` });
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const setShowSearch = useSetRecoilState(showSearchBarAtom);
@@ -140,8 +141,6 @@ const DataTable = <TData, TValue>({
   }, [isSmScreen, setShowSearch]);
 
   const [filter, setFilter] = useState<Filter>();
-
-  console.log(filter);
 
   return (
     <>
@@ -167,7 +166,7 @@ const DataTable = <TData, TValue>({
                 <>
                   <Input
                     type="text"
-                    className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-white hover:bg-transparent focus-visible:ring-0"
+                    className="-mr-6 w-[90%] rounded-none border-none bg-transparent pl-0 text-foreground hover:bg-transparent focus-visible:ring-0"
                     onChange={(event) =>
                       table.getColumn("did")?.setFilterValue(event.target.value)
                     }
@@ -190,8 +189,8 @@ const DataTable = <TData, TValue>({
                   <MdTune color="white" size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="rounded-3 border border-white/30 bg-[#333153]">
-                <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-white">
+              <DrawerContent className="rounded-3 border border-border-30 bg-[#333153]">
+                <div className="flex justify-between py-2 pl-3 text-[14px] font-semibold leading-[20px] text-foreground">
                   <div>Filters</div>
                   <X
                     className="mr-2 block h-5 w-5 cursor-pointer sm:hidden"
@@ -214,7 +213,7 @@ const DataTable = <TData, TValue>({
                           filter !== undefined
                         ) {
                           table
-                            .getColumn("country")
+                            .getColumn("region")
                             ?.setFilterValue(filter?.regions[0]);
                         }
                       }}
@@ -240,10 +239,10 @@ const DataTable = <TData, TValue>({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="rounded-3 w-screen border border-white/30 bg-[#333153] sm:w-[356px]"
+                className="rounded-3 w-screen border border-border-30 bg-[#333153] sm:w-[356px]"
                 align="end"
               >
-                <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-white">
+                <DropdownMenuLabel className="flex justify-between text-[14px] font-semibold leading-[20px] text-foreground">
                   <div>Filters</div>
                   <X
                     className="block h-5 w-5 cursor-pointer sm:hidden"
@@ -263,13 +262,14 @@ const DataTable = <TData, TValue>({
                       if (filter !== undefined) {
                         if (filter.regions[0] !== "All") {
                           table
-                            .getColumn("country")
+                            .getColumn("region")
                             ?.setFilterValue(filter?.regions[0]);
                         } else {
-                          table.getColumn("country")?.setFilterValue("");
+                          table.getColumn("region")?.setFilterValue("");
                         }
                       }
                       setDropdownOpen(false);
+                      onApplyFilters(filter);
                     }}
                     className="h-8 w-auto rounded-sm px-3"
                   >
@@ -283,7 +283,7 @@ const DataTable = <TData, TValue>({
         {additionalTitles}
       </div>
       <div className="min-h-[18rem]">
-        <div className={`overflow-hidden rounded-lg border border-white/20`}>
+        <div className={`overflow-hidden rounded-lg border border-border`}>
           <Table className="min-w-[68rem]">
             <TableHeader className="bg-[#FFFFFF0A]">
               {table.getHeaderGroups().map((headerGroup) => (
@@ -293,7 +293,7 @@ const DataTable = <TData, TValue>({
                       <TableHead
                         key={header.id}
                         className={cn(
-                          "border-r border-white/10 md:border-none",
+                          "border-r border-border-10 md:border-none",
                           header.index === headerGroup.headers.length - 1 &&
                             "border-none"
                         )}
@@ -310,7 +310,7 @@ const DataTable = <TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            {data && (
+            {!isLoading && data && (
               <TableBody>
                 {table.getRowModel().rows?.length ? (
                   table.getRowModel().rows.map((row) => (
@@ -322,7 +322,7 @@ const DataTable = <TData, TValue>({
                         <TableCell
                           key={cell.id}
                           className={cn(
-                            "border-r border-white/10 md:border-none",
+                            "border-r border-border-10 md:border-none",
                             index === row.getVisibleCells().length - 1 &&
                               "border-none"
                           )}
@@ -353,7 +353,7 @@ const DataTable = <TData, TValue>({
       </div>
       <div className="flex w-full justify-between">
         <div className="flex items-center gap-4">
-          <div>Show rows</div>
+          <div>{isSmScreen ? "Rows" : "Show rows"}</div>
           <Select
             onValueChange={(value) => setLimit(parseInt(value as string))}
           >
@@ -370,7 +370,7 @@ const DataTable = <TData, TValue>({
           </Select>
         </div>
         <div className="flex items-center gap-2">
-          <div className="text-[14px] font-normal leading-[20px] text-white/60">
+          <div className="text-[14px] font-normal leading-[20px] text-muted-foreground">
             Page
           </div>
           <div className="flex items-center gap-3">
@@ -384,8 +384,8 @@ const DataTable = <TData, TValue>({
               }}
             />
             <div className="flex rounded bg-white/15 px-3 py-2.5 text-[14px] font-normal leading-[20px]">
-              <div className="text-white">{page}</div>
-              <div className="text-white/60">
+              <div className="text-foreground">{page}</div>
+              <div className="text-muted-foreground">
                 /{Math.ceil(totalCount / limit)}
               </div>
             </div>
@@ -423,11 +423,12 @@ const DisplayFilters = ({
     "Asia",
     "Africa",
   ];
+
   return (
     <>
       <Separator className="h-[1px] bg-[#FFFFFF26]" />
       <div className="pb-3 pl-2 pt-2">
-        <div className="py-2 text-[14px] font-normal leading-[20px] text-white/60">
+        <div className="py-2 text-[14px] font-normal leading-[20px] text-muted-foreground">
           Region
         </div>
         <div className="mt-1 flex flex-col gap-2">
@@ -435,7 +436,7 @@ const DisplayFilters = ({
             return (
               <div
                 key={region}
-                className="flex items-center gap-3 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-white"
+                className="flex items-center gap-3 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-foreground"
               >
                 <Checkbox
                   id={region.toLowerCase()}
@@ -469,14 +470,14 @@ const DisplayFilters = ({
       </div>
       {showStatus && (
         <div className="pb-1 pl-4">
-          <div className="py-1.5 text-[14px] font-normal leading-[20px] text-white/60">
+          <div className="py-1.5 text-[14px] font-normal leading-[20px] text-muted-foreground">
             Status
           </div>
           {statuses.map((status) => {
             return (
               <div
                 key={status}
-                className="flex items-center gap-3 py-1.5 text-[14px] font-normal leading-[20px] text-white"
+                className="flex items-center gap-3 py-1.5 text-[14px] font-normal leading-[20px] text-foreground"
               >
                 <Checkbox
                   id={"status-" + status.toLowerCase()}

@@ -1,21 +1,15 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // import { accounts } from "@/lib/sample";
 import { columns } from "./account/column";
 import DataTable from "../common/table";
 import { useQuery } from "react-query";
-import {
-  getAnyPublicProfile,
-  getDidDocument,
-  paginateDids,
-} from "@/lib/utils/veridaUtils";
+import { getAnyPublicProfile, getDidDocument } from "@/lib/utils/veridaUtils";
 import { useToast } from "../ui/use-toast";
 import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
 import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
-import Loader from "../common/loader";
-import { ColumnDef } from "@tanstack/react-table";
 import { Account } from "@/types/account";
 
 const Accounts = () => {
@@ -39,13 +33,16 @@ const Accounts = () => {
   const { data, isLoading, isError } = useQuery(
     ["accounts", page, limit],
     async () => {
-      const dids = await getDIDs(
+      let dids = await getDIDs(
         // TODO: Get blockchain anchor dynamically from config
         BlockchainAnchor.POLPOS,
         (page - 1) * limit,
         limit,
         true
       );
+
+      // revert orders for `createdAt` desc
+      dids.reverse();
 
       const profiles = await Promise.all(
         dids.map(async (did: string) => {
@@ -55,6 +52,7 @@ const Accounts = () => {
 
             return {
               ...profile,
+              did: did,
               createdAt: didDocument?.created,
             };
           } catch (error) {
@@ -64,10 +62,7 @@ const Accounts = () => {
         })
       );
 
-      return profiles.filter(
-        (profile) =>
-          profile?.did !== undefined || profile?.country !== undefined
-      );
+      return profiles.filter((profile) => !!profile);
     },
     {
       refetchOnWindowFocus: false,
@@ -90,21 +85,22 @@ const Accounts = () => {
     }
   );
 
-  const validData = data?.filter(
-    (profile) => profile?.did !== undefined || profile?.country !== undefined
-  );
+  const fallbackData: Account[] = [];
+
+  const validData = useMemo(() => data ?? fallbackData, [data]);
 
   return (
-    <div className="flex flex-col gap-6 sm:mb-12">
+    <div className="flex flex-col gap-6">
       <DataTable
-        columns={columns as ColumnDef<Account | null | undefined, unknown>[]}
-        data={validData as (Account | null | undefined)[]}
+        columns={columns}
+        data={validData}
         page={page}
         limit={limit}
         setLimit={setLimit}
         setPage={setPage}
         title="accounts"
         totalCount={count}
+        onApplyFilters={() => {}}
         isLoading={isLoading}
         showSearch={false}
       />
