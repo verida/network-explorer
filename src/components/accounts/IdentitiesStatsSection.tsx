@@ -1,51 +1,22 @@
 "use client";
 
 import React from "react";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import dynamic from "next/dynamic";
 import Loader from "../common/loader";
-import { useQuery } from "react-query";
-import axios from "axios";
-import { useToast } from "../ui/use-toast";
 import { useState } from "react";
-import { csv2json } from "@/lib/utils/csvToArray";
 
 const BarChart = dynamic(() => import("./BarChart"), { ssr: false });
 
-const TotalAccounts = ({ data }: { data: any }) => {
+export type IdentitiesStatsSectionProps = {
+  data: any; // TODO: Define type
+};
+
+export function IdentitiesStatsSection(props: IdentitiesStatsSectionProps) {
+  const { data } = props;
   const { AccountData, isLoading } = data;
-  const { toast } = useToast();
 
   const [selectedTab, setSelectedTab] = useState("monthly");
-
-  // const { data, isLoading, isError, error } = useQuery(
-  //   "totalAccounts",
-  //   async () => {
-  //     const response = await axios.get(
-  //       "https://assets.verida.io/metrics/network/mainnet/stats.csv"
-  //     );
-
-  //     let data: {
-  //       datetime_utc: string;
-  //       activedids: string;
-  //     }[] = csv2json(response.data);
-  //     return data.map((item) => [
-  //       new Date(item.datetime_utc).getTime(),
-  //       Number(item.activedids),
-  //     ]);
-  //   },
-  //   {
-  //     refetchOnWindowFocus: false,
-  //     refetchOnMount: false,
-  //     onError: (error) => {
-  //       console.log(error);
-  //       toast({
-  //         variant: "destructive",
-  //         description: "Failed to fetch data",
-  //       });
-  //     },
-  //   }
-  // );
 
   return (
     <Tabs
@@ -84,6 +55,4 @@ const TotalAccounts = ({ data }: { data: any }) => {
       {data && <BarChart data={AccountData} tab={selectedTab} />}
     </Tabs>
   );
-};
-
-export default TotalAccounts;
+}

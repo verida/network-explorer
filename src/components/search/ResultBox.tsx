@@ -11,9 +11,9 @@ import { useQuery } from "react-query";
 import QRCode from "react-qr-code";
 import Loader from "../common/loader";
 import Image from "next/image";
-import { Account } from "@/types/account";
+import { Identity } from "@/types";
 
-const ResultBox = ({ profile }: { profile: Account }) => {
+const ResultBox = ({ profile }: { profile: Identity }) => {
   const { toast } = useToast();
   const [showResultJson, setShowResultJson] = useState(false);
 
@@ -22,7 +22,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
     isLoading,
     isError,
   } = useQuery(
-    ["didDocument", profile],
+    ["didDocument", profile.did],
     async () => {
       return await getDidDocument(profile.did);
     },

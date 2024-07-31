@@ -1,11 +1,11 @@
 import React from "react";
 import NetworkExplorer from "@/components/accounts/NetworkExplorer";
-import TotalAccounts from "@/components/accounts/TotalAccounts";
-import Accounts from "@/components/accounts/Accounts";
+import { IdentitiesStatsSection } from "@/components/accounts/IdentitiesStatsSection";
+import { IdentitiesTable } from "@/components/accounts/IdentitiesTable";
 import { csv2json } from "@/lib/utils/csvToArray";
 import { Separator } from "@/components/ui/separator";
 
-const getAccounts = async () => {
+const getIdentitiesStats = async () => {
   let isloading = true;
   const response = await fetch(
     "https://assets.verida.io/metrics/network/mainnet/stats.csv",
@@ -31,35 +31,15 @@ const getAccounts = async () => {
   };
 };
 
-// const getProfiles = async (pageNum:number,limitNum:number)=>{
-//   const dids = await getDIDs(BlockchainAnchor.POLPOS, pageNum, limitNum);
+export default async function HomePage() {
+  const identitiesStatsData = await getIdentitiesStats();
 
-//       const profiles = await Promise.all(
-//         dids.map(async (did: string) => {
-//           try {
-//             return await getAnyPublicProfile(config.client, did);
-//           } catch (error) {
-//             console.error(`Failed to get profile for DID: ${did}`, error);
-//             return null; // or handle the error as needed
-//           }
-//         })
-//       );
-
-//       return profiles.filter(
-//         (profile) => profile !== null || profiles !== undefined
-//       );
-// }
-
-const Home = async () => {
-  const AccountData = await getAccounts();
   return (
     <div className="flex flex-col gap-16">
       <NetworkExplorer />
-      <Separator className="hidden bg-foreground/20 md:block" />
-      <TotalAccounts data={AccountData} />
-      <Accounts />
+      <Separator className="hidden md:block" />
+      <IdentitiesStatsSection data={identitiesStatsData} />
+      <IdentitiesTable />
     </div>
   );
-};
-
-export default Home;
+}

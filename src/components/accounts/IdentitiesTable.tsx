@@ -10,11 +10,11 @@ import { useToast } from "../ui/use-toast";
 import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
 import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
-import { Account } from "@/types/account";
+import { Identity } from "@/types";
 
-const fallbackData: Account[] = [];
+const fallbackData: Identity[] = [];
 
-const Accounts = () => {
+export function IdentitiesTable() {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [count, setCount] = useState(0);
@@ -33,7 +33,7 @@ const Accounts = () => {
   }, []);
 
   const { data, isLoading, isError } = useQuery(
-    ["accounts", page, limit],
+    ["identities", page, limit],
     async () => {
       let dids = await getDIDs(
         // TODO: Get blockchain anchor dynamically from config
@@ -106,6 +106,4 @@ const Accounts = () => {
       />
     </div>
   );
-};
-
-export default Accounts;
+}

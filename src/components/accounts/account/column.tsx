@@ -4,14 +4,14 @@ import { ColumnDef } from "@tanstack/react-table";
 import CopyIcon from "@/assets/icons/copy.svg";
 import { useToast } from "@/components/ui/use-toast";
 import dayjs from "dayjs";
-import { Account } from "@/types/account";
+import { Identity } from "@/types";
 import Avatar from "@/assets/svg/avatar.svg";
 
 import { extractAndShortenAddress } from "@/lib/utils/utils";
 import Image from "next/image";
 import Link from "next/link";
 
-export const columns: ColumnDef<Account>[] = [
+export const columns: ColumnDef<Identity>[] = [
   {
     accessorKey: "user",
     header: "Name",

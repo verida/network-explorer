@@ -9,7 +9,7 @@ import { ResolvedIdentity } from "@/lib/types/verida";
 import { getDIDs } from "@verida/vda-did-resolver";
 import { Resolver } from "did-resolver";
 import { getResolver } from "@verida/vda-did-resolver";
-import { Account } from "@/types/account";
+import { Identity } from "@/types";
 
 const vdaDidResolver = getResolver();
 const didResolver = new Resolver(vdaDidResolver);
@@ -108,7 +108,7 @@ export const resolveIdentity = async (
 export const getAnyPublicProfile = async (
   client: Client,
   did: string,
-): Promise<Account | undefined> => {
+): Promise<Identity | undefined> => {
   try {
     const profileInstance = await client.getPublicProfile(did, "Verida: Vault");
 
