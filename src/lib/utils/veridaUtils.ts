@@ -10,6 +10,9 @@ import { getDIDs } from "@verida/vda-did-resolver";
 import { Resolver } from "did-resolver";
 import { getResolver } from "@verida/vda-did-resolver";
 import { Identity } from "@/types";
+import { Logger } from "@/features/logger";
+
+const logger = Logger.create("Verida");
 
 const vdaDidResolver = getResolver();
 const didResolver = new Resolver(vdaDidResolver);
@@ -114,7 +117,7 @@ export const getAnyPublicProfile = async (
 
     for (const key in profileInstance) {
       if (profileInstance.hasOwnProperty(key)) {
-        console.log(`${key}: ${profileInstance[key]}`);
+        logger.debug(`${key}: ${profileInstance[key]}`);
       }
     }
 

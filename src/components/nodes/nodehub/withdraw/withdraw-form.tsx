@@ -20,6 +20,9 @@ import {
 import { DialogTitle } from "@/components/ui/dialog";
 import { Tab } from "@/components/common/table";
 import { Button } from "@/components/ui/button";
+import { Logger } from "@/features/logger";
+
+const logger = Logger.create("<WithdrawForm>");
 
 const fallbacks = ["1234567890", "1234567891"];
 
@@ -37,7 +40,7 @@ const WithdrawForm = ({
   });
 
   const onSubmit = (values: z.infer<typeof withdrawFormSchema>) => {
-    console.log(values);
+    logger.debug("Submitted values", values);
     setTab("success");
     setTimeout(() => {
       setTab("error");
