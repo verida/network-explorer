@@ -12,10 +12,13 @@ import { getResolver } from "@verida/vda-did-resolver";
 import { Identity } from "@/types";
 import { Logger } from "@/features/logger";
 import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants";
+import { clientEnvVars } from "@/config/client";
 
 const logger = Logger.create("Verida");
 
-const vdaDidResolver = getResolver();
+const vdaDidResolver = getResolver({
+  rpcUrl: clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL
+});
 const didResolver = new Resolver(vdaDidResolver);
 /**
  * Check if the param as a DID syntax, ie: starts with 'did:'.
