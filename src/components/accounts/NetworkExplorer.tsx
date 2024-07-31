@@ -9,11 +9,11 @@ import Link from "next/link";
 import { useToast } from "../ui/use-toast";
 import { Oval } from "react-loader-spinner";
 import { getAnyPublicProfile } from "@/lib/utils/veridaUtils";
-import { config } from "@/lib/config";
 import { useQuery } from "react-query";
 import Image from "next/image";
 import { cn } from "@/lib/utils/utils";
 import { Button } from "@/components/ui/button";
+import { client as veridaClient } from "@/features/verida";
 
 const NetworkExplorer = () => {
   const { toast } = useToast();
@@ -23,7 +23,7 @@ const NetworkExplorer = () => {
   const { data: profile, isLoading } = useQuery(
     ["accounts", searchDidinput],
     async () => {
-      return await getAnyPublicProfile(config.client, searchDidinput);
+      return await getAnyPublicProfile(veridaClient, searchDidinput);
     },
     {
       refetchOnWindowFocus: false,

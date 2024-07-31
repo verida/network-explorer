@@ -8,10 +8,10 @@ import { useQuery } from "react-query";
 import { getAnyPublicProfile, getDidDocument } from "@/lib/utils/veridaUtils";
 import { useToast } from "../ui/use-toast";
 import { getDIDs, activeDIDCount } from "@verida/vda-did-resolver";
-import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
 import { Identity } from "@/types";
 import { Logger } from "@/features/logger";
+import { client as veridaClient } from "@/features/verida";
 
 const logger = Logger.create("<IdentitiesTable>");
 
@@ -53,7 +53,7 @@ export function IdentitiesTable() {
         dids.map(async (did: string) => {
           try {
             const didDocument = (await getDidDocument(did)) as any;
-            const profile = await getAnyPublicProfile(config.client, did);
+            const profile = await getAnyPublicProfile(veridaClient, did);
 
             return {
               ...profile,

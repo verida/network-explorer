@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { LogLevel } from "@/features/logger/types";
-import { config } from "@/lib/config";
+import { clientEnvVars } from "@/config/client";
 
 const levelOrder: LogLevel[] = ["error", "warn", "info", "debug"];
 
@@ -15,7 +15,7 @@ const levelOrder: LogLevel[] = ["error", "warn", "info", "debug"];
 export class Logger {
   private static instances = new Map<string, Logger>();
   private static currentLevelIndex: number = levelOrder.indexOf(
-    config.log.level || "info"
+    clientEnvVars.NEXT_PUBLIC_LOG_LEVEL
   );
 
   private readonly category: string;

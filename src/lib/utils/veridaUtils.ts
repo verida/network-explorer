@@ -11,6 +11,7 @@ import { Resolver } from "did-resolver";
 import { getResolver } from "@verida/vda-did-resolver";
 import { Identity } from "@/types";
 import { Logger } from "@/features/logger";
+import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants";
 
 const logger = Logger.create("Verida");
 
@@ -113,7 +114,7 @@ export const getAnyPublicProfile = async (
   did: string,
 ): Promise<Identity | undefined> => {
   try {
-    const profileInstance = await client.getPublicProfile(did, "Verida: Vault");
+    const profileInstance = await client.getPublicProfile(did, VERIDA_VAULT_CONTEXT_NAME);
 
     for (const key in profileInstance) {
       if (profileInstance.hasOwnProperty(key)) {

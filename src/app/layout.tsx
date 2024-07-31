@@ -7,14 +7,13 @@ import { Footer } from "@/components/common/footer";
 import { Toaster } from "@/components/ui/toaster";
 import { cn } from "@/lib/utils/utils";
 import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/lib/constants";
+import { serverEnvVars } from "@/config/server";
 
 const sora = Sora({ subsets: ["latin"], variable: "--font-sora" });
 
-// Server component so can't get the window location. Adding a hardcoded
-// fallback is not the best for dev and preview environments but we secure the
-// production one in case we forget the base URL env var.
-const baseUrl =
-  process.env.NEXT_PUBLIC_BASE_URL || "https://explorer.verida.network";
+// Server component so can't get the window location. Using an env var is not
+// ideal but it's the best we can do.
+const baseUrl = serverEnvVars.NEXT_PUBLIC_BASE_URL;
 
 export const metadata: Metadata = {
   title: APP_TITLE,

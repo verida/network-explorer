@@ -9,8 +9,8 @@ import { useParams } from "next/navigation";
 import { useQuery } from "react-query";
 import { useToast } from "@/components/ui/use-toast";
 import { getAnyPublicProfile } from "@/lib/utils/veridaUtils";
-import { config } from "@/lib/config";
 import Loader from "@/components/common/loader";
+import { client as veridaClient } from "@/features/verida";
 
 const SearchPage = () => {
   const [searchBoxVisible, setSearchBoxVisible] = useState(true);
@@ -22,7 +22,7 @@ const SearchPage = () => {
   const { data: profile, isLoading } = useQuery(
     ["accounts", did],
     async () => {
-      return await getAnyPublicProfile(config.client, did);
+      return await getAnyPublicProfile(veridaClient, did);
     },
     {
       refetchOnWindowFocus: false,
