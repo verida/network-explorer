@@ -12,6 +12,8 @@ import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
 import { Account } from "@/types/account";
 
+const fallbackData: Account[] = [];
+
 const Accounts = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -84,8 +86,6 @@ const Accounts = () => {
       },
     }
   );
-
-  const fallbackData: Account[] = [];
 
   const validData = useMemo(() => data ?? fallbackData, [data]);
 

@@ -60,7 +60,7 @@ const NetworkExplorer = () => {
         </div>
         <div className="flex flex-col gap-3">
           {/* TODO: Rework the search and search result */}
-          <div className="network-search border-border-60 flex flex-col items-center gap-6 rounded-lg border p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
+          <div className="network-search flex flex-col items-center gap-6 rounded-lg border border-border-60 p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
             <div className="flex w-full flex-row items-center gap-2">
               <SearchIcon />
               <input
@@ -80,7 +80,7 @@ const NetworkExplorer = () => {
           </div>
           <div
             className={cn(
-              "border-border-60 rounded-lg border bg-[#333153] px-4 py-5 transition-all duration-150",
+              "rounded-lg border border-border-60 bg-[#333153] px-4 py-5 transition-all duration-150",
               popoverOpen ? "opacity-100" : "opacity-0"
             )}
           >

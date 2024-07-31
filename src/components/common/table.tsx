@@ -310,45 +310,46 @@ const DataTable = <TData, TValue>({
                 </TableRow>
               ))}
             </TableHeader>
-            {!isLoading && data && (
-              <TableBody>
-                {table.getRowModel().rows?.length ? (
-                  table.getRowModel().rows.map((row) => (
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && "selected"}
-                    >
-                      {row.getVisibleCells().map((cell, index) => (
-                        <TableCell
-                          key={cell.id}
-                          className={cn(
-                            "border-r border-border-10 md:border-none",
-                            index === row.getVisibleCells().length - 1 &&
-                              "border-none"
-                          )}
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
-                        </TableCell>
-                      ))}
-                    </TableRow>
-                  ))
-                ) : (
-                  <TableRow>
-                    <TableCell
-                      colSpan={columns.length}
-                      className="h-[250px] py-4 pl-6 pr-4 text-center"
-                    >
-                      No results.
-                    </TableCell>
+            <TableBody>
+              {table.getRowModel().rows?.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                  >
+                    {row.getVisibleCells().map((cell, index) => (
+                      <TableCell
+                        key={cell.id}
+                        className={cn(
+                          "border-r border-border-10 md:border-none",
+                          index === row.getVisibleCells().length - 1 &&
+                            "border-none"
+                        )}
+                      >
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext()
+                        )}
+                      </TableCell>
+                    ))}
                   </TableRow>
-                )}
-              </TableBody>
-            )}
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell
+                    colSpan={columns.length}
+                    className="h-[250px] py-4 pl-6 pr-4 text-center"
+                  >
+                    {isLoading ? (
+                      <Loader isLoading={isLoading} className="h-[500px]" />
+                    ) : (
+                      "No results"
+                    )}
+                  </TableCell>
+                </TableRow>
+              )}
+            </TableBody>
           </Table>
-          {isLoading && <Loader isLoading={isLoading} className="h-[500px]" />}
         </div>
       </div>
       <div className="flex w-full justify-between">
