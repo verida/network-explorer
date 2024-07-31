@@ -1,109 +1,16 @@
-import { Client } from "@verida/client-ts";
-import { BlockchainAnchor, DatastoreOpenConfig } from "@verida/types";
-import {
-  DID_METHOD,
-  DID_VDA_METHOD,
-  USERNAME_VDA_EXTENSION,
-} from "@/lib/constants";
-import { ResolvedIdentity } from "@/lib/types/verida";
-import { getDIDs } from "@verida/vda-did-resolver";
-import { Resolver } from "did-resolver";
-import { getResolver } from "@verida/vda-did-resolver";
-import { Identity } from "@/types";
-import { Logger } from "@/features/logger";
-import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants";
-import { clientEnvVars } from "@/config/client";
+import { Client } from "@verida/client-ts"
+import { getResolver } from "@verida/vda-did-resolver"
+import { Resolver } from "did-resolver"
 
-const logger = Logger.create("Verida");
+import { clientEnvVars } from "@/config/client"
+import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants"
+import { Profile } from "@/features/verida/types"
+import { Identity } from "@/types"
 
 const vdaDidResolver = getResolver({
-  rpcUrl: clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL
-});
-const didResolver = new Resolver(vdaDidResolver);
-/**
- * Check if the param as a DID syntax, ie: starts with 'did:'.
- *
- * @param didOrUsername A username or DID.
- * @returns true if it has a DID syntax.
- */
-export const hasDidSyntax = (didOrUsername: string) => {
-  return didOrUsername.startsWith(DID_METHOD) ? true : false;
-};
-
-/**
- * Check if the param as a Verida DID syntax, ie: starts with 'did:vda:'.
- *
- * @param didOrUsername A username or DID.
- * @returns true if it has a Verida DID syntax.
- */
-export const hasVeridaDidSyntax = (didOrUsername: string) => {
-  return didOrUsername.startsWith(DID_VDA_METHOD) ? true : false;
-};
-
-/**
- * Check if the param as a Verida Username syntax, ie: ends with 'd.vda'.
- *
- * @param didOrUsername A username or DID.
- * @returns true if it has a Verida Username syntax.
- */
-export const hasVeridaUsernameSyntax = (didOrUsername: string) => {
-  // TODO: Check other rules if needed
-  return didOrUsername.endsWith(USERNAME_VDA_EXTENSION) ? true : false;
-};
-
-/**
- * Resolve an identity by returning the Verida DID of a username, or itself if already a Verida DID.
- * Throw an Error if identity is an unsupported DID or if the username cannot be resolved (not found).
- *
- * Currently returns the username if mock data is enabled.
- *
- * @param client  A Verida client.
- * @param identity A username or DID.
- * @returns The resolved DID.
- */
-export const resolveIdentity = async (
-  client: Client,
-  identity: string,
-): Promise<ResolvedIdentity> => {
-  // TODO: Remove use of mock data
-  // if (config.isMockDataEnabled && identity === MOCK_IDENTITY) {
-  //   return {
-  //     username: MOCK_IDENTITY,
-  //   };
-  // }
-
-  if (hasVeridaDidSyntax(identity)) {
-    // Identity is considered a Verida DID.
-    // "Considered" as in "valid VDA DID method", whether the DID actually exists is not a concern, it will be handled by catching the errors.
-    try {
-      const usernames = await client.getUsernames(identity);
-      return {
-        did: identity,
-        username: usernames?.length > 0 ? usernames[0] : undefined,
-        // TODO: Support multiple usernames
-      };
-    } catch (error: unknown) {
-      // The errors won't say whether the DID exist or not, so gracefully return it with no usernames
-      return { did: identity };
-    }
-  }
-
-  // TODO: Handle case of username without extension, they should be considered Verida Username
-  if (hasVeridaUsernameSyntax(identity)) {
-    // Identity is considered a Verida Username.
-    try {
-      const did = await client.getDID(identity);
-      return {
-        did,
-        username: identity,
-      };
-    } catch (error: unknown) {
-      throw new Error("Cannot resolve the Verida Username");
-    }
-  }
-
-  throw new Error("Unsupported DID or Username");
-};
+  rpcUrl: clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL,
+})
+const didResolver = new Resolver(vdaDidResolver)
 
 /**
  * Get the public profile of any Verida DID, if it exists.
@@ -114,69 +21,30 @@ export const resolveIdentity = async (
  */
 export const getAnyPublicProfile = async (
   client: Client,
-  did: string,
+  did: string
 ): Promise<Identity | undefined> => {
   try {
-    const profileInstance = await client.getPublicProfile(did, VERIDA_VAULT_CONTEXT_NAME);
-
-    for (const key in profileInstance) {
-      if (profileInstance.hasOwnProperty(key)) {
-        logger.debug(`${key}: ${profileInstance[key]}`);
-      }
-    }
+    const profileInstance = (await client.getPublicProfile(
+      did,
+      VERIDA_VAULT_CONTEXT_NAME
+    )) as Profile | undefined
 
     if (!profileInstance) {
-      throw new Error("No public profile exists for this did");
+      throw new Error("No public profile exists for this did")
     }
 
     return {
-      name: profileInstance.hasOwnProperty("name")
-        ? profileInstance["name"]
-        : "--",
       did: did,
-      avatarUri: profileInstance.hasOwnProperty("avatar")
-        ? (profileInstance["avatar"] as { uri?: string })?.uri
-        : undefined,
-      country: profileInstance.hasOwnProperty("country")
-        ? profileInstance["country"]
-        : "--",
-      description: profileInstance.hasOwnProperty("description")
-        ? profileInstance["description"]
-        : "--",
-      createdAt: profileInstance.hasOwnProperty("modifiedAt")
-        ? profileInstance["modifiedAt"]
-        : "-- ",
-    };
+      name: profileInstance.name || "--",
+      avatarUri: profileInstance.avatar?.uri,
+      country: profileInstance.country || "--",
+      description: profileInstance.description || "--",
+      createdAt: profileInstance.modifiedAt || "--",
+    }
   } catch (error) {
-    return;
+    return
   }
-};
-
-/**
- * Open an external context and a data store of this context.
- *
- * @param client A Verida client.
- * @param did A username or DID.
- * @param contextName The context name.
- * @param schemaUri The schema of the datastore.
- * @param datastoreConfig The optional configuration of the datastore.
- * @returns the Datastore if it exists
- */
-export const getExternalDatastore = async (
-  client: Client,
-  didOrUsername: string,
-  contextName: string,
-  schemaUri: string,
-  datastoreConfig: DatastoreOpenConfig = {},
-) => {
-  const context = await client.openExternalContext(contextName, didOrUsername);
-  return await context.openExternalDatastore(
-    schemaUri,
-    didOrUsername,
-    datastoreConfig,
-  );
-  // TODO: catch error and return a dedicated error (context not found, ...)
-};
+}
 
 /**
  * Get the DID document of a DID.
@@ -187,7 +55,7 @@ export const getExternalDatastore = async (
  *
  */
 export const getDidDocument = async (did: string) => {
-  const response = await didResolver.resolve(did);
-  const didDocument = response.didDocument;
-  return didDocument;
-};
+  const response = await didResolver.resolve(did)
+  const didDocument = response.didDocument
+  return didDocument
+}
