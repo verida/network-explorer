@@ -12,6 +12,8 @@ import { config } from "@/lib/config";
 import { BlockchainAnchor } from "@verida/types";
 import { Account } from "@/types/account";
 
+const fallbackData: Account[] = [];
+
 const Accounts = () => {
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -21,6 +23,7 @@ const Accounts = () => {
 
   useEffect(() => {
     const getDIDCount = async () => {
+      // TODO: Get blockchain anchor dynamically from config
       const res = await activeDIDCount(BlockchainAnchor.POLPOS);
 
       if (res) setCount(res);
@@ -33,6 +36,7 @@ const Accounts = () => {
     ["accounts", page, limit],
     async () => {
       let dids = await getDIDs(
+        // TODO: Get blockchain anchor dynamically from config
         BlockchainAnchor.POLPOS,
         (page - 1) * limit,
         limit,
@@ -82,8 +86,6 @@ const Accounts = () => {
       },
     }
   );
-
-  const fallbackData: Account[] = [];
 
   const validData = useMemo(() => data ?? fallbackData, [data]);
 

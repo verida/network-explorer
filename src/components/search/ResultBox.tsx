@@ -125,7 +125,7 @@ const ResultBox = ({ profile }: { profile: Account }) => {
                 </div>
               </div>
               <Button
-                className="border-border-40 rounded-sm bg-transparent hover:bg-foreground/10 hover:text-foreground sm:w-fit"
+                className="rounded-sm border-border-40 bg-transparent hover:bg-foreground/10 hover:text-foreground sm:w-fit"
                 variant="outline"
                 onClick={async () => {
                   setShowResultJson(!showResultJson);

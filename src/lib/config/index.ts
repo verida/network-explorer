@@ -26,6 +26,7 @@ const client = new Client({
   network: veridaEnv,
   didClientConfig: {
     network: veridaEnv,
+    rpcUrl: process.env.NEXT_PUBLIC_VERIDA_RPC_URL,
   },
 });
 

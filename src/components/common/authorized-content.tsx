@@ -14,7 +14,7 @@ const AuthorizedContent = () => {
       <div className="text-[14px] font-bold leading-[20px] text-muted-foreground">
         Connected Wallet
       </div>
-      <div className="border-border-15 mt-3 flex items-center gap-4 rounded-lg border p-6">
+      <div className="mt-3 flex items-center gap-4 rounded-lg border border-border-15 p-6">
         <VeridaIcon />
         <div className="flex flex-col gap-2">
           <div className="text-[16px] font-normal leading-[20px] text-muted-foreground">
