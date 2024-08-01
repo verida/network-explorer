@@ -1,10 +1,11 @@
 "use client"
 
-import { activeDIDCount, getDIDs } from "@verida/vda-did-resolver"
-import React, { useEffect, useMemo, useState } from "react"
+import { getDIDs } from "@verida/vda-did-resolver"
+import React, { useMemo, useState } from "react"
 import { useQuery } from "react-query"
 
 import { clientEnvVars } from "@/config/client"
+import { useActiveDIDCount } from "@/features/identities/hooks/useActiveDIDCount"
 import { Identity } from "@/features/identities/types"
 import { getDidRegistryBlockchainForNetwork } from "@/features/identities/utils"
 import { Logger } from "@/features/logger"
@@ -22,22 +23,12 @@ const fallbackData: Identity[] = []
 export function IdentitiesTable() {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
-  const [count, setCount] = useState(0)
 
   const { toast } = useToast()
 
-  useEffect(() => {
-    const getDIDCount = async () => {
-      const didRegistryBlockchain = getDidRegistryBlockchainForNetwork(
-        clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
-      )
-      const res = await activeDIDCount(didRegistryBlockchain)
-
-      if (res) setCount(res)
-    }
-
-    getDIDCount()
-  }, [])
+  const { activeDIDCount } = useActiveDIDCount(
+    clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
+  )
 
   const { data, isLoading } = useQuery(
     ["identities", page, limit],
@@ -113,7 +104,7 @@ export function IdentitiesTable() {
         setLimit={setLimit}
         setPage={setPage}
         title="identities"
-        totalCount={count}
+        totalCount={activeDIDCount ?? 0}
         isLoading={isLoading}
         showSearch={false}
       />
