@@ -51,6 +51,5 @@ export default function IdentityPage(props: IdentityPageProps) {
     })
   }
 
-  // TODO: To rework when the Identity gather profile and DID document
   notFound()
 }

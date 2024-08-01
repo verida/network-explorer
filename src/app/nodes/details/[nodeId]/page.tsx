@@ -1,7 +1,6 @@
 "use client"
 
-import { useParams } from "next/navigation"
-import React from "react"
+import React, { useMemo } from "react"
 import { useQuery } from "react-query"
 import {
   ComposableMap,
@@ -35,9 +34,19 @@ const getCountryData = (country: string) => {
   }
 }
 
-const DetailsPage = () => {
-  const params = useParams()
-  const nodeId = decodeURIComponent(params.node as unknown as string)
+type NodeDetailsPageProps = {
+  params: {
+    nodeId: string
+  }
+}
+
+export default function NodeDetailsPage(props: NodeDetailsPageProps) {
+  const { params } = props
+  const { nodeId: encodedNodeId } = params
+  const nodeId = useMemo(
+    () => decodeURIComponent(encodedNodeId),
+    [encodedNodeId]
+  )
 
   const { data, isError, isLoading } = useQuery(["nodeData"], fetchNodeData, {
     refetchOnMount: false,
@@ -145,5 +154,3 @@ const DetailsPage = () => {
     </div>
   )
 }
-
-export default DetailsPage

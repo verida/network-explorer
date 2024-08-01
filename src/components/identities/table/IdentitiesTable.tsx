@@ -37,6 +37,7 @@ export function IdentitiesTable() {
     [identities]
   )
 
+  // TODO: Replace the toast by proper UI feedback
   useEffect(() => {
     if (isIdentitiesError) {
       toast({
