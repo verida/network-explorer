@@ -1,13 +1,10 @@
-"use client"
-
 import { ColumnDef } from "@tanstack/react-table"
 import dayjs from "dayjs"
 import Image from "next/image"
 import Link from "next/link"
 
-import CopyIcon from "@/assets/icons/copy.svg"
 import Avatar from "@/assets/svg/avatar.svg"
-import { useToast } from "@/components/ui/use-toast"
+import { CopyToClipboardButton } from "@/components/common/CopyToClipboardButton"
 import { extractAndShortenAddress } from "@/features/did/utils"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { Identity } from "@/features/identities/types"
@@ -44,22 +41,14 @@ export const identitiesTableColumnsDef: ColumnDef<Identity>[] = [
     accessorKey: "did",
     header: "DID",
     cell: ({ row }) => {
-      // TODO: Extract the component to properly use the hook inside
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const { toast } = useToast()
       return (
         <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent-foreground">
           <Link href={`/identities/${row.original.did}`}>
             {extractAndShortenAddress(row.original.did)}
           </Link>
-          <CopyIcon
-            className="cursor-pointer"
-            onClick={() => {
-              navigator.clipboard.writeText(row.getValue("did"))
-              toast({
-                description: "Identity's DID copied!",
-              })
-            }}
+          <CopyToClipboardButton
+            content={row.getValue("did")}
+            successMessage="Identity's DID copied!"
           />
         </div>
       )

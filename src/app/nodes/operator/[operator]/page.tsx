@@ -9,7 +9,7 @@ import { FaChevronLeft } from "react-icons/fa"
 import { LuArrowLeft } from "react-icons/lu"
 import { useRecoilValue } from "recoil"
 
-import CopyIcon from "@/assets/icons/copy.svg"
+import { CopyToClipboardButton } from "@/components/common/CopyToClipboardButton"
 import ConnectedContent from "@/components/common/connected-content"
 // import { nodes } from "@/lib/sample";
 import DataTable, { Tab } from "@/components/common/table"
@@ -26,11 +26,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { useToast } from "@/components/ui/use-toast"
 import { setupWizardAtom, userAtom } from "@/lib/atom"
 
 const Operator = () => {
-  const { toast } = useToast()
   const router = useRouter()
 
   const user = useRecoilValue(userAtom)
@@ -56,17 +54,9 @@ const Operator = () => {
             <div className="max-w-[150px] truncate sm:max-w-max">
               did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
             </div>
-            <CopyIcon
-              className="scale-90 cursor-pointer"
-              color="#FFFFFF99"
-              onClick={() => {
-                navigator.clipboard.writeText(
-                  "did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
-                )
-                toast({
-                  description: "DID Copied",
-                })
-              }}
+            <CopyToClipboardButton
+              content="did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
+              successMessage="DID copied!"
             />
           </div>
         </div>

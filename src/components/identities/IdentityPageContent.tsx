@@ -4,17 +4,16 @@ import Image from "next/image"
 import React, { useMemo, useState } from "react"
 import QRCode from "react-qr-code"
 
-import CopyIcon from "@/assets/icons/copy.svg"
 import DefaultAvatar from "@/assets/svg/avatar.svg"
+import { CopyToClipboardButton } from "@/components/common/CopyToClipboardButton"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import { useToast } from "@/components/ui/use-toast"
 import { clientEnvVars } from "@/config/client"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { Identity } from "@/features/identities/types"
 import { Logger } from "@/features/logger"
 
-const logger = Logger.create("<ResultBox>")
+const logger = Logger.create("<IdentityPageContent>")
 
 type IdentityPageContentProps = {
   identity: Identity
@@ -23,8 +22,6 @@ type IdentityPageContentProps = {
 export function IdentityPageContent(props: IdentityPageContentProps) {
   const { identity } = props
   const { did, profile, didDocument } = identity
-
-  const { toast } = useToast()
 
   const [showDidDocument, setShowDidDocument] = useState(false)
 
@@ -88,15 +85,9 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
                 </div>
                 <div className="flex flex-row items-center gap-2 text-[14px] font-normal leading-[20px] text-accent-foreground">
                   <span className="truncate">{did}</span>
-                  <CopyIcon
-                    color="#8566F2"
-                    className="cursor-pointer"
-                    onClick={() => {
-                      navigator.clipboard.writeText(did)
-                      toast({
-                        description: "Copied to clipboard",
-                      })
-                    }}
+                  <CopyToClipboardButton
+                    content={did}
+                    successMessage="Identity's DID copied!"
                   />
                 </div>
               </div>
