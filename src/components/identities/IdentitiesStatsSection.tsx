@@ -4,9 +4,8 @@ import dynamic from "next/dynamic"
 import React from "react"
 import { useState } from "react"
 
+import Loader from "@/components/common/loader"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
-import Loader from "../common/loader"
 
 const BarChart = dynamic(() => import("./BarChart"), { ssr: false })
 

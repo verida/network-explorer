@@ -1,8 +1,8 @@
 import React from "react"
 
-import { IdentitiesStatsSection } from "@/components/accounts/IdentitiesStatsSection"
-import { IdentitiesTable } from "@/components/accounts/IdentitiesTable"
-import NetworkExplorer from "@/components/accounts/NetworkExplorer"
+import { IdentitiesStatsSection } from "@/components/identities/IdentitiesStatsSection"
+import NetworkExplorer from "@/components/identities/NetworkExplorer"
+import { IdentitiesTable } from "@/components/identities/table/IdentitiesTable"
 import { Separator } from "@/components/ui/separator"
 import { serverEnvVars } from "@/config/server"
 import { getIdentitiesStatsData } from "@/features/identities/utils"

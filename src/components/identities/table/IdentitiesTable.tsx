@@ -2,14 +2,13 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 
+import DataTable from "@/components/common/table"
+import { identitiesTableColumnsDef } from "@/components/identities/table/identitiesTableColumnsDef"
+import { useToast } from "@/components/ui/use-toast"
 import { clientEnvVars } from "@/config/client"
 import { useActiveDIDCount } from "@/features/identities/hooks/useActiveDIDCount"
 import { useIdentities } from "@/features/identities/hooks/useIdentities"
 import { Identity } from "@/features/identities/types"
-
-import DataTable from "../common/table"
-import { useToast } from "../ui/use-toast"
-import { identitiesTableColumnsDef } from "./account/identitiesTableColumnsDef"
 
 const fallbackData: Identity[] = []
 
