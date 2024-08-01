@@ -30,6 +30,7 @@ export function extractAndShortenAddress(did: string): string {
  *
  */
 export const getDidDocument = async (did: string) => {
+  // TODO: Validate the DID
   const response = await didResolver.resolve(did)
   const didDocument = response.didDocument
   return didDocument

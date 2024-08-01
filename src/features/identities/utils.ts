@@ -1,4 +1,5 @@
 import { BlockchainAnchor, Network } from "@verida/types"
+import { activeDIDCount } from "@verida/vda-did-resolver"
 
 import { clientEnvVars } from "@/config/client"
 import { csv2json } from "@/features/metrics/utils"
@@ -66,4 +67,30 @@ export async function getIdentitiesStatsData(network: Network) {
     ]),
     isloading: isloading,
   }
+}
+
+/**
+ * Get the number of active DIDs on a given DID registry.
+ *
+ * @param didRegistryBlockchain
+ * @returns the number of active DIDs on this registry.
+ */
+export async function getActiveIdentitiesCount(
+  didRegistryBlockchain: BlockchainAnchor
+) {
+  let result: number
+  try {
+    // TODO: Replace by a fetch of https://data.verida.network/network/{blockchain}/stats ?
+    result = await activeDIDCount(didRegistryBlockchain)
+  } catch (error) {
+    throw new Error("Failed to fetch active identities count", {
+      cause: error,
+    })
+  }
+
+  if (result === undefined || result === null) {
+    throw new Error("Failed to fetch active identities count")
+  }
+
+  return result
 }

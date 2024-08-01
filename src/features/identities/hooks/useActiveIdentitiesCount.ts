@@ -1,6 +1,10 @@
 import { BlockchainAnchor } from "@verida/types"
-import { activeDIDCount } from "@verida/vda-did-resolver"
 import { useQuery } from "react-query"
+
+import { getActiveIdentitiesCount } from "@/features/identities/utils"
+import { Logger } from "@/features/logger"
+
+const logger = Logger.create("Identities")
 
 // TODO: Replace by a server-side function when using server components
 export function useActiveIdentitiesCount(
@@ -9,13 +13,12 @@ export function useActiveIdentitiesCount(
   const { data, ...other } = useQuery(
     ["identities", didRegistryBlockchain, "activeDIDCount"],
     async () => {
-      // TODO: Replace by a fetch of https://data.verida.network/network/{blockchain}/stats ?
-      const result = await activeDIDCount(didRegistryBlockchain)
-      if (result === undefined || result === null) {
-        throw new Error("Failed to fetch active identities count")
-      }
-
-      return result
+      return getActiveIdentitiesCount(didRegistryBlockchain)
+    },
+    {
+      onError: (error) => {
+        logger.error(error)
+      },
     }
   )
 
