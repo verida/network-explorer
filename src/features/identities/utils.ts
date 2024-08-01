@@ -143,12 +143,16 @@ export async function getDids(
 /**
  * Get an identity for a given DID
  *
+ * @param registryBlockchain The blockchain of the DID registry
  * @param did The DID of the identity
  * @returns The identity
  */
-export async function getIdentity(did: string): Promise<Identity> {
+export async function getIdentity(
+  registryBlockchain: BlockchainAnchor,
+  did: string
+): Promise<Identity> {
   const [didDocumentResult, profileResult] = await Promise.allSettled([
-    getDidDocument(did),
+    getDidDocument(registryBlockchain, did),
     getPublicProfile(did),
   ])
 

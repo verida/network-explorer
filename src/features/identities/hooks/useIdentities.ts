@@ -21,7 +21,7 @@ export function useIdentities({
       const dids = await getDids(didRegistryBlockchain, page, limit)
 
       const identitiesResult = await Promise.allSettled(
-        dids.map(async (did: string) => getIdentity(did))
+        dids.map(async (did: string) => getIdentity(didRegistryBlockchain, did))
       )
 
       const identities = identitiesResult

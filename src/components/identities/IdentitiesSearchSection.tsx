@@ -2,34 +2,41 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import React, { useEffect, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import { Oval } from "react-loader-spinner"
+import { useDebounce } from "use-debounce"
 
 import SearchIcon from "@/assets/icons/search.svg"
 import Avatar from "@/assets/svg/avatar.svg"
 import SearchAccountIllustration from "@/assets/svg/search-account.svg"
-import { Button } from "@/components/ui/button"
+import { isValidVeridaDid } from "@/features/did/utils"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { useIdentity } from "@/features/identities/hooks/useIdentity"
+import { didRegistryBlockchain } from "@/features/identities/utils"
 import { cn } from "@/styles/utils"
 
 export function IdentitiesSearchSection() {
-  const [popoverOpen, setPopoverOpen] = useState(false)
-  const [searchDidinput, setSearchDidInput] = useState("")
+  const [searchedDid, setSearchedDid] = useState("")
 
-  // TODO: Validate the value before searching
+  const handleSearchInputChange: React.ChangeEventHandler<HTMLInputElement> =
+    useCallback((event) => {
+      setSearchedDid(event.target.value)
+    }, [])
 
-  const { identity, isLoading } = useIdentity(searchDidinput)
+  const [debouncedSearchedDid] = useDebounce(searchedDid, 1000)
 
-  // TODO: Handle errors: display something, no a toast
+  const { identity, isError } = useIdentity({
+    didRegistryBlockchain,
+    did: debouncedSearchedDid,
+  })
 
-  useEffect(() => {
-    if (isLoading || identity) {
-      setPopoverOpen(true)
-    } else {
-      setPopoverOpen(false)
-    }
-  }, [isLoading, identity])
+  const isValidDid = useMemo(() => {
+    return isValidVeridaDid(didRegistryBlockchain, debouncedSearchedDid)
+  }, [debouncedSearchedDid])
+
+  const showResultPanel = useMemo(() => {
+    return !!searchedDid
+  }, [searchedDid])
 
   return (
     <div className="flex flex-row justify-between gap-3">
@@ -50,23 +57,16 @@ export function IdentitiesSearchSection() {
               <SearchIcon />
               <input
                 placeholder="Search by DID (did:vda:polpos:0x486e..644a55)"
-                onChange={(e) => {
-                  setSearchDidInput(e.target.value)
-                }}
+                onChange={handleSearchInputChange}
                 className="flex-1 truncate bg-transparent focus:border-none focus:outline-none"
+                value={searchedDid}
               />
             </div>
-            <Button
-              onClick={() => setPopoverOpen((prev) => !prev)}
-              className="w-full md:w-fit"
-            >
-              Search
-            </Button>
           </div>
           <div
             className={cn(
               "rounded-lg border border-border-60 bg-[#333153] px-4 py-5 transition-all duration-150",
-              popoverOpen ? "opacity-100" : "opacity-0"
+              showResultPanel ? "opacity-100" : "opacity-0"
             )}
           >
             {identity ? (
@@ -99,6 +99,15 @@ export function IdentitiesSearchSection() {
                   </div>
                 </div>
               </Link>
+            ) : isError ? (
+              <div>
+                <p>Something went wrong searching for this DID</p>
+              </div>
+            ) : !isValidDid ? (
+              // TODO: To improve, not the best
+              <div>
+                <p>This DID is not valid</p>
+              </div>
             ) : (
               <div className="flex w-full items-center justify-center">
                 <Oval
