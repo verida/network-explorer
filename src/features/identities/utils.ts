@@ -1,6 +1,7 @@
 import { BlockchainAnchor, Network } from "@verida/types"
 
 import { clientEnvVars } from "@/config/client"
+import { csv2json } from "@/features/metrics/utils"
 
 /**
  * Build the URL of the identities stats file, based on the metrics base URL and the network.
@@ -34,4 +35,31 @@ export function getDidRegistryBlockchainForNetwork(network: Network) {
   return network === Network.MYRTLE
     ? BlockchainAnchor.POLPOS
     : BlockchainAnchor.POLAMOY
+}
+
+export async function getIdentitiesStatsData(network: Network) {
+  let isloading = true
+
+  const url = getIdentitiesStatsFileUrl(network)
+
+  const response = await fetch(url, { cache: "no-store" })
+
+  if (!response.ok) {
+    isloading = false
+    throw new Error("Failed to fetch data")
+  }
+
+  let data: {
+    datetime_utc: string
+    activedids: string
+  }[] = csv2json(await response.text())
+  isloading = false
+
+  return {
+    AccountData: data.map((item) => [
+      new Date(item.datetime_utc).getTime(),
+      Number(item.activedids),
+    ]),
+    isloading: isloading,
+  }
 }
