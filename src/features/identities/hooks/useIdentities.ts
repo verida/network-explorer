@@ -1,5 +1,5 @@
 import { BlockchainAnchor } from "@verida/types"
-import { useQuery } from "react-query"
+import { useQuery, useQueryClient } from "react-query"
 
 import { getDids, getIdentity } from "@/features/identities/utils"
 import { Logger } from "@/features/logger"
@@ -15,6 +15,8 @@ export function useIdentities({
   limit: number
   page: number
 }) {
+  const queryClient = useQueryClient()
+
   const { data, ...other } = useQuery(
     ["identities", didRegistryBlockchain, page, limit],
     async () => {
@@ -26,7 +28,11 @@ export function useIdentities({
 
       const identities = identitiesResult
         .filter((result) => result.status === "fulfilled")
-        .map((result) => result.value)
+        .map((result) => {
+          const identity = result.value
+          queryClient.setQueryData(["identities", identity.did], identity)
+          return identity
+        })
 
       return identities
     },
