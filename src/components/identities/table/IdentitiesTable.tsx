@@ -58,7 +58,8 @@ export function IdentitiesTable() {
         title="identities"
         totalCount={activeDIDCount ?? 0}
         isLoading={isLoadingIdentities}
-        showSearch={false}
+        hideSearch
+        hideFilters
       />
     </div>
   )
