@@ -7,7 +7,7 @@ import { Separator } from "@/components/ui/separator"
 import { serverEnvVars } from "@/config/server"
 import { getIdentitiesStatsData } from "@/features/identities/utils"
 
-export default async function HomePage() {
+export default async function RootPage() {
   const identitiesStatsData = await getIdentitiesStatsData(
     serverEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
   )
