@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Sora } from "next/font/google"
 import React from "react"
 
+import { Providers } from "@/app/_components/Providers"
 import { Footer } from "@/components/common/footer"
 import { Header } from "@/components/common/header"
-import { ThemeProvider } from "@/components/common/providers"
 import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
 import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/constants/app"
@@ -41,11 +41,13 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
+type RootLayoutProps = {
   children: React.ReactNode
-}) {
+}
+
+export default function RootLayout(props: RootLayoutProps) {
+  const { children } = props
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
@@ -54,12 +56,7 @@ export default function RootLayout({
           sora.variable
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem
-          disableTransitionOnChange
-        >
+        <Providers>
           <Header />
           <div className="flex flex-1 flex-row justify-center">
             <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
@@ -68,7 +65,7 @@ export default function RootLayout({
           </div>
           <Footer />
           <Toaster />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   )
