@@ -11,6 +11,7 @@ export function useActiveDIDCount(network: Network) {
     async () => {
       const didRegistryBlockchain = getDidRegistryBlockchainForNetwork(network)
 
+      // TODO: Replace by a fetch of https://data.verida.network/network/{network}/stats ?
       const result = await activeDIDCount(didRegistryBlockchain)
       if (!result) {
         throw new Error("Failed to fetch active DID count")
