@@ -3,42 +3,36 @@
 import Image from "next/image"
 import React, { useMemo, useState } from "react"
 import QRCode from "react-qr-code"
-import { useQuery } from "react-query"
 
 import CopyIcon from "@/assets/icons/copy.svg"
 import DefaultAvatar from "@/assets/svg/avatar.svg"
+import Loader from "@/components/common/loader"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
+import { useToast } from "@/components/ui/use-toast"
+import { useDidDocument } from "@/features/did/hooks/useDidDocument"
 import { Identity } from "@/features/identities/types"
-import { getDidDocument } from "@/features/verida/utils"
+import { Logger } from "@/features/logger"
 
-import Loader from "../common/loader"
-import { Button } from "../ui/button"
-import { Separator } from "../ui/separator"
-import { useToast } from "../ui/use-toast"
+const logger = Logger.create("<ResultBox>")
 
 const ResultBox = ({ profile }: { profile: Identity }) => {
   const { toast } = useToast()
   const [showResultJson, setShowResultJson] = useState(false)
 
-  const {
-    data: resultJson,
-    isLoading,
-    isError,
-  } = useQuery(
-    ["didDocument", profile.did],
-    async () => {
-      return await getDidDocument(profile.did)
-    },
-    {
-      onError: () => {
-        toast({
-          variant: "destructive",
-          description: "Failed to fetch DID Document",
-        })
-      },
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
+  const { didDocument, isLoading, isError } = useDidDocument(profile.did)
+
+  const formattedDidDocument = useMemo(() => {
+    if (!didDocument) {
+      return null
     }
-  )
+    try {
+      return JSON.stringify(didDocument, null, 2)
+    } catch (error) {
+      logger.error(error)
+      return null
+    }
+  }, [didDocument])
 
   const qrCodeMessage = useMemo(() => {
     // The QR code would simply be the URL to the account on that Network
@@ -152,11 +146,11 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
           <Loader isLoading={isLoading} />
         ) : (
           <>
-            <Separator color="#FFFFFF26" className="hidden sm:block" />
+            <Separator className="hidden sm:block" />
             <pre className="whitespace-pre-wrap break-all text-[14px] font-normal leading-[22.4px]">
-              {!resultJson || isError
+              {!formattedDidDocument || isError
                 ? "Unable to get did document"
-                : JSON.stringify(resultJson, null, 2)}
+                : formattedDidDocument}
             </pre>
           </>
         ))}

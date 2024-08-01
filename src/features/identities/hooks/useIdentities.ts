@@ -2,10 +2,11 @@ import { Network } from "@verida/types"
 import { getDIDs } from "@verida/vda-did-resolver"
 import { useQuery } from "react-query"
 
+import { getDidDocument } from "@/features/did/utils"
 import { getDidRegistryBlockchainForNetwork } from "@/features/identities/utils"
 import { Logger } from "@/features/logger"
 import { client as veridaClient } from "@/features/verida/client"
-import { getAnyPublicProfile, getDidDocument } from "@/features/verida/utils"
+import { getAnyPublicProfile } from "@/features/verida/utils"
 
 const logger = Logger.create("Identities")
 

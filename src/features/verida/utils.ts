@@ -1,16 +1,8 @@
 import { Client } from "@verida/client-ts"
-import { getResolver } from "@verida/vda-did-resolver"
-import { Resolver } from "did-resolver"
 
-import { clientEnvVars } from "@/config/client"
 import { Identity } from "@/features/identities/types"
 import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants"
 import { Profile } from "@/features/verida/types"
-
-const vdaDidResolver = getResolver({
-  rpcUrl: clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL,
-})
-const didResolver = new Resolver(vdaDidResolver)
 
 /**
  * Get the public profile of any Verida DID, if it exists.
@@ -44,18 +36,4 @@ export const getAnyPublicProfile = async (
   } catch (error) {
     return
   }
-}
-
-/**
- * Get the DID document of a DID.
- *
- * @param did The DID.
- * @returns The DID document.
- * @throws Error if the DID document cannot be found.
- *
- */
-export const getDidDocument = async (did: string) => {
-  const response = await didResolver.resolve(did)
-  const didDocument = response.didDocument
-  return didDocument
 }
