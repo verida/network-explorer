@@ -4,15 +4,13 @@ import Image from "next/image"
 import Link from "next/link"
 import React, { useEffect, useState } from "react"
 import { Oval } from "react-loader-spinner"
-import { useQuery } from "react-query"
 
 import SearchIcon from "@/assets/icons/search.svg"
 import Avatar from "@/assets/svg/avatar.svg"
 import SearchAccountIllustration from "@/assets/svg/search-account.svg"
 import { Button } from "@/components/ui/button"
 import { useToast } from "@/components/ui/use-toast"
-import { client as veridaClient } from "@/features/verida/client"
-import { getAnyPublicProfile } from "@/features/verida/utils"
+import { useIdentityProfile } from "@/features/identities/hooks/useIdentityProfile"
 import { cn } from "@/styles/utils"
 
 export function IdentitiesSearchSection() {
@@ -21,31 +19,29 @@ export function IdentitiesSearchSection() {
   const [popoverOpen, setPopoverOpen] = useState(false)
   const [searchDidinput, setSearchDidInput] = useState("")
 
-  const { data: profile, isLoading } = useQuery(
-    ["accounts", searchDidinput],
-    async () => {
-      return await getAnyPublicProfile(veridaClient, searchDidinput)
-    },
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-      enabled: searchDidinput.length > 0,
-      onError: () => {
-        toast({
-          variant: "destructive",
-          description: "Failed to fetch profile",
-        })
-      },
-    }
-  )
+  // TODO: Validate the value before searching
+  const {
+    profile: searchedProfile,
+    isLoading,
+    isError,
+  } = useIdentityProfile(searchDidinput)
 
   useEffect(() => {
-    if (isLoading || profile) {
+    if (isError) {
+      toast({
+        variant: "destructive",
+        description: "Failed to fetch profile",
+      })
+    }
+  }, [isError, toast])
+
+  useEffect(() => {
+    if (isLoading || searchedProfile) {
       setPopoverOpen(true)
     } else {
       setPopoverOpen(false)
     }
-  }, [isLoading, profile])
+  }, [isLoading, searchedProfile])
 
   return (
     <div className="flex flex-row justify-between gap-3">
@@ -85,14 +81,14 @@ export function IdentitiesSearchSection() {
               popoverOpen ? "opacity-100" : "opacity-0"
             )}
           >
-            {profile ? (
+            {searchedProfile ? (
               <Link
                 href={`/search/${searchDidinput}`}
                 className="flex flex-row items-center gap-4"
               >
-                {profile.avatarUri ? (
+                {searchedProfile.avatarUri ? (
                   <Image
-                    src={profile.avatarUri}
+                    src={searchedProfile.avatarUri}
                     className="aspect-square w-[50px] rounded object-cover"
                     // TODO: Fix the sizing when reworking the whole search component
                     alt="Avatar"
@@ -108,7 +104,7 @@ export function IdentitiesSearchSection() {
                 )}
                 <div className="flex flex-1 flex-col gap-1.5 truncate">
                   <div className="truncate text-[14px] font-bold leading-[17.64px]">
-                    {profile?.name}
+                    {searchedProfile?.name}
                   </div>
                   <div className="truncate text-[14px] font-normal leading-[17.64px]">
                     {searchDidinput}
