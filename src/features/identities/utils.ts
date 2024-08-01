@@ -37,6 +37,10 @@ export function getDidRegistryBlockchainForNetwork(network: Network) {
     : BlockchainAnchor.POLAMOY
 }
 
+export const didRegistryBlockchain = getDidRegistryBlockchainForNetwork(
+  clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
+)
+
 export async function getIdentitiesStatsData(network: Network) {
   let isloading = true
 

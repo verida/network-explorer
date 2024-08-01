@@ -1,9 +1,8 @@
-import { Network } from "@verida/types"
+import { BlockchainAnchor } from "@verida/types"
 import { getDIDs } from "@verida/vda-did-resolver"
 import { useQuery } from "react-query"
 
 import { getDidDocument } from "@/features/did/utils"
-import { getDidRegistryBlockchainForNetwork } from "@/features/identities/utils"
 import { Logger } from "@/features/logger"
 import { client as veridaClient } from "@/features/verida/client"
 import { getAnyPublicProfile } from "@/features/verida/utils"
@@ -11,19 +10,18 @@ import { getAnyPublicProfile } from "@/features/verida/utils"
 const logger = Logger.create("Identities")
 
 export function useIdentities({
-  network,
+  didRegistryBlockchain,
   limit,
   page,
 }: {
-  network: Network
+  didRegistryBlockchain: BlockchainAnchor
   limit: number
   page: number
 }) {
   const { data, isLoading, isError, ...other } = useQuery(
-    ["identities", network, page, limit],
+    ["identities", didRegistryBlockchain, page, limit],
     async () => {
-      const didRegistryBlockchain = getDidRegistryBlockchainForNetwork(network)
-
+      // TODO: Replace by fetching https://data.verida.network/network/{blockchain}/dids?limit=10&offset=20 ?
       let dids = await getDIDs(
         didRegistryBlockchain,
         (page - 1) * limit,

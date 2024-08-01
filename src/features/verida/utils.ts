@@ -16,6 +16,7 @@ export const getAnyPublicProfile = async (
   did: string
 ): Promise<Identity | undefined> => {
   try {
+    // TODO: Replace by fetching https://data.verida.network/... ?
     const profileInstance = (await client.getPublicProfile(
       did,
       VERIDA_VAULT_CONTEXT_NAME

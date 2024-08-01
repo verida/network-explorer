@@ -5,18 +5,18 @@ import React, { useEffect, useMemo, useState } from "react"
 import DataTable from "@/components/common/table"
 import { identitiesTableColumnsDef } from "@/components/identities/table/identitiesTableColumnsDef"
 import { useToast } from "@/components/ui/use-toast"
-import { clientEnvVars } from "@/config/client"
-import { useActiveDIDCount } from "@/features/identities/hooks/useActiveDIDCount"
+import { useActiveIdentitiesCount } from "@/features/identities/hooks/useActiveIdentitiesCount"
 import { useIdentities } from "@/features/identities/hooks/useIdentities"
 import { Identity } from "@/features/identities/types"
+import { didRegistryBlockchain } from "@/features/identities/utils"
 
 const fallbackData: Identity[] = []
 
 export function IdentitiesTable() {
   const { toast } = useToast()
 
-  const { activeDIDCount } = useActiveDIDCount(
-    clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
+  const { activeIdentitiesCount } = useActiveIdentitiesCount(
+    didRegistryBlockchain
   )
 
   const [page, setPage] = useState(1)
@@ -27,7 +27,7 @@ export function IdentitiesTable() {
     isLoading: isLoadingIdentities,
     isError: isIdentitiesError,
   } = useIdentities({
-    network: clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK,
+    didRegistryBlockchain,
     limit,
     page,
   })
@@ -56,7 +56,7 @@ export function IdentitiesTable() {
         setLimit={setLimit}
         setPage={setPage}
         title="identities"
-        totalCount={activeDIDCount ?? 0}
+        totalCount={activeIdentitiesCount ?? 0}
         isLoading={isLoadingIdentities}
         hideSearch
         hideFilters
