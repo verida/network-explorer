@@ -31,6 +31,10 @@ export function IdentitiesSearchSection() {
   })
 
   const isValidDid = useMemo(() => {
+    if (debouncedSearchedDid === "") {
+      return null
+    }
+
     return isValidVeridaDid(didRegistryBlockchain, debouncedSearchedDid)
   }, [debouncedSearchedDid])
 
@@ -103,7 +107,7 @@ export function IdentitiesSearchSection() {
               <div>
                 <p>Something went wrong searching for this DID</p>
               </div>
-            ) : !isValidDid ? (
+            ) : isValidDid === false ? (
               // TODO: To improve, not the best
               <div>
                 <p>This DID is not valid</p>
