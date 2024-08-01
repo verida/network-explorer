@@ -4,52 +4,88 @@ import { notFound } from "next/navigation"
 import React, { useEffect, useMemo } from "react"
 
 import Loader from "@/components/common/loader"
-import ResultBox from "@/components/search/ResultBox"
+import { IdentityPageContent } from "@/components/identities/IdentityPageContent"
 import { useToast } from "@/components/ui/use-toast"
+import { useDidDocument } from "@/features/did/hooks/useDidDocument"
 import { useIdentityProfile } from "@/features/identities/hooks/useIdentityProfile"
 
-type SearchPageProps = {
+type IdentityPageProps = {
   params: {
     did: string
   }
 }
 
-export default function SearchPage(props: SearchPageProps) {
+export default function IdentityPage(props: IdentityPageProps) {
   const { params } = props
   const { did: encodedDid } = params
   const did = useMemo(() => decodeURIComponent(encodedDid), [encodedDid])
 
   const { toast } = useToast()
 
-  // TODO: Validate the value before searching
-  const { profile, isLoading, isError, error } = useIdentityProfile(did)
+  // TODO: Validate the DID
+
+  const {
+    didDocument,
+    isLoading: isLoadingDidDocument,
+    isError: isErrorDidDocument,
+    error: errorDidDocument,
+  } = useDidDocument(did)
 
   useEffect(() => {
-    if (isError) {
+    if (isErrorDidDocument) {
       toast({
         variant: "destructive",
-        description: "Failed to fetch profile",
+        description: "Failed to fetch the DID document",
       })
     }
-  }, [isError, toast])
+  }, [isErrorDidDocument, toast])
 
-  if (profile) {
-    return <ResultBox profile={profile} />
+  const {
+    profile,
+    isLoading: isLoadingProfile,
+    isError: isErrorProfile,
+    error: errorProfile,
+  } = useIdentityProfile(did)
+
+  useEffect(() => {
+    if (isErrorProfile) {
+      toast({
+        variant: "destructive",
+        description: "Failed to fetch the profile",
+      })
+    }
+  }, [isErrorProfile, toast])
+
+  if (didDocument && profile) {
+    return (
+      <IdentityPageContent
+        did={did}
+        profile={profile}
+        didDocument={didDocument}
+      />
+    )
   }
 
-  if (isLoading) {
+  if (isLoadingDidDocument || isLoadingProfile) {
     return (
       <div className="flex h-full flex-row items-center justify-center">
-        <Loader isLoading={isLoading} />
+        <Loader isLoading />
       </div>
     )
   }
 
-  if (isError) {
-    throw new Error("Error getting the identity profile", {
-      cause: error,
+  if (isErrorDidDocument) {
+    throw new Error("Error getting the identity", {
+      cause: errorDidDocument,
     })
   }
 
+  if (isErrorProfile) {
+    throw new Error("Error getting the identity", {
+      cause: errorProfile,
+    })
+  }
+
+  // TODO: To rework when the Identity gather profile and DID document
   notFound()
 }

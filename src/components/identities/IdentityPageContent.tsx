@@ -1,26 +1,33 @@
 "use client"
 
+import { DIDDocument } from "did-resolver"
 import Image from "next/image"
 import React, { useMemo, useState } from "react"
 import QRCode from "react-qr-code"
 
 import CopyIcon from "@/assets/icons/copy.svg"
 import DefaultAvatar from "@/assets/svg/avatar.svg"
-import Loader from "@/components/common/loader"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useToast } from "@/components/ui/use-toast"
-import { useDidDocument } from "@/features/did/hooks/useDidDocument"
+import { clientEnvVars } from "@/config/client"
 import { Identity } from "@/features/identities/types"
 import { Logger } from "@/features/logger"
 
 const logger = Logger.create("<ResultBox>")
 
-const ResultBox = ({ profile }: { profile: Identity }) => {
-  const { toast } = useToast()
-  const [showResultJson, setShowResultJson] = useState(false)
+type IdentityPageContentProps = {
+  did: string
+  profile: Identity
+  didDocument: DIDDocument
+}
 
-  const { didDocument, isLoading, isError } = useDidDocument(profile.did)
+export function IdentityPageContent(props: IdentityPageContentProps) {
+  const { did, profile, didDocument } = props
+
+  const { toast } = useToast()
+
+  const [showDidDocument, setShowDidDocument] = useState(false)
 
   const formattedDidDocument = useMemo(() => {
     if (!didDocument) {
@@ -37,10 +44,8 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
   const qrCodeMessage = useMemo(() => {
     // The QR code would simply be the URL to the account on that Network
     // Explorer application. The account page is currently `/search/:did`
-    // TODO: Consider using the env var baseURL so this component can be a
-    // server component, but not too keen on setting a baseURL in the env vars
-    return `${window.location.origin}/search/${profile.did}`
-  }, [profile.did])
+    return `${clientEnvVars.NEXT_PUBLIC_BASE_URL}/search/${did}`
+  }, [did])
 
   return (
     <div className="result-box flex flex-col gap-6 rounded-lg border border-border px-4 py-6 sm:gap-10 sm:p-9">
@@ -120,10 +125,10 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
               className="rounded-sm border-border-40 bg-transparent hover:bg-foreground/10 hover:text-foreground sm:w-fit"
               variant="outline"
               onClick={async () => {
-                setShowResultJson(!showResultJson)
+                setShowDidDocument(!showDidDocument)
               }}
             >
-              {showResultJson ? "Hide" : "Show"} DID Document
+              {showDidDocument ? "Hide" : "Show"} DID Document
             </Button>
           </div>
         </div>
@@ -141,21 +146,16 @@ const ResultBox = ({ profile }: { profile: Identity }) => {
           </div>
         </div>
       </div>
-      {showResultJson &&
-        (isLoading ? (
-          <Loader isLoading={isLoading} />
-        ) : (
-          <>
-            <Separator className="hidden sm:block" />
-            <pre className="whitespace-pre-wrap break-all text-[14px] font-normal leading-[22.4px]">
-              {!formattedDidDocument || isError
-                ? "Unable to get did document"
-                : formattedDidDocument}
-            </pre>
-          </>
-        ))}
+      {showDidDocument ? (
+        <>
+          <Separator className="hidden sm:block" />
+          <pre className="whitespace-pre-wrap break-all text-[14px] font-normal leading-[22.4px]">
+            {formattedDidDocument
+              ? formattedDidDocument
+              : "Unable to get did document"}
+          </pre>
+        </>
+      ) : null}
     </div>
   )
 }
-
-export default ResultBox
