@@ -42,9 +42,9 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
   }, [didDocument])
 
   const qrCodeMessage = useMemo(() => {
-    // The QR code would simply be the URL to the account on that Network
-    // Explorer application. The account page is currently `/search/:did`
-    return `${clientEnvVars.NEXT_PUBLIC_BASE_URL}/search/${did}`
+    // The QR code would simply be the URL to the identity on that Network
+    // Explorer application. The identity page is currently `/identities/:did`
+    return `${clientEnvVars.NEXT_PUBLIC_BASE_URL}/identities/${did}`
   }, [did])
 
   return (

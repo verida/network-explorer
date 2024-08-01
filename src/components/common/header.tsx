@@ -23,7 +23,7 @@ import { Input } from "../ui/input"
 import { Separator } from "../ui/separator"
 
 const navigationItems = [
-  { name: "Identities", paths: ["/", "/search"] },
+  { name: "Identities", paths: ["/", "/identities"] },
   {
     name: "Nodes",
     paths: ["/nodes", "/nodes/details"],

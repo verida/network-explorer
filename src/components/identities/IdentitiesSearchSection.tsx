@@ -83,7 +83,7 @@ export function IdentitiesSearchSection() {
           >
             {searchedProfile ? (
               <Link
-                href={`/search/${searchDidinput}`}
+                href={`/identities/${searchDidinput}`}
                 className="flex flex-row items-center gap-4"
               >
                 {searchedProfile.avatarUri ? (

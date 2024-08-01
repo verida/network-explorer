@@ -45,7 +45,7 @@ export const identitiesTableColumnsDef: ColumnDef<Identity>[] = [
       const { toast } = useToast()
       return (
         <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent-foreground">
-          <Link href={`/search/${row.original.did}`}>
+          <Link href={`/identities/${row.original.did}`}>
             {extractAndShortenAddress(row.original.did)}
           </Link>
           <CopyIcon
