@@ -1,11 +1,9 @@
-"use client"
-
 import React from "react"
 
-export default function ErrorPage() {
+export default function IdentityNotFoundPage() {
   return (
     <div className="flex h-full flex-row items-center justify-center">
-      Oops! Something went wrong!
+      This identity has not been found
     </div>
   )
 }

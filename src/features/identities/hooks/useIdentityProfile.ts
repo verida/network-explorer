@@ -7,6 +7,8 @@ import { getAnyPublicProfile } from "@/features/verida/utils"
 const logger = Logger.create("Identities")
 
 export function useIdentityProfile(did: string) {
+  // TODO: Validate the DID value
+
   const { data, isLoading, isError, ...other } = useQuery(
     ["identities", "profile", did],
     async () => {
