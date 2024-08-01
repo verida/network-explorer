@@ -4,12 +4,14 @@ import { IdentitiesSearchSection } from "@/components/identities/IdentitiesSearc
 import { IdentitiesStatsSection } from "@/components/identities/IdentitiesStatsSection"
 import { IdentitiesTable } from "@/components/identities/table/IdentitiesTable"
 import { Separator } from "@/components/ui/separator"
-import { serverEnvVars } from "@/config/server"
-import { getIdentitiesStatsData } from "@/features/identities/utils"
+import {
+  didRegistryBlockchain,
+  getIdentitiesStatsData,
+} from "@/features/identities/utils"
 
 export default async function RootPage() {
   const identitiesStatsData = await getIdentitiesStatsData(
-    serverEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
+    didRegistryBlockchain
   )
 
   return (

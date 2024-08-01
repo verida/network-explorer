@@ -2,6 +2,10 @@ import { getResolver } from "@verida/vda-did-resolver"
 import { Resolver } from "did-resolver"
 
 import { clientEnvVars } from "@/config/client"
+import { DidDocument } from "@/features/did/types"
+import { Logger } from "@/features/logger"
+
+const logger = Logger.create("DID")
 
 const vdaDidResolver = getResolver({
   rpcUrl: clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL,
@@ -24,14 +28,18 @@ export function extractAndShortenAddress(did: string): string {
 /**
  * Get the DID document of a DID.
  *
+ * Doesn't throw errors, if the DID document is not found return null.
+ *
  * @param did The DID.
  * @returns The DID document.
- * @throws Error if the DID document cannot be found.
- *
  */
-export const getDidDocument = async (did: string) => {
+export async function getDidDocument(did: string): Promise<DidDocument | null> {
   // TODO: Validate the DID
-  const response = await didResolver.resolve(did)
-  const didDocument = response.didDocument
-  return didDocument
+  try {
+    const response = await didResolver.resolve(did)
+    return response.didDocument as DidDocument | null
+  } catch (error) {
+    logger.error(error)
+    return null
+  }
 }

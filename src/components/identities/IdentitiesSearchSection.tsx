@@ -9,39 +9,27 @@ import SearchIcon from "@/assets/icons/search.svg"
 import Avatar from "@/assets/svg/avatar.svg"
 import SearchAccountIllustration from "@/assets/svg/search-account.svg"
 import { Button } from "@/components/ui/button"
-import { useToast } from "@/components/ui/use-toast"
-import { useIdentityProfile } from "@/features/identities/hooks/useIdentityProfile"
+import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
+import { useIdentity } from "@/features/identities/hooks/useIdentity"
 import { cn } from "@/styles/utils"
 
 export function IdentitiesSearchSection() {
-  const { toast } = useToast()
-
   const [popoverOpen, setPopoverOpen] = useState(false)
   const [searchDidinput, setSearchDidInput] = useState("")
 
   // TODO: Validate the value before searching
-  const {
-    profile: searchedProfile,
-    isLoading,
-    isError,
-  } = useIdentityProfile(searchDidinput)
+
+  const { identity, isLoading } = useIdentity(searchDidinput)
+
+  // TODO: Handle errors: display something, no a toast
 
   useEffect(() => {
-    if (isError) {
-      toast({
-        variant: "destructive",
-        description: "Failed to fetch profile",
-      })
-    }
-  }, [isError, toast])
-
-  useEffect(() => {
-    if (isLoading || searchedProfile) {
+    if (isLoading || identity) {
       setPopoverOpen(true)
     } else {
       setPopoverOpen(false)
     }
-  }, [isLoading, searchedProfile])
+  }, [isLoading, identity])
 
   return (
     <div className="flex flex-row justify-between gap-3">
@@ -81,14 +69,14 @@ export function IdentitiesSearchSection() {
               popoverOpen ? "opacity-100" : "opacity-0"
             )}
           >
-            {searchedProfile ? (
+            {identity ? (
               <Link
-                href={`/identities/${searchDidinput}`}
+                href={`/identities/${identity.did}`}
                 className="flex flex-row items-center gap-4"
               >
-                {searchedProfile.avatarUri ? (
+                {identity.profile?.avatarUri ? (
                   <Image
-                    src={searchedProfile.avatarUri}
+                    src={identity.profile.avatarUri}
                     className="aspect-square w-[50px] rounded object-cover"
                     // TODO: Fix the sizing when reworking the whole search component
                     alt="Avatar"
@@ -104,10 +92,10 @@ export function IdentitiesSearchSection() {
                 )}
                 <div className="flex flex-1 flex-col gap-1.5 truncate">
                   <div className="truncate text-[14px] font-bold leading-[17.64px]">
-                    {searchedProfile?.name}
+                    {identity.profile?.name || DEFAULT_FOR_EMPTY_VALUE}
                   </div>
                   <div className="truncate text-[14px] font-normal leading-[17.64px]">
-                    {searchDidinput}
+                    {identity.did}
                   </div>
                 </div>
               </Link>

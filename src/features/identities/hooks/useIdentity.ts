@@ -1,18 +1,16 @@
 import { useQuery } from "react-query"
 
-import { getDidDocument } from "@/features/did/utils"
+import { getIdentity } from "@/features/identities/utils"
 import { Logger } from "@/features/logger"
 
-const logger = Logger.create("DID")
+const logger = Logger.create("Identities")
 
-export function useDidDocument(did: string) {
+export function useIdentity(did: string) {
   // TODO: Validate the DID value
 
   const { data, ...other } = useQuery(
-    ["identities", "didDocument", did],
-    async () => {
-      return await getDidDocument(did)
-    },
+    ["identities", did],
+    async () => getIdentity(did),
     {
       onError: (error) => {
         logger.error(error)
@@ -23,7 +21,7 @@ export function useDidDocument(did: string) {
   )
 
   return {
-    didDocument: data,
+    identity: data,
     ...other,
   }
 }

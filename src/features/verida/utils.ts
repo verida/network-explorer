@@ -1,40 +1,42 @@
-import { Client } from "@verida/client-ts"
-
-import { Identity } from "@/features/identities/types"
+import { Logger } from "@/features/logger"
+import { client } from "@/features/verida/client"
 import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants"
-import { Profile } from "@/features/verida/types"
+import { Profile, ProfileDocument } from "@/features/verida/types"
+
+const logger = Logger.create("Verida")
 
 /**
- * Get the public profile of any Verida DID, if it exists.
+ * Get the public profile of a Verida Identity.
  *
- * @param client A Verida client.
- * @param didOrUsername A username or DID.
+ * Doesn't throw errors, if the profile is not found return null.
+ *
+ * @param did A DID.
  * @returns The Verida Public Profile.
  */
-export const getAnyPublicProfile = async (
-  client: Client,
+export const getPublicProfile = async (
   did: string
-): Promise<Identity | undefined> => {
+): Promise<Profile | null> => {
   try {
     // TODO: Replace by fetching https://data.verida.network/... ?
-    const profileInstance = (await client.getPublicProfile(
+    const profileDocument = (await client.getPublicProfile(
       did,
       VERIDA_VAULT_CONTEXT_NAME
-    )) as Profile | undefined
+    )) as ProfileDocument | undefined
 
-    if (!profileInstance) {
-      throw new Error("No public profile exists for this did")
+    if (!profileDocument) {
+      return null
     }
 
-    return {
-      did: did,
-      name: profileInstance.name || "--",
-      avatarUri: profileInstance.avatar?.uri,
-      country: profileInstance.country || "--",
-      description: profileInstance.description || "--",
-      createdAt: profileInstance.modifiedAt || "--",
+    const profile: Profile = {
+      name: profileDocument.name,
+      avatarUri: profileDocument.avatar?.uri,
+      country: profileDocument.country,
+      description: profileDocument.description,
     }
+
+    return profile
   } catch (error) {
-    return
+    logger.error(error)
+    return null
   }
 }

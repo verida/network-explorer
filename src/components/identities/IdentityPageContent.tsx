@@ -1,6 +1,5 @@
 "use client"
 
-import { DIDDocument } from "did-resolver"
 import Image from "next/image"
 import React, { useMemo, useState } from "react"
 import QRCode from "react-qr-code"
@@ -11,28 +10,25 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { useToast } from "@/components/ui/use-toast"
 import { clientEnvVars } from "@/config/client"
+import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { Identity } from "@/features/identities/types"
 import { Logger } from "@/features/logger"
 
 const logger = Logger.create("<ResultBox>")
 
 type IdentityPageContentProps = {
-  did: string
-  profile: Identity
-  didDocument: DIDDocument
+  identity: Identity
 }
 
 export function IdentityPageContent(props: IdentityPageContentProps) {
-  const { did, profile, didDocument } = props
+  const { identity } = props
+  const { did, profile, didDocument } = identity
 
   const { toast } = useToast()
 
   const [showDidDocument, setShowDidDocument] = useState(false)
 
   const formattedDidDocument = useMemo(() => {
-    if (!didDocument) {
-      return null
-    }
     try {
       return JSON.stringify(didDocument, null, 2)
     } catch (error) {
@@ -52,7 +48,7 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
       <div className="flex flex-row gap-3">
         <div className="flex min-w-0 flex-col items-center gap-4 sm:flex-1 sm:flex-row sm:items-start">
           <div>
-            {profile.avatarUri ? (
+            {profile?.avatarUri ? (
               <Image
                 src={profile.avatarUri}
                 alt=""
@@ -71,7 +67,7 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
           <div className="flex w-full min-w-0 flex-col gap-9 sm:flex-1">
             <div className="flex flex-col gap-6 sm:max-w-[620px]">
               <p className="truncate text-center text-[20px] font-bold leading-[24px] sm:text-start sm:font-normal md:text-base">
-                {profile.name}
+                {profile?.name ?? DEFAULT_FOR_EMPTY_VALUE}
               </p>
               <div className="flex flex-col items-center sm:hidden">
                 <div
@@ -91,12 +87,12 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
                   DID
                 </div>
                 <div className="flex flex-row items-center gap-2 text-[14px] font-normal leading-[20px] text-accent-foreground">
-                  <span className="truncate">{profile.did}</span>
+                  <span className="truncate">{did}</span>
                   <CopyIcon
                     color="#8566F2"
                     className="cursor-pointer"
                     onClick={() => {
-                      navigator.clipboard.writeText(profile.did)
+                      navigator.clipboard.writeText(did)
                       toast({
                         description: "Copied to clipboard",
                       })
@@ -109,7 +105,7 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
                   Country
                 </p>
                 <p className="truncate text-[14px] font-normal leading-[20px]">
-                  {profile.country}
+                  {profile?.country ?? DEFAULT_FOR_EMPTY_VALUE}
                 </p>
               </div>
               <div className="flex flex-col gap-2">
@@ -117,7 +113,7 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
                   Description
                 </p>
                 <p className="line-clamp-6 break-words text-[14px] font-normal leading-[22.4px]">
-                  {profile.description}
+                  {profile?.description ?? DEFAULT_FOR_EMPTY_VALUE}
                 </p>
               </div>
             </div>
@@ -152,7 +148,7 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
           <pre className="whitespace-pre-wrap break-all text-[14px] font-normal leading-[22.4px]">
             {formattedDidDocument
               ? formattedDidDocument
-              : "Unable to get did document"}
+              : "Unable to get DID document"}
           </pre>
         </>
       ) : null}
