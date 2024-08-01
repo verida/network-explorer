@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { extractAndShortenAddress } from "@/features/did/utils"
 import { Identity } from "@/features/identities/types"
 
-export const columns: ColumnDef<Identity>[] = [
+export const identitiesTableColumnsDef: ColumnDef<Identity>[] = [
   {
     accessorKey: "user",
     header: "Name",

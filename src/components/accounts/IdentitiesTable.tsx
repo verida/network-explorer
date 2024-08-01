@@ -9,7 +9,7 @@ import { Identity } from "@/features/identities/types"
 
 import DataTable from "../common/table"
 import { useToast } from "../ui/use-toast"
-import { columns } from "./account/column"
+import { identitiesTableColumnsDef } from "./account/identitiesTableColumnsDef"
 
 const fallbackData: Identity[] = []
 
@@ -50,7 +50,7 @@ export function IdentitiesTable() {
   return (
     <div className="flex flex-col gap-6">
       <DataTable
-        columns={columns}
+        columns={identitiesTableColumnsDef}
         data={identityTableData}
         page={page}
         limit={limit}
