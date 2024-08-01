@@ -17,6 +17,7 @@ import { cn } from "@/styles/utils"
 
 export function IdentitiesSearchSection() {
   const [searchedDid, setSearchedDid] = useState("")
+  // TODO: Add a button to clear the search input
 
   const handleSearchInputChange: React.ChangeEventHandler<HTMLInputElement> =
     useCallback((event) => {
@@ -56,9 +57,9 @@ export function IdentitiesSearchSection() {
         </div>
         <div className="flex flex-col gap-3">
           {/* TODO: Rework the search and search result */}
-          <div className="network-search flex flex-col items-center gap-6 rounded-lg border border-border-60 p-4 md:flex-row md:gap-2 md:py-2 md:pl-4 md:pr-2">
-            <div className="flex w-full flex-row items-center gap-2">
-              <SearchIcon />
+          <div className="rounded-lg border border-border bg-gradient-to-br from-foreground/10 from-5% to-foreground/5 to-95% p-4">
+            <div className="flex w-full flex-row items-center gap-4">
+              <SearchIcon className="h-6 w-6" />
               <input
                 placeholder="Search by DID (did:vda:polpos:0x486e..644a55)"
                 onChange={handleSearchInputChange}
