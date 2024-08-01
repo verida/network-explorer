@@ -10,14 +10,14 @@ import SearchIcon from "@/assets/icons/search.svg"
 import Avatar from "@/assets/svg/avatar.svg"
 import SearchAccountIllustration from "@/assets/svg/search-account.svg"
 import { Button } from "@/components/ui/button"
+import { useToast } from "@/components/ui/use-toast"
 import { client as veridaClient } from "@/features/verida/client"
 import { getAnyPublicProfile } from "@/features/verida/utils"
 import { cn } from "@/styles/utils"
 
-import { useToast } from "../ui/use-toast"
-
-const NetworkExplorer = () => {
+export function IdentitiesSearchSection() {
   const { toast } = useToast()
+
   const [popoverOpen, setPopoverOpen] = useState(false)
   const [searchDidinput, setSearchDidInput] = useState("")
 
@@ -136,5 +136,3 @@ const NetworkExplorer = () => {
     </div>
   )
 }
-
-export default NetworkExplorer

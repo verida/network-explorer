@@ -1,7 +1,7 @@
 import React from "react"
 
+import { IdentitiesSearchSection } from "@/components/identities/IdentitiesSearchSection"
 import { IdentitiesStatsSection } from "@/components/identities/IdentitiesStatsSection"
-import NetworkExplorer from "@/components/identities/NetworkExplorer"
 import { IdentitiesTable } from "@/components/identities/table/IdentitiesTable"
 import { Separator } from "@/components/ui/separator"
 import { serverEnvVars } from "@/config/server"
@@ -14,7 +14,7 @@ export default async function HomePage() {
 
   return (
     <div className="flex flex-col gap-16">
-      <NetworkExplorer />
+      <IdentitiesSearchSection />
       <Separator className="hidden md:block" />
       <IdentitiesStatsSection data={identitiesStatsData} />
       <IdentitiesTable />
