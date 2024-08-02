@@ -12,6 +12,7 @@ export const ClientEnvVarsSchema = z
       }),
     NEXT_PUBLIC_VERIDA_RPC_URL: z.string().url().optional(),
     NEXT_PUBLIC_METRICS_BASE_URL: z.string().url(),
+    NEXT_PUBLIC_PLAUSIBLE_DOMAIN: z.string().default(""),
     NEXT_PUBLIC_LOG_LEVEL: z
       .enum(["error", "warn", "info", "debug"])
       .default("info"),
