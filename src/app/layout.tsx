@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: APP_TITLE,
     description: APP_DESCRIPTION,
     images: {
-      url: `${baseUrl}/logo.svg`, // TODO: Update to the actual open graph image
+      url: `${baseUrl}/network_explorer_preview.jpg`,
       width: 1200,
       height: 630,
       alt: APP_NAME,
