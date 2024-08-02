@@ -102,7 +102,10 @@ export async function getActiveIdentitiesCount(
   let result: number
   try {
     // TODO: Replace by a fetch of https://data.verida.network/network/{blockchain}/stats ?
-    result = await activeDIDCount(registryBlockchain)
+    result = await activeDIDCount(
+      registryBlockchain,
+      clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL
+    )
   } catch (error) {
     throw new Error("Failed to fetch active identities count", {
       cause: error,
@@ -133,7 +136,8 @@ export async function getDids(
     registryBlockchain,
     (page - 1) * limit,
     limit,
-    true
+    true,
+    clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL
   )
 
   // revert orders for `createdAt` desc
