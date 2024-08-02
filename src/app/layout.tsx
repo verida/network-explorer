@@ -8,6 +8,7 @@ import { Header } from "@/components/common/header"
 import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
 import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/constants/app"
+import { PlausibleScript } from "@/features/plausible/PlausibleScript"
 import { cn } from "@/styles/utils"
 
 import "./globals.css"
@@ -31,7 +32,7 @@ export const metadata: Metadata = {
     title: APP_TITLE,
     description: APP_DESCRIPTION,
     images: {
-      url: `${baseUrl}/logo.svg`, // TODO: Update to the actual open graph image
+      url: `${baseUrl}/network_explorer_preview.jpg`,
       width: 1200,
       height: 630,
       alt: APP_NAME,
@@ -50,6 +51,9 @@ export default function RootLayout(props: RootLayoutProps) {
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <PlausibleScript />
+      </head>
       <body
         className={cn(
           "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
