@@ -7,7 +7,7 @@ const nextConfig = {
   webpack(config) {
     config.node = {
       __dirname: true,
-    };
+    }
 
     config.module.rules.push({
       test: /\.svg$/,
@@ -17,15 +17,15 @@ const nextConfig = {
           options: { icon: true, removeViewBox: true },
         },
       ],
-    });
+    })
 
     config.module.rules.push({
       test: /\.(ttf|eot|woff(2)? )(\?[a-z0-9=&.]+)?$/,
       use: ["base64-inline-loader"],
-    });
+    })
 
-    return config;
+    return config
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

@@ -1,13 +1,14 @@
-import React, { useMemo } from "react";
+import React from "react"
 import {
   FaDiscord,
-  FaTelegramPlane,
-  FaLinkedinIn,
-  FaYoutube,
   FaGithub,
-} from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { cn } from "@/lib/utils/utils";
+  FaLinkedinIn,
+  FaTelegramPlane,
+  FaYoutube,
+} from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
+
+import { cn } from "@/styles/utils"
 
 const platformLinks = [
   {
@@ -34,14 +35,14 @@ const platformLinks = [
     icon: <FaGithub />,
     link: "https://github.com/verida",
   },
-];
+]
 
-export type FooterProps = Omit<React.ComponentProps<"footer">, "children">;
+export type FooterProps = Omit<React.ComponentProps<"footer">, "children">
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const { className, ...footerProps } = props;
+  const { className, ...footerProps } = props
 
-  const currentDate = new Date();
+  const currentDate = new Date()
 
   return (
     <footer className={cn("", className)} {...footerProps}>
@@ -68,5 +69,5 @@ export const Footer: React.FC<FooterProps> = (props) => {
         </div>
       </div>
     </footer>
-  );
-};
+  )
+}

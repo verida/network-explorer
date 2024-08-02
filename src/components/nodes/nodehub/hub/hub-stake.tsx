@@ -1,15 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { userAtom } from "@/lib/atom";
-import React from "react";
-import { useRecoilValue } from "recoil";
-import { Tab } from "@/components/common/table";
+import React from "react"
+import { useRecoilValue } from "recoil"
+
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
+import { userAtom } from "@/lib/atom"
 
 const HubStake = ({
   setTab,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
 }) => {
-  const user = useRecoilValue(userAtom);
+  const user = useRecoilValue(userAtom)
 
   return (
     <div className="flex flex-col gap-8">
@@ -31,15 +32,15 @@ const HubStake = ({
       <Button
         onClick={() => {
           if (user.connected) {
-            setTab("loading");
+            setTab("loading")
             setTimeout(() => {
-              setTab("success");
+              setTab("success")
               setTimeout(() => {
-                setTab("error");
-              }, 5000);
-            }, 2000);
+                setTab("error")
+              }, 5000)
+            }, 2000)
           } else {
-            setTab("connected");
+            setTab("connected")
           }
         }}
         className="h-[48px] w-full rounded-lg bg-white px-6 py-[14px] text-[14px] font-semibold leading-[20px] text-[#111]"
@@ -61,7 +62,7 @@ const HubStake = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HubStake;
+export default HubStake

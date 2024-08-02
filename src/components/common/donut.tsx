@@ -1,5 +1,5 @@
-import React from "react";
-import Chart from "react-apexcharts";
+import React from "react"
+import Chart from "react-apexcharts"
 
 const DonutChart = ({ percentage }: { percentage: string }) => {
   return (
@@ -30,13 +30,13 @@ const DonutChart = ({ percentage }: { percentage: string }) => {
                   fontSize: "28px",
                   showAlways: true,
                   formatter: () => {
-                    return "Used";
+                    return "Used"
                   },
                 },
                 value: {
                   show: true,
-                  formatter: (v) => {
-                    return "Used";
+                  formatter: () => {
+                    return "Used"
                   },
                   color: "white",
                   fontWeight: "400",
@@ -52,7 +52,7 @@ const DonutChart = ({ percentage }: { percentage: string }) => {
       height={200}
       width={200}
     />
-  );
-};
+  )
+}
 
-export default DonutChart;
+export default DonutChart

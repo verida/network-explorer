@@ -90,14 +90,6 @@
       100% 300px;
   }
 
-  .network-search {
-    background: linear-gradient(
-      107deg,
-      rgba(255, 255, 255, 0.1) 1.54%,
-      rgba(255, 255, 255, 0.04) 100%
-    );
-  }
-
   .bar-container {
     background: linear-gradient(
       107deg,

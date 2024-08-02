@@ -1,24 +1,21 @@
-import React from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
-import VeridaIcon from "@/assets/svg/verida.svg";
-import { FaAngleDown } from "react-icons/fa6";
-import { Close } from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
-import { useRecoilValue } from "recoil";
-import { userAtom } from "@/lib/atom";
-import UnAuthorizedContent from "./unauthorized-content";
-import AuthorizedContent from "./authorized-content";
-import ConnectedContent from "./connected-content";
-import { cn } from "@/lib/utils/utils";
+import { Close } from "@radix-ui/react-dialog"
+import { X } from "lucide-react"
+import React from "react"
+import { FaAngleDown } from "react-icons/fa6"
+import { useRecoilValue } from "recoil"
+
+import VeridaIcon from "@/assets/svg/verida.svg"
+import { userAtom } from "@/lib/atom"
+import { cn } from "@/styles/utils"
+
+import { Button } from "../ui/button"
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "../ui/dialog"
+import AuthorizedContent from "./authorized-content"
+import ConnectedContent from "./connected-content"
+import UnAuthorizedContent from "./unauthorized-content"
 
 const ConnectedWallet = () => {
-  const user = useRecoilValue(userAtom);
+  const user = useRecoilValue(userAtom)
 
   return (
     <Dialog>
@@ -52,7 +49,7 @@ const ConnectedWallet = () => {
         )}
       </DialogContent>
     </Dialog>
-  );
-};
+  )
+}
 
-export default ConnectedWallet;
+export default ConnectedWallet
