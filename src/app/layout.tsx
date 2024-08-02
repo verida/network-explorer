@@ -8,6 +8,7 @@ import { Header } from "@/components/common/header"
 import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
 import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/constants/app"
+import { PlausibleScript } from "@/features/plausible/PlausibleScript"
 import { cn } from "@/styles/utils"
 
 import "./globals.css"
@@ -50,6 +51,9 @@ export default function RootLayout(props: RootLayoutProps) {
 
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <PlausibleScript />
+      </head>
       <body
         className={cn(
           "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
