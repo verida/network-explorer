@@ -4,8 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import React, { useCallback, useMemo, useState } from "react"
 import { Oval } from "react-loader-spinner"
+import { useDebounce } from "use-debounce"
 
-// import { useDebounce } from "use-debounce"
 import SearchIcon from "@/assets/icons/search.svg"
 import Avatar from "@/assets/svg/avatar.svg"
 import SearchAccountIllustration from "@/assets/svg/search-account.svg"
@@ -24,8 +24,7 @@ export function IdentitiesSearchSection() {
       setSearchedDid(event.target.value)
     }, [])
 
-  // const [debouncedSearchedDid] = useDebounce(searchedDid, 1000)
-  const debouncedSearchedDid = searchedDid
+  const [debouncedSearchedDid] = useDebounce(searchedDid, 1000)
 
   const { identity, isError } = useIdentity({
     didRegistryBlockchain,
