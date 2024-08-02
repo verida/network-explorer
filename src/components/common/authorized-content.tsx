@@ -1,14 +1,16 @@
-import React from "react";
-import CopyIcon from "@/assets/icons/copy.svg";
-import VeridaIcon from "@/assets/svg/verida.svg";
-import { LuLogOut } from "react-icons/lu";
-import { Button } from "../ui/button";
-import { useRecoilState } from "recoil";
-import { userAtom } from "@/lib/atom";
-import MetamaskIcon from "@/assets/svg/metamask.svg";
+import React from "react"
+import { LuLogOut } from "react-icons/lu"
+import { useRecoilState } from "recoil"
+
+import CopyIcon from "@/assets/icons/copy.svg"
+import MetamaskIcon from "@/assets/svg/metamask.svg"
+import VeridaIcon from "@/assets/svg/verida.svg"
+import { userAtom } from "@/lib/atom"
+
+import { Button } from "../ui/button"
 
 const AuthorizedContent = () => {
-  const [user, setUser] = useRecoilState(userAtom);
+  const [user, setUser] = useRecoilState(userAtom)
   return (
     <>
       <div className="text-[14px] font-bold leading-[20px] text-muted-foreground">
@@ -41,7 +43,7 @@ const AuthorizedContent = () => {
           setUser({
             ...user,
             connected: true,
-          });
+          })
         }}
       >
         <MetamaskIcon width={50} />
@@ -50,7 +52,7 @@ const AuthorizedContent = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default AuthorizedContent;
+export default AuthorizedContent

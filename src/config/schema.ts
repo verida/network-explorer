@@ -1,6 +1,5 @@
-import { Network } from "@verida/types";
-
-import { z } from "zod";
+import { Network } from "@verida/types"
+import { z } from "zod"
 
 export const ClientEnvVarsSchema = z
   .object({
@@ -9,7 +8,7 @@ export const ClientEnvVarsSchema = z
       .enum(["myrtle", "banksia"])
       .default("myrtle")
       .transform((value) => {
-        return value === "myrtle" ? Network.MYRTLE : Network.BANKSIA;
+        return value === "myrtle" ? Network.MYRTLE : Network.BANKSIA
       }),
     NEXT_PUBLIC_VERIDA_RPC_URL: z.string().url().optional(),
     NEXT_PUBLIC_METRICS_BASE_URL: z.string().url(),
@@ -17,8 +16,8 @@ export const ClientEnvVarsSchema = z
       .enum(["error", "warn", "info", "debug"])
       .default("info"),
   })
-  .passthrough();
+  .passthrough()
 
 export const ServerEnvVarsSchema = ClientEnvVarsSchema.extend({
   // TODO: Add server specific env vars
-}).passthrough();
+}).passthrough()

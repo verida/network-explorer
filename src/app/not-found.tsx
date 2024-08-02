@@ -1,12 +1,9 @@
-"use client";
-import React from "react";
+import React from "react"
 
-const NotFoundPage = () => {
+export default function RootNotFoundPage() {
   return (
     <div className="flex h-full flex-row items-center justify-center">
-      This page is not found
+      {`This page doesn't exist`}
     </div>
-  );
-};
-
-export default NotFoundPage;
+  )
+}

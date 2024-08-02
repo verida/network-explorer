@@ -1,14 +1,15 @@
-import React from "react";
-import SuccessIcon from "@/assets/svg/success.svg";
-import { Tab } from "@/components/common/table";
-import { Button } from "@/components/ui/button";
+import React from "react"
+
+import SuccessIcon from "@/assets/svg/success.svg"
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
 
 const HubSuccess = ({
   setTab,
   setNodeDialogOpen,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
-  setNodeDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
+  setNodeDialogOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) => {
   return (
     <div className="flex flex-col items-center gap-10 pt-10">
@@ -26,15 +27,15 @@ const HubSuccess = ({
       <Button
         variant="ghost"
         onClick={() => {
-          setNodeDialogOpen(false);
-          setTab("form");
+          setNodeDialogOpen(false)
+          setTab("form")
         }}
         className="text-[14px] font-bold leading-[20px]"
       >
         View Details
       </Button>
     </div>
-  );
-};
+  )
+}
 
-export default HubSuccess;
+export default HubSuccess

@@ -1,5 +1,5 @@
-import React from "react";
-import { Oval } from "react-loader-spinner";
+import React from "react"
+import { Oval } from "react-loader-spinner"
 
 const HubLoading = () => {
   return (
@@ -22,7 +22,7 @@ const HubLoading = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HubLoading;
+export default HubLoading

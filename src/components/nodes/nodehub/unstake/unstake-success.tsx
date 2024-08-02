@@ -1,5 +1,6 @@
-import React from "react";
-import SuccessIcon from "@/assets/svg/success.svg";
+import React from "react"
+
+import SuccessIcon from "@/assets/svg/success.svg"
 
 const UnStakeSuccess = () => {
   return (
@@ -16,7 +17,7 @@ const UnStakeSuccess = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UnStakeSuccess;
+export default UnStakeSuccess

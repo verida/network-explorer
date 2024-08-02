@@ -1,9 +1,8 @@
 /* eslint-disable no-console */
+import { clientEnvVars } from "@/config/client"
+import { LogLevel } from "@/features/logger/types"
 
-import { LogLevel } from "@/features/logger/types";
-import { clientEnvVars } from "@/config/client";
-
-const levelOrder: LogLevel[] = ["error", "warn", "info", "debug"];
+const levelOrder: LogLevel[] = ["error", "warn", "info", "debug"]
 
 /**
  * Custom logger to use the console.
@@ -13,15 +12,15 @@ const levelOrder: LogLevel[] = ["error", "warn", "info", "debug"];
  * The console will be used if in "dev" mode which is also defined by an environment variable.
  */
 export class Logger {
-  private static instances = new Map<string, Logger>();
+  private static instances = new Map<string, Logger>()
   private static currentLevelIndex: number = levelOrder.indexOf(
     clientEnvVars.NEXT_PUBLIC_LOG_LEVEL
-  );
+  )
 
-  private readonly category: string;
+  private readonly category: string
 
   private constructor(category: string) {
-    this.category = category;
+    this.category = category
   }
 
   /**
@@ -31,11 +30,11 @@ export class Logger {
    */
   static create(category: string) {
     if (Logger.instances.has(category)) {
-      return Logger.instances.get(category)!;
+      return Logger.instances.get(category)!
     }
-    const logger = new Logger(category);
-    Logger.instances.set(category, logger);
-    return logger;
+    const logger = new Logger(category)
+    Logger.instances.set(category, logger)
+    return logger
   }
 
   /**
@@ -44,15 +43,15 @@ export class Logger {
    * @param level The log level to set.
    */
   static setLogLevel(level: LogLevel) {
-    Logger.currentLevelIndex = levelOrder.indexOf(level);
+    Logger.currentLevelIndex = levelOrder.indexOf(level)
   }
 
   private shouldSkipPrint(level: LogLevel) {
-    return levelOrder.indexOf(level) > Logger.currentLevelIndex;
+    return levelOrder.indexOf(level) > Logger.currentLevelIndex
   }
 
   private formatMessage(message: string) {
-    return `${new Date().toISOString()} - [${this.category}] ${message}`;
+    return `${new Date().toISOString()} - [${this.category}] ${message}`
   }
 
   private log(
@@ -61,67 +60,67 @@ export class Logger {
     extra?: Record<string, unknown>
   ) {
     if (this.shouldSkipPrint(level)) {
-      return;
+      return
     }
 
-    let formattedMessage = this.formatMessage(message);
+    let formattedMessage = this.formatMessage(message)
 
-    const formattedExtra: Record<string, unknown>[] = [];
+    const formattedExtra: Record<string, unknown>[] = []
     if (extra) {
-      formattedExtra.push(extra);
+      formattedExtra.push(extra)
     }
 
-    console[level](formattedMessage, ...formattedExtra);
+    console[level](formattedMessage, ...formattedExtra)
   }
 
   public error(error: Error | unknown) {
     // Log the error message with the formatting (timestamp, category)
-    this.log("error", error instanceof Error ? error.message : "");
+    this.log("error", error instanceof Error ? error.message : "")
 
     // Use the standard error logging
-    console.error(error);
+    console.error(error)
   }
 
   public warn(message: string, data?: Record<string, unknown>) {
-    this.log("warn", message, data);
+    this.log("warn", message, data)
   }
 
   public info(message: string, data?: Record<string, unknown>) {
-    this.log("info", message, data);
+    this.log("info", message, data)
   }
 
   public debug(message: string, data?: Record<string, unknown>) {
-    this.log("debug", message, data);
+    this.log("debug", message, data)
   }
 
   public startTimer(label: string) {
     if (this.shouldSkipPrint("debug")) {
-      return () => this.endTimer(label);
+      return () => this.endTimer(label)
     }
-    this.debug(`Starting timer: ${label}`);
-    console.time(label);
-    return () => this.endTimer(label);
+    this.debug(`Starting timer: ${label}`)
+    console.time(label)
+    return () => this.endTimer(label)
   }
 
   public logTimer(label: string, ...extra: string[]) {
     if (this.shouldSkipPrint("debug")) {
-      return;
+      return
     }
-    console.timeLog(label, extra);
+    console.timeLog(label, extra)
   }
 
   public endTimer(label: string) {
     if (this.shouldSkipPrint("debug")) {
-      return;
+      return
     }
-    console.timeEnd(label);
-    this.debug(`Timer ended: ${label}`);
+    console.timeEnd(label)
+    this.debug(`Timer ended: ${label}`)
   }
 
   public table(data: unknown[], properties?: string[]) {
     if (this.shouldSkipPrint("debug")) {
-      return;
+      return
     }
-    console.table(data, properties);
+    console.table(data, properties)
   }
 }

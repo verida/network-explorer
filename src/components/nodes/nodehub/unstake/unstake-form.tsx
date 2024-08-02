@@ -1,11 +1,12 @@
-import React from "react";
-import { Tab } from "@/components/common/table";
-import { Button } from "@/components/ui/button";
+import React from "react"
+
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
 
 const UnStakeForm = ({
   setTab,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
 }) => {
   return (
     <div className="flex flex-col gap-8">
@@ -25,10 +26,10 @@ const UnStakeForm = ({
       </div>
       <Button
         onClick={() => {
-          setTab("loading");
+          setTab("loading")
           setTimeout(() => {
-            setTab("success");
-          }, 2000);
+            setTab("success")
+          }, 2000)
         }}
         className="h-[48px] w-full rounded-lg bg-white px-6 py-[14px] text-[14px] font-semibold leading-[20px] text-[#111]"
       >
@@ -49,7 +50,7 @@ const UnStakeForm = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default UnStakeForm;
+export default UnStakeForm

@@ -1,4 +1,11 @@
-import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod"
+import React from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
+import { DialogTitle } from "@/components/ui/dialog"
 import {
   Form,
   FormControl,
@@ -6,46 +13,40 @@ import {
   FormField,
   FormItem,
   FormLabel,
-} from "@/components/ui/form";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from "@/components/ui/form"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { DialogTitle } from "@/components/ui/dialog";
-import { Tab } from "@/components/common/table";
-import { Button } from "@/components/ui/button";
-import { Logger } from "@/features/logger";
+} from "@/components/ui/select"
+import { Logger } from "@/features/logger"
 
-const logger = Logger.create("<WithdrawForm>");
+const logger = Logger.create("<WithdrawForm>")
 
-const fallbacks = ["1234567890", "1234567891"];
+const fallbacks = ["1234567890", "1234567891"]
 
 const withdrawFormSchema = z.object({
   fallback: z.enum(["1234567890", "1234567891"]),
-});
+})
 
 const WithdrawForm = ({
   setTab,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
 }) => {
   const form = useForm<z.infer<typeof withdrawFormSchema>>({
     resolver: zodResolver(withdrawFormSchema),
-  });
+  })
 
   const onSubmit = (values: z.infer<typeof withdrawFormSchema>) => {
-    logger.debug("Submitted values", values);
-    setTab("success");
+    logger.debug("Submitted values", values)
+    setTab("success")
     setTimeout(() => {
-      setTab("error");
-    }, 5000);
-  };
+      setTab("error")
+    }, 5000)
+  }
 
   return (
     <>
@@ -115,7 +116,7 @@ const WithdrawForm = ({
         </form>
       </Form>
     </>
-  );
-};
+  )
+}
 
-export default WithdrawForm;
+export default WithdrawForm

@@ -1,30 +1,31 @@
-import React from "react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import React from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { countriesWithCodes } from "@/lib/utils/utils";
-import { Tab } from "@/components/common/table";
-import { Logger } from "@/features/logger";
+} from "@/components/ui/select"
+import { COUNTRIES } from "@/features/countries/constants"
+import { Logger } from "@/features/logger"
 
-const logger = Logger.create("<CreateNodeForm>");
+const logger = Logger.create("<CreateNodeForm>")
 
-const regions = ["Africa", "Asia", "Australia", "Europe", "USA"];
+const regions = ["Africa", "Asia", "Australia", "Europe", "USA"]
 
 const nodeFormSchema = z.object({
   operator_did: z.string(),
@@ -34,19 +35,19 @@ const nodeFormSchema = z.object({
   countryCode: z.string(),
   endpoint_url: z.string().url(),
   datacenter: z.string(),
-});
+})
 
 const CreateNodeForm = ({
   setTab,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
 }) => {
   const form = useForm<z.infer<typeof nodeFormSchema>>({
     resolver: zodResolver(nodeFormSchema),
-  });
+  })
 
   function onSubmit(values: z.infer<typeof nodeFormSchema>) {
-    logger.debug("Submitted values", values);
+    logger.debug("Submitted values", values)
   }
 
   return (
@@ -150,7 +151,7 @@ const CreateNodeForm = ({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {countriesWithCodes.map((countryCode, index) => (
+                    {COUNTRIES.map((countryCode, index) => (
                       <SelectItem
                         key={index}
                         value={countryCode.code}
@@ -217,7 +218,7 @@ const CreateNodeForm = ({
             // disabled={!form.formState.isValid}
             // type="submit"
             onClick={() => {
-              setTab("stake");
+              setTab("stake")
             }}
           >
             Continue
@@ -225,7 +226,7 @@ const CreateNodeForm = ({
         </div>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default CreateNodeForm;
+export default CreateNodeForm

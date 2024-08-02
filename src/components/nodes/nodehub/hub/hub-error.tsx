@@ -1,12 +1,13 @@
-import React from "react";
-import ErrorIcon from "@/assets/svg/error.svg";
-import { Button } from "@/components/ui/button";
-import { Tab } from "@/components/common/table";
+import React from "react"
+
+import ErrorIcon from "@/assets/svg/error.svg"
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
 
 const HubError = ({
   setTab,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
 }) => {
   return (
     <div className="flex flex-col items-center gap-10 pt-10">
@@ -22,7 +23,7 @@ const HubError = ({
         </div>
         <Button
           onClick={() => {
-            setTab("form");
+            setTab("form")
           }}
           variant="ghost"
           className="text-[14px] font-bold leading-[20px]"
@@ -31,7 +32,7 @@ const HubError = ({
         </Button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HubError;
+export default HubError

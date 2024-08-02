@@ -1,8 +1,10 @@
-import React from "react";
-import CopyIcon from "@/assets/icons/copy.svg";
-import VeridaIcon from "@/assets/svg/verida.svg";
-import { LuLogOut } from "react-icons/lu";
-import { Button } from "../ui/button";
+import React from "react"
+import { LuLogOut } from "react-icons/lu"
+
+import CopyIcon from "@/assets/icons/copy.svg"
+import VeridaIcon from "@/assets/svg/verida.svg"
+
+import { Button } from "../ui/button"
 
 const UnAuthorizedContent = () => {
   return (
@@ -36,7 +38,7 @@ const UnAuthorizedContent = () => {
         <LuLogOut />
       </Button>
     </>
-  );
-};
+  )
+}
 
-export default UnAuthorizedContent;
+export default UnAuthorizedContent

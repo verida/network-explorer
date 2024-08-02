@@ -1,38 +1,40 @@
-"use client";
+"use client"
 
-import { Button } from "@/components/ui/button";
-import { ColumnDef } from "@tanstack/react-table";
-import StorageIcon from "@/assets/icons/storage.svg";
-import { FaCaretDown, FaCaretUp } from "react-icons/fa";
-import Link from "next/link";
-import { useRecoilValue } from "recoil";
-import { FaEllipsis } from "react-icons/fa6";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { userAtom } from "@/lib/atom";
+import { Close } from "@radix-ui/react-dialog"
+import { ColumnDef } from "@tanstack/react-table"
+import { X } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
+import { FaCaretDown, FaCaretUp } from "react-icons/fa"
+import { FaEllipsis } from "react-icons/fa6"
+import { useRecoilValue } from "recoil"
+
+import StorageIcon from "@/assets/icons/storage.svg"
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import WithdrawForm from "../nodehub/withdraw/withdraw-form";
-import WithdrawSuccess from "../nodehub/withdraw/withdraw-success";
-import { useState } from "react";
-import WithdrawError from "../nodehub/withdraw/withdraw-error";
-import { Close } from "@radix-ui/react-dialog";
-import { X } from "lucide-react";
-import HubLoading from "../nodehub/hub/hub-loading";
-import UnStakeForm from "../nodehub/unstake/unstake-form";
-import UnStakeSuccess from "../nodehub/unstake/unstake-success";
-import { cn } from "@/lib/utils/utils";
-import { Node } from "@/types/node";
-import { Tab } from "@/components/common/table";
+} from "@/components/ui/dialog"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { StorageNode } from "@/features/storagenodes/types"
+import { userAtom } from "@/lib/atom"
+import { cn } from "@/styles/utils"
 
-export const columns: ColumnDef<Node>[] = [
+import HubLoading from "../nodehub/hub/hub-loading"
+import UnStakeForm from "../nodehub/unstake/unstake-form"
+import UnStakeSuccess from "../nodehub/unstake/unstake-success"
+import WithdrawError from "../nodehub/withdraw/withdraw-error"
+import WithdrawForm from "../nodehub/withdraw/withdraw-form"
+import WithdrawSuccess from "../nodehub/withdraw/withdraw-success"
+
+export const columns: ColumnDef<StorageNode>[] = [
   {
     accessorKey: "name",
     enableSorting: true,
@@ -41,7 +43,7 @@ export const columns: ColumnDef<Node>[] = [
         variant="ghost"
         className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
-          column.toggleSorting(column.getIsSorted() === "asc");
+          column.toggleSorting(column.getIsSorted() === "asc")
         }}
       >
         <span>Node Name</span>
@@ -86,7 +88,7 @@ export const columns: ColumnDef<Node>[] = [
         variant="ghost"
         className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
-          column.toggleSorting(column.getIsSorted() === "asc");
+          column.toggleSorting(column.getIsSorted() === "asc")
         }}
       >
         <span>Region</span>
@@ -108,7 +110,7 @@ export const columns: ColumnDef<Node>[] = [
         variant="ghost"
         className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
-          column.toggleSorting(column.getIsSorted() === "asc");
+          column.toggleSorting(column.getIsSorted() === "asc")
         }}
       >
         <span>Used/Total slots</span>
@@ -160,7 +162,7 @@ export const columns: ColumnDef<Node>[] = [
         variant="ghost"
         className="flex items-center gap-2 p-0 hover:bg-transparent"
         onClick={() => {
-          column.toggleSorting(column.getIsSorted() === "asc");
+          column.toggleSorting(column.getIsSorted() === "asc")
         }}
       >
         <span>Status</span>
@@ -173,17 +175,7 @@ export const columns: ColumnDef<Node>[] = [
     ),
     enableSorting: true,
 
-    cell: ({ row }) => (
-      // <div
-      //   className={`${
-      //     row.getValue("status") === "Active"
-      //       ? "bg-[#16A34A33] border-[#16A34A33]"
-      //       : "bg-white/20 border-border"
-      //   } w-fit border  py-1.5 px-3 rounded-[53px]`}
-      // >
-      //   {row.getValue("status")}
-      // </div>
-
+    cell: () => (
       <div className="w-fit rounded-[53px] border border-[#16A34A33] bg-[#16A34A33] px-3 py-1.5">
         Active
       </div>
@@ -196,9 +188,9 @@ export const columns: ColumnDef<Node>[] = [
     cell: ({ row }) => {
       // TODO: Extract the component to properly use the hook inside
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const user = useRecoilValue(userAtom);
+      const user = useRecoilValue(userAtom)
       // eslint-disable-next-line react-hooks/rules-of-hooks
-      const [tab, setTab] = useState<Tab>("form");
+      const [tab, setTab] = useState<Tab>("form")
 
       if (user.registered) {
         return (
@@ -233,7 +225,7 @@ export const columns: ColumnDef<Node>[] = [
                       {tab === "form" ? (
                         <WithdrawForm setTab={setTab} />
                       ) : tab === "success" ? (
-                        <WithdrawSuccess setTab={setTab} />
+                        <WithdrawSuccess />
                       ) : (
                         <WithdrawError setTab={setTab} />
                       )}
@@ -277,11 +269,11 @@ export const columns: ColumnDef<Node>[] = [
               )}
             </PopoverContent>
           </Popover>
-        );
+        )
       }
       if (row.getValue("status") == "Deregister") {
-        return row.getValue("date");
+        return row.getValue("date")
       }
     },
   },
-];
+]

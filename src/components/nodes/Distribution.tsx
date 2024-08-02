@@ -1,37 +1,37 @@
-"use client";
+"use client"
 
-import React, { useEffect, useState } from "react";
+import Link from "next/link"
+import React, { useEffect, useState } from "react"
 import {
   ComposableMap,
   Geographies,
   Geography,
   Marker,
   ZoomableGroup,
-} from "react-simple-maps";
+} from "react-simple-maps"
 
-import Link from "next/link";
-import Loader from "../common/loader";
+import Loader from "../common/loader"
 
 export interface CountrySummary {
-  country: string;
-  latitude: number | undefined;
-  longitude: number | undefined;
-  count: number;
+  country: string
+  latitude: number | undefined
+  longitude: number | undefined
+  count: number
 }
 
 export interface DistributionProps {
-  summary: CountrySummary[];
-  isLoading: boolean;
+  summary: CountrySummary[]
+  isLoading: boolean
 }
 
 const Distribution = ({ summary: data }: DistributionProps) => {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
-  });
+      setIsLoading(false)
+    }, 2000)
+  })
 
   return (
     <div className="relative h-[352px] rounded-lg border border-border bg-[#191a1a] bg-opacity-70">
@@ -84,7 +84,7 @@ const Distribution = ({ summary: data }: DistributionProps) => {
                         </text>
                       </Link>
                     </Marker>
-                  );
+                  )
                 })}
               </ZoomableGroup>
             </ComposableMap>
@@ -92,7 +92,7 @@ const Distribution = ({ summary: data }: DistributionProps) => {
         )
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Distribution;
+export default Distribution
