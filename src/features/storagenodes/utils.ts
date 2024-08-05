@@ -12,8 +12,13 @@ export function getNodeRegistryUrl(network: Network) {
   return `https://assets.verida.io/registry/storageNodes/${network}.json`
 }
 
+/**
+ * Build the URL of the storage nodes summary file, based on the network.
+ *
+ * @param network the network to get the nodes summary file URL for.
+ * @returns the URL of the storage nodes summary file.
+ */
 export function getNodeMetricsFileUrl(network: Network) {
-  const resolvedNetwork = network === Network.MYRTLE ? "mainnet" : "testnet"
-
-  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/nodes/${resolvedNetwork}-nodes-summary.json`
+  // TODO: To rename to getNodeSummaryFileUrl
+  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/nodes/${network}-nodes-summary.json`
 }
