@@ -1,7 +1,7 @@
 import { BlockchainAnchor } from "@verida/types"
 import { useQuery } from "react-query"
 
-import { getActiveIdentitiesCount } from "@/features/identities/utils"
+import { getActiveIdentitiesCount } from "@/features/identities/utils.client"
 import { Logger } from "@/features/logger"
 
 const logger = Logger.create("Identities")

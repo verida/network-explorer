@@ -8,7 +8,7 @@ import { useToast } from "@/components/ui/use-toast"
 import { useActiveIdentitiesCount } from "@/features/identities/hooks/useActiveIdentitiesCount"
 import { useIdentities } from "@/features/identities/hooks/useIdentities"
 import { Identity } from "@/features/identities/types"
-import { didRegistryBlockchain } from "@/features/identities/utils"
+import { didRegistryBlockchain } from "@/features/identities/utils.common"
 
 const fallbackData: Identity[] = []
 
