@@ -12,14 +12,7 @@ import { csv2json } from "@/features/metrics/utils"
 export function getIdentitiesStatsFileUrl(
   registryBlockchain: BlockchainAnchor
 ) {
-  // Map the network to the path of the metrics file
-  // Note 1: Since the protocol v4, the identities are not related to the Verida
-  // Network, but we still use the asumption of a one-one mapping for now.
-  // Note 2: The metrics endpoint is not up-to-date with the network names.
-  const resolvedNetwork =
-    registryBlockchain === BlockchainAnchor.POLPOS ? "mainnet" : "testnet"
-
-  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/network/${resolvedNetwork}/stats.csv`
+  return `${clientEnvVars.NEXT_PUBLIC_METRICS_BASE_URL}/identities/${registryBlockchain}/stats.csv`
 }
 
 /**
