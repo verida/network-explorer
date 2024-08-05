@@ -1,28 +1,28 @@
-import { cn } from "@/lib/utils";
-import React from "react";
-import { useEffect, useState } from "react";
+import React from "react"
+import { useEffect, useState } from "react"
 
-const Loader = ({ className = "" }: { className?: string }) => {
-  const [loading, setLoading] = useState(true);
+import { cn } from "@/styles/utils"
+
+const Loader = ({
+  className = "",
+  isLoading = false,
+}: {
+  className?: string
+  isLoading?: boolean
+}) => {
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setLoading(false);
+      setLoading(false)
     }
-  }, []);
+  }, [])
   return (
-    loading && (
-      <div
-        className={cn(
-          `flex items-center justify-center ${
-            typeof global.window === "undefined" ? "flex" : "hidden"
-          }`,
-          className
-        )}
-      >
+    (loading || isLoading) && (
+      <div className={cn("flex items-center justify-center", className)}>
         Loading...
       </div>
     )
-  );
-};
+  )
+}
 
-export default Loader;
+export default Loader

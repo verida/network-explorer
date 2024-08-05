@@ -1,26 +1,37 @@
-import { sampleOverviewData } from "@/lib/sample";
-import React from "react";
-import Chart from "react-apexcharts";
+import React from "react"
+import Chart from "react-apexcharts"
+import { useMediaQuery } from "react-responsive"
 
-const StorageChart = () => {
+const StorageChart = ({
+  utilization,
+  capacity,
+}: {
+  utilization: number[][]
+  capacity: number[][]
+}) => {
+  const isSmScreen = useMediaQuery({ query: "(min-width: 640px)" })
+
   return (
     <Chart
       options={{
         chart: {
           id: "storage",
-          zoom: {
-            enabled: false,
-          },
           toolbar: {
             show: false,
           },
+          zoom: {
+            enabled: false,
+          },
+        },
+        legend: {
+          show: false,
         },
         dataLabels: {
           enabled: false,
         },
         xaxis: {
           type: "datetime",
-          min: new Date("01 Mar 2012").getTime(),
+          min: utilization[0][0],
           tickAmount: 6,
           labels: {
             style: {
@@ -38,7 +49,12 @@ const StorageChart = () => {
         },
         yaxis: [
           {
+            min: 0,
+            // max: 100,
             labels: {
+              formatter: (value) => {
+                return value.toFixed(0)
+              },
               style: {
                 colors: "#FFFFFF99",
                 fontWeight: 400,
@@ -57,7 +73,7 @@ const StorageChart = () => {
           },
           theme: "dark",
         },
-        colors: ["#8566F2", "#F2C94C"],
+        colors: ["#ffffff33", "#8566F2"],
         fill: {
           type: "gradient",
           gradient: {
@@ -70,14 +86,18 @@ const StorageChart = () => {
       }}
       series={[
         {
-          name: "storage data",
-          data: sampleOverviewData,
+          name: "Capacity",
+          data: capacity,
+        },
+        {
+          name: "Utilization",
+          data: utilization,
         },
       ]}
       type="area"
-      height={350}
+      height={!isSmScreen ? 250 : 350}
     />
-  );
-};
+  )
+}
 
-export default StorageChart;
+export default StorageChart

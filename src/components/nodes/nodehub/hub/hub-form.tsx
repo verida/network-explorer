@@ -1,27 +1,31 @@
-import React from "react";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod"
+import React from "react"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+
+import { Tab } from "@/components/common/table"
+import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from "@/components/ui/form";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+} from "@/components/ui/form"
+import { Input } from "@/components/ui/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { countriesWithCodes } from "@/lib/utils";
-import { Tab } from "../../nodelist/data-table";
+} from "@/components/ui/select"
+import { COUNTRIES } from "@/features/countries/constants"
+import { Logger } from "@/features/logger"
 
-const regions = ["Africa", "Asia", "Australia", "Europe", "USA"];
+const logger = Logger.create("<CreateNodeForm>")
+
+const regions = ["Africa", "Asia", "Australia", "Europe", "USA"]
 
 const nodeFormSchema = z.object({
   operator_did: z.string(),
@@ -31,26 +35,26 @@ const nodeFormSchema = z.object({
   countryCode: z.string(),
   endpoint_url: z.string().url(),
   datacenter: z.string(),
-});
+})
 
 const CreateNodeForm = ({
   setTab,
 }: {
-  setTab: React.Dispatch<React.SetStateAction<Tab>>;
+  setTab: React.Dispatch<React.SetStateAction<Tab>>
 }) => {
   const form = useForm<z.infer<typeof nodeFormSchema>>({
     resolver: zodResolver(nodeFormSchema),
-  });
+  })
 
   function onSubmit(values: z.infer<typeof nodeFormSchema>) {
-    console.log(values);
+    logger.debug("Submitted values", values)
   }
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-5 mt-2 px-2"
+        className="mt-2 space-y-5 px-2"
       >
         <FormField
           control={form.control}
@@ -61,7 +65,7 @@ const CreateNodeForm = ({
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-white/20 px-3 rounded-lg"
+                  className="rounded-lg bg-white/20 px-3"
                   placeholder="did:VDA:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
                 />
               </FormControl>
@@ -77,7 +81,7 @@ const CreateNodeForm = ({
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-white/20 px-3 rounded-lg"
+                  className="rounded-lg bg-white/20 px-3"
                   placeholder="12v63ZuXUvMF42ZFh1hPbGkfWB7DR7hCCpwA6NAiEQnbKKJH8fG"
                 />
               </FormControl>
@@ -93,7 +97,7 @@ const CreateNodeForm = ({
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-white/10 px-3 rounded-lg focus-visible:outline-1 border-white"
+                  className="rounded-lg border-white bg-white/10 px-3 focus-visible:outline-1"
                   placeholder="Enter number of slots"
                 />
               </FormControl>
@@ -147,7 +151,7 @@ const CreateNodeForm = ({
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {countriesWithCodes.map((countryCode, index) => (
+                    {COUNTRIES.map((countryCode, index) => (
                       <SelectItem
                         key={index}
                         value={countryCode.code}
@@ -171,7 +175,7 @@ const CreateNodeForm = ({
               <FormControl>
                 <Input
                   {...field}
-                  className="bg-white/10 px-3 rounded-lg\"
+                  className="rounded-lg\\ bg-white/10 px-3"
                   placeholder="Enter your URL"
                 />
               </FormControl>
@@ -206,15 +210,15 @@ const CreateNodeForm = ({
           )}
         />
         <div className="flex justify-end gap-3">
-          <Button className="py-2.5 px-6 rounded-lg bg-white/15 h-[48px] w-[98px]">
+          <Button className="h-[48px] w-[98px] rounded-lg bg-white/15 px-6 py-2.5">
             Cancel
           </Button>
           <Button
-            className="bg-white text-black py-[14px] px-6 rounded-lg h-[48px] w-[116px] disabled:opacity-30"
+            className="h-[48px] w-[116px] rounded-lg bg-white px-6 py-[14px] text-black disabled:opacity-30"
             // disabled={!form.formState.isValid}
             // type="submit"
             onClick={() => {
-              setTab("stake");
+              setTab("stake")
             }}
           >
             Continue
@@ -222,7 +226,7 @@ const CreateNodeForm = ({
         </div>
       </form>
     </Form>
-  );
-};
+  )
+}
 
-export default CreateNodeForm;
+export default CreateNodeForm

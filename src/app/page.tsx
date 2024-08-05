@@ -1,16 +1,23 @@
-import React from "react";
-import NetworkExplorer from "@/components/accounts/NetworkExplorer";
-import TotalAccounts from "@/components/accounts/TotalAccounts";
-import Accounts from "@/components/accounts/Accounts";
+import React from "react"
 
-const Home = () => {
+import { IdentitiesSearchSection } from "@/components/identities/IdentitiesSearchSection"
+import { IdentitiesStatsSection } from "@/components/identities/IdentitiesStatsSection"
+import { IdentitiesTable } from "@/components/identities/table/IdentitiesTable"
+import { Separator } from "@/components/ui/separator"
+import { didRegistryBlockchain } from "@/features/identities/utils.common"
+import { getIdentitiesStatsData } from "@/features/identities/utils.server"
+
+export default async function RootPage() {
+  const identitiesStatsData = await getIdentitiesStatsData(
+    didRegistryBlockchain
+  )
+
   return (
-    <div >
-      <NetworkExplorer />
-      <TotalAccounts />
-      <Accounts />
+    <div className="flex flex-col gap-16">
+      <IdentitiesSearchSection />
+      <Separator className="hidden md:block" />
+      <IdentitiesStatsSection data={identitiesStatsData} />
+      <IdentitiesTable />
     </div>
-  );
-};
-
-export default Home;
+  )
+}

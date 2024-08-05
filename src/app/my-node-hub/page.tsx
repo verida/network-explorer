@@ -1,8 +1,8 @@
-import { columns } from "@/components/nodes/nodelist/column";
-import { DataTable } from "@/components/nodes/nodelist/data-table";
-import { nodes } from "@/lib/sample";
-import React from "react";
-import { IoAlertCircleOutline } from "react-icons/io5";
+// import { columns } from "@/components/nodes/nodelist/column";
+// import { DataTable } from "@/components/nodes/nodelist/data-table";
+// import { nodes } from "@/lib/sample";
+import React from "react"
+import { IoAlertCircleOutline } from "react-icons/io5"
 
 const MyNodeHub = () => {
   const data = [
@@ -20,28 +20,28 @@ const MyNodeHub = () => {
       label: "Annual Percentage Yield",
       value: "34.48%",
     },
-  ];
+  ]
 
   return (
-    <div className="flex flex-col mt-10 gap-8">
-      <div className="flex gap-5">
+    <div className="mt-10 flex flex-col gap-8">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {data.map((item, index) => (
           <div
             key={index}
-            className="flex flex-col gap-4 border border-white/20 p-6 rounded-lg w-full"
+            className="flex w-full flex-col gap-4 rounded-lg border p-6"
           >
             <div className="flex gap-2">
-              <span className="text-white/60 font-normal text-[16px] leading-[20px]">
+              <span className="text-[16px] font-normal leading-[20px] text-muted-foreground">
                 {item.label}
               </span>
               <IoAlertCircleOutline color="#FFFFFF99" />
             </div>
             <div className="flex flex-col gap-2">
-              <div className="font-bold text-[32px] leading-[48px]">
+              <div className="text-[32px] font-bold leading-[48px]">
                 {item.value}
               </div>
               {item.secondaryValue && (
-                <div className="font-semibold text-[16px] leading-[20px]">
+                <div className="text-[16px] font-semibold leading-[20px]">
                   {item.secondaryValue}
                 </div>
               )}
@@ -49,9 +49,9 @@ const MyNodeHub = () => {
           </div>
         ))}
       </div>
-      <DataTable data={nodes} columns={columns} showReigsterNodeButton />
+      {/* <DataTable data={nodes} columns={columns} showReigsterNodeButton /> */}
     </div>
-  );
-};
+  )
+}
 
-export default MyNodeHub;
+export default MyNodeHub

@@ -1,57 +1,73 @@
-import Link from "next/link";
-import React from "react";
+import React from "react"
 import {
   FaDiscord,
-  FaTwitter,
-  FaTelegramPlane,
-  FaLinkedinIn,
-  FaYoutube,
   FaGithub,
-} from "react-icons/fa";
+  FaLinkedinIn,
+  FaTelegramPlane,
+  FaYoutube,
+} from "react-icons/fa"
+import { FaXTwitter } from "react-icons/fa6"
 
-const Footer = () => {
-  const currentDate = new Date();
-  const navs = [
-    {
-      icon: <FaTwitter />,
-      link: "https://twitter.com/",
-    },
-    {
-      icon: <FaTelegramPlane />,
-      link: "https://telegram.me/",
-    },
-    {
-      icon: <FaLinkedinIn />,
-      link: "https://linkedin.com",
-    },
-    {
-      icon: <FaDiscord />,
-      link: "https://discord.com",
-    },
-    {
-      icon: <FaYoutube />,
-      link: "https://youtube.com",
-    },
-    {
-      icon: <FaGithub />,
-      link: "https://github.com",
-    },
-  ];
+import { cn } from "@/styles/utils"
+
+const platformLinks = [
+  {
+    icon: <FaXTwitter />,
+    link: "https://twitter.com/verida_io",
+  },
+  {
+    icon: <FaTelegramPlane />,
+    link: "https://t.me/verida_community/",
+  },
+  {
+    icon: <FaLinkedinIn />,
+    link: "https://www.linkedin.com/company/verida-technology",
+  },
+  {
+    icon: <FaDiscord />,
+    link: "https://discord.verida.io/",
+  },
+  {
+    icon: <FaYoutube />,
+    link: "https://www.youtube.com/@verida_io",
+  },
+  {
+    icon: <FaGithub />,
+    link: "https://github.com/verida",
+  },
+]
+
+export type FooterProps = Omit<React.ComponentProps<"footer">, "children">
+
+export const Footer: React.FC<FooterProps> = (props) => {
+  const { className, ...footerProps } = props
+
+  const currentDate = new Date()
+
   return (
-    <div className="flex sm:flex-row flex-col sm:items-start items-center sm:gap-0 gap-2 justify-between lg:px-[112px] px-4 py-10">
-      <div>&copy; {currentDate.getFullYear()} Verida Storage Node</div>
-      <div className="flex items-center gap-6">
-        <div className="text-[16px] font-normal leading-[24px]">Find us on</div>
-        <div className="flex gap-3">
-          {navs.map((nav, index) => (
-            <a href={nav.link} key={index}>
-              {nav.icon}
-            </a>
-          ))}
+    <footer className={cn("", className)} {...footerProps}>
+      <div className="flex flex-row justify-center">
+        <div className="flex w-full max-w-screen-xl flex-col items-center gap-6 px-4 py-6 sm:flex-row-reverse sm:justify-between sm:px-8 sm:py-10">
+          <div className="flex flex-col items-center gap-2 sm:flex-row sm:gap-6">
+            <div className="text-[16px] font-normal leading-[24px]">
+              Find us on
+            </div>
+            <div className="flex gap-3">
+              {platformLinks.map((platformLink) => (
+                <a
+                  key={platformLink.link}
+                  href={platformLink.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {platformLink.icon}
+                </a>
+              ))}
+            </div>
+          </div>
+          <p>&copy; {currentDate.getFullYear()} Verida Network</p>
         </div>
       </div>
-    </div>
-  );
-};
-
-export default Footer;
+    </footer>
+  )
+}

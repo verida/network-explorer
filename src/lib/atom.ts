@@ -1,15 +1,20 @@
-import { atom } from "recoil";
+import { atom } from "recoil"
 
 export const userAtom = atom({
   key: "user",
   default: {
-    registered: true,
-    connected: false,
+    registered: false,
+    connected: true,
     authorized: true,
   },
-});
+})
 
 export const setupWizardAtom = atom({
   key: "setupWizard",
   default: false,
-});
+})
+
+export const showSearchBarAtom = atom({
+  key: "showSearchBarAtom",
+  default: false,
+})

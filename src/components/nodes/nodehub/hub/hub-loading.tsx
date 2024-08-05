@@ -1,9 +1,9 @@
-import React from "react";
-import { Oval } from "react-loader-spinner";
+import React from "react"
+import { Oval } from "react-loader-spinner"
 
 const HubLoading = () => {
   return (
-    <div className="w-full flex flex-col items-center gap-10 py-8 px-4">
+    <div className="flex w-full flex-col items-center gap-10 px-4 py-8">
       <Oval
         visible={true}
         height="80"
@@ -12,17 +12,17 @@ const HubLoading = () => {
         secondaryColor="rgb(217, 217,217,0.3)"
         wrapperClass=""
       />
-      <div className="flex flex-col gap-3 items-center">
-        <div className="font-bold text-[18px] leading-[20px] text-white">
+      <div className="flex flex-col items-center gap-3">
+        <div className="text-[18px] font-bold leading-[20px] text-foreground">
           Processing Transaction
         </div>
-        <div className="font-normal text-[14px] leading-[20px] text-white/60 text-center">
+        <div className="text-center text-[14px] font-normal leading-[20px] text-muted-foreground">
           Your transaction is currently being processed. This may take a few
           moments as it is confirmed on the blockchain. Please be patient.
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default HubLoading;
+export default HubLoading

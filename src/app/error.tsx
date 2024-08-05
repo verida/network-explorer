@@ -1,12 +1,11 @@
-"use client";
-import React from "react";
+"use client"
 
-const ErrorPage = () => {
+import React from "react"
+
+export default function RootErrorPage() {
   return (
-    <div className="h-screen w-full flex items-center justify-center">
-      There were an error in your codes or the server is down.
+    <div className="flex h-full flex-row items-center justify-center">
+      Oops! Something went wrong!
     </div>
-  );
-};
-
-export default ErrorPage;
+  )
+}
