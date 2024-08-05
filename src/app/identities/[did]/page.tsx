@@ -7,7 +7,7 @@ import Loader from "@/components/common/loader"
 import { IdentityPageContent } from "@/components/identities/IdentityPageContent"
 import { isValidVeridaDid } from "@/features/did/utils"
 import { useIdentity } from "@/features/identities/hooks/useIdentity"
-import { didRegistryBlockchain } from "@/features/identities/utils"
+import { didRegistryBlockchain } from "@/features/identities/utils.common"
 
 type IdentityPageProps = {
   params: {

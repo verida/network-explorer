@@ -3,7 +3,7 @@ import { useMemo } from "react"
 import { useQuery } from "react-query"
 
 import { isValidVeridaDid } from "@/features/did/utils"
-import { getIdentity } from "@/features/identities/utils"
+import { getIdentity } from "@/features/identities/utils.client"
 import { Logger } from "@/features/logger"
 
 const logger = Logger.create("Identities")

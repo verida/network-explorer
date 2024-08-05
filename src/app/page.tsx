@@ -4,10 +4,8 @@ import { IdentitiesSearchSection } from "@/components/identities/IdentitiesSearc
 import { IdentitiesStatsSection } from "@/components/identities/IdentitiesStatsSection"
 import { IdentitiesTable } from "@/components/identities/table/IdentitiesTable"
 import { Separator } from "@/components/ui/separator"
-import {
-  didRegistryBlockchain,
-  getIdentitiesStatsData,
-} from "@/features/identities/utils"
+import { didRegistryBlockchain } from "@/features/identities/utils.common"
+import { getIdentitiesStatsData } from "@/features/identities/utils.server"
 
 export default async function RootPage() {
   const identitiesStatsData = await getIdentitiesStatsData(

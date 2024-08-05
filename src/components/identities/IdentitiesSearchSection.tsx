@@ -12,7 +12,7 @@ import SearchAccountIllustration from "@/assets/svg/search-account.svg"
 import { isValidVeridaDid } from "@/features/did/utils"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { useIdentity } from "@/features/identities/hooks/useIdentity"
-import { didRegistryBlockchain } from "@/features/identities/utils"
+import { didRegistryBlockchain } from "@/features/identities/utils.common"
 import { cn } from "@/styles/utils"
 
 export function IdentitiesSearchSection() {
