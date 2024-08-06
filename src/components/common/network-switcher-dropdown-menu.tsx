@@ -27,7 +27,7 @@ export function NetworkSwitcherDropdownMenu(
     <div {...divProps}>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline">
+          <Button variant="outline" className="border-border-15">
             <div className="flex flex-row items-center gap-2">
               <NetworkIcon className="size-4" />
               {currentNetwork.label}
@@ -35,7 +35,7 @@ export function NetworkSwitcherDropdownMenu(
             </div>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent>
+        <DropdownMenuContent align="end">
           {networks.map((network) => (
             <>
               {network.id === currentNetwork.id ? (
@@ -71,8 +71,8 @@ function ActiveNetworkMenuItem(props: NetworkMenuItemProps) {
   const { network } = props
 
   return (
-    <DropdownMenuItem key={network.id}>
-      <div className="flex w-full flex-row items-center justify-between gap-2">
+    <DropdownMenuItem key={network.id} className="hover:bg-transparent">
+      <div className="flex w-full flex-row items-center justify-between gap-4">
         <span>{network.longLabel}</span>
         <FaCheck size={14} className="size-4" />
       </div>
