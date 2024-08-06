@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil"
 
 import MenuIcon from "@/assets/svg/menu-icon.svg"
 import { NetworkSwitcherDropdownMenu } from "@/components/common/network-switcher-dropdown-menu"
+import { NetworkSwitcherNavigationMenu } from "@/components/common/network-switcher-navigation-menu"
 import { showSearchBarAtom } from "@/lib/atom"
 import { cn } from "@/styles/utils"
 
@@ -114,20 +115,27 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 />
               </DropdownMenuTrigger>
             )}
-            <DropdownMenuContent className="mt-[4rem] flex h-[calc(100vh-4rem)] w-screen flex-col gap-1 overflow-y-auto rounded-none border-none bg-[#060520] p-4">
-              {navigationItems.map((navigationItem) => (
-                <Link
-                  href={navigationItem.paths[0]}
-                  key={navigationItem.name}
-                  className={cn(
-                    "cursor-pointer rounded p-3 text-foreground hover:bg-white/10",
-                    navigationItem.paths.includes(pathname) ? "bg-white/10" : ""
-                  )}
-                  onClick={handleClickNavigationLink}
-                >
-                  {navigationItem.name}
-                </Link>
-              ))}
+            <DropdownMenuContent className="mt-[4rem] h-[calc(100vh-4rem)] w-screen overflow-y-auto rounded-none border-none bg-[#060520] p-4">
+              <div className="flex h-full flex-col justify-between">
+                <div className="flex flex-col gap-1">
+                  {navigationItems.map((navigationItem) => (
+                    <Link
+                      href={navigationItem.paths[0]}
+                      key={navigationItem.name}
+                      className={cn(
+                        "cursor-pointer rounded p-3 text-foreground hover:bg-white/10",
+                        navigationItem.paths.includes(pathname)
+                          ? "bg-white/10"
+                          : ""
+                      )}
+                      onClick={handleClickNavigationLink}
+                    >
+                      {navigationItem.name}
+                    </Link>
+                  ))}
+                </div>
+                <NetworkSwitcherNavigationMenu />
+              </div>
             </DropdownMenuContent>
           </DropdownMenu>
           <Link href="/" className="py-[1.375rem]">
