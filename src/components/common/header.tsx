@@ -10,6 +10,7 @@ import { LuSearch } from "react-icons/lu"
 import { useRecoilState } from "recoil"
 
 import MenuIcon from "@/assets/svg/menu-icon.svg"
+import { NetworkSwitcherDropdownMenu } from "@/components/common/network-switcher-dropdown-menu"
 import { showSearchBarAtom } from "@/lib/atom"
 import { cn } from "@/styles/utils"
 
@@ -156,6 +157,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
               </Link>
             ))}
           </div>
+        </div>
+        <div className="flex flex-row gap-3">
+          <NetworkSwitcherDropdownMenu className="hidden sm:block" />
         </div>
       </div>
     </header>
