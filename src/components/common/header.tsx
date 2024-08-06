@@ -115,7 +115,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 />
               </DropdownMenuTrigger>
             )}
-            <DropdownMenuContent className="mt-[4rem] h-[calc(100vh-4rem)] w-screen overflow-y-auto rounded-none border-none bg-[#060520] p-4">
+            <DropdownMenuContent className="mt-[4rem] h-[calc(100dvh-4rem)] w-screen overflow-y-auto rounded-none border-none bg-[#060520] p-4">
               <div className="flex h-full flex-col justify-between">
                 <div className="flex flex-col gap-1">
                   {navigationItems.map((navigationItem) => (
