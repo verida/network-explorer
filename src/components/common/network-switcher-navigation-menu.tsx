@@ -21,13 +21,13 @@ export function NetworkSwitcherNavigationMenu(
         <p className="text-muted-foreground">Explorers</p>
         <div className="flex flex-col gap-2">
           {networks.map((network) => (
-            <>
+            <React.Fragment key={network.id}>
               {network.id === currentNetwork.id ? (
                 <ActiveNetworkMenuItem network={network} />
               ) : (
                 <NetworkMenuItem network={network} />
               )}
-            </>
+            </React.Fragment>
           ))}
         </div>
       </div>

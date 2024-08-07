@@ -47,13 +47,13 @@ export function NetworkSwitcherDropdownMenu(
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           {networks.map((network) => (
-            <>
+            <React.Fragment key={network.id}>
               {network.id === currentNetwork.id ? (
                 <ActiveNetworkMenuItem network={network} />
               ) : (
                 <NetworkMenuItem network={network} />
               )}
-            </>
+            </React.Fragment>
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
