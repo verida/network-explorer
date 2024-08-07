@@ -1,5 +1,7 @@
-import React from "react"
-import { FaCheck, FaChevronDown } from "react-icons/fa"
+"use client"
+
+import React, { useCallback, useState } from "react"
+import { FaCheck, FaChevronDown, FaChevronUp } from "react-icons/fa"
 
 import NetworkIcon from "@/assets/icons/network-icon.svg"
 import { Button } from "@/components/ui/button"
@@ -23,15 +25,23 @@ export function NetworkSwitcherDropdownMenu(
 ) {
   const { ...divProps } = props
 
+  const [menuOpen, setOpen] = useState(false)
+
+  const toggleOpenMenu = useCallback(() => setOpen((prev) => !prev), [])
+
   return (
     <div {...divProps}>
-      <DropdownMenu>
+      <DropdownMenu open={menuOpen} onOpenChange={toggleOpenMenu}>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="border-border-15">
             <div className="flex flex-row items-center gap-2">
               <NetworkIcon className="size-4" />
               {currentNetwork.label}
-              <FaChevronDown size={16} />
+              {menuOpen ? (
+                <FaChevronUp size={16} />
+              ) : (
+                <FaChevronDown size={16} />
+              )}
             </div>
           </Button>
         </DropdownMenuTrigger>
