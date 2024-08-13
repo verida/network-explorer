@@ -27,12 +27,7 @@ export function CopyToClipboardButton(props: CopyToClipboardButtonProps) {
   }, [content, successMessage, toast])
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="hover:bg-foreground/10"
-      onClick={handleClick}
-    >
+    <Button variant="ghost" size="icon" onClick={handleClick}>
       <CopyIcon className={cn("h-4 w-4", className)} {...svgProps} />
       <span className="sr-only">Copy to clipboard</span>
     </Button>
