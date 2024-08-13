@@ -25,7 +25,6 @@ export function DataTableWrapper<TData>(props: DataTableWrapperProps<TData>) {
     title,
     actions,
     children,
-    className,
     contentClassName,
     hidePagination = false,
     hideFilters = false,
@@ -33,7 +32,7 @@ export function DataTableWrapper<TData>(props: DataTableWrapperProps<TData>) {
   } = props
 
   return (
-    <div className={cn(className)} {...divProps}>
+    <div {...divProps}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-row items-center justify-between">
           <div>

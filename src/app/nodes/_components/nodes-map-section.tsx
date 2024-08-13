@@ -1,3 +1,5 @@
+import React from "react"
+
 import Distribution from "@/components/nodes/Distribution"
 import { serverEnvVars } from "@/config/server"
 import { COUNTRY_COORDINATES } from "@/features/countries/constants"
@@ -54,13 +56,19 @@ const getDistributions = async () => {
   }
 }
 
-export async function NodesMapSection() {
+export type NodesMapSectionProps = React.ComponentProps<"section">
+
+export async function NodesMapSection(props: NodesMapSectionProps) {
+  const { ...sectionProps } = props
+
   const distribution = await getDistributions()
 
   return (
-    <Distribution
-      summary={distribution.summary}
-      isLoading={distribution.isLoading}
-    />
+    <section {...sectionProps}>
+      <Distribution
+        summary={distribution.summary}
+        isLoading={distribution.isLoading}
+      />
+    </section>
   )
 }

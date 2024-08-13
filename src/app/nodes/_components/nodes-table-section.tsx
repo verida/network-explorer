@@ -1,12 +1,15 @@
-import { NodesTable } from "@/app/nodes/_components/nodes-table"
-import NodesList from "@/components/nodes/NodesList"
+import React from "react"
 
-export function NodesTableSection() {
+import { NodesTable } from "@/app/nodes/_components/nodes-table"
+
+export type NodesTableSectionProps = React.ComponentProps<"section">
+
+export function NodesTableSection(props: NodesTableSectionProps) {
+  const { ...sectionProps } = props
+
   return (
-    <>
-      {/* TODO: Remove old Nodes list once the new table is ready*/}
-      <NodesList />
+    <section {...sectionProps}>
       <NodesTable />
-    </>
+    </section>
   )
 }

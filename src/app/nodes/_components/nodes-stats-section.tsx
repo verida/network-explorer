@@ -1,3 +1,5 @@
+import React from "react"
+
 import Overview from "@/components/nodes/Overview"
 import { csv2json } from "@/features/metrics/utils"
 
@@ -33,8 +35,16 @@ const getStorageOverView = async () => {
   }
 }
 
-export async function NodesStatsSection() {
+export type NodesStatsSectionProps = React.ComponentProps<"section">
+
+export async function NodesStatsSection(props: NodesStatsSectionProps) {
+  const { ...sectionProps } = props
+
   const data = await getStorageOverView()
 
-  return <Overview StorageOverView={data} />
+  return (
+    <section {...sectionProps}>
+      <Overview StorageOverView={data} />
+    </section>
+  )
 }
