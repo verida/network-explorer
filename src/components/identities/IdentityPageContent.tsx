@@ -83,7 +83,7 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
                 <div className="text-[14px] font-normal leading-[20px] text-muted-foreground">
                   DID
                 </div>
-                <div className="flex flex-row items-center gap-2 text-[14px] font-normal leading-[20px] text-accent-foreground">
+                <div className="flex flex-row items-center gap-2 text-[14px] font-normal leading-[20px] text-accent">
                   <span className="truncate">{did}</span>
                   <CopyToClipboardButton
                     content={did}

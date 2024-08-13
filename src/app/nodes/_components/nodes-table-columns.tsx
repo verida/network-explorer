@@ -26,7 +26,7 @@ export const nodesTableColumns = [
         </div>
         <Link
           href={`/nodes/details/${cellInfo.row.original.id}`}
-          className="text-[14px] font-normal leading-[20px] text-accent-foreground"
+          className="text-[14px] font-normal leading-[20px] text-accent"
         >
           {cellInfo.renderValue()}
         </Link>

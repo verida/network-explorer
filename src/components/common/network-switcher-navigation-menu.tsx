@@ -47,7 +47,7 @@ function NetworkMenuItem(props: NetworkMenuItemProps) {
       href={network.explorerUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="rounded-sm px-4 py-3 hover:bg-accent focus:bg-accent"
+      className="rounded-sm px-4 py-3 hover:bg-accent/10 focus:bg-accent/10"
     >
       <span className="text-sm">{network.longLabel}</span>
     </a>
@@ -58,9 +58,9 @@ function ActiveNetworkMenuItem(props: NetworkMenuItemProps) {
   const { network } = props
 
   return (
-    <div className="flex flex-row items-center justify-between rounded-sm bg-accent px-4 py-3">
+    <div className="flex flex-row items-center justify-between rounded-sm bg-accent/10 px-4 py-3">
       <span className="text-sm">{network.longLabel}</span>
-      <FaCheck size={14} className="size-4 text-accent-foreground" />
+      <FaCheck size={14} className="size-4 text-accent" />
     </div>
   )
 }

@@ -61,7 +61,7 @@ export const columns: ColumnDef<StorageNode>[] = [
         </div>
         <Link
           href={`/nodes/details/${row.original.id}`}
-          className="text-[14px] font-normal leading-[20px] text-accent-foreground"
+          className="text-[14px] font-normal leading-[20px] text-accent"
         >
           {row.getValue("name")}
         </Link>
