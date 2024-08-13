@@ -49,12 +49,13 @@ export const nodesTableColumns = [
   }),
   columnHelper.accessor((row) => row.storageSlotsUsed, {
     id: "storageSlots",
-    enableSorting: true,
-    sortUndefined: "last",
-    enableColumnFilter: false,
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Used/Total slots" />
     ),
+    enableSorting: true,
+    sortUndefined: "last",
+    sortingFn: "alphanumeric",
+    enableColumnFilter: false,
     cell: (cellInfo) => (
       <div className="flex flex-row items-center gap-1">
         <span className="text-[14px] font-normal leading-[20px]">
