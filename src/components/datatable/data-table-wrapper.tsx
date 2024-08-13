@@ -1,6 +1,7 @@
 import { Table } from "@tanstack/react-table"
 import React from "react"
 
+import { DataTableFacetedFilters } from "@/components/datatable/data-table-faceted-filters"
 import { DataTablePagination } from "@/components/datatable/data-table-pagination"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/styles/utils"
@@ -15,6 +16,7 @@ export type DataTableWrapperProps<TData> = {
   contentClassName?: Pick<React.ComponentProps<"div">, "className">
   actions?: DataTableAction[]
   hidePagination?: boolean
+  hideFilters?: boolean
 } & React.ComponentProps<"div">
 
 export function DataTableWrapper<TData>(props: DataTableWrapperProps<TData>) {
@@ -26,6 +28,7 @@ export function DataTableWrapper<TData>(props: DataTableWrapperProps<TData>) {
     className,
     contentClassName,
     hidePagination = false,
+    hideFilters = false,
     ...divProps
   } = props
 
@@ -39,6 +42,7 @@ export function DataTableWrapper<TData>(props: DataTableWrapperProps<TData>) {
             ) : null}
           </div>
           <div className="flex flex-row items-center gap-3">
+            {hideFilters ? null : <DataTableFacetedFilters table={table} />}
             {actions?.map(({ label, ...buttonProps }, index) => (
               <Button key={index} {...buttonProps}>
                 {label}
