@@ -34,6 +34,9 @@ import WithdrawError from "../nodehub/withdraw/withdraw-error"
 import WithdrawForm from "../nodehub/withdraw/withdraw-form"
 import WithdrawSuccess from "../nodehub/withdraw/withdraw-success"
 
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
 export const columns: ColumnDef<StorageNode>[] = [
   {
     accessorKey: "name",
@@ -61,7 +64,7 @@ export const columns: ColumnDef<StorageNode>[] = [
         </div>
         <Link
           href={`/nodes/details/${row.original.id}`}
-          className="text-[14px] font-normal leading-[20px] text-accent-foreground"
+          className="text-[14px] font-normal leading-[20px] text-accent"
         >
           {row.getValue("name")}
         </Link>

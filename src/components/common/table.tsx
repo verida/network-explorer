@@ -292,74 +292,72 @@ const DataTable = <TData, TValue>({
         {additionalTitles}
       </div>
       <div className="min-h-[18rem]">
-        <div className={`overflow-hidden rounded-lg border border-border`}>
-          <Table className="min-w-[68rem]">
-            <TableHeader className="bg-[#FFFFFF0A]">
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => {
-                    return (
-                      <TableHead
-                        key={header.id}
-                        className={cn(
-                          "border-r border-border-10 md:border-none",
-                          header.index === headerGroup.headers.length - 1 &&
-                            "border-none"
-                        )}
-                      >
-                        {header.isPlaceholder
-                          ? null
-                          : flexRender(
-                              header.column.columnDef.header,
-                              header.getContext()
-                            )}
-                      </TableHead>
-                    )
-                  })}
+        <Table className="min-w-[68rem]">
+          <TableHeader className="bg-[#FFFFFF0A]">
+            {table.getHeaderGroups().map((headerGroup) => (
+              <TableRow key={headerGroup.id}>
+                {headerGroup.headers.map((header) => {
+                  return (
+                    <TableHead
+                      key={header.id}
+                      className={cn(
+                        "border-r border-border-10 md:border-none",
+                        header.index === headerGroup.headers.length - 1 &&
+                          "border-none"
+                      )}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext()
+                          )}
+                    </TableHead>
+                  )
+                })}
+              </TableRow>
+            ))}
+          </TableHeader>
+          <TableBody>
+            {table.getRowModel().rows?.length ? (
+              table.getRowModel().rows.map((row) => (
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && "selected"}
+                >
+                  {row.getVisibleCells().map((cell, index) => (
+                    <TableCell
+                      key={cell.id}
+                      className={cn(
+                        "border-r border-border-10 md:border-none",
+                        index === row.getVisibleCells().length - 1 &&
+                          "border-none"
+                      )}
+                    >
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </TableCell>
+                  ))}
                 </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell, index) => (
-                      <TableCell
-                        key={cell.id}
-                        className={cn(
-                          "border-r border-border-10 md:border-none",
-                          index === row.getVisibleCells().length - 1 &&
-                            "border-none"
-                        )}
-                      >
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-[250px] py-4 pl-6 pr-4 text-center"
-                  >
-                    {isLoading ? (
-                      <Loader isLoading={isLoading} className="h-[500px]" />
-                    ) : (
-                      "No results"
-                    )}
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </div>
+              ))
+            ) : (
+              <TableRow>
+                <TableCell
+                  colSpan={columns.length}
+                  className="h-[250px] py-4 pl-6 pr-4 text-center"
+                >
+                  {isLoading ? (
+                    <Loader isLoading={isLoading} className="h-[500px]" />
+                  ) : (
+                    "No results"
+                  )}
+                </TableCell>
+              </TableRow>
+            )}
+          </TableBody>
+        </Table>
       </div>
       <div className="flex w-full justify-between">
         <div className="flex items-center gap-4">

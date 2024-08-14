@@ -60,7 +60,7 @@ function ActiveNetworkMenuItem(props: NetworkMenuItemProps) {
   return (
     <div className="flex flex-row items-center justify-between rounded-sm bg-accent/10 px-4 py-3">
       <span className="text-sm">{network.longLabel}</span>
-      <FaCheck size={14} className="size-4 text-accent-foreground" />
+      <FaCheck size={14} className="size-4 text-accent" />
     </div>
   )
 }
