@@ -15,6 +15,6 @@ export const NETWORKS: Record<Network.MYRTLE | Network.BANKSIA, NetworkDef> = {
   [Network.BANKSIA]: {
     ...banksiaDefinition,
     longLabel: `${banksiaDefinition.label} testnet`,
-    explorerUrl: "https://banksia.explorer.verida.network",
+    explorerUrl: "https://explorer.banksia.verida.network",
   },
 }

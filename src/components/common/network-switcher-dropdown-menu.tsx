@@ -3,7 +3,7 @@
 import React, { useCallback, useState } from "react"
 import { FaCheck, FaChevronDown, FaChevronUp } from "react-icons/fa"
 
-import NetworkIcon from "@/assets/icons/network-icon.svg"
+import NetworkIcon from "@/assets/icons/verida_network_white_logo.svg"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
@@ -35,7 +35,7 @@ export function NetworkSwitcherDropdownMenu(
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="border-border-15">
             <div className="flex flex-row items-center gap-2">
-              <NetworkIcon className="size-4" />
+              <NetworkIcon className="size-6" />
               {currentNetwork.label}
               {menuOpen ? (
                 <FaChevronUp size={16} />
