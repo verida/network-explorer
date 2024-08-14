@@ -29,6 +29,9 @@ import { Button } from "../ui/button"
 import { useToast } from "../ui/use-toast"
 import { columns } from "./nodelist/column"
 
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
 export type Region =
   | "All"
   | "Americas"
@@ -38,11 +41,17 @@ export type Region =
   | "Africa"
 export type Status = "All" | "Active" | "Inactive"
 
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
 export interface Filter {
   regions: Region[]
   status?: Status
 }
 
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
 const filterNodes = (nodes: any[], filter?: Filter) => {
   return nodes
     .filter((node) => {
@@ -64,6 +73,9 @@ const filterNodes = (nodes: any[], filter?: Filter) => {
     })
 }
 
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
 const NodesList = () => {
   const user = useRecoilValue(userAtom)
   const [nodeDialogOpen, setNodeDialogOpen] = useState(false)

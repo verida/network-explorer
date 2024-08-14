@@ -14,12 +14,7 @@ export function GoBackButton() {
   }, [router])
 
   return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className="hover:bg-foreground/10"
-      onClick={handleClick}
-    >
+    <Button variant="ghost" size="icon" onClick={handleClick}>
       <FaChevronLeft className="h-6 w-6 text-muted-foreground" />
       <span className="sr-only">Go back</span>
     </Button>

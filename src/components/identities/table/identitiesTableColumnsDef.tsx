@@ -42,7 +42,7 @@ export const identitiesTableColumnsDef: ColumnDef<Identity>[] = [
     header: "DID",
     cell: ({ row }) => {
       return (
-        <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent-foreground">
+        <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent">
           <Link href={`/identities/${row.original.did}`}>
             {extractAndShortenAddress(row.original.did)}
           </Link>
