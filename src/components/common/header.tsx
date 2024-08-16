@@ -12,6 +12,11 @@ import { useRecoilState } from "recoil"
 import MenuIcon from "@/assets/svg/menu-icon.svg"
 import { NetworkSwitcherDropdownMenu } from "@/components/common/network-switcher-dropdown-menu"
 import { NetworkSwitcherNavigationMenu } from "@/components/common/network-switcher-navigation-menu"
+import {
+  getIdentitiesPageRoute,
+  getNodesPageRoute,
+  getRootPageRoute,
+} from "@/features/routes/utils"
 import { showSearchBarAtom } from "@/lib/atom"
 import { cn } from "@/styles/utils"
 
@@ -25,10 +30,13 @@ import { Input } from "../ui/input"
 import { Separator } from "../ui/separator"
 
 const navigationItems = [
-  { name: "Identities", paths: ["/", "/identities"] },
+  {
+    name: "Identities",
+    path: getIdentitiesPageRoute(),
+  },
   {
     name: "Nodes",
-    paths: ["/nodes", "/nodes/details"],
+    path: getNodesPageRoute(),
   },
 ]
 
@@ -120,11 +128,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 <div className="flex flex-col gap-1">
                   {navigationItems.map((navigationItem) => (
                     <Link
-                      href={navigationItem.paths[0]}
+                      href={navigationItem.path}
                       key={navigationItem.name}
                       className={cn(
                         "cursor-pointer rounded p-3 text-foreground hover:bg-white/10",
-                        navigationItem.paths.includes(pathname)
+                        navigationItem.path.startsWith(pathname)
                           ? "bg-white/10"
                           : ""
                       )}
@@ -138,7 +146,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
               </div>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Link href="/" className="py-[1.375rem]">
+          <Link href={getRootPageRoute()} className="py-[1.375rem]">
             <Image
               src="/logo.svg"
               className="h-7 w-auto"
@@ -150,11 +158,11 @@ export const Header: React.FC<HeaderProps> = (props) => {
           <div className="hidden flex-row items-stretch gap-10 sm:flex">
             {navigationItems.map((navigationItem) => (
               <Link
-                href={navigationItem.paths[0]}
+                href={navigationItem.path}
                 key={navigationItem.name}
                 className={cn(
                   "flex flex-col justify-center hover:text-foreground",
-                  navigationItem.paths.includes(pathname)
+                  navigationItem.path.startsWith(pathname)
                     ? "text-foreground"
                     : "text-muted-foreground"
                 )}

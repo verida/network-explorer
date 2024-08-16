@@ -12,6 +12,7 @@ import { clientEnvVars } from "@/config/client"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { Identity } from "@/features/identities/types"
 import { Logger } from "@/features/logger"
+import { getIdentityPageRoute } from "@/features/routes/utils"
 
 const logger = Logger.create("<IdentityPageContent>")
 
@@ -37,7 +38,9 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
   const qrCodeMessage = useMemo(() => {
     // The QR code would simply be the URL to the identity on that Network
     // Explorer application. The identity page is currently `/identities/:did`
-    return `${clientEnvVars.NEXT_PUBLIC_BASE_URL}/identities/${did}`
+    return `${clientEnvVars.NEXT_PUBLIC_BASE_URL}${getIdentityPageRoute({
+      did,
+    })}`
   }, [did])
 
   return (

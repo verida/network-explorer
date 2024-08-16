@@ -13,6 +13,7 @@ import { isValidVeridaDid } from "@/features/did/utils"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { useIdentity } from "@/features/identities/hooks/useIdentity"
 import { didRegistryBlockchain } from "@/features/identities/utils.common"
+import { getIdentityPageRoute } from "@/features/routes/utils"
 import { cn } from "@/styles/utils"
 
 export function IdentitiesSearchSection() {
@@ -76,7 +77,7 @@ export function IdentitiesSearchSection() {
           >
             {identity ? (
               <Link
-                href={`/identities/${identity.did}`}
+                href={getIdentityPageRoute({ did: identity.did })}
                 className="flex flex-row items-center gap-4"
               >
                 {identity.profile?.avatarUri ? (

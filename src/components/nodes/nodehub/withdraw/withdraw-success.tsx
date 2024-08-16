@@ -23,7 +23,7 @@ const WithdrawSuccess = () => {
       <Button
         variant="ghost"
         onClick={() => {
-          router.push("/nodes")
+          router.push("/network/nodes")
         }}
         className="text-[14px] font-bold leading-[20px]"
       >
