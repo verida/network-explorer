@@ -3,7 +3,7 @@ import { Sora } from "next/font/google"
 import React from "react"
 
 import { AppFooter } from "@/app/_components/app-footer"
-import { AppHeader } from "@/app/_components/app-header"
+import { AppHeader, AppHeaderOffset } from "@/app/_components/app-header"
 import { AppProviders } from "@/app/_components/app-providers"
 import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
@@ -56,12 +56,13 @@ export default function RootLayout(props: RootLayoutProps) {
       </head>
       <body
         className={cn(
-          "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
+          "flex min-h-screen flex-col overscroll-none bg-background font-sans text-foreground antialiased",
           sora.variable
         )}
       >
         <AppProviders>
-          <AppHeader />
+          <AppHeader className="fixed left-0 right-0 top-0 z-50" />
+          <AppHeaderOffset />
           <div className="flex flex-1 flex-row justify-center">
             <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
               {children}

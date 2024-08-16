@@ -6,26 +6,20 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
 import { useCallback, useState } from "react"
-import { LuSearch } from "react-icons/lu"
-import { useRecoilState } from "recoil"
 
 import { NetworkSwitcherDropdownMenu } from "@/app/_components/network-switcher-dropdown-menu"
 import { NetworkSwitcherNavigationMenu } from "@/app/_components/network-switcher-navigation-menu"
 import MenuIcon from "@/assets/svg/menu-icon.svg"
-import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import { Separator } from "@/components/ui/separator"
 import {
   getIdentitiesPageRoute,
   getNodesPageRoute,
   getRootPageRoute,
 } from "@/features/routes/utils"
-import { showSearchBarAtom } from "@/lib/atom"
 import { cn } from "@/styles/utils"
 
 const navigationItems = [
@@ -46,59 +40,18 @@ export function AppHeader(props: AppHeaderProps) {
 
   const pathname = usePathname()
 
-  const [showSearchField, setShowSearchField] =
-    useRecoilState(showSearchBarAtom)
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
-  const [search, setSearch] = useState("")
 
   const handleClickNavigationLink = useCallback(() => {
     setIsDropdownOpen(false)
   }, [])
 
-  return showSearchField ? (
-    // TODO: Move it somewhere else but it doesn't belong here
-    <div
-      className="fixed top-0 z-50 h-screen w-screen bg-[#060520]"
-      onClick={() => {
-        setTimeout(() => {
-          setShowSearchField(false)
-        }, 100)
-      }}
-    >
-      <div className="flex items-center justify-between gap-3 border-b border-border-10 p-4">
-        <div className="flex w-full items-center rounded-sm border border-border-60 px-3">
-          <LuSearch size={22} />
-          <Separator
-            orientation="vertical"
-            className="ml-2 h-5 w-0.5 rounded bg-[#8566F2]"
-          />
-          <Input
-            className="rounded-none border-none bg-transparent text-foreground hover:bg-transparent focus-visible:ring-0"
-            placeholder="Search"
-            value={search}
-            onChange={(e) => {
-              setSearch(e.target.value)
-            }}
-            autoFocus
-          />
-        </div>
-        <Button
-          variant="ghost"
-          className="p-0 text-[14px] font-bold leading-[20px] text-foreground"
-          onClick={() => {
-            setSearch("")
-          }}
-        >
-          Clear
-        </Button>
-      </div>
-    </div>
-  ) : (
+  return (
     <header
       {...headerProps}
       className={cn(
-        "flex flex-row justify-center",
-        isDropdownOpen || showSearchField ? "w-screen bg-[#060520]" : "",
+        "flex h-[73px] flex-row justify-center border-b border-border backdrop-blur-2xl",
+        isDropdownOpen ? "w-screen bg-[#060520]" : "",
         className
       )}
     >
@@ -179,4 +132,11 @@ export function AppHeader(props: AppHeaderProps) {
       </div>
     </header>
   )
+}
+
+export type AppHeaderOffsetProps = Omit<React.ComponentProps<"div">, "children">
+
+export function AppHeaderOffset(props: AppHeaderOffsetProps) {
+  const { className, ...divProps } = props
+  return <div {...divProps} className={cn("mt-[73px]", className)} />
 }
