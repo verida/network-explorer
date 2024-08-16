@@ -1,6 +1,6 @@
 import React from "react"
 
-import PageLayoutWrapper from "@/components/common/PageLayoutWrapper"
+import { PageLayoutWrapper } from "@/components/common/page-layout-wrapper"
 
 type NodeLayoutProps = {
   children: React.ReactNode

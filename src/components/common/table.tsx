@@ -55,7 +55,7 @@ import { showSearchBarAtom } from "@/lib/atom"
 import { SCREEN_SIZES } from "@/styles/constants"
 import { cn } from "@/styles/utils"
 
-import { Filter, Region, Status } from "../nodes/NodesList"
+import { Filter, Region, Status } from "../nodes/nodelist/NodesList"
 import Loader from "./loader"
 
 type DataTableProps<TData, TValue> = {
@@ -86,6 +86,9 @@ export type Tab =
 
 const defaultOnApplyFilters = () => {}
 
+/**
+ * @deprecated
+ */
 const DataTable = <TData, TValue>({
   data,
   columns,

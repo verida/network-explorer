@@ -15,6 +15,7 @@ import {
 import { useCallback, useState } from "react"
 
 import { nodesTableColumns } from "@/app/nodes/_components/nodes-table-columns"
+import { Loading } from "@/components/common/loading"
 import { DataTableWrapper } from "@/components/datatable/data-table-wrapper"
 import {
   Table,
@@ -110,7 +111,11 @@ export function NodesTable() {
                 className="h-64 py-4 pl-6 pr-4 text-center"
               >
                 <div className="absolute left-1/2 top-[calc(16rem_/_2_+_3rem)] -translate-x-1/2 -translate-y-1/2">
-                  {isFetchingNodes ? "Loading..." : "No nodes"}
+                  {isFetchingNodes ? (
+                    <Loading>Getting nodes...</Loading>
+                  ) : (
+                    "No nodes"
+                  )}
                 </div>
               </TableCell>
             </TableRow>
