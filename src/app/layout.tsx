@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Sora } from "next/font/google"
 import React from "react"
 
-import { Footer } from "@/app/_components/footer"
-import { Header } from "@/app/_components/header"
-import { Providers } from "@/app/_components/providers"
+import { AppFooter } from "@/app/_components/app-footer"
+import { AppHeader } from "@/app/_components/app-header"
+import { AppProviders } from "@/app/_components/app-providers"
 import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
 import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/constants/app"
@@ -60,16 +60,16 @@ export default function RootLayout(props: RootLayoutProps) {
           sora.variable
         )}
       >
-        <Providers>
-          <Header />
+        <AppProviders>
+          <AppHeader />
           <div className="flex flex-1 flex-row justify-center">
             <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
               {children}
             </main>
           </div>
-          <Footer />
+          <AppFooter />
           <Toaster />
-        </Providers>
+        </AppProviders>
       </body>
     </html>
   )

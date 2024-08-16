@@ -39,9 +39,9 @@ const navigationItems = [
   },
 ]
 
-export type HeaderProps = Omit<React.ComponentProps<"header">, "children">
+export type AppHeaderProps = Omit<React.ComponentProps<"header">, "children">
 
-export function Header(props: HeaderProps) {
+export function AppHeader(props: AppHeaderProps) {
   const { className, ...headerProps } = props
 
   const pathname = usePathname()

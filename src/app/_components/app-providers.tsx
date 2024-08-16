@@ -10,7 +10,7 @@ export type ProvidersProps = {
   children: React.ReactNode
 }
 
-export function Providers(props: ProvidersProps) {
+export function AppProviders(props: ProvidersProps) {
   const { children } = props
 
   return (
