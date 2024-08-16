@@ -17,7 +17,7 @@ export default function RootGlobalErrorPage(props: RootGlobalErrorPageProps) {
       <div className="flex flex-col items-center gap-8">
         <p>Oops! Something went wrong!</p>
         <Button className="w-fit" onClick={reset}>
-          Return to the home page
+          Retry
         </Button>
       </div>
     </div>
