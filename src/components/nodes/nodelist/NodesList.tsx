@@ -2,69 +2,160 @@
 
 import { Close } from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
-import { useRouter } from "next/navigation"
-import React from "react"
-import { useState } from "react"
-import { FaChevronLeft } from "react-icons/fa"
+import React, { useEffect, useState } from "react"
 import { LuArrowLeft } from "react-icons/lu"
+import { useQuery } from "react-query"
 import { useRecoilValue } from "recoil"
 
-import { CopyToClipboardButton } from "@/components/common/CopyToClipboardButton"
 import ConnectedContent from "@/components/common/connected-content"
-// import { nodes } from "@/lib/sample";
-import DataTable, { Tab } from "@/components/common/table"
 import HubError from "@/components/nodes/nodehub/hub/hub-error"
 import CreateNodeForm from "@/components/nodes/nodehub/hub/hub-form"
 import HubLoading from "@/components/nodes/nodehub/hub/hub-loading"
 import HubStake from "@/components/nodes/nodehub/hub/hub-stake"
 import HubSuccess from "@/components/nodes/nodehub/hub/hub-success"
-import { columns } from "@/components/nodes/nodelist/column"
-import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { clientEnvVars } from "@/config/client"
+import { getNodeMetricsFileUrl } from "@/features/storagenodes/utils"
 import { setupWizardAtom, userAtom } from "@/lib/atom"
 
-const Operator = () => {
-  const router = useRouter()
+import Loader from "../../common/loader"
+import DataTable, { Tab } from "../../common/table"
+import { Button } from "../../ui/button"
+import { useToast } from "../../ui/use-toast"
+import { columns } from "./column"
 
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
+export type Region =
+  | "All"
+  | "Americas"
+  | "Oceania"
+  | "Asia"
+  | "Europe"
+  | "Africa"
+
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
+export type Status = "All" | "Active" | "Inactive"
+
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
+export interface Filter {
+  regions: Region[]
+  status?: Status
+}
+
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
+const filterNodes = (nodes: any[], filter?: Filter) => {
+  return nodes
+    .filter((node) => {
+      if (!filter || filter.regions.includes("All")) {
+        return true
+      }
+      return filter.regions.includes(node.region)
+    })
+    .filter(() => {
+      if (
+        filter?.status === "All" ||
+        filter?.status === "Active" ||
+        !filter?.status
+      ) {
+        return true
+      }
+      // return node.status === filters.status;
+      return false
+    })
+}
+
+/**
+ * @deprecated to delete once everything in here as be refactored
+ */
+const NodesList = () => {
   const user = useRecoilValue(userAtom)
   const [nodeDialogOpen, setNodeDialogOpen] = useState(false)
   const [tab, setTab] = useState<Tab>("form")
   const setupWizard = useRecoilValue(setupWizardAtom)
-
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
 
-  return (
-    <div className="mb-10 mt-8 flex flex-col gap-10">
-      <div className="flex items-center gap-4">
-        <FaChevronLeft
-          onClick={() => {
-            router.back()
-          }}
-          className="cursor-pointer"
-        />
-        <div className="flex w-full flex-wrap items-center justify-between gap-3 sm:flex-nowrap sm:justify-normal">
-          <div className="text-[24px] font-bold leading-[28.8px]">Operator</div>
-          <div className="flex items-center gap-2.5 rounded bg-white/10 px-2 py-1.5 text-[14px] font-normal leading-[20px] text-muted-foreground">
-            <div className="max-w-[150px] truncate sm:max-w-max">
-              did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55
-            </div>
-            <CopyToClipboardButton
-              content="did:vda:mainnet:0x486e2c30cd7149bf1f77fe8d553c8078b9644a55"
-              successMessage="DID copied!"
-            />
-          </div>
-        </div>
+  const { toast } = useToast()
+
+  const [nodes, setNodes] = useState<any[]>()
+
+  const { data, isLoading, isError } = useQuery(
+    "nodes",
+    async () => {
+      const url = getNodeMetricsFileUrl(
+        clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
+      )
+
+      const response = await fetch(url)
+      return await response.json()
+    },
+    {
+      refetchOnMount: false,
+      refetchOnWindowFocus: false,
+      onSuccess: (data) => {
+        setNodes(filterNodes(data))
+      },
+      onError: () => {
+        toast({
+          description: "An error occurred while fetching nodes",
+          variant: "destructive",
+        })
+      },
+    }
+  )
+
+  const [filter, setFilter] = useState<Filter>()
+
+  useEffect(() => {
+    setPage(1)
+  }, [limit])
+
+  useEffect(() => {
+    if (data) {
+      setNodes(filterNodes(data, filter))
+    }
+  }, [filter, data])
+
+  if (isLoading) {
+    return <Loader isLoading className="h-[300px]" />
+  }
+
+  if (isError) {
+    return (
+      <div>
+        <p>There was an error fetching the nodes</p>
       </div>
+    )
+  }
+
+  return (
+    <div className="flex flex-col gap-4">
       <DataTable
+        data={nodes?.slice((page - 1) * limit, page * limit) ?? []}
         columns={columns}
-        data={[]}
         title="nodes"
+        page={page}
+        limit={limit}
+        setPage={setPage}
+        setLimit={setLimit}
+        totalCount={nodes?.length ?? 0}
+        hideSearch
+        onApplyFilters={(filter) => {
+          setFilter(filter)
+        }}
         additionalTitles={
           <>
             {setupWizard && (
@@ -142,14 +233,9 @@ const Operator = () => {
             )}
           </>
         }
-        page={page}
-        limit={limit}
-        setPage={setPage}
-        setLimit={setLimit}
-        totalCount={0}
       />
     </div>
   )
 }
 
-export default Operator
+export default NodesList

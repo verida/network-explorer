@@ -3,6 +3,9 @@ import { useEffect, useState } from "react"
 
 import { cn } from "@/styles/utils"
 
+/**
+ * @deprecated use <Loading /> instead
+ */
 const Loader = ({
   className = "",
   isLoading = false,

@@ -4,12 +4,12 @@ import React from "react"
 
 import { Button } from "@/components/ui/button"
 
-export type RootErrorPageProps = {
+export type RootGlobalErrorPageProps = {
   error: unknown
   reset: () => void
 }
 
-export default function RootErrorPage(props: RootErrorPageProps) {
+export default function RootGlobalErrorPage(props: RootGlobalErrorPageProps) {
   const { reset } = props
 
   return (
