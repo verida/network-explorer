@@ -25,7 +25,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { clientEnvVars } from "@/config/client"
-import { useStorageNodes } from "@/features/storagenodes/hooks/useNodes"
+import { useStorageNodes } from "@/features/storagenodes/hooks/useStorageNodes"
 import { StorageNode } from "@/features/storagenodes/types"
 import { cn } from "@/styles/utils"
 
