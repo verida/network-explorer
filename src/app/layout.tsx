@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Sora } from "next/font/google"
 import React from "react"
 
-import { Providers } from "@/app/_components/Providers"
+import { Providers } from "@/app/_components/providers"
 import { Footer } from "@/components/common/footer"
 import { Header } from "@/components/common/header"
 import { Toaster } from "@/components/ui/toaster"

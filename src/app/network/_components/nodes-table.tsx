@@ -14,7 +14,7 @@ import {
 } from "@tanstack/react-table"
 import { useCallback, useState } from "react"
 
-import { nodesTableColumns } from "@/app/nodes/_components/nodes-table-columns"
+import { nodesTableColumns } from "@/app/network/_components/nodes-table-columns"
 import { Loading } from "@/components/common/loading"
 import { DataTableWrapper } from "@/components/datatable/data-table-wrapper"
 import {

@@ -3,6 +3,7 @@
 import React from "react"
 
 import { ErrorPageContent } from "@/components/common/error-page-content"
+import { getRootPageRoute } from "@/features/routes/utils"
 
 export type IdentityErrorPageProps = {
   error: unknown
@@ -19,7 +20,7 @@ export default function IdentityErrorPage(props: IdentityErrorPageProps) {
           ? "The identifier (DID) you are looking for is not valid for a Verida identity"
           : "Oops! Something went wrong when getting the identity"
       }
-      buttonHref="/"
+      buttonHref={getRootPageRoute()}
       buttonLabel="Return to Identities overview"
     />
   )

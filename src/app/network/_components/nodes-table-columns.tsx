@@ -4,6 +4,7 @@ import Link from "next/link"
 import StorageIcon from "@/assets/icons/storage.svg"
 import { DataTableColumnHeader } from "@/components/datatable/data-table-column-header"
 import { StorageNodeStatusBadge } from "@/components/nodes/storage-node-status-badge"
+import { getNodePageRoute } from "@/features/routes/utils"
 import { StorageNode } from "@/features/storagenodes/types"
 import { sortNodeStatus } from "@/features/storagenodes/utils"
 
@@ -25,7 +26,7 @@ export const nodesTableColumns = [
           <StorageIcon />
         </div>
         <Link
-          href={`/nodes/details/${cellInfo.row.original.id}`}
+          href={getNodePageRoute({ nodeId: cellInfo.row.original.id })}
           className="text-[14px] font-normal leading-[20px] text-accent"
         >
           {cellInfo.renderValue()}

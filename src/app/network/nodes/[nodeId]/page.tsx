@@ -3,7 +3,7 @@
 import { notFound } from "next/navigation"
 import React, { useMemo } from "react"
 
-import { NodePageContent } from "@/app/nodes/details/[nodeId]/_components/node-page-content"
+import { NodePageContent } from "@/app/network/nodes/[nodeId]/_components/node-page-content"
 import { Loading } from "@/components/common/loading"
 import { clientEnvVars } from "@/config/client"
 import { useStorageNode } from "@/features/storagenodes/hooks/useStorageNode"
