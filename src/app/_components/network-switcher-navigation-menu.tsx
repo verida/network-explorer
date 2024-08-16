@@ -1,5 +1,5 @@
+import { Check, SquareArrowOutUpRight } from "lucide-react"
 import React from "react"
-import { FaCheck } from "react-icons/fa"
 
 import { NETWORKS } from "@/features/networks/constants"
 import { NetworkDef } from "@/features/networks/types"
@@ -47,9 +47,10 @@ function NetworkMenuItem(props: NetworkMenuItemProps) {
       href={network.explorerUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className="rounded-sm px-4 py-3 hover:bg-accent/10 focus:bg-accent/10"
+      className="flex flex-row items-center gap-2 rounded-sm px-4 py-3 hover:bg-accent/10 focus:bg-accent/10"
     >
       <span className="text-sm">{network.longLabel}</span>
+      <SquareArrowOutUpRight size={14} className="text-muted-foreground" />
     </a>
   )
 }
@@ -58,9 +59,9 @@ function ActiveNetworkMenuItem(props: NetworkMenuItemProps) {
   const { network } = props
 
   return (
-    <div className="flex flex-row items-center justify-between rounded-sm bg-accent/10 px-4 py-3">
+    <div className="flex flex-row items-center justify-between rounded-sm bg-foreground/5 px-4 py-3">
       <span className="text-sm">{network.longLabel}</span>
-      <FaCheck size={14} className="size-4 text-accent" />
+      <Check size={16} className="size-4 text-foreground" />
     </div>
   )
 }
