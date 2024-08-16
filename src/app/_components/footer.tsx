@@ -39,7 +39,7 @@ const platformLinks = [
 
 export type FooterProps = Omit<React.ComponentProps<"footer">, "children">
 
-export const Footer: React.FC<FooterProps> = (props) => {
+export function Footer(props: FooterProps) {
   const { className, ...footerProps } = props
 
   const currentDate = new Date()

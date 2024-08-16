@@ -4,13 +4,13 @@ import Image from "next/image"
 import Link from "next/link"
 
 import Avatar from "@/assets/svg/avatar.svg"
-import { CopyToClipboardButton } from "@/components/common/CopyToClipboardButton"
+import { CopyToClipboardButton } from "@/components/common/copy-to-clipboard-button"
 import { extractAndShortenAddress } from "@/features/did/utils"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { Identity } from "@/features/identities/types"
 import { getIdentityPageRoute } from "@/features/routes/utils"
 
-export const identitiesTableColumnsDef: ColumnDef<Identity>[] = [
+export const identitiesTableColumns: ColumnDef<Identity>[] = [
   {
     accessorKey: "user",
     header: "Name",

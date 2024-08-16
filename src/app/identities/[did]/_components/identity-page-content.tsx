@@ -5,7 +5,7 @@ import React, { useMemo, useState } from "react"
 import QRCode from "react-qr-code"
 
 import DefaultAvatar from "@/assets/svg/avatar.svg"
-import { CopyToClipboardButton } from "@/components/common/CopyToClipboardButton"
+import { CopyToClipboardButton } from "@/components/common/copy-to-clipboard-button"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { clientEnvVars } from "@/config/client"

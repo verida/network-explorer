@@ -1,8 +1,8 @@
 import React from "react"
 
-import { IdentitiesSearchSection } from "@/components/identities/IdentitiesSearchSection"
-import { IdentitiesStatsSection } from "@/components/identities/IdentitiesStatsSection"
-import { IdentitiesTable } from "@/components/identities/table/IdentitiesTable"
+import { IdentitiesSearchSection } from "@/app/identities/_components/identities-search-section"
+import { IdentitiesStatsSection } from "@/app/identities/_components/identities-stats-section"
+import { IdentitiesTable } from "@/app/identities/_components/identities-table"
 import { Separator } from "@/components/ui/separator"
 import { didRegistryBlockchain } from "@/features/identities/utils.common"
 import { getIdentitiesStatsData } from "@/features/identities/utils.server"

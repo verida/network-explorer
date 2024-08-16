@@ -9,9 +9,17 @@ import { useCallback, useState } from "react"
 import { LuSearch } from "react-icons/lu"
 import { useRecoilState } from "recoil"
 
+import { NetworkSwitcherDropdownMenu } from "@/app/_components/network-switcher-dropdown-menu"
+import { NetworkSwitcherNavigationMenu } from "@/app/_components/network-switcher-navigation-menu"
 import MenuIcon from "@/assets/svg/menu-icon.svg"
-import { NetworkSwitcherDropdownMenu } from "@/components/common/network-switcher-dropdown-menu"
-import { NetworkSwitcherNavigationMenu } from "@/components/common/network-switcher-navigation-menu"
+import { Button } from "@/components/ui/button"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
 import {
   getIdentitiesPageRoute,
   getNodesPageRoute,
@@ -19,15 +27,6 @@ import {
 } from "@/features/routes/utils"
 import { showSearchBarAtom } from "@/lib/atom"
 import { cn } from "@/styles/utils"
-
-import { Button } from "../ui/button"
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu"
-import { Input } from "../ui/input"
-import { Separator } from "../ui/separator"
 
 const navigationItems = [
   {
@@ -42,7 +41,7 @@ const navigationItems = [
 
 export type HeaderProps = Omit<React.ComponentProps<"header">, "children">
 
-export const Header: React.FC<HeaderProps> = (props) => {
+export function Header(props: HeaderProps) {
   const { className, ...headerProps } = props
 
   const pathname = usePathname()
@@ -131,9 +130,9 @@ export const Header: React.FC<HeaderProps> = (props) => {
                       href={navigationItem.path}
                       key={navigationItem.name}
                       className={cn(
-                        "cursor-pointer rounded p-3 text-foreground hover:bg-white/10",
-                        navigationItem.path.startsWith(pathname)
-                          ? "bg-white/10"
+                        "cursor-pointer rounded p-3 text-foreground hover:bg-foreground/10",
+                        pathname.startsWith(navigationItem.path)
+                          ? "bg-foreground/10"
                           : ""
                       )}
                       onClick={handleClickNavigationLink}
@@ -162,7 +161,7 @@ export const Header: React.FC<HeaderProps> = (props) => {
                 key={navigationItem.name}
                 className={cn(
                   "flex flex-col justify-center hover:text-foreground",
-                  navigationItem.path.startsWith(pathname)
+                  pathname.startsWith(navigationItem.path)
                     ? "text-foreground"
                     : "text-muted-foreground"
                 )}
