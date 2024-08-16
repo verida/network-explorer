@@ -64,7 +64,7 @@ const config = {
         },
         map: {
           background: "hsl(var(--map-background))",
-          foreground: "hsl(var(--map-foreground))",
+          foreground: "hsl(var(--map-foreground) / 0.2)",
         },
       },
       borderRadius: {
