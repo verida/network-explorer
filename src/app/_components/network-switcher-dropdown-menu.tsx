@@ -1,7 +1,5 @@
-"use client"
-
-import React, { useCallback, useState } from "react"
-import { FaCheck, FaChevronDown, FaChevronUp } from "react-icons/fa"
+import { Check, ChevronsUpDown } from "lucide-react"
+import React from "react"
 
 import NetworkIcon from "@/assets/icons/verida_network_white_logo.svg"
 import { Button } from "@/components/ui/button"
@@ -25,23 +23,15 @@ export function NetworkSwitcherDropdownMenu(
 ) {
   const { ...divProps } = props
 
-  const [menuOpen, setOpen] = useState(false)
-
-  const toggleOpenMenu = useCallback(() => setOpen((prev) => !prev), [])
-
   return (
     <div {...divProps}>
-      <DropdownMenu open={menuOpen} onOpenChange={toggleOpenMenu}>
+      <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="border-border-15">
             <div className="flex flex-row items-center gap-2">
               <NetworkIcon className="size-6" />
               {currentNetwork.label}
-              {menuOpen ? (
-                <FaChevronUp size={16} />
-              ) : (
-                <FaChevronDown size={16} />
-              )}
+              <ChevronsUpDown size={14} />
             </div>
           </Button>
         </DropdownMenuTrigger>
@@ -70,7 +60,12 @@ function NetworkMenuItem(props: NetworkMenuItemProps) {
 
   return (
     <DropdownMenuItem asChild key={network.id} className="cursor-pointer">
-      <a href={network.explorerUrl} target="_blank" rel="noopener noreferrer">
+      <a
+        href={network.explorerUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex flex-row items-center justify-between gap-4"
+      >
         {network.longLabel}
       </a>
     </DropdownMenuItem>
@@ -84,7 +79,7 @@ function ActiveNetworkMenuItem(props: NetworkMenuItemProps) {
     <DropdownMenuItem key={network.id} className="hover:bg-transparent">
       <div className="flex w-full flex-row items-center justify-between gap-4">
         <span>{network.longLabel}</span>
-        <FaCheck size={14} className="size-4" />
+        <Check size={14} className="size-4" />
       </div>
     </DropdownMenuItem>
   )

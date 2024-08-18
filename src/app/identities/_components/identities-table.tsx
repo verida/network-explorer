@@ -2,8 +2,8 @@
 
 import React, { useEffect, useMemo, useState } from "react"
 
+import { identitiesTableColumns } from "@/app/identities/_components/identities-table-columns"
 import DataTable from "@/components/common/table"
-import { identitiesTableColumnsDef } from "@/components/identities/table/identitiesTableColumnsDef"
 import { useToast } from "@/components/ui/use-toast"
 import { useActiveIdentitiesCount } from "@/features/identities/hooks/useActiveIdentitiesCount"
 import { useIdentities } from "@/features/identities/hooks/useIdentities"
@@ -50,7 +50,7 @@ export function IdentitiesTable() {
   return (
     <div className="flex flex-col gap-6">
       <DataTable
-        columns={identitiesTableColumnsDef}
+        columns={identitiesTableColumns}
         data={identityTableData}
         page={page}
         limit={limit}

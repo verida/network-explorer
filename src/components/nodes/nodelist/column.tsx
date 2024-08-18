@@ -23,6 +23,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
+import { getNodePageRoute } from "@/features/routes/utils"
 import { StorageNode } from "@/features/storagenodes/types"
 import { userAtom } from "@/lib/atom"
 import { cn } from "@/styles/utils"
@@ -63,7 +64,7 @@ export const columns: ColumnDef<StorageNode>[] = [
           <StorageIcon />
         </div>
         <Link
-          href={`/nodes/details/${row.original.id}`}
+          href={getNodePageRoute({ nodeId: row.original.id })}
           className="text-[14px] font-normal leading-[20px] text-accent"
         >
           {row.getValue("name")}

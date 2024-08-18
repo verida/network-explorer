@@ -3,8 +3,8 @@
 import { notFound } from "next/navigation"
 import React, { useMemo } from "react"
 
-import Loader from "@/components/common/loader"
-import { IdentityPageContent } from "@/components/identities/IdentityPageContent"
+import { IdentityPageContent } from "@/app/identities/[did]/_components/identity-page-content"
+import { Loading } from "@/components/common/loading"
 import { isValidVeridaDid } from "@/features/did/utils"
 import { useIdentity } from "@/features/identities/hooks/useIdentity"
 import { didRegistryBlockchain } from "@/features/identities/utils.common"
@@ -40,7 +40,7 @@ export default function IdentityPage(props: IdentityPageProps) {
   if (isLoading) {
     return (
       <div className="flex h-full flex-row items-center justify-center">
-        <Loader isLoading />
+        <Loading>Getting identity information...</Loading>
       </div>
     )
   }

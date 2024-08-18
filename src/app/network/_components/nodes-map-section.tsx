@@ -1,6 +1,6 @@
 import React from "react"
 
-import { NodesMap } from "@/app/nodes/_components/nodes-map"
+import { NodesMap } from "@/app/network/_components/nodes-map"
 
 export type NodesMapSectionProps = React.ComponentProps<"section">
 

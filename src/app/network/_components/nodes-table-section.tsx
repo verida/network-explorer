@@ -1,6 +1,6 @@
 import React from "react"
 
-import { NodesTable } from "@/app/nodes/_components/nodes-table"
+import { NodesTable } from "@/app/network/_components/nodes-table"
 
 export type NodesTableSectionProps = React.ComponentProps<"section">
 
