@@ -52,7 +52,7 @@ export function NodePageContent(props: NodePageContentProps) {
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <p className="text-muted-foreground">Description</p>
-              <p className="truncate">
+              <p className="line-clamp-6 break-words">
                 {node.description ?? DEFAULT_FOR_EMPTY_VALUE}
               </p>
             </div>
@@ -73,7 +73,7 @@ export function NodePageContent(props: NodePageContentProps) {
               )}
             </div>
             <div className="flex flex-col gap-2 text-sm">
-              <p className="text-muted-foreground">Datacenter</p>
+              <p className="text-muted-foreground">Data center</p>
               <p className="truncate">
                 {node.datacenter ?? DEFAULT_FOR_EMPTY_VALUE}
               </p>
