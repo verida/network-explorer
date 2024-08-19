@@ -15,7 +15,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Label } from "@/components/ui/label"
-import { TooltipWrapper } from "@/components/ui/tooltip"
 
 export type DataTableFacetedFiltersProps<TData> = {
   table: Table<TData>
