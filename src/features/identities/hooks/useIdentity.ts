@@ -17,14 +17,14 @@ export function useIdentity({
   }, [didRegistryBlockchain, did])
 
   const { data, ...other } = useQuery({
+    enabled: isValid,
     queryKey: ["identities", did],
     queryFn: async () => getIdentity(didRegistryBlockchain, did),
-    enabled: isValid,
+    staleTime: 1000 * 60 * 60, // 60 minutes
+    gcTime: 1000 * 60 * 60, // 60 minutes
     meta: {
       logCategory: "Identities",
     },
-    refetchOnWindowFocus: false,
-    refetchOnMount: false,
   })
 
   return {

@@ -33,8 +33,8 @@ export function useIdentities({
 
       return identities
     },
-    refetchOnWindowFocus: false,
-    refetchOnMount: true,
+    staleTime: 1000 * 60 * 10, // 10 minutes
+    gcTime: 1000 * 60 * 60, // 60 minutes
     meta: {
       logCategory: "Identities",
     },

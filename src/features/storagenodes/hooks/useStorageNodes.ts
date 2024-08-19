@@ -7,8 +7,8 @@ export function useStorageNodes({ network }: { network: Network }) {
   const { data, ...query } = useQuery({
     queryKey: ["nodes", network],
     queryFn: async () => getStorageNodes(network),
-    refetchOnMount: false,
-    refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 60, // 60 minutes
+    gcTime: 1000 * 60 * 60, // 60 minutes
     meta: {
       logCategory: "StorageNodes",
     },
