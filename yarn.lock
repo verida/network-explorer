@@ -2650,10 +2650,10 @@
     lodash "^4.17.21"
     tweetnacl-util "^0.15.1"
 
-"@verida/client-ts@^4.1.3-rc1.0":
-  version "4.1.3-rc1.0"
-  resolved "https://registry.yarnpkg.com/@verida/client-ts/-/client-ts-4.1.3-rc1.0.tgz#81c33222a873e78a05306d5adf6168882ad1bb03"
-  integrity sha512-vo5kXD7fM0UBCwGKUQhXpBCnH3kr28IkPUP+xkF9cd3ZIgx7Rc1ogi96VSfQ/aYmLIrl12/IX98kPUhFvpDloA==
+"@verida/client-ts@^4.1.3-rc1.1":
+  version "4.1.3-rc1.1"
+  resolved "https://registry.yarnpkg.com/@verida/client-ts/-/client-ts-4.1.3-rc1.1.tgz#16cb20196b38276641d0499e491a39449d78d9f4"
+  integrity sha512-WoPcwaYYTM0Vy1hLXKJVa6eJnbwlAmQjGdWVv50vn8pMa4WICxB3QBXUNCfl/608khvKblVtflQXgTZXNTd5pQ==
   dependencies:
     "@verida/account" "^4.1.3-rc1.0"
     "@verida/did-client" "^4.1.3-rc1.0"
