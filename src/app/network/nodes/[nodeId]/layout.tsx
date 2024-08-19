@@ -15,7 +15,11 @@ export default function NodeLayout(props: NodeLayoutProps) {
   const nodeId = decodeURIComponent(encodedNodeId)
 
   return (
-    <PageLayoutWrapper title="Node" titleComplement={nodeId}>
+    <PageLayoutWrapper
+      title="Node"
+      titleComplement={nodeId}
+      copyTitleComplementSuccessMessage="Node ID copied!"
+    >
       {children}
     </PageLayoutWrapper>
   )

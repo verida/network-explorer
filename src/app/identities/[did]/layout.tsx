@@ -15,7 +15,11 @@ export default function IdentityLayout(props: IdentityLayoutProps) {
   const did = decodeURIComponent(encodedDid)
 
   return (
-    <PageLayoutWrapper title="Identity" titleComplement={did}>
+    <PageLayoutWrapper
+      title="Identity"
+      titleComplement={did}
+      copyTitleComplementSuccessMessage="Identity's DID copied!"
+    >
       {children}
     </PageLayoutWrapper>
   )
