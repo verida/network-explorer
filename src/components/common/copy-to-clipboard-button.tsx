@@ -10,10 +10,17 @@ import { cn } from "@/styles/utils"
 export type CopyToClipboardButtonProps = {
   content: string
   successMessage?: string
-} & React.ComponentProps<"svg">
+} & Omit<React.ComponentProps<typeof Button>, "children" | "onClick">
 
 export function CopyToClipboardButton(props: CopyToClipboardButtonProps) {
-  const { content, successMessage, className, ...svgProps } = props
+  const {
+    content,
+    successMessage,
+    variant = "ghost",
+    size = "icon",
+    className,
+    ...buttonProps
+  } = props
 
   const { toast } = useToast()
 
@@ -27,8 +34,14 @@ export function CopyToClipboardButton(props: CopyToClipboardButtonProps) {
   }, [content, successMessage, toast])
 
   return (
-    <Button variant="ghost" size="icon" onClick={handleClick}>
-      <CopyIcon className={cn("h-4 w-4", className)} {...svgProps} />
+    <Button
+      variant={variant}
+      size={size}
+      onClick={handleClick}
+      className={cn(className)}
+      {...buttonProps}
+    >
+      <CopyIcon className="h-4 w-4" />
       <span className="sr-only">Copy to clipboard</span>
     </Button>
   )

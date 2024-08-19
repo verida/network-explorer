@@ -1,10 +1,10 @@
 import { ColumnDef } from "@tanstack/react-table"
 import dayjs from "dayjs"
 import Image from "next/image"
-import Link from "next/link"
 
 import Avatar from "@/assets/svg/avatar.svg"
-import { CopyToClipboardButton } from "@/components/common/copy-to-clipboard-button"
+import { CopyToClipboardContent } from "@/components/common/copy-to-clipboard-content"
+import { InternalLink } from "@/components/common/links"
 import { extractAndShortenAddress } from "@/features/did/utils"
 import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { Identity } from "@/features/identities/types"
@@ -44,13 +44,16 @@ export const identitiesTableColumns: ColumnDef<Identity>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent">
-          <Link href={getIdentityPageRoute({ did: row.original.did })}>
-            {extractAndShortenAddress(row.original.did)}
-          </Link>
-          <CopyToClipboardButton
+          <CopyToClipboardContent
             content={row.getValue("did")}
             successMessage="Identity's DID copied!"
-          />
+          >
+            <InternalLink
+              href={getIdentityPageRoute({ did: row.original.did })}
+            >
+              {extractAndShortenAddress(row.original.did)}
+            </InternalLink>
+          </CopyToClipboardContent>
         </div>
       )
     },

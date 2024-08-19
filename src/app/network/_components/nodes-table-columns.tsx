@@ -1,7 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table"
-import Link from "next/link"
 
 import StorageIcon from "@/assets/icons/storage.svg"
+import { InternalLink } from "@/components/common/links"
 import { DataTableColumnHeader } from "@/components/datatable/data-table-column-header"
 import { StorageNodeStatusBadge } from "@/components/nodes/storage-node-status-badge"
 import { getNodePageRoute } from "@/features/routes/utils"
@@ -25,12 +25,11 @@ export const nodesTableColumns = [
         <div className="flex h-10 w-10 items-center justify-center rounded-sm bg-foreground/20">
           <StorageIcon />
         </div>
-        <Link
+        <InternalLink
           href={getNodePageRoute({ nodeId: cellInfo.row.original.id })}
-          className="text-[14px] font-normal leading-[20px] text-accent"
         >
           {cellInfo.renderValue()}
-        </Link>
+        </InternalLink>
       </div>
     ),
   }),
@@ -51,7 +50,7 @@ export const nodesTableColumns = [
   columnHelper.accessor((row) => row.storageSlotsUsed, {
     id: "storageSlots",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Used/Total slots" />
+      <DataTableColumnHeader column={column} title="Used / Total slots" />
     ),
     enableSorting: true,
     sortUndefined: "last",

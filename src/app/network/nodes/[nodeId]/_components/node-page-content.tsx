@@ -2,9 +2,13 @@
 
 import { useMemo } from "react"
 
+import { CopyToClipboardContent } from "@/components/common/copy-to-clipboard-content"
 import { Map, MapMarker } from "@/components/map/map"
 import { StorageNodeStatusBadge } from "@/components/nodes/storage-node-status-badge"
+import { Card, CardContent } from "@/components/ui/card"
 import { StorageNode } from "@/features/storagenodes/types"
+
+const DEFAULT_FOR_EMPTY_VALUE = "-"
 
 export type NodePageContentProps = {
   node: StorageNode
@@ -39,53 +43,69 @@ export function NodePageContent(props: NodePageContentProps) {
 
   return (
     <div className="flex flex-col gap-10 lg:flex-row">
-      <div className="result-box flex flex-1 flex-col gap-6 rounded-lg border border-border px-6 py-8">
-        <div className="text-[18px] font-semibold leading-[20px]">Details</div>
-        <div className="flex flex-col items-start gap-4 text-sm font-normal leading-5">
-          <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-            <span className="text-muted-foreground">Node Name</span>
-            <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-              {node.name}
+      <Card className="flex-1">
+        <CardContent>
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-muted-foreground">Name</p>
+              <p className="truncate">{node.name ?? DEFAULT_FOR_EMPTY_VALUE}</p>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-muted-foreground">Description</p>
+              <p className="line-clamp-6 break-words">
+                {node.description ?? DEFAULT_FOR_EMPTY_VALUE}
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-muted-foreground">Service endpoint</p>
+              {node.serviceEndpoint ? (
+                <CopyToClipboardContent
+                  content={node.serviceEndpoint}
+                  successMessage="Service endpoint copied!"
+                  className="-my-2.5 text-inherit"
+                >
+                  <p className="truncate">
+                    {node.serviceEndpoint ?? DEFAULT_FOR_EMPTY_VALUE}
+                  </p>
+                </CopyToClipboardContent>
+              ) : (
+                <p>{`-`}</p>
+              )}
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-muted-foreground">Data center</p>
+              <p className="truncate">
+                {node.datacenter ?? DEFAULT_FOR_EMPTY_VALUE}
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-muted-foreground">Country</p>
+              <p className="truncate">
+                {node.country ?? DEFAULT_FOR_EMPTY_VALUE}
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-muted-foreground">Region</p>
+              <p className="truncate">
+                {node.region ?? DEFAULT_FOR_EMPTY_VALUE}
+              </p>
+            </div>
+            <div className="flex flex-col gap-2 text-sm">
+              <p className="text-muted-foreground">Used / Total slots</p>
+              <p>
+                <span>{node.storageSlotsUsed ?? DEFAULT_FOR_EMPTY_VALUE}</span>{" "}
+                <span className="text-muted-foreground">
+                  / {node.maxStorageSlots ?? DEFAULT_FOR_EMPTY_VALUE}
+                </span>
+              </p>
+            </div>
+            <div className="flex flex-col gap-2">
+              <p className="text-sm text-muted-foreground">Status</p>
+              <StorageNodeStatusBadge status={node.status} />
             </div>
           </div>
-
-          <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-            <span className="text-muted-foreground">Datacenter</span>
-            <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-              {node.datacenter}
-            </div>
-          </div>
-
-          <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-            <span className="text-muted-foreground">Region</span>
-            <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-              {node.region}
-            </div>
-          </div>
-
-          <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-            <span className="text-muted-foreground">Country</span>
-            <div className="truncate text-[14px] font-normal leading-[20px] sm:w-auto">
-              {node.country}
-            </div>
-          </div>
-
-          <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-            <span className="text-muted-foreground">Used/Total slots</span>
-            <div>
-              <span>{node.storageSlotsUsed}</span>{" "}
-              <span className="text-muted-foreground">
-                / {node.maxStorageSlots}
-              </span>
-            </div>
-          </div>
-
-          <div className="flex w-full flex-col justify-between gap-2 sm:flex-row sm:items-center">
-            <span className="text-muted-foreground">Status</span>
-            <StorageNodeStatusBadge status={node.status} />
-          </div>
-        </div>
-      </div>
+        </CardContent>
+      </Card>
       <Map
         zoom={3}
         minZoom={3}
