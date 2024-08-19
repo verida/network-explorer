@@ -1,15 +1,16 @@
 "use client"
 
-import { X } from "lucide-react"
+import { MenuIcon, XIcon } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import React, { useCallback, useState } from "react"
+import React from "react"
 
 import { NetworkSwitcherNavigationMenu } from "@/app/_components/network-switcher-navigation-menu"
-import MenuIcon from "@/assets/svg/menu-icon.svg"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import {
@@ -38,20 +39,22 @@ export function AppHeaderNavBar(props: AppHeaderNavBarProps) {
 
   return (
     <nav {...navProps} className={cn("h-full", className)}>
-      <ul className="flex h-full flex-row items-stretch gap-10">
+      <ul className="flex h-full flex-row items-stretch gap-6">
         {navItems.map((item) => (
           <li key={item.path}>
-            <Link
-              href={item.path}
-              className={cn(
-                "flex h-full flex-col justify-center hover:text-foreground",
-                pathname.startsWith(item.path)
-                  ? "text-foreground"
-                  : "text-muted-foreground"
-              )}
-            >
-              <span className="text-sm font-semibold">{item.label}</span>
-            </Link>
+            <div className="h-full py-2">
+              <Link
+                href={item.path}
+                className={cn(
+                  "flex h-full flex-col justify-center px-2 hover:text-foreground",
+                  pathname.startsWith(item.path)
+                    ? "text-foreground"
+                    : "text-muted-foreground"
+                )}
+              >
+                <span className="text-sm font-semibold">{item.label}</span>
+              </Link>
+            </div>
           </li>
         ))}
       </ul>
@@ -60,28 +63,26 @@ export function AppHeaderNavBar(props: AppHeaderNavBarProps) {
 }
 
 export type AppHeaderNavMenuProps = Omit<
-  React.ComponentProps<typeof DropdownMenuTrigger>,
+  React.ComponentProps<"div">,
   "children"
 >
 
 export function AppHeaderNavMenu(props: AppHeaderNavMenuProps) {
-  const { ...triggerProps } = props
+  const { className, ...triggerProps } = props
 
-  const [isOpen, setIsOpen] = useState(false)
   const pathname = usePathname()
 
-  const handleClickNavigationLink = useCallback(() => {
-    setIsOpen(false)
-  }, [])
-
   return (
-    <DropdownMenu onOpenChange={setIsOpen} open={isOpen}>
-      <DropdownMenuTrigger {...triggerProps}>
-        {isOpen ? (
-          <X className="aspect-square w-7" />
-        ) : (
-          <MenuIcon className="aspect-square w-7" width="100%" height="100%" />
-        )}
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <div className={cn("group p-2", className)} {...triggerProps}>
+          <div className="flex h-full flex-row items-center">
+            <Button variant="ghost" className="h-auto px-2">
+              <XIcon className="hidden size-6 group-data-[state=open]:block" />
+              <MenuIcon className="hidden size-6 group-data-[state=closed]:block" />
+            </Button>
+          </div>
+        </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         sideOffset={1}
@@ -90,17 +91,16 @@ export function AppHeaderNavMenu(props: AppHeaderNavMenuProps) {
         <nav className="flex h-full flex-col justify-between">
           <div className="flex flex-col gap-1">
             {navItems.map((item) => (
-              <Link
-                href={item.path}
+              <DropdownMenuItem
+                asChild
                 key={item.path}
                 className={cn(
-                  "cursor-pointer rounded-sm p-3 text-foreground hover:bg-foreground/10",
-                  pathname.startsWith(item.path) ? "bg-foreground/10" : ""
+                  "cursor-pointer rounded-sm p-3 text-base leading-tight",
+                  pathname.startsWith(item.path) ? "bg-foreground/5" : ""
                 )}
-                onClick={handleClickNavigationLink}
               >
-                {item.label}
-              </Link>
+                <Link href={item.path}>{item.label}</Link>
+              </DropdownMenuItem>
             ))}
           </div>
           <NetworkSwitcherNavigationMenu />

@@ -1,10 +1,11 @@
-import { Check, ChevronsUpDown } from "lucide-react"
+import { ChevronsUpDown } from "lucide-react"
 import React from "react"
 
 import NetworkIcon from "@/assets/icons/verida_network_white_logo.svg"
 import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
+  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
@@ -35,7 +36,7 @@ export function NetworkSwitcherDropdownMenu(
             </div>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="end" className="min-w-44">
           {networks.map((network) => (
             <React.Fragment key={network.id}>
               {network.id === currentNetwork.id ? (
@@ -59,13 +60,8 @@ function NetworkMenuItem(props: NetworkMenuItemProps) {
   const { network } = props
 
   return (
-    <DropdownMenuItem asChild key={network.id} className="cursor-pointer">
-      <a
-        href={network.explorerUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flex flex-row items-center justify-between gap-4"
-      >
+    <DropdownMenuItem asChild inset key={network.id} className="cursor-pointer">
+      <a href={network.explorerUrl} target="_blank" rel="noopener noreferrer">
         {network.longLabel}
       </a>
     </DropdownMenuItem>
@@ -76,11 +72,13 @@ function ActiveNetworkMenuItem(props: NetworkMenuItemProps) {
   const { network } = props
 
   return (
-    <DropdownMenuItem key={network.id} className="hover:bg-transparent">
-      <div className="flex w-full flex-row items-center justify-between gap-4">
-        <span>{network.longLabel}</span>
-        <Check size={14} className="size-4" />
-      </div>
-    </DropdownMenuItem>
+    <DropdownMenuCheckboxItem
+      key={network.id}
+      checked
+      disabled
+      className="data-[disabled]:opacity-100"
+    >
+      <span>{network.longLabel}</span>
+    </DropdownMenuCheckboxItem>
   )
 }

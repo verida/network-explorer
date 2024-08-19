@@ -9,13 +9,17 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Label } from "@/components/ui/label"
+import { TooltipWrapper } from "@/components/ui/tooltip"
 
 export type DataTableFacetedFiltersProps<TData> = {
   table: Table<TData>
+  // TODO: Pass the filter options as props, defining the columns being filtered and the filter values with their labels
 }
 
 export function DataTableFacetedFilters<TData>(
@@ -49,8 +53,8 @@ export function DataTableFacetedFilters<TData>(
           </Button>
         </DropdownMenuTrigger>
       </div>
-      <DropdownMenuContent align="end" className="min-w-64 p-0">
-        <DropdownMenuLabel>Filters</DropdownMenuLabel>
+      <DropdownMenuContent align="end" className="min-w-64 p-1">
+        <DropdownMenuLabel className="px-5 py-3">Filters</DropdownMenuLabel>
         <DropdownMenuSeparator className="my-0" />
         <div className="flex flex-col gap-4 py-4">
           {filterableColumns.map((column) => {
@@ -62,16 +66,18 @@ export function DataTableFacetedFilters<TData>(
                 key={column.id}
                 className="flex flex-col gap-0 px-0 py-0"
               >
-                <span className="px-6 py-2 text-sm capitalize text-muted-foreground">
+                <DropdownMenuLabel className="px-5 py-2 text-sm font-normal capitalize text-muted-foreground">
                   {column.id}
-                </span>
+                </DropdownMenuLabel>
                 {facets.map((value) => {
                   const isSelected = selectedValues.has(value)
 
                   return (
-                    <div
+                    <DropdownMenuItem
                       key={value}
-                      className="flex flex-row items-center gap-3 px-6 py-2 text-sm"
+                      className="gap-3 px-5 py-2"
+                      onSelect={(event) => event.preventDefault()}
+                      // FIXME: Find a way to check the checkbox with the keyboard
                     >
                       <Checkbox
                         id={`${column.id}_${value}`}
@@ -89,13 +95,13 @@ export function DataTableFacetedFilters<TData>(
                           )
                         }}
                       />
-                      <label
+                      <Label
                         htmlFor={`${column.id}_${value}`}
                         className="capitalize"
                       >
                         {value}
-                      </label>
-                    </div>
+                      </Label>
+                    </DropdownMenuItem>
                   )
                 })}
               </DropdownMenuGroup>

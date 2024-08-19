@@ -61,7 +61,10 @@ export default function RootLayout(props: RootLayoutProps) {
         )}
       >
         <AppProviders>
-          <AppHeader className="fixed left-0 right-0 top-0 z-50" />
+          <AppHeader
+            className="fixed left-0 right-0 top-0 z-50"
+            // FIXME: Some components in the pages pass over the header, check their z-index
+          />
           <AppHeaderOffset />
           <div className="flex flex-1 flex-row justify-center">
             <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
