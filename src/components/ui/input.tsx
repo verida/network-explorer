@@ -2,21 +2,49 @@ import * as React from "react"
 
 import { cn } from "@/styles/utils"
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+export type InputProps = {
+  startAdornment?: React.ReactNode
+  endAdornment?: React.ReactNode
+  containerClassName?: Pick<React.ComponentProps<"div">, "className">
+} & React.ComponentProps<"input">
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, ...props }, ref) => {
+  (
+    {
+      startAdornment,
+      endAdornment,
+      className,
+      type,
+      containerClassName,
+      ...props
+    },
+    ref
+  ) => {
     return (
-      <input
-        type={type}
+      <div
         className={cn(
-          "flex h-10 w-full rounded-md border border-input bg-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
-          className
+          "relative flex w-full flex-row items-center",
+          containerClassName
         )}
-        ref={ref}
-        {...props}
-      />
+      >
+        {startAdornment ? (
+          <div className="absolute left-0">{startAdornment}</div>
+        ) : null}
+        <input
+          type={type}
+          className={cn(
+            "flex w-full rounded-lg border border-transparent bg-input py-3 text-sm ring-offset-transparent file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground hover:border-border focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50",
+            startAdornment ? "pl-10" : "pl-3",
+            endAdornment ? "pr-10" : "pr-3",
+            className
+          )}
+          ref={ref}
+          {...props}
+        />
+        {endAdornment ? (
+          <div className="absolute right-0">{endAdornment}</div>
+        ) : null}
+      </div>
     )
   }
 )
