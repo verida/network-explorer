@@ -23,8 +23,8 @@ export function AppHeader(props: AppHeaderProps) {
         className
       )}
     >
-      <div className="flex w-full max-w-screen-xl flex-row items-center justify-between px-4 sm:px-8">
-        <div className="flex h-full flex-row items-stretch gap-4 sm:gap-10">
+      <div className="flex w-full max-w-screen-xl flex-row items-center justify-between pr-4 sm:px-8">
+        <div className="flex h-full flex-row items-stretch gap-0 sm:gap-8">
           <AppHeaderNavMenu className="block sm:hidden" />
           <Link
             href={getRootPageRoute()}

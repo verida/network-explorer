@@ -179,7 +179,7 @@ type PaginationSizeProps = {
 
 const PaginationSize = ({ sizes, ...selectProps }: PaginationSizeProps) => (
   <Select {...selectProps}>
-    <SelectTrigger className="w-20">
+    <SelectTrigger className="min-w-20">
       <SelectValue placeholder="Select" />
     </SelectTrigger>
     <SelectContent side="top">

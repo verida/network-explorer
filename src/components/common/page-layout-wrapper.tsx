@@ -8,6 +8,9 @@ export type PageLayoutWrapperProps = {
   title?: string
   titleComplement?: string
   disableCopyTitleComplement?: boolean
+  copyTitleComplementSuccessMessage?: React.ComponentProps<
+    typeof CopyToClipboardContent
+  >["successMessage"]
   hideBackButton?: boolean
 }
 
@@ -17,6 +20,7 @@ export function PageLayoutWrapper(props: PageLayoutWrapperProps) {
     hideBackButton,
     title,
     titleComplement,
+    copyTitleComplementSuccessMessage,
     disableCopyTitleComplement = false,
   } = props
 
@@ -38,6 +42,7 @@ export function PageLayoutWrapper(props: PageLayoutWrapperProps) {
             ) : (
               <CopyToClipboardContent
                 content={titleComplement}
+                successMessage={copyTitleComplementSuccessMessage}
                 className="-my-2.5 -mr-2.5 text-inherit"
               >
                 <span className="truncate">{titleComplement}</span>

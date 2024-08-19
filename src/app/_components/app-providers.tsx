@@ -3,6 +3,7 @@
 import React from "react"
 import { RecoilRoot } from "recoil"
 
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { QueriesProvider } from "@/features/queries/QueriesProvider"
 import { ThemesProvider } from "@/features/themes/ThemesProvider"
 
@@ -16,7 +17,9 @@ export function AppProviders(props: ProvidersProps) {
   return (
     <ThemesProvider>
       <QueriesProvider>
-        <RecoilRoot>{children}</RecoilRoot>
+        <TooltipProvider>
+          <RecoilRoot>{children}</RecoilRoot>
+        </TooltipProvider>
       </QueriesProvider>
     </ThemesProvider>
   )
