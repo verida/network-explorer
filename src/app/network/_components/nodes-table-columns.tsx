@@ -4,6 +4,7 @@ import StorageIcon from "@/assets/icons/storage.svg"
 import { InternalLink } from "@/components/common/links"
 import { DataTableColumnHeader } from "@/components/datatable/data-table-column-header"
 import { StorageNodeStatusBadge } from "@/components/nodes/storage-node-status-badge"
+import { EMPTY_VALUE_FALLBACK } from "@/constants/misc"
 import { getNodePageRoute } from "@/features/routes/utils"
 import { StorageNode } from "@/features/storagenodes/types"
 import { sortNodeStatus } from "@/features/storagenodes/utils"
@@ -62,7 +63,7 @@ export const nodesTableColumns = [
           {cellInfo.renderValue()}
         </span>
         <span className="text-[14px] font-normal leading-[20px] text-muted-foreground">
-          / {cellInfo.row.renderValue("maxStorageSlots")}
+          / {cellInfo.row.original.maxStorageSlots ?? EMPTY_VALUE_FALLBACK}
         </span>
       </div>
     ),
