@@ -6,9 +6,8 @@ import { CopyToClipboardContent } from "@/components/common/copy-to-clipboard-co
 import { Map, MapMarker } from "@/components/map/map"
 import { StorageNodeStatusBadge } from "@/components/nodes/storage-node-status-badge"
 import { Card, CardContent } from "@/components/ui/card"
+import { EMPTY_VALUE_FALLBACK } from "@/constants/misc"
 import { StorageNode } from "@/features/storagenodes/types"
-
-const DEFAULT_FOR_EMPTY_VALUE = "-"
 
 export type NodePageContentProps = {
   node: StorageNode
@@ -48,12 +47,12 @@ export function NodePageContent(props: NodePageContentProps) {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2 text-sm">
               <p className="text-muted-foreground">Name</p>
-              <p className="truncate">{node.name ?? DEFAULT_FOR_EMPTY_VALUE}</p>
+              <p className="truncate">{node.name ?? EMPTY_VALUE_FALLBACK}</p>
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <p className="text-muted-foreground">Description</p>
               <p className="line-clamp-6 break-words">
-                {node.description ?? DEFAULT_FOR_EMPTY_VALUE}
+                {node.description ?? EMPTY_VALUE_FALLBACK}
               </p>
             </div>
             <div className="flex flex-col gap-2 text-sm">
@@ -65,7 +64,7 @@ export function NodePageContent(props: NodePageContentProps) {
                   className="-my-2.5 text-inherit"
                 >
                   <p className="truncate">
-                    {node.serviceEndpoint ?? DEFAULT_FOR_EMPTY_VALUE}
+                    {node.serviceEndpoint ?? EMPTY_VALUE_FALLBACK}
                   </p>
                 </CopyToClipboardContent>
               ) : (
@@ -75,27 +74,23 @@ export function NodePageContent(props: NodePageContentProps) {
             <div className="flex flex-col gap-2 text-sm">
               <p className="text-muted-foreground">Data center</p>
               <p className="truncate">
-                {node.datacenter ?? DEFAULT_FOR_EMPTY_VALUE}
+                {node.datacenter ?? EMPTY_VALUE_FALLBACK}
               </p>
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <p className="text-muted-foreground">Country</p>
-              <p className="truncate">
-                {node.country ?? DEFAULT_FOR_EMPTY_VALUE}
-              </p>
+              <p className="truncate">{node.country ?? EMPTY_VALUE_FALLBACK}</p>
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <p className="text-muted-foreground">Region</p>
-              <p className="truncate">
-                {node.region ?? DEFAULT_FOR_EMPTY_VALUE}
-              </p>
+              <p className="truncate">{node.region ?? EMPTY_VALUE_FALLBACK}</p>
             </div>
             <div className="flex flex-col gap-2 text-sm">
               <p className="text-muted-foreground">Used / Total slots</p>
               <p>
-                <span>{node.storageSlotsUsed ?? DEFAULT_FOR_EMPTY_VALUE}</span>{" "}
+                <span>{node.storageSlotsUsed ?? EMPTY_VALUE_FALLBACK}</span>{" "}
                 <span className="text-muted-foreground">
-                  / {node.maxStorageSlots ?? DEFAULT_FOR_EMPTY_VALUE}
+                  / {node.maxStorageSlots ?? EMPTY_VALUE_FALLBACK}
                 </span>
               </p>
             </div>

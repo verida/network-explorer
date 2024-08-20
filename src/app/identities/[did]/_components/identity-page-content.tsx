@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { clientEnvVars } from "@/config/client"
-import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
+import { EMPTY_VALUE_FALLBACK } from "@/constants/misc"
 import { Identity } from "@/features/identities/types"
 import { Logger } from "@/features/logger"
 import { getIdentityPageRoute } from "@/features/routes/utils"
@@ -69,7 +69,7 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
             <div className="flex w-full min-w-0 flex-col gap-9 sm:flex-1">
               <div className="flex flex-col gap-6 sm:max-w-[620px]">
                 <p className="truncate text-center text-xl font-bold leading-tight sm:text-start">
-                  {profile?.name ?? DEFAULT_FOR_EMPTY_VALUE}
+                  {profile?.name ?? EMPTY_VALUE_FALLBACK}
                 </p>
                 <div className="flex flex-col items-center sm:hidden">
                   <div
@@ -97,13 +97,13 @@ export function IdentityPageContent(props: IdentityPageContentProps) {
                 <div className="flex flex-col gap-2 text-sm">
                   <p className="text-muted-foreground">Country</p>
                   <p className="truncate">
-                    {profile?.country ?? DEFAULT_FOR_EMPTY_VALUE}
+                    {profile?.country ?? EMPTY_VALUE_FALLBACK}
                   </p>
                 </div>
                 <div className="flex flex-col gap-2 text-sm">
                   <p className="text-muted-foreground">Description</p>
                   <p className="line-clamp-6 break-words">
-                    {profile?.description ?? DEFAULT_FOR_EMPTY_VALUE}
+                    {profile?.description ?? EMPTY_VALUE_FALLBACK}
                   </p>
                 </div>
               </div>
