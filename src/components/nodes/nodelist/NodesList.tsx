@@ -1,10 +1,10 @@
 "use client"
 
 import { Close } from "@radix-ui/react-dialog"
+import { useQuery } from "@tanstack/react-query"
 import { X } from "lucide-react"
 import React, { useEffect, useState } from "react"
 import { LuArrowLeft } from "react-icons/lu"
-import { useQuery } from "react-query"
 import { useRecoilValue } from "recoil"
 
 import ConnectedContent from "@/components/common/connected-content"
@@ -26,7 +26,6 @@ import { setupWizardAtom, userAtom } from "@/lib/atom"
 import Loader from "../../common/loader"
 import DataTable, { Tab } from "../../common/table"
 import { Button } from "../../ui/button"
-import { useToast } from "../../ui/use-toast"
 import { columns } from "./column"
 
 /**
@@ -88,13 +87,11 @@ const NodesList = () => {
   const [page, setPage] = useState(1)
   const [limit, setLimit] = useState(10)
 
-  const { toast } = useToast()
-
   const [nodes, setNodes] = useState<any[]>()
 
-  const { data, isLoading, isError } = useQuery(
-    "nodes",
-    async () => {
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["nodes"],
+    queryFn: async () => {
       const url = getNodeMetricsFileUrl(
         clientEnvVars.NEXT_PUBLIC_VERIDA_NETWORK
       )
@@ -102,20 +99,9 @@ const NodesList = () => {
       const response = await fetch(url)
       return await response.json()
     },
-    {
-      refetchOnMount: false,
-      refetchOnWindowFocus: false,
-      onSuccess: (data) => {
-        setNodes(filterNodes(data))
-      },
-      onError: () => {
-        toast({
-          description: "An error occurred while fetching nodes",
-          variant: "destructive",
-        })
-      },
-    }
-  )
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  })
 
   const [filter, setFilter] = useState<Filter>()
 

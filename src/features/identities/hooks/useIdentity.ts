@@ -1,12 +1,9 @@
+import { useQuery } from "@tanstack/react-query"
 import { BlockchainAnchor } from "@verida/types"
 import { useMemo } from "react"
-import { useQuery } from "react-query"
 
 import { isValidVeridaDid } from "@/features/did/utils"
 import { getIdentity } from "@/features/identities/utils.client"
-import { Logger } from "@/features/logger"
-
-const logger = Logger.create("Identities")
 
 export function useIdentity({
   didRegistryBlockchain,
@@ -19,18 +16,16 @@ export function useIdentity({
     return isValidVeridaDid(didRegistryBlockchain, did)
   }, [didRegistryBlockchain, did])
 
-  const { data, ...other } = useQuery(
-    ["identities", did],
-    async () => getIdentity(didRegistryBlockchain, did),
-    {
-      enabled: isValid,
-      onError: (error) => {
-        logger.error(error)
-      },
-      refetchOnWindowFocus: false,
-      refetchOnMount: false,
-    }
-  )
+  const { data, ...other } = useQuery({
+    enabled: isValid,
+    queryKey: ["identities", did],
+    queryFn: async () => getIdentity(didRegistryBlockchain, did),
+    staleTime: 1000 * 60 * 60, // 60 minutes
+    gcTime: 1000 * 60 * 60, // 60 minutes
+    meta: {
+      logCategory: "Identities",
+    },
+  })
 
   return {
     identity: data,

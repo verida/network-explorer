@@ -30,7 +30,9 @@ export async function getIdentitiesStatsData(
 
   const url = getIdentitiesStatsFileUrl(registryBlockchain)
 
-  const response = await fetch(url, { cache: "no-store" })
+  const response = await fetch(url, {
+    cache: "no-store",
+  })
 
   if (!response.ok) {
     isloading = false
