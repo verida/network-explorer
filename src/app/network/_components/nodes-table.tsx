@@ -26,9 +26,12 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { clientEnvVars } from "@/config/client"
+import { EMPTY_VALUE_FALLBACK } from "@/constants/misc"
 import { useStorageNodes } from "@/features/storagenodes/hooks/useStorageNodes"
 import { StorageNode } from "@/features/storagenodes/types"
 import { cn } from "@/styles/utils"
+
+const numberFormatter = new Intl.NumberFormat(undefined)
 
 const fallbackData: StorageNode[] = []
 
@@ -48,6 +51,7 @@ export function NodesTable() {
 
   const table = useReactTable({
     data: storageNodes ?? fallbackData,
+    renderFallbackValue: EMPTY_VALUE_FALLBACK,
     columns: nodesTableColumns,
     state: {
       columnFilters,
@@ -69,7 +73,8 @@ export function NodesTable() {
   return (
     <DataTableWrapper
       table={table}
-      title={`${table.getFilteredRowModel().rows.length ? `${table.getFilteredRowModel().rows.length} ` : ""}Nodes`}
+      title={`${table.getFilteredRowModel().rows.length ? `${numberFormatter.format(table.getFilteredRowModel().rows.length)} ` : ""}Nodes`}
+      // Yes, if length is 0, "0" won't be displayed, on purpose
     >
       <Table className="min-w-[68rem]">
         <TableHeader>

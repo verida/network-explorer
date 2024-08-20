@@ -45,7 +45,7 @@ export const nodesTableColumns = [
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id))
     },
-    cell: (cellInfo) => cellInfo.getValue(),
+    cell: (cellInfo) => cellInfo.renderValue(),
   }),
   columnHelper.accessor((row) => row.storageSlotsUsed, {
     id: "storageSlots",
@@ -59,10 +59,10 @@ export const nodesTableColumns = [
     cell: (cellInfo) => (
       <div className="flex flex-row items-center gap-1">
         <span className="text-[14px] font-normal leading-[20px]">
-          {cellInfo.row.original.storageSlotsUsed}
+          {cellInfo.renderValue()}
         </span>
         <span className="text-[14px] font-normal leading-[20px] text-muted-foreground">
-          / {cellInfo.row.original.maxStorageSlots}
+          / {cellInfo.row.renderValue("maxStorageSlots")}
         </span>
       </div>
     ),
