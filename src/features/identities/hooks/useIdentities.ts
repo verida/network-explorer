@@ -5,19 +5,19 @@ import { getDids, getIdentity } from "@/features/identities/utils.client"
 
 export function useIdentities({
   didRegistryBlockchain,
-  limit,
-  page,
+  pageIndex,
+  pageSize,
 }: {
   didRegistryBlockchain: BlockchainAnchor
-  limit: number
-  page: number
+  pageIndex: number
+  pageSize: number
 }) {
   const queryClient = useQueryClient()
 
   const { data, ...other } = useQuery({
-    queryKey: ["identities", didRegistryBlockchain, page, limit],
+    queryKey: ["identities", didRegistryBlockchain, pageIndex, pageSize],
     queryFn: async () => {
-      const dids = await getDids(didRegistryBlockchain, page, limit)
+      const dids = await getDids(didRegistryBlockchain, pageIndex, pageSize)
 
       const identitiesResult = await Promise.allSettled(
         dids.map(async (did: string) => getIdentity(didRegistryBlockchain, did))

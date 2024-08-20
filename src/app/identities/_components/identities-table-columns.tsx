@@ -1,77 +1,101 @@
-import { ColumnDef } from "@tanstack/react-table"
-import dayjs from "dayjs"
+import { createColumnHelper } from "@tanstack/react-table"
 import Image from "next/image"
 
 import Avatar from "@/assets/svg/avatar.svg"
+// TODO: Use a default avatar with no background
 import { CopyToClipboardContent } from "@/components/common/copy-to-clipboard-content"
 import { InternalLink } from "@/components/common/links"
+import { DataTableColumnHeader } from "@/components/datatable/data-table-column-header"
 import { extractAndShortenAddress } from "@/features/did/utils"
-import { DEFAULT_FOR_EMPTY_VALUE } from "@/features/identities/constants"
 import { Identity } from "@/features/identities/types"
 import { getIdentityPageRoute } from "@/features/routes/utils"
 
-export const identitiesTableColumns: ColumnDef<Identity>[] = [
-  {
-    accessorKey: "user",
-    header: "Name",
-    cell: ({ row }) => (
-      <div className="flex items-center gap-4 pl-6 text-[14px] font-normal leading-[20px]">
-        {row.original.profile?.avatarUri ? (
+const dateFormatter = new Intl.DateTimeFormat(undefined, {
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  hour12: true,
+})
+
+const columnHelper = createColumnHelper<Identity>()
+
+export const identitiesTableColumns = [
+  columnHelper.accessor((row) => row.profile?.name, {
+    id: "name",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Identity" />
+    ),
+    enableSorting: false,
+    enableColumnFilter: false,
+    cell: (cellInfo) => (
+      <div className="flex flex-row items-center gap-4">
+        {cellInfo.row.original.profile?.avatarUri ? (
           <Image
-            src={row.original.profile.avatarUri}
+            src={cellInfo.row.original.profile.avatarUri}
             className="h-10 w-10 rounded-sm object-cover"
-            alt="account-image"
+            alt="identity-avatar"
             width={40}
             height={40}
           />
         ) : (
           <Avatar className="h-10 w-10" />
         )}
-        <div>{row.original.profile?.name ?? DEFAULT_FOR_EMPTY_VALUE}</div>
+        <div>{cellInfo.renderValue()}</div>
       </div>
     ),
-  },
-  {
-    accessorKey: "country",
-    header: "Country",
-    cell: ({ row }) => {
-      return row.original.profile?.country ?? DEFAULT_FOR_EMPTY_VALUE
+  }),
+  columnHelper.accessor((row) => row.profile?.country, {
+    id: "country",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Country" />
+    ),
+    enableSorting: false,
+    enableColumnFilter: false,
+    cell: (cellInfo) => cellInfo.renderValue(),
+  }),
+  columnHelper.accessor((row) => row.did, {
+    id: "did",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="DID" />
+    ),
+    enableSorting: false,
+    enableColumnFilter: false,
+    cell: (cellInfo) => (
+      <CopyToClipboardContent
+        content={cellInfo.row.original.did}
+        successMessage="Identity's DID copied!"
+      >
+        <InternalLink
+          href={getIdentityPageRoute({ did: cellInfo.row.original.did })}
+        >
+          {extractAndShortenAddress(cellInfo.row.original.did)}
+        </InternalLink>
+      </CopyToClipboardContent>
+    ),
+  }),
+  columnHelper.accessor((row) => row.profile?.description, {
+    id: "description",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Description" />
+    ),
+    enableSorting: false,
+    enableColumnFilter: false,
+    cell: (cellInfo) => cellInfo.renderValue(),
+  }),
+  columnHelper.accessor((row) => row.createdAt, {
+    id: "createdAt",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Created on" />
+    ),
+    enableSorting: false,
+    enableColumnFilter: false,
+    cell: (cellInfo) => {
+      const date = cellInfo.getValue()
+      return date
+        ? dateFormatter.format(new Date(date))
+        : cellInfo.renderValue()
     },
-  },
-  {
-    accessorKey: "did",
-    header: "DID",
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-center gap-3 text-[14px] font-normal leading-[20px] text-accent">
-          <CopyToClipboardContent
-            content={row.getValue("did")}
-            successMessage="Identity's DID copied!"
-          >
-            <InternalLink
-              href={getIdentityPageRoute({ did: row.original.did })}
-            >
-              {extractAndShortenAddress(row.original.did)}
-            </InternalLink>
-          </CopyToClipboardContent>
-        </div>
-      )
-    },
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-    cell: ({ row }) => {
-      return row.original.profile?.description ?? DEFAULT_FOR_EMPTY_VALUE
-    },
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created on",
-    cell: ({ row }) => {
-      return row.original.createdAt
-        ? dayjs(row.original.createdAt).format("MMM D, YYYY, h:mm A")
-        : DEFAULT_FOR_EMPTY_VALUE
-    },
-  },
+  }),
 ]
