@@ -48,7 +48,7 @@ export function DataTablePagination<TData>(
           <p className="text-sm font-medium text-muted-foreground">Rows</p>
           <PaginationSize
             sizes={paginationSizes}
-            value={`${table.getState().pagination.pageSize}`}
+            value={`${table.getState().pagination.pageSize || "-"}`}
             onValueChange={(value) => {
               table.setPageSize(Number(value))
             }}
