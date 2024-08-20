@@ -63,8 +63,8 @@ const PaginationCurrent = React.forwardRef<
     )}
     {...divProps}
   >
-    <span>{pageIndex}</span>
-    <span className="text-muted-foreground">{`/ ${pageCount}`}</span>
+    <span>{pageCount ? pageIndex : "-"}</span>
+    <span className="text-muted-foreground">{`/ ${pageCount || "-"}`}</span>
   </div>
 ))
 PaginationCurrent.displayName = "PaginationCurrent"
