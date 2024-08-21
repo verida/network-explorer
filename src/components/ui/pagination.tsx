@@ -1,5 +1,6 @@
 import {
   ChevronFirst,
+  ChevronLast,
   ChevronLeft,
   ChevronRight,
   MoreHorizontal,
@@ -63,8 +64,10 @@ const PaginationCurrent = React.forwardRef<
     )}
     {...divProps}
   >
+    <span className="sr-only">Page</span>
     <span>{pageCount ? pageIndex : "-"}</span>
     <span className="text-muted-foreground">{`/ ${pageCount || "-"}`}</span>
+    <span className="sr-only">total pages</span>
   </div>
 ))
 PaginationCurrent.displayName = "PaginationCurrent"
@@ -100,7 +103,7 @@ const PaginationFirst = ({
     {...props}
   >
     <ChevronFirst className="h-4 w-4" />
-    <span className="sr-only">First</span>
+    <span className="sr-only">First page</span>
   </PaginationButton>
 )
 PaginationFirst.displayName = "PaginationFirst"
@@ -116,7 +119,7 @@ const PaginationPrevious = ({
     {...props}
   >
     <ChevronLeft className="h-4 w-4" />
-    <span className="sr-only">Previous</span>
+    <span className="sr-only">Previous page</span>
   </PaginationButton>
 )
 PaginationPrevious.displayName = "PaginationPrevious"
@@ -131,7 +134,7 @@ const PaginationNext = ({
     className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
-    <span className="sr-only">Next</span>
+    <span className="sr-only">Next page</span>
     <ChevronRight className="h-4 w-4" />
   </PaginationButton>
 )
@@ -147,8 +150,8 @@ const PaginationLast = ({
     className={cn("gap-1 pr-2.5", className)}
     {...props}
   >
-    <span className="sr-only">Last</span>
-    <ChevronRight className="h-4 w-4" />
+    <span className="sr-only">Last page</span>
+    <ChevronLast className="h-4 w-4" />
   </PaginationButton>
 )
 PaginationLast.displayName = "PaginationLast"
@@ -179,7 +182,8 @@ type PaginationSizeProps = {
 
 const PaginationSize = ({ sizes, ...selectProps }: PaginationSizeProps) => (
   <Select {...selectProps}>
-    <SelectTrigger className="min-w-20">
+    <SelectTrigger className="min-w-20" aria-label="Pagination size">
+      <span className="sr-only">Pagination size</span>
       <SelectValue placeholder="Select" />
     </SelectTrigger>
     <SelectContent side="top">

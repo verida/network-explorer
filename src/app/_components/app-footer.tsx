@@ -12,26 +12,32 @@ import { cn } from "@/styles/utils"
 
 const platformLinks = [
   {
+    label: "X",
     icon: <FaXTwitter />,
     link: "https://twitter.com/verida_io",
   },
   {
+    label: "Telegram",
     icon: <FaTelegramPlane />,
     link: "https://t.me/verida_community/",
   },
   {
+    label: "LinkedIn",
     icon: <FaLinkedinIn />,
     link: "https://www.linkedin.com/company/verida-technology",
   },
   {
+    label: "Discord",
     icon: <FaDiscord />,
     link: "https://discord.verida.io/",
   },
   {
+    label: "Youtube",
     icon: <FaYoutube />,
     link: "https://www.youtube.com/@verida_io",
   },
   {
+    label: "GitHub",
     icon: <FaGithub />,
     link: "https://github.com/verida",
   },
@@ -57,6 +63,7 @@ export function AppFooter(props: AppFooterProps) {
                 <a
                   key={platformLink.link}
                   href={platformLink.link}
+                  aria-label={`Linkt to ${platformLink.label}`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
