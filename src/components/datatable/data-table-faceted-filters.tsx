@@ -75,24 +75,23 @@ export function DataTableFacetedFilters<TData>(
                     <DropdownMenuItem
                       key={value}
                       className="gap-3 px-5 py-2"
-                      onSelect={(event) => event.preventDefault()}
-                      // FIXME: Find a way to check the checkbox with the keyboard
+                      onSelect={(event) => {
+                        event.preventDefault()
+                        const currentFilterValue = selectedValues
+                        if (isSelected) {
+                          currentFilterValue.delete(value)
+                        } else {
+                          currentFilterValue.add(value)
+                        }
+                        const newFilterValue = Array.from(currentFilterValue)
+                        column.setFilterValue(
+                          newFilterValue.length ? newFilterValue : undefined
+                        )
+                      }}
                     >
                       <Checkbox
                         id={`${column.id}_${value}`}
                         checked={isSelected}
-                        onCheckedChange={() => {
-                          const currentFilterValue = selectedValues
-                          if (isSelected) {
-                            currentFilterValue.delete(value)
-                          } else {
-                            currentFilterValue.add(value)
-                          }
-                          const newFilterValue = Array.from(currentFilterValue)
-                          column.setFilterValue(
-                            newFilterValue.length ? newFilterValue : undefined
-                          )
-                        }}
                       />
                       <Label
                         htmlFor={`${column.id}_${value}`}
