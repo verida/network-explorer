@@ -1,9 +1,14 @@
 import React from "react"
 
+import { ErrorPageContent } from "@/components/common/error-page-content"
+import { getRootPageRoute } from "@/features/routes/utils"
+
 export default function IdentityNotFoundPage() {
   return (
-    <div className="flex h-full flex-row items-center justify-center">
-      This identity has not been found
-    </div>
+    <ErrorPageContent
+      message="This identity was not found"
+      buttonHref={getRootPageRoute()}
+      buttonLabel="Return to Identities overview"
+    />
   )
 }

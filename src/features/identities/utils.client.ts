@@ -39,20 +39,20 @@ export async function getActiveIdentitiesCount(
 /**
  * Get the list of DIDs from a given DID registry.
  *
- * @param page The page number.
- * @param limit The number of DIDs per page.
+ * @param pageIndex The index of the page to fetch (starts at 0).
+ * @param pageSize The number of DIDs per page.
  * @returns the list of DIDs.
  */
 export async function getDids(
   registryBlockchain: BlockchainAnchor,
-  page: number,
-  limit: number
+  pageIndex: number,
+  pageSize: number
 ) {
   // TODO: Replace by fetching https://data.verida.network/network/{blockchain}/dids?limit=10&offset=20 ?
   const dids = await getDIDs(
     registryBlockchain,
-    (page - 1) * limit,
-    limit,
+    pageIndex * pageSize,
+    pageSize,
     true,
     clientEnvVars.NEXT_PUBLIC_VERIDA_RPC_URL
   )

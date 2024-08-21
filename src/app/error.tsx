@@ -2,10 +2,24 @@
 
 import React from "react"
 
-export default function RootErrorPage() {
+import { Button } from "@/components/ui/button"
+
+export type RootErrorPageProps = {
+  error: unknown
+  reset: () => void
+}
+
+export default function RootErrorPage(props: RootErrorPageProps) {
+  const { reset } = props
+
   return (
     <div className="flex h-full flex-row items-center justify-center">
-      Oops! Something went wrong!
+      <div className="flex flex-col items-center gap-8">
+        <p>Oops! Something went wrong!</p>
+        <Button className="w-fit" onClick={reset}>
+          Retry
+        </Button>
+      </div>
     </div>
   )
 }

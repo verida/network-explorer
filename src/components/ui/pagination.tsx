@@ -63,8 +63,8 @@ const PaginationCurrent = React.forwardRef<
     )}
     {...divProps}
   >
-    <span>{pageIndex}</span>
-    <span className="text-muted-foreground">{`/ ${pageCount}`}</span>
+    <span>{pageCount ? pageIndex : "-"}</span>
+    <span className="text-muted-foreground">{`/ ${pageCount || "-"}`}</span>
   </div>
 ))
 PaginationCurrent.displayName = "PaginationCurrent"
@@ -179,7 +179,7 @@ type PaginationSizeProps = {
 
 const PaginationSize = ({ sizes, ...selectProps }: PaginationSizeProps) => (
   <Select {...selectProps}>
-    <SelectTrigger className="w-20">
+    <SelectTrigger className="min-w-20">
       <SelectValue placeholder="Select" />
     </SelectTrigger>
     <SelectContent side="top">

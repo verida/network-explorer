@@ -2,9 +2,9 @@ import type { Metadata } from "next"
 import { Sora } from "next/font/google"
 import React from "react"
 
-import { Providers } from "@/app/_components/Providers"
-import { Footer } from "@/components/common/footer"
-import { Header } from "@/components/common/header"
+import { AppFooter } from "@/app/_components/app-footer"
+import { AppHeader, AppHeaderOffset } from "@/app/_components/app-header"
+import { AppProviders } from "@/app/_components/app-providers"
 import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
 import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/constants/app"
@@ -56,20 +56,24 @@ export default function RootLayout(props: RootLayoutProps) {
       </head>
       <body
         className={cn(
-          "flex min-h-screen flex-col bg-background font-sans text-foreground antialiased",
+          "flex min-h-screen flex-col overscroll-none bg-background font-sans text-foreground antialiased",
           sora.variable
         )}
       >
-        <Providers>
-          <Header />
+        <AppProviders>
+          <AppHeader
+            className="fixed left-0 right-0 top-0 z-50"
+            // FIXME: Some components in the pages pass over the header, check their z-index
+          />
+          <AppHeaderOffset />
           <div className="flex flex-1 flex-row justify-center">
             <main className="w-full max-w-screen-xl px-4 pb-14 pt-10 sm:px-8">
               {children}
             </main>
           </div>
-          <Footer />
+          <AppFooter />
           <Toaster />
-        </Providers>
+        </AppProviders>
       </body>
     </html>
   )

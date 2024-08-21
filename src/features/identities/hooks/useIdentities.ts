@@ -1,26 +1,23 @@
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { BlockchainAnchor } from "@verida/types"
-import { useQuery, useQueryClient } from "react-query"
 
 import { getDids, getIdentity } from "@/features/identities/utils.client"
-import { Logger } from "@/features/logger"
-
-const logger = Logger.create("Identities")
 
 export function useIdentities({
   didRegistryBlockchain,
-  limit,
-  page,
+  pageIndex,
+  pageSize,
 }: {
   didRegistryBlockchain: BlockchainAnchor
-  limit: number
-  page: number
+  pageIndex: number
+  pageSize: number
 }) {
   const queryClient = useQueryClient()
 
-  const { data, ...other } = useQuery(
-    ["identities", didRegistryBlockchain, page, limit],
-    async () => {
-      const dids = await getDids(didRegistryBlockchain, page, limit)
+  const { data, ...other } = useQuery({
+    queryKey: ["identities", didRegistryBlockchain, pageIndex, pageSize],
+    queryFn: async () => {
+      const dids = await getDids(didRegistryBlockchain, pageIndex, pageSize)
 
       const identitiesResult = await Promise.allSettled(
         dids.map(async (did: string) => getIdentity(didRegistryBlockchain, did))
@@ -36,14 +33,12 @@ export function useIdentities({
 
       return identities
     },
-    {
-      refetchOnWindowFocus: false,
-      refetchOnMount: true,
-      onError: (error) => {
-        logger.error(error)
-      },
-    }
-  )
+    staleTime: 1000 * 60 * 10, // 10 minutes
+    gcTime: 1000 * 60 * 60, // 60 minutes
+    meta: {
+      logCategory: "Identities",
+    },
+  })
 
   return {
     identities: data,

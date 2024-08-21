@@ -16,7 +16,7 @@
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
 
-    --card: 0 0% 100%;
+    --card: 222.2 47.4% 11.2%;
     --card-foreground: 222.2 47.4% 11.2%;
 
     --primary: 222.2 47.4% 11.2%;
@@ -32,6 +32,9 @@
     --destructive-foreground: 210 40% 98%;
 
     --ring: 215 20.2% 65.1%;
+
+    --map-background: 240 23.5% 6.67%;
+    --map-foreground: 231 24.1% 11.4%;
 
     --radius: 0.5rem;
   }
@@ -52,7 +55,7 @@
     --border: 0 0% 100%;
     --input: 0 0% 100%;
 
-    --card: 224 71% 4%;
+    --card: 0 0% 100%;
     --card-foreground: 0 0% 100%;
 
     --primary: 0 0% 100%;
@@ -68,6 +71,9 @@
     --status-active-foreground: 142 76% 36%;
 
     --ring: 0 0% 100%;
+
+    --map-background: 240 23.5% 6.67%;
+    --map-foreground: 0 0% 100%;
 
     --radius: 12px;
   }
