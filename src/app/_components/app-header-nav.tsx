@@ -62,30 +62,25 @@ export function AppHeaderNavBar(props: AppHeaderNavBarProps) {
   )
 }
 
-export type AppHeaderNavMenuProps = Omit<
-  React.ComponentProps<"div">,
-  "children"
->
-
-export function AppHeaderNavMenu(props: AppHeaderNavMenuProps) {
-  const { className, ...triggerProps } = props
-
+export function AppHeaderNavMenu() {
   const pathname = usePathname()
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <div className={cn("group p-2", className)} {...triggerProps}>
-          <div className="flex h-full flex-row items-center">
-            <Button variant="ghost" className="h-auto px-2">
-              <XIcon className="hidden size-6 group-data-[state=open]:block" />
-              <MenuIcon className="hidden size-6 group-data-[state=closed]:block" />
-            </Button>
+      <DropdownMenuTrigger asChild className="group">
+        <Button variant="ghost" className="h-auto px-2">
+          <div className="hidden group-data-[state=open]:block">
+            <XIcon className="size-6" />
+            <span className="sr-only">Close navigation menu</span>
           </div>
-        </div>
+          <div className="hidden group-data-[state=closed]:block">
+            <MenuIcon className="size-6" />
+            <span className="sr-only">Open navigation menu</span>
+          </div>
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        sideOffset={1}
+        sideOffset={17}
         className="h-[calc(100dvh_-_73px)] w-screen overflow-y-auto rounded-none border-none bg-transparent p-4 shadow-none"
       >
         <nav className="flex h-full flex-col justify-between">

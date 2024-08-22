@@ -25,10 +25,15 @@ export function AppHeader(props: AppHeaderProps) {
     >
       <div className="flex w-full max-w-screen-xl flex-row items-center justify-between pr-4 sm:px-8">
         <div className="flex h-full flex-row items-stretch gap-0 sm:gap-8">
-          <AppHeaderNavMenu className="block sm:hidden" />
+          <div className="block p-2 sm:hidden">
+            <div className="flex h-full flex-row items-center">
+              <AppHeaderNavMenu />
+            </div>
+          </div>
           <Link
             href={getRootPageRoute()}
             className="flex flex-col justify-center"
+            aria-label="Go to home page"
           >
             <AppLogo className="h-7 w-auto" height="100%" width="100%" />
           </Link>
