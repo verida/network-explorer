@@ -14,7 +14,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { Label } from "@/components/ui/label"
 
 export type DataTableFacetedFiltersProps<TData> = {
   table: Table<TData>
@@ -73,6 +72,11 @@ export function DataTableFacetedFilters<TData>(
 
                   return (
                     <DropdownMenuItem
+                      // TODO: Find a way to use a DropdownMenuCheckboxItem to improve accessibility
+                      // Right now, the user action is on the menu item itself,
+                      // which is good, and the Checkbox is for visual only but
+                      // is picked up by the screen readers as an actual control
+                      // which doesn't have any action associated with it
                       key={value}
                       className="gap-3 px-5 py-2"
                       onSelect={(event) => {
@@ -90,15 +94,15 @@ export function DataTableFacetedFilters<TData>(
                       }}
                     >
                       <Checkbox
-                        id={`${column.id}_${value}`}
                         checked={isSelected}
+                        aria-labelledby={`${column.id}_${value}`}
                       />
-                      <Label
-                        htmlFor={`${column.id}_${value}`}
-                        className="capitalize"
+                      <span
+                        id={`${column.id}_${value}`}
+                        className="text-sm capitalize"
                       >
                         {value}
-                      </Label>
+                      </span>
                     </DropdownMenuItem>
                   )
                 })}
