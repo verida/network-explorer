@@ -1,23 +1,43 @@
+import * as Sentry from "@sentry/nextjs"
 import Link from "next/link"
-import React from "react"
+import React, { useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
+import { getRootPageRoute } from "@/features/routes/utils"
 import { cn } from "@/styles/utils"
+
+export type ErrorPageProps = {
+  error: Error & { digest?: string }
+  reset: () => void
+}
 
 export type ErrorPageContentProps = {
   message?: string
-  buttonLabel: string
-  buttonHref: string
-} & Omit<React.ComponentProps<"div">, "children">
+  resetButtonLabel?: string
+  hideResetButton?: boolean
+  navigationButtonLabel?: string
+  navigationButtonHref?: string
+  hideNavigationButton?: boolean
+} & ErrorPageProps &
+  Omit<React.ComponentProps<"div">, "children">
 
 export function ErrorPageContent(props: ErrorPageContentProps) {
   const {
-    buttonHref,
-    buttonLabel,
-    message = "Oops! Something went wrong when getting the Nodes overview",
+    error,
+    reset,
+    message = "Something went wrong!",
+    resetButtonLabel = "Try again",
+    hideResetButton = false,
+    navigationButtonLabel = "Go to Home page",
+    navigationButtonHref = getRootPageRoute(),
+    hideNavigationButton = false,
     className,
     ...divProps
   } = props
+
+  useEffect(() => {
+    Sentry.captureException(error) // TODO: Replace with Logger
+  }, [error])
 
   return (
     <div
@@ -29,9 +49,18 @@ export function ErrorPageContent(props: ErrorPageContentProps) {
     >
       <div className="flex flex-col items-center gap-8">
         <p>{message}</p>
-        <Button asChild className="w-fit">
-          <Link href={buttonHref}>{buttonLabel}</Link>
-        </Button>
+        <div className="flex flex-row items-center gap-4">
+          {!hideResetButton ? (
+            <Button variant="outline" onClick={reset} className="w-fit">
+              {resetButtonLabel}
+            </Button>
+          ) : null}
+          {!hideNavigationButton ? (
+            <Button variant="outline" asChild className="w-fit">
+              <Link href={navigationButtonHref}>{navigationButtonLabel}</Link>
+            </Button>
+          ) : null}
+        </div>
       </div>
     </div>
   )

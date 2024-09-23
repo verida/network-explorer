@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { Sora } from "next/font/google"
 import React from "react"
 
 import { AppFooter } from "@/app/_components/app-footer"
@@ -9,11 +8,10 @@ import { Toaster } from "@/components/ui/toaster"
 import { serverEnvVars } from "@/config/server"
 import { APP_DESCRIPTION, APP_NAME, APP_TITLE } from "@/constants/app"
 import { PlausibleScript } from "@/features/plausible/PlausibleScript"
+import { sora } from "@/styles/font"
 import { cn } from "@/styles/utils"
 
 import "./globals.css"
-
-const sora = Sora({ subsets: ["latin"], variable: "--font-sora" })
 
 // Server component so can't get the window location. Using an env var is not
 // ideal but it's the best we can do.
