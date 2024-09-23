@@ -1,10 +1,12 @@
-import * as Sentry from "@sentry/nextjs"
 import Link from "next/link"
 import React, { useEffect } from "react"
 
 import { Button } from "@/components/ui/button"
 import { getRootPageRoute } from "@/features/routes/utils"
+import { Logger } from "@/features/telemetry"
 import { cn } from "@/styles/utils"
+
+const logger = Logger.create("ErrorBoundary")
 
 export type ErrorPageProps = {
   error: Error & { digest?: string }
@@ -36,7 +38,7 @@ export function ErrorPageContent(props: ErrorPageContentProps) {
   } = props
 
   useEffect(() => {
-    Sentry.captureException(error) // TODO: Replace with Logger
+    logger.error(error)
   }, [error])
 
   return (

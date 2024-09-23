@@ -16,6 +16,12 @@ export const ClientEnvVarsSchema = z
     NEXT_PUBLIC_LOG_LEVEL: z
       .enum(["error", "warn", "info", "debug"])
       .default("info"),
+    NEXT_PUBLIC_SENTRY_ENABLED: z
+      .string()
+      .optional()
+      .transform((value) => {
+        return value === "true"
+      }),
   })
   .passthrough()
 
