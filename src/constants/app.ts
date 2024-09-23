@@ -5,3 +5,5 @@ export const APP_TITLE =
 
 export const APP_DESCRIPTION =
   "Verida Network Explorer lets you search and discover identities and storage nodes on the Verida Network"
+
+export const APP_PACKAGE_NAME = "network-explorer"

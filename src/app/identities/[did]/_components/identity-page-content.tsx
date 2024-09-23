@@ -12,8 +12,8 @@ import { Separator } from "@/components/ui/separator"
 import { clientEnvVars } from "@/config/client"
 import { EMPTY_VALUE_FALLBACK } from "@/constants/misc"
 import { Identity } from "@/features/identities/types"
-import { Logger } from "@/features/logger"
 import { getIdentityPageRoute } from "@/features/routes/utils"
+import { Logger } from "@/features/telemetry"
 
 const logger = Logger.create("<IdentityPageContent>")
 
