@@ -67,13 +67,13 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@sentry/types": "^8.31.0",
+    "@sentry/types": "^8.41.0",
     "@svgr/webpack": "^8.1.0",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/events": "^3.0.3",
-    "@types/node": "^18.19.50",
-    "@types/react": "^18.3.8",
-    "@types/react-dom": "^18.3.0",
+    "@types/node": "^18.19.67",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "@types/react-simple-maps": "^3.0.6",
     "autoprefixer": "^10.4.20",
     "base64-inline-loader": "^2.0.1",
@@ -83,11 +83,11 @@
     "eslint-plugin-prettier": "^5.2.1",
     "file-loader": "^6.2.0",
     "genversion": "^3.2.0",
-    "postcss": "^8.4.47",
-    "prettier": "^3.3.2",
-    "prettier-plugin-tailwindcss": "^0.6.6",
-    "tailwindcss": "^3.4.12",
+    "postcss": "^8.4.49",
+    "prettier": "^3.4.1",
+    "prettier-plugin-tailwindcss": "^0.6.9",
+    "tailwindcss": "^3.4.15",
     "ttf-loader": "^1.0.2",
-    "typescript": "^5.6.2"
+    "typescript": "^5.7.2"
   }
 }
