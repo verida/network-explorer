@@ -1,4 +1,4 @@
-import { Logger } from "@/features/logger"
+import { Logger } from "@/features/telemetry"
 import { client } from "@/features/verida/client"
 import { VERIDA_VAULT_CONTEXT_NAME } from "@/features/verida/constants"
 import { Profile, ProfileDocument } from "@/features/verida/types"

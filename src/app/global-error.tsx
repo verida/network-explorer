@@ -2,24 +2,26 @@
 
 import React from "react"
 
-import { Button } from "@/components/ui/button"
+import {
+  ErrorPageContent,
+  ErrorPageProps,
+} from "@/components/common/error-page-content"
+import { sora } from "@/styles/font"
+import { cn } from "@/styles/utils"
 
-export type RootGlobalErrorPageProps = {
-  error: unknown
-  reset: () => void
-}
-
-export default function RootGlobalErrorPage(props: RootGlobalErrorPageProps) {
-  const { reset } = props
+export default function RootGlobalErrorPage(props: ErrorPageProps) {
+  const { error, reset } = props
 
   return (
-    <div className="flex h-full flex-row items-center justify-center">
-      <div className="flex flex-col items-center gap-8">
-        <p>Oops! Something went wrong!</p>
-        <Button className="w-fit" onClick={reset}>
-          Retry
-        </Button>
-      </div>
-    </div>
+    <html>
+      <body
+        className={cn(
+          "flex min-h-screen flex-col overscroll-none bg-background font-sans text-foreground antialiased",
+          sora.variable
+        )}
+      >
+        <ErrorPageContent error={error} reset={reset} hideNavigationButton />
+      </body>
+    </html>
   )
 }

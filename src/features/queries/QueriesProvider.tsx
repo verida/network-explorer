@@ -7,7 +7,7 @@ import {
 } from "@tanstack/react-query"
 import React from "react"
 
-import { Logger } from "@/features/logger"
+import { Logger } from "@/features/telemetry"
 
 const queryClient = new QueryClient({
   queryCache: new QueryCache({

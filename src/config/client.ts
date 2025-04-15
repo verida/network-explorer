@@ -9,6 +9,7 @@ const clientEnvVarsCheckResult = ClientEnvVarsSchema.safeParse({
   NEXT_PUBLIC_METRICS_BASE_URL: process.env.NEXT_PUBLIC_METRICS_BASE_URL,
   NEXT_PUBLIC_PLAUSIBLE_DOMAIN: process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN,
   NEXT_PUBLIC_LOG_LEVEL: process.env.NEXT_PUBLIC_LOG_LEVEL,
+  NEXT_PUBLIC_SENTRY_ENABLED: process.env.NEXT_PUBLIC_SENTRY_ENABLED,
 })
 
 if (!clientEnvVarsCheckResult.success) {

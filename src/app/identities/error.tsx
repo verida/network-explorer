@@ -2,20 +2,22 @@
 
 import React from "react"
 
-import { ErrorPageContent } from "@/components/common/error-page-content"
+import {
+  ErrorPageContent,
+  ErrorPageProps,
+} from "@/components/common/error-page-content"
 import { getRootPageRoute } from "@/features/routes/utils"
 
-export type IdentitiesErrorPageProps = {
-  error: unknown
-  reset: () => void
-}
+export default function IdentitiesErrorPage(props: ErrorPageProps) {
+  const { error, reset } = props
 
-export default function IdentitiesErrorPage() {
   return (
     <ErrorPageContent
-      message="Oops! Something went wrong when getting the Identities overview"
-      buttonHref={getRootPageRoute()}
-      buttonLabel="Return to the home page"
+      error={error}
+      reset={reset}
+      message="Something went wrong when getting the Identities overview"
+      navigationButtonHref={getRootPageRoute()}
+      navigationButtonLabel="Return to the home page"
     />
   )
 }

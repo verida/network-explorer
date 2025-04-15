@@ -21,7 +21,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { COUNTRIES } from "@/features/countries/constants"
-import { Logger } from "@/features/logger"
+import { Logger } from "@/features/telemetry"
 
 const logger = Logger.create("<CreateNodeForm>")
 
