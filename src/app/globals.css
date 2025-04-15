@@ -85,7 +85,8 @@
   }
 
   body {
-    background-image: url("../assets/images/bg-app-top-left.png"),
+    background-image:
+      url("../assets/images/bg-app-top-left.png"),
       url("../assets/images/bg-app-top-right.png"),
       url("../assets/images/bg-app-bottom.png");
     background-position:
