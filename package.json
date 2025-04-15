@@ -1,6 +1,6 @@
 {
   "name": "@verida/network-explorer",
-  "version": "2.3.2",
+  "version": "2.4.0",
   "private": true,
   "scripts": {
     "version": "npx genversion --es6 --double ./src/config/version.ts",
